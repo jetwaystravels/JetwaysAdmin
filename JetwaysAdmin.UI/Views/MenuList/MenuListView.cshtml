@@ -1,0 +1,16 @@
+﻿@using JetwaysAdmin.Entity;
+@model IEnumerable<MenuItem>
+<ul>
+    @foreach (var item in Model.Where(m => m.ParentId == null))
+    {
+        <li>
+            <a href="@item.Url">@item.Name</a>
+            <ul>
+                @foreach (var child in Model.Where(m => m.ParentId == item.Id))
+                {
+                    <li><a href="@child.Url">@child.Name</a></li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

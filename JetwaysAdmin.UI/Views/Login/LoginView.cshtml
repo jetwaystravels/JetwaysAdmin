@@ -1,0 +1,30 @@
+﻿@using JetwaysAdmin.Entity;
+@model IEnumerable<Admin>
+
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <!-- Add other fields as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var admin in Model)
+        {
+            <tr>
+                <td>@admin.admin_id</td>
+                <td>@admin.admin_name</td>
+                <td>@admin.admin_email</td>
+                <!-- Add other fields as needed -->
+            </tr>
+        }
+    </tbody>
+</table>
