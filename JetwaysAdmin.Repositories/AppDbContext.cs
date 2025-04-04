@@ -19,5 +19,13 @@ namespace JetwaysAdmin.Repositories
 
         public DbSet<Customer> Admin_tb_Customers { get; set; }
         public DbSet<LegalEntity> Admin_tb_LegalEntity { get; set; }
+
+        public DbSet<CustomerDetails> CustomerDetails { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CustomerDetails>().HasNoKey(); // No primary key because it's a DTO
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

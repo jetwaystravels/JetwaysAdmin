@@ -12,9 +12,11 @@ namespace JetwaysAdmin.WebAPI.Controllers
     {
 
         private readonly ICustomer<Customer> _Customer;
-        public CustomerController(ICustomer<Customer> Customer)
+        private readonly ICustomerDetailsByEmail<CustomerDetails> _CustomerDetailsByEmail;
+        public CustomerController(ICustomer<Customer> Customer, ICustomerDetailsByEmail<CustomerDetails> customerDetailsByEmail)
         {
             this._Customer = Customer;
+            _CustomerDetailsByEmail = customerDetailsByEmail;
         }
         //public IActionResult Index()
         //{
@@ -36,6 +38,18 @@ namespace JetwaysAdmin.WebAPI.Controllers
                 return NotFound();
             }
             return Ok(customer);
+        }
+
+
+        [HttpGet]
+        [Route("GetCustomerDetailsByEmail")]
+        public async Task<ActionResult<CustomerDetails>> GetCustomerDetailsByEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                return BadRequest("Email is required.");
+
+            var result = await _CustomerDetailsByEmail.GetCustomerDetailsByEmailAsync(email);
+            return Ok(result);
         }
 
         [HttpPost]
