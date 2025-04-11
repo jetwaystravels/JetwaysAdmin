@@ -25,7 +25,7 @@ namespace JetwaysAdmin.Repositories.Implementations
         }
         public async Task<IEnumerable<MenuItem>> GetActiveMenusAsync()
         {
-            return await _context.tb_Menu.Where(m => m.IsActive).ToListAsync();
+            return await _context.tb_Menu.Where(m => m.IsActive==1).ToListAsync();
         }
 
         public async Task AddAsync(MenuItem menuItem)
