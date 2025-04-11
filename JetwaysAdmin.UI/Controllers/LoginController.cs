@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Json;
+using JetwaysAdmin.UI.Models;
 
 namespace JetwaysAdmin.UI.Controllers
 {
@@ -94,19 +95,36 @@ namespace JetwaysAdmin.UI.Controllers
             {
                 //userID = 2;
                 var response = await client.GetAsync(AppUrlConstant.getmenu);
+                List<MenuItemdata> _menuItem = new List<MenuItemdata>();
 
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
               
                    //List<MenuItem> _menuItem = new List<MenuItem>();
-                    List<MenuItemdata> _menuItem = JsonConvert.DeserializeObject<List<MenuItemdata>>(result);
+                     _menuItem = JsonConvert.DeserializeObject<List<MenuItemdata>>(result);
 
-                    return View(_menuItem); // Redirect to dashboard
+                  //  return View(_menuItem); // Redirect to dashboard
                 }
 
+                int customerCount = 0;
+                var customerCountResponse = await client.GetAsync(AppUrlConstant.getcustomercount); // Change to your real URL
+
+                if (customerCountResponse.IsSuccessStatusCode)
+                {
+                    var countResult = await customerCountResponse.Content.ReadAsStringAsync();
+                    customerCount = JsonConvert.DeserializeObject<int>(countResult); // assuming it returns plain int like 42
+                }
+
+                // 3. Pass both to the view via ViewModel
+                var viewModel = new DashboardViewModel
+                {
+                    MenuItems = _menuItem,
+                    CustomerCount = customerCount
+                };
+
                 ViewBag.ErrorMessage = "Invalid login credentials";
-                return View();
+                return View(viewModel);
             }
 
         }

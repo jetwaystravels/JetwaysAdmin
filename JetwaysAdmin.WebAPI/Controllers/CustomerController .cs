@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using JetwaysAdmin.WebAPI.Models;
 using JetwaysAdmin.Entity;
+using JetwaysAdmin.Repositories.Implementations;
 
 
 namespace JetwaysAdmin.WebAPI.Controllers
@@ -27,6 +28,14 @@ namespace JetwaysAdmin.WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<Customer>>> GetAllCustomers()
         {
             return Ok(await _Customer.GetAllCustomers());
+        }
+        [HttpGet]
+        [Route("count")]
+       
+        public async Task<IActionResult> GetCustomerCount()
+        {
+            var count = await _Customer.GetCustomerCount();
+            return Ok(count);
         }
 
         [HttpGet("{id}")]

@@ -6,10 +6,10 @@ namespace JetwaysAdmin.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LegalEntityController : Controller
+    public class LegalEntityAPIController : Controller
     {
         private readonly ILegalEntity<LegalEntity> _legalEntity;
-        public LegalEntityController(ILegalEntity<LegalEntity> legalEntity)
+        public LegalEntityAPIController(ILegalEntity<LegalEntity> legalEntity)
         {
             this._legalEntity = legalEntity;
         }

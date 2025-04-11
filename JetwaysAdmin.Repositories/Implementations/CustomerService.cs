@@ -23,6 +23,11 @@ namespace JetwaysAdmin.Repositories.Implementations
             return await _context.Admin_tb_Customers.ToListAsync();
         }
 
+        public async Task<int> GetCustomerCount()
+        {
+            return await _context.Admin_tb_Customers.CountAsync();
+        }
+
         public async Task<Customer> GetCustomerById(int id)
         {
             return await _context.Admin_tb_Customers.FindAsync(id);
@@ -50,6 +55,6 @@ namespace JetwaysAdmin.Repositories.Implementations
             }
         }
 
-
+       
     }
 }

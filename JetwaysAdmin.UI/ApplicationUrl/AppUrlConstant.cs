@@ -13,6 +13,9 @@
 
         public static string getmenu= BaseURL + "api/Menu/MenuList";
 
+
+        public static string getcustomercount = BaseURL + "api/Customer/count";
+
         #endregion
 
     }
