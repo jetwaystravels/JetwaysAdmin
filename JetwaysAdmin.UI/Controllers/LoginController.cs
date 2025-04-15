@@ -20,7 +20,6 @@ namespace JetwaysAdmin.UI.Controllers
         }
 
 
-
         [HttpPost]
         public async Task<IActionResult> UserLogin(string username, string password)
         {
