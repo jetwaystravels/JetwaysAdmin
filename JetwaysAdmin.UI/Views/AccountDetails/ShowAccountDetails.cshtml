@@ -1,0 +1,803 @@
+﻿@using JetwaysAdmin.UI.ViewModel
+@model List<MenuHeaddata>
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+
+<main id="main" class="main">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Manage Account Details</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Setting</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Manage Customers</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Account Details
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block">
+                                    <form class="form-material form-row">
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="select" class="form-control fill">
+                                                <option value="opt1">Jetwsys Delhi</option>
+                                                <option value="opt2">Jetways Gurgaon</option>
+                                                <option value="opt2">Jetways Pune</option>
+                                                <option value="opt2">Jetways Mumbai</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="corporate-booking-ac-code" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Corporate Booking Accounts Code</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-6 m-t-15">
+                                            <strong>Allow Personal Booking</strong>
+                                            <label class="switch m-l-5">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="Pan-Number" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">PAN Name</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="Pan-Number" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">PAN Number</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-6 m-t-15">
+                                            <strong>Apply &amp; Display TDS</strong>
+                                            <label class="switch m-l-5">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-12 m-t-10 m-b-10" style="border-bottom: 1px solid #dee2e6">
+                                            <div class="page-header-title">
+                                                <h5 class="m-b-10">Payment Settings</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <select class="form-control" name="Associated Fare" multiple id="langOpt">
+                                                <option value="2">Corporate</option>
+                                                <option value="3">Promo fare</option>
+                                                <option value="4">Published</option>
+                                                <option value="5">Flexi Plus </option>
+                                                <option value="6">SME </option>
+                                                <option value="7">Family Fare </option>
+                                                <option value="8">Special Return  </option>
+                                                <option value="9">Special Promo Fare </option>
+                                                <option value="10">Coupon Fare </option>
+                                                <option value="10">Super 6E </option>
+                                                <option value="10">Sale Fare </option>
+                                                <option value="10">6E Lite </option>
+                                                <option value="10">Tactical </option>
+                                                <option value="10">Stretch </option>
+                                                <option value="10"> Stretch Plus </option>
+                                                <option value="10"> MarineFare </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-1">
+                                            <input type="text" name="creat-type" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">₹ INR</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-2">
+                                            <input type="text" name="creat-type" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Credit / Debit Limit</label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-6 m-t-15">
+                                            <strong>Allow Partial Passthrough?</strong>
+                                            <label class="switch m-l-5">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </form>
+
+                                    <div class="m-t-10 m-b-10">
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-20">Product Level Payment Modes</h5>
+                                        </div>
+                                    </div>
+
+                                    <div class="m-b-25">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#Business1" role="tab">Business Travel</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#Personal1" role="tab">Personal Travel</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="Business1" role="tabpanel">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Product</th>
+                                                                <th>DOM (SBT User)</th>
+                                                                <th>INT (SBT User)</th>
+                                                                <th>DOM (TMC User)</th>
+                                                                <th>INT (TMC User)</th>
+                                                                <th>Management Fee Payment Mode</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Flights</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Hotel</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Visa</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Forex</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Cabs</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Insurance</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Bus</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Rail</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="Personal1" role="tabpanel">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Product</th>
+                                                                <th>DOM (SBT User)</th>
+                                                                <th>INT (SBT User)</th>
+                                                                <th>DOM (TMC User)</th>
+                                                                <th>INT (TMC User)</th>
+                                                                <th>Management Fee Payment Mode</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Flights</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Hotel</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Visa</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Forex</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Cabs</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Insurance</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Bus</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Rail</td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;"></div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div style="font-weight:700;">Bill to Company</div>
+                                                                        <div><i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form class="form-material form-row">
+                                        <div class="form-group form-primary col-md-12 p-t-20" style="border-top: 1px solid #dee2e6;">
+                                            <strong>Update Customer Care?</strong>
+                                            <label class="switch m-l-5">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-12">
+                                            <label>Add customer care details to show in ticket PDF</label>
+                                            <textarea placeholder="" id="floatingTextarea2" readonly="" style="height: 100px; width: 100%; padding: 10px; border-color: #aaa; ">In case of an emergency, kindly contact the Jetways branch at 011 44112200.
+If booked by travel agent, you can also check below 'Booked By' section for the agent contact details.</textarea>
+                                        </div>
+                                        <div class="form-group form-primary col-md-12">
+                                            <strong>Show Booked by details in ticket pdf?</strong>
+                                            <label class="switch m-l-5">
+                                                <input type="checkbox" disabled>
+                                                <span class="slider round" style="background:#ddd;"></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-12">
+                                            <strong>Show Emergency Contact details in ticket pdf?</strong>
+                                            <label class="switch m-l-5">
+                                                <input type="checkbox" disabled>
+                                                <span class="slider round" style="background:#ddd;"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-12">
+                                            <strong>Show Airline contact details in ticket pdf?</strong>
+                                            <label class="switch m-l-5">
+                                                <input type="checkbox" disabled>
+                                                <span class="slider round" style="background:#ddd;"></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-12">
+                                            <button class="btn btn-primary waves-effect waves-light">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- multiple selection Jquery start -->
+<script>
+    $('#langOpt').multiselect({
+        columns: 1,
+        texts: {
+            placeholder: 'Associated Fare Type(s) *'
+        }
+    });
+</script>
+<!-- multiple selection Jquery start -->
+
+<script>
+    $(function () {
+        $(".select").select2();
+    });
+</script>

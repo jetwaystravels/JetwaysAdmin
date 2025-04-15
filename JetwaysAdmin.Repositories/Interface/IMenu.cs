@@ -12,6 +12,8 @@ namespace JetwaysAdmin.Repositories.Interface
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<IEnumerable<T>> GetActiveMenusAsync();
+        Task<IEnumerable<MenuViewModel>> GetAllMenusAsync();
+
         Task<T> GetByIdAsync(int id);
         Task AddAsync(MenuItem menuItem);
         Task UpdateAsync(MenuItem menuItem);

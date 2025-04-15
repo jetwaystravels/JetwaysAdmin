@@ -1,0 +1,183 @@
+﻿@using JetwaysAdmin.UI.ViewModel
+@model List<MenuHeaddata>
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+
+<main id="main" class="main">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Manage Bands</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Setting</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Manage Customers</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Bands
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary" style="width:280px;">
+                                                <input type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div>
+                                            <a href="addnew-band.html"><button class="btn sml-btn-danger">+ Add New</button></a>
+                                            <button class="btn btn-primary sml-b" data-toggle="modal" data-target="#bulkUpload" type="button">+ Bulk Upload</button>
+                                            <button class="btn btn-primary sml-b">Export</button>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active table-border-style" id="flights1" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><button class="srt-btn" type="button" aria-label="Band-name">Band Name</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="Band-name">Band Code</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="Band-name">Band Head</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="Band-name">Band Level</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-center" colspan="5">No Data Found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+                <!-- Add New Popup Start -->
+                <div class="modal fade" id="bulkUpload" tabindex="-1" role="dialog" aria-labelledby="bulkUploadTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="bulkUploadTitle">Bulk Upload Departments</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <p style="font-weight:700;">Add or edit Departments by uploading a CSV file</p>
+                                    <p style="font-weight:700;">Note: Fields marked as [*] after column name are mandatory</p>
+                                </div>
+                                <div class="custom-file m-t-10 mb-3" style="width:auto;">
+                                    <input type="file" class="custom-file-input" id="customFile" name="filename">
+                                    <label class="custom-file-label" for="customFile" style="border-color: #0e93d8; color:#0e93d8;">Attach CSV </label>
+                                </div>
+
+                                <div>
+                                    <p style="font-weight:700;">Not sure how to get started?</p>
+                                    <p>Download a CSV file, then edit and upload the file</p>
+                                </div>
+                                <div class="m-t-15">
+                                    <p style="font-weight:700;">Download blank <a href="#" style="color: #0e93d8;">CSV template</a></p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Upload</button>
+                                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add New Popup End -->
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- multiple selection Jquery start -->
+<script>
+    $('#langOpt').multiselect({
+        columns: 1,
+        texts: {
+            placeholder: 'Associated Fare Type(s) *'
+        }
+    });
+</script>
+<!-- multiple selection Jquery start -->
+
+<script>
+    $(function () {
+        $(".select").select2();
+    });
+</script>
+
+<!-- datepicker start -->
+<script>
+    $(function () {
+        $(".date-main").datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+</script>
+<!-- datepicker End -->
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>

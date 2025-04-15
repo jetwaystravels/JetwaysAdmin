@@ -12,6 +12,7 @@
         public static string getAdminID = BaseURL + "api/Admin/GetAdminID";
 
         public static string getmenu= BaseURL + "api/Menu/MenuList";
+        public static string GetmenuList = BaseURL + "api/Menu/MenuListData";
 
 
         public static string getcustomercount = BaseURL + "api/Customer/count";

@@ -15,14 +15,21 @@ namespace JetwaysAdmin.WebAPI.Controllers
         }
 
 
-        [HttpGet("MenuList")]
-        public async Task<IActionResult> MenuList()
+       // [HttpGet("MenuList")]
+        //public async Task<IActionResult> MenuList()
+        //{
+        //    var data = await _menu.GetAllAsync();
+        //    return Ok(data);
+
+        //    //return View();
+
+        //}
+
+        [HttpGet("MenuListData")]
+        public async Task<IActionResult> Get()
         {
-            var data = await _menu.GetAllAsync();
-            return Ok(data);
-
-            //return View();
-
+            var menus = await _menu.GetAllMenusAsync();
+            return Ok(menus);
         }
     }
 }

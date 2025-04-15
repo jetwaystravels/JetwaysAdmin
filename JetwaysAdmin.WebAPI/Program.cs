@@ -27,6 +27,7 @@ builder.Services.AddScoped<ICustomer<Customer>, CustomerService>();
 builder.Services.AddScoped<ILegalEntity<LegalEntity>, LegalEntityService>();
 builder.Services.AddScoped<ICustomerDetailsByEmail<CustomerDetails>, CustomerDetailsByEmailService>();
 
+
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();

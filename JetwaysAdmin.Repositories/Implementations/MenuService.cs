@@ -25,7 +25,7 @@ namespace JetwaysAdmin.Repositories.Implementations
         }
         public async Task<IEnumerable<MenuItem>> GetActiveMenusAsync()
         {
-            return await _context.tb_Menu.Where(m => m.IsActive==1).ToListAsync();
+            return await _context.tb_Menu.Where(m => m.IsActive == 1).ToListAsync();
         }
 
         public async Task AddAsync(MenuItem menuItem)
@@ -55,6 +55,36 @@ namespace JetwaysAdmin.Repositories.Implementations
         {
             _context.tb_Menu.Update(menuItem);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<MenuViewModel>> GetAllMenusAsync()
+        {
+            var menuHeads = await _context.Tb_Menuhead
+                .Where(m => m.IsActive)
+                .ToListAsync();
+
+            var subMenus = await _context.tb_Menu.ToListAsync();
+                //.Where(s => s.IsActive==1)
+                //.ToListAsync();
+
+            var menuViewModels = menuHeads.Select(head => new MenuViewModel
+            {
+                MenuId = head.MenuId,
+                Title = head.Title,
+                IsActive = head.IsActive,
+                SubMenus = subMenus
+                    .Where(s => s.ParentId == head.MenuId)
+                    .Select(s => new SubMenuViewModel
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        Url = s.Url,
+                        Action = s.Action,
+                        IsActive = s.IsActive == 1
+                    }).ToList()
+            });
+
+            return menuViewModels;
         }
     }
 }

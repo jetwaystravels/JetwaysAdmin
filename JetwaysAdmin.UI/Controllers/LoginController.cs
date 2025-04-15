@@ -93,38 +93,37 @@ namespace JetwaysAdmin.UI.Controllers
             userID = 1;
             using (HttpClient client = new HttpClient())
             {
-                //userID = 2;
-                var response = await client.GetAsync(AppUrlConstant.getmenu);
-                List<MenuItemdata> _menuItem = new List<MenuItemdata>();
+                
+                 var response = await client.GetAsync(AppUrlConstant.GetmenuList);
+                List<MenuHeaddata> _menuItem = new List<MenuHeaddata>();
 
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-              
-                   //List<MenuItem> _menuItem = new List<MenuItem>();
-                     _menuItem = JsonConvert.DeserializeObject<List<MenuItemdata>>(result);
+                                
+                     _menuItem = JsonConvert.DeserializeObject<List<MenuHeaddata>>(result);
 
                   //  return View(_menuItem); // Redirect to dashboard
                 }
 
-                int customerCount = 0;
-                var customerCountResponse = await client.GetAsync(AppUrlConstant.getcustomercount); // Change to your real URL
+                //int customerCount = 0;
+                //var customerCountResponse = await client.GetAsync(AppUrlConstant.getcustomercount); // Change to your real URL
 
-                if (customerCountResponse.IsSuccessStatusCode)
-                {
-                    var countResult = await customerCountResponse.Content.ReadAsStringAsync();
-                    customerCount = JsonConvert.DeserializeObject<int>(countResult); // assuming it returns plain int like 42
-                }
+                //if (customerCountResponse.IsSuccessStatusCode)
+                //{
+                //    var countResult = await customerCountResponse.Content.ReadAsStringAsync();
+                //    customerCount = JsonConvert.DeserializeObject<int>(countResult); // assuming it returns plain int like 42
+                //}
 
-                // 3. Pass both to the view via ViewModel
-                var viewModel = new DashboardViewModel
-                {
-                    MenuItems = _menuItem,
-                    CustomerCount = customerCount
-                };
+                //// 3. Pass both to the view via ViewModel
+                //var viewModel = new DashboardViewModel
+                //{
+                //    MenuItems = _menuItem,
+                //    CustomerCount = customerCount
+                //};
 
                 ViewBag.ErrorMessage = "Invalid login credentials";
-                return View(viewModel);
+                return View(_menuItem);
             }
 
         }
