@@ -1,0 +1,170 @@
+﻿@model List<JetwaysAdmin.Entity.LegalEntity>
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    var Data = Model;
+}
+
+
+<main id="main" class="main">
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Manage Customers</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">Settings</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#!">Manage Suppliers</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block table-border-style">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Company Name</th>
+                                                    <th>Sub Entities</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                   @foreach(var entity in Model)
+                                     {
+                                        <div class="d-flex justify-content-between organization-structure-ac">
+                                                <div class="d-flex first">
+                                                    <div style="width:110px;"> <a href="#" class="toggle-btn"><i class="fa fa-chevron-right m-r-10" aria-hidden="true"></i></a><img class="img-70 m-r-5" src="../assets/images/default-logo-smal.png" alt="logo"></div>
+                                                        <div type="submit" class="entity-link" style="cursor:pointer;">
+                                                            
+                                                             <form method="post" action="/LegalEntity/UpdateLegalEntities">
+                                                             <button class="entity-link"><span class="m-r-5">[@entity.LegalEntityCode]</span>@entity.LegalEntityName</button>
+                                                             <input type="hidden" id="entityId" name="Id" value="@entity.Id" />
+                                                             <input type="hidden" id="entityCode" name="Code" value="@entity.LegalEntityCode"  />
+                                                             <input type="hidden" id="entityName" name="Name" value="@entity.LegalEntityName"  />
+                                                             </form>
+                                                             
+                                                            <small class="d-block">0<span class="sub-text">Subs</span><a asp-controller="LegalEntity" asp-action="ShowLegalEntities"><i class="fa fa-plus-circle sub-icon" aria-hidden="true"></i></a></small>
+                                                        </div>
+                                                      
+                                                </div>
+                                            
+                                            <div class="second">0</div>
+                                            <div class="third">
+                                                <label class="lavel-text" style="color:red"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Deactivated </label><span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                    <a class="dropdown-item" href="#">Enable</a>
+                                                    <a class="dropdown-item" href="#">Copy Settings</a>
+                                                    <a class="dropdown-item" href="#">Deactivate</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Multiple Sub-Branch Sections (Initially Hidden) -->
+                                        <div class="justify-content-between organization-structure-ac sub-branch">
+                                            <div class="d-flex first">
+                                                <button disabled="" class="bdr"></button>
+                                                <div><img class="img-70 m-r-5" src="../assets/images/default-logo-smal.png" alt="logo"></div>
+                                                <div onclick="location.href='company-information.html';" style="cursor:pointer;">
+                                                    <span class="m-r-5">[@entity.ParentLegalEntityCode]</span>@entity.LegalEntityName
+                                                    <a href="add-legal-entity.html"><small class="d-block">0<span class="sub-text">Subs</span><i class="fa fa-plus-circle sub-icon" aria-hidden="true"></i></small></a>
+                                                </div>
+                                            </div>
+                                            <div class="second">0</div>
+                                            <div class="third">
+                                                <label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label><span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                    <a class="dropdown-item" href="#">Enable</a>
+                                                    <a class="dropdown-item" href="#">Copy Settings</a>
+                                                    <a class="dropdown-item" href="#">Deactivate</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                     }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+          </div>
+       </div>
+</main>
+<footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleBtn = document.querySelector(".toggle-btn");
+            const subBranches = document.querySelectorAll(".sub-branch");
+            const icon = toggleBtn.querySelector("i");
+            subBranches.forEach(branch => branch.style.display = "none");
+            toggleBtn.addEventListener("click", function (event) {
+                event.preventDefault();
+                let isAnyOpen = Array.from(subBranches).some(branch => branch.style.display === "flex");
+                if (isAnyOpen) {
+                    subBranches.forEach(branch => branch.style.display = "none");
+                    icon.classList.replace("fa-chevron-down", "fa-chevron-right");
+                } else {
+                    subBranches.forEach(branch => branch.style.display = "flex");
+                    icon.classList.replace("fa-chevron-right", "fa-chevron-down");
+                }
+            });
+        });
+
+
+
+
+        // $(document).ready(function () {
+        //     $(".entity-link").click(function (e) {
+        //         e.preventDefault();
+        //         var id = $('#entityId').val();
+        //         var code = $('#entityCode').val();
+        //         var name = $('#entityName').val();
+        //         if (!id || !code || !name) {
+        //             alert("Please fill in all fields.");
+        //             return;
+        //         }
+
+        //         $.ajax({
+        //             type: "POST",
+        //             url: '@Url.Action("UpdateLegalEntities", "LegalEntity")',
+        //             data: {
+        //                 Id: id,
+        //                 Code: code,
+        //                 Name: name
+        //             },
+        //             success: function (response) {
+        //                 console.log("Posted successfully!");
+        //                 window.location.href = '@Url.Action("UpdateLegalEntities", "LegalEntity")';   
+        //             },
+        //             error: function (xhr, status, error) {
+        //                 console.error("Error: " + error);
+        //             }
+        //         });
+        //     });
+        // });
+
+
+    </script>
+</footer>

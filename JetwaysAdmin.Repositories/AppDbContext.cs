@@ -23,10 +23,23 @@ namespace JetwaysAdmin.Repositories
         public DbSet<LegalEntity> Admin_tb_LegalEntity { get; set; }
 
         public DbSet<CustomerDetails> CustomerDetails { get; set; }
+        public DbSet<IATAGroup> tb_IATAGroup { get; set; }
+        public DbSet<AccountDetails> tb_CustomersAccountDetail { get; set; }
+        public DbSet<AddUser> tb_AddNewUser { get; set; }
+        public DbSet<CustomerAccountBalance> tb_CustomerAccountBalance { get; set; }
+        public DbSet<CustomerManageStaff> tb_CustomerManageStaff { get; set; }
+
+        public DbSet<DashboardSummary> DashboardSummary { get; set; }
+
+        public DbSet<CompanyEmployeeGSTDetails> CompanyEmployeeGSTDetails { get; set; }
+
+        public DbSet<HierarchyLegalEntity> hierarchyLegalEntity { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomerDetails>().HasNoKey(); // No primary key because it's a model
+            modelBuilder.Entity<CompanyEmployeeGSTDetails>().HasNoKey();
+            modelBuilder.Entity<HierarchyLegalEntity>().HasNoKey();
             modelBuilder.Entity<Menu>()
        .HasOne(m => m.MenuHead)                 // navigation property in Menu (submenu)
        .WithMany(h => h.SubMenus)               // navigation collection in MenuHead

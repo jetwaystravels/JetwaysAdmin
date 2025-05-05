@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using JetwaysAdmin.WebAPI.Models;
 using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Implementations;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace JetwaysAdmin.WebAPI.Controllers
@@ -14,10 +16,15 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
         private readonly ICustomer<Customer> _Customer;
         private readonly ICustomerDetailsByEmail<CustomerDetails> _CustomerDetailsByEmail;
-        public CustomerController(ICustomer<Customer> Customer, ICustomerDetailsByEmail<CustomerDetails> customerDetailsByEmail)
+        private readonly ICompanyEmployeeGST<CompanyEmployeeGSTDetails> _CompanyEmployeeGST;
+        private readonly IHierarchyLegalEntity<HierarchyLegalEntity> _hierarchyLegalEntity;
+        public CustomerController(ICustomer<Customer> Customer, ICustomerDetailsByEmail<CustomerDetails> customerDetailsByEmail, ICompanyEmployeeGST<CompanyEmployeeGSTDetails> companyEmployeeGST, IHierarchyLegalEntity<HierarchyLegalEntity> hierarchyLegalEntity)
         {
             this._Customer = Customer;
             _CustomerDetailsByEmail = customerDetailsByEmail;
+            _CompanyEmployeeGST = companyEmployeeGST;
+            _hierarchyLegalEntity = hierarchyLegalEntity;
+            //  _CompanyEmployeeGST = CompanyEmployeeGST;
         }
         //public IActionResult Index()
         //{
@@ -60,6 +67,33 @@ namespace JetwaysAdmin.WebAPI.Controllers
             var result = await _CustomerDetailsByEmail.GetCustomerDetailsByEmailAsync(email);
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("GetCompanyEmployeeGST")]
+        public async Task<ActionResult<CompanyEmployeeGSTDetails>> GetCompanyEmployeeGst(string employeeCode, string legalEntityCode)
+        {
+            if (string.IsNullOrEmpty(employeeCode) || string.IsNullOrEmpty(legalEntityCode))
+            {
+                return BadRequest("EmployeeCode and LegalEntityCode are required.");
+            }
+
+            var result = await _CompanyEmployeeGST.GetCompanyEmployeeGstAsync(employeeCode, legalEntityCode);
+            return Ok(result);
+        }
+
+
+        [HttpGet]
+        [Route("Gethierarchicallegal")]
+        public async Task<ActionResult<IEnumerable<HierarchyLegalEntity>>> GetHierarchicalData(string legalEntityCode)
+        {
+            var data = await _hierarchyLegalEntity.GetHierarchicallegalentityAsync(legalEntityCode);
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+        }
+
 
         [HttpPost]
         

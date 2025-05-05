@@ -14,8 +14,8 @@ namespace JetwaysAdmin.UI.Controllers
         }
 
         [HttpPost]
-       // public async Task<IActionResult> Registraion(string admin_name, string admin_email,string admin_password, string admin_image)
-       public async Task<IActionResult> Registraion( Admin _admin)
+        // public async Task<IActionResult> Registraion(string admin_name, string admin_email,string admin_password, string admin_image)
+        public async Task<IActionResult> Registraion(Admin _admin)
         {
 
 
@@ -37,7 +37,7 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await response.Content.ReadAsStringAsync();
                     TempData["SuccessMessage"] = "Data saved successfully!";
                     return RedirectToAction("Registraion");
-                   
+
                 }
                 var errorContent = await response.Content.ReadAsStringAsync();
                 TempData["ErrorMessage"] = "Failed to save data. Please try again.";

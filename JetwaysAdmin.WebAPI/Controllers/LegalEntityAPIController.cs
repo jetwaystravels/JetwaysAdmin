@@ -1,6 +1,8 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace JetwaysAdmin.WebAPI.Controllers
 {
@@ -24,7 +26,15 @@ namespace JetwaysAdmin.WebAPI.Controllers
         [Route("GetAllLegalEntity")]
         public async Task<ActionResult<IEnumerable<LegalEntity>>> GetAllLegalEntity()
         {
-            return Ok(await _legalEntity.GetAllLegalEntity());
+            var legalEntities = await _legalEntity.GetAllLegalEntity();
+            var count = legalEntities.Count();
+            var response = new
+            {
+                TotalCount = count,
+                Data = legalEntities
+            };
+
+            return Ok(response);
         }
 
 
@@ -44,16 +54,15 @@ namespace JetwaysAdmin.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<LegalEntity>> GetLegalEntityById(int id)
         {
-            var LegalEntity = await _legalEntity.GetLegalEntityById(id);
-            if (LegalEntity == null)
+            var entity = await _legalEntity.GetLegalEntityById(id);
+            if (entity == null)
             {
                 return NotFound();
             }
-            return Ok(LegalEntity);
+            return Ok(entity);
         }
 
 
-        
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateLegalEntity(int id, LegalEntity legalEntity)
@@ -68,6 +77,21 @@ namespace JetwaysAdmin.WebAPI.Controllers
             {
                 return NotFound();
             }
+            //legalEntityupdate.LegalEntityCode = legalEntity.LegalEntityCode;
+            legalEntityupdate.LegalEntityName = legalEntity.LegalEntityName ?? legalEntityupdate.LegalEntityName;
+            legalEntityupdate.LegalEntityCode = legalEntity.LegalEntityCode ?? legalEntityupdate.LegalEntityCode;
+            legalEntityupdate.AddressLine1 = legalEntity.AddressLine1 ?? legalEntityupdate.AddressLine1;
+            legalEntityupdate.AddressLine2 = legalEntity.AddressLine2 ?? legalEntityupdate.AddressLine2;
+            legalEntityupdate.City = legalEntity.City ?? legalEntityupdate.City;
+            legalEntityupdate.State = legalEntity.State ?? legalEntityupdate.State;
+            legalEntityupdate.Country = legalEntity.Country ?? legalEntityupdate.Country;
+            legalEntityupdate.PostalCode = legalEntity.PostalCode ?? legalEntityupdate.PostalCode;
+            legalEntityupdate.IntegrationRefNumber = legalEntity.IntegrationRefNumber ?? legalEntityupdate.IntegrationRefNumber;
+            legalEntityupdate.CustomerBaseCurrency = legalEntity.CustomerBaseCurrency ?? legalEntityupdate.CustomerBaseCurrency;
+            legalEntityupdate.CustomerBaseCountry = legalEntity.CustomerBaseCountry ?? legalEntityupdate.CustomerBaseCountry;
+            legalEntityupdate.AcountActivationDate = legalEntity.AcountActivationDate ?? legalEntityupdate.AcountActivationDate;
+            legalEntityupdate.AccountDeactivationDate = legalEntity.AccountDeactivationDate ?? legalEntityupdate.AccountDeactivationDate;
+
 
             await _legalEntity.UpdateLegalEntity(legalEntityupdate);
             return Ok(new { message = "Customer updated successfully!" });

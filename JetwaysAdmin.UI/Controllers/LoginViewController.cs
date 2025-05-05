@@ -11,7 +11,7 @@ namespace JetwaysAdmin.UI.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                
+
                 //var json = Newtonsoft.Json.JsonConvert.SerializeObject(loginRequest);
                 //var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await client.GetAsync("http://localhost:7260/api/Admin/Login");

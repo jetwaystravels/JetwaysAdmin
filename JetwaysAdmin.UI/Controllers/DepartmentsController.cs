@@ -7,23 +7,17 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class DepartmentsController : Controller
     {
-        public async Task<IActionResult> ShowDepartments()
+        public IActionResult ShowDepartments()
         {
-            using (HttpClient client = new HttpClient())
-            {
-
-                var response = await client.GetAsync(AppUrlConstant.GetmenuList);
-                List<MenuHeaddata> _menuItem = new List<MenuHeaddata>();
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-
-                    _menuItem = JsonConvert.DeserializeObject<List<MenuHeaddata>>(result);
-                }
-                ViewBag.ErrorMessage = "Invalid login credentials";
-                return View(_menuItem);
-            }
+            return View();
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddDepartment()
+        {
+            return View();
+        }
+
     }
 }

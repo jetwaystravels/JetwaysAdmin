@@ -17,6 +17,26 @@
 
         public static string getcustomercount = BaseURL + "api/Customer/count";
 
+        public static string AddLegalEntity = BaseURL + "api/LegalEntityAPI/AddLegalEntity";
+       
+        public static string GetLegalEntity = BaseURL + "api/LegalEntityAPI/GetAllLegalEntity";
+
+        public static string GetLegalEntityID = BaseURL + "api/LegalEntityAPI";
+
+        public static string EditLegalEntityID = BaseURL + "api/LegalEntityAPI";
+
+        public static string GetIATAGroup = BaseURL + "api/IATAGruopAPI/GetIATAGroup";
+
+        public static string AddAccountDetails = BaseURL + "api/AccountDetailsAPI/AddAccountDetails";
+
+        public static string AddNewUser = BaseURL + "api/AddUserAPI/AddUser";
+
+        public static string AddAccountBalance = BaseURL + "api/AccountBalanceAPI/AccountBalance";
+
+        public static string ManageStaff = BaseURL + "api/ManageStaffAPI/ManageStaff";
+
+        public static string Dashboard = BaseURL + "api/DashboardAPI/Dashboard";
+
         #endregion
 
     }

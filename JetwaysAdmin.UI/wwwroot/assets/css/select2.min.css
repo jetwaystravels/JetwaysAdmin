@@ -21,7 +21,7 @@
 
 .select2-container .select2-selection--single .select2-selection__rendered {
     display: block;
-    padding-left: 0;
+    padding-left: 5px;
     padding-right: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -197,20 +197,18 @@
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #444;
-    line-height: 17px
+    line-height: 17px;
+    font-size:16px;
 }
-   
 
-        
-
-    .select2-container--default .select2-selection--single .select2-selection__clear {
-        cursor: pointer;
-        float: right;
-        font-weight: bold;
-        height: 26px;
-        margin-right: 20px;
-        padding-right: 0px
-    }
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+    height: 26px;
+    margin-right: 20px;
+    padding-right: 0px
+}
 
 .select2-container--default .select2-selection--single .select2-selection__placeholder {
     color: #999
@@ -224,17 +222,18 @@
     width: 20px
 }
 
-.select2-container--default .select2-selection--single .select2-selection__arrow b {
-    border-color: #888 transparent transparent transparent;
-    border-style: solid;
-    border-width: 5px 4px 0 4px;
+.select2-container--default .select2-selection--single .select2-selection__arrow b:after {
+    content: "\f107";
+    font: normal normal normal 16px / 1 FontAwesome;
+    color: #495057;
     height: 0;
-    left: 50%;
-    margin-left: -4px;
-    margin-top: -2px;
     position: absolute;
-    top: 50%;
-    width: 0
+    top:7%;
+    right: 16px;
+    width: 0;
+    border-top-color: #999;
+    margin-top: -3px;
+    font-weight: 700;
 }
 
 .select2-container--default[dir="rtl"] .select2-selection--single .select2-selection__clear {

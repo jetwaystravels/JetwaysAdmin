@@ -13,6 +13,7 @@ namespace JetwaysAdmin.Entity
         public string Title { get; set; }
         public bool IsActive { get; set; }
         public List<SubMenuViewModel> SubMenus { get; set; }
+
     }
 
     public class SubMenuViewModel

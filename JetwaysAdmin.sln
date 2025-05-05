@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetwaysAdmin.Entity", "JetwaysAdmin.Entity\JetwaysAdmin.Entity.csproj", "{6DA7D0F5-BFFE-4C65-9A33-04E121E3CA1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JetwaysAdmin.Entity", "JetwaysAdmin.Entity\JetwaysAdmin.Entity.csproj", "{6DA7D0F5-BFFE-4C65-9A33-04E121E3CA1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetwaysAdmin.Repositories", "JetwaysAdmin.Repositories\JetwaysAdmin.Repositories.csproj", "{A92D36E5-799B-4B16-AE83-6BF4CB3A93FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JetwaysAdmin.Repositories", "JetwaysAdmin.Repositories\JetwaysAdmin.Repositories.csproj", "{A92D36E5-799B-4B16-AE83-6BF4CB3A93FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetwaysAdmin.WebAPI", "JetwaysAdmin.WebAPI\JetwaysAdmin.WebAPI.csproj", "{602286B7-2C4F-4AFE-A057-DF26087B460E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JetwaysAdmin.WebAPI", "JetwaysAdmin.WebAPI\JetwaysAdmin.WebAPI.csproj", "{602286B7-2C4F-4AFE-A057-DF26087B460E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetwaysAdmin.UI", "JetwaysAdmin.UI\JetwaysAdmin.UI.csproj", "{D17C10C6-42CD-4E2E-B631-21E53AB4DBBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JetwaysAdmin.UI", "JetwaysAdmin.UI\JetwaysAdmin.UI.csproj", "{D17C10C6-42CD-4E2E-B631-21E53AB4DBBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

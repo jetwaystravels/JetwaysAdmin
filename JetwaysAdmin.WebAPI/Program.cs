@@ -4,6 +4,7 @@ using JetwaysAdmin.Repositories.Implementations;
 using JetwaysAdmin.Repositories.Interface;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +27,14 @@ builder.Services.AddScoped<IMenu<MenuItem>, MenuService>();
 builder.Services.AddScoped<ICustomer<Customer>, CustomerService>();
 builder.Services.AddScoped<ILegalEntity<LegalEntity>, LegalEntityService>();
 builder.Services.AddScoped<ICustomerDetailsByEmail<CustomerDetails>, CustomerDetailsByEmailService>();
-
+builder.Services.AddScoped<ICompanyEmployeeGST<CompanyEmployeeGSTDetails>, CompanyEmployeeGSTService>();
+builder.Services.AddScoped<IHierarchyLegalEntity<HierarchyLegalEntity>, HierarchicallegalentityService>();
+builder.Services.AddScoped<IIATAGroup<IATAGroup>,IATAGruopService>();
+builder.Services.AddScoped<IAccountDetails<AccountDetails>, AccountDetailsService>();
+builder.Services.AddScoped<IAddUser<AddUser>, AddUserService>();
+builder.Services.AddScoped<ICustomerAccountBalance<CustomerAccountBalance>, AccountBalanceService>();
+builder.Services.AddScoped<IManageStaff<CustomerManageStaff>, ManageStaffService>();
+builder.Services.AddScoped<IDashboard<DashboardSummary>, DashboardService>();
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()

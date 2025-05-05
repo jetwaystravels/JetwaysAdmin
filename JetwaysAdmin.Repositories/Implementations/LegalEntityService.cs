@@ -27,7 +27,7 @@ namespace JetwaysAdmin.Repositories.Implementations
 
         public async Task<LegalEntity> GetLegalEntityById(int id)
         {
-            return await _context.Admin_tb_LegalEntity.FindAsync();
+            return await _context.Admin_tb_LegalEntity.FirstOrDefaultAsync(e => e.Id == id);
         }
         public async Task AddLegalEntity(LegalEntity legalEntity)
         {
@@ -51,5 +51,9 @@ namespace JetwaysAdmin.Repositories.Implementations
             _context.Admin_tb_LegalEntity.Update(legalEntity);
              await _context.SaveChangesAsync();
         }
+
+
+
+
     }
 }

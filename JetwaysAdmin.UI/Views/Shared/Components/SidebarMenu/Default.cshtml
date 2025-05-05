@@ -1,0 +1,52 @@
+﻿@model List<JetwaysAdmin.UI.ViewModel.MenuHeaddata>
+
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<ul class="pcoded-item pcoded-left-item">
+    @foreach (var menuHead in Model)
+    {
+        if (menuHead.IsActive)
+        {
+            var anySubMenuActive = menuHead.SubMenus != null &&
+                menuHead.SubMenus.Any(sm =>
+                    sm.IsActive &&
+                    sm.Url?.Equals(currentController, StringComparison.OrdinalIgnoreCase) == true &&
+                    sm.Action?.Equals(currentAction, StringComparison.OrdinalIgnoreCase) == true);
+
+            var liClass = "pcoded-hasmenu" + (anySubMenuActive ? " pcoded-trigger active" : "");
+
+            <li class="@liClass">
+                <a href="javascript:void(0)" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>BC</b></span>
+                    <span class="pcoded-mtext">@menuHead.Title?.Trim()</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+
+                @if (menuHead.SubMenus?.Any(sm => sm.IsActive) == true)
+                {
+                    <ul class="pcoded-submenu" style="@(anySubMenuActive ? "display: block;" : "")">
+                        @foreach (var subMenu in menuHead.SubMenus.Where(sm => sm.IsActive))
+                        {
+                            var isActive = subMenu.Url?.Equals(currentController, StringComparison.OrdinalIgnoreCase) == true &&
+                                           subMenu.Action?.Equals(currentAction, StringComparison.OrdinalIgnoreCase) == true;
+
+                            <li class="@(isActive ? "active" : "")">
+                                <a asp-controller="@subMenu.Url"
+                                   asp-action="@subMenu.Action"
+                                   class="waves-effect waves-dark @(isActive ? "active" : "")">
+                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                    <span class="pcoded-mtext">@subMenu.Name</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </li>
+        }
+    }
+</ul>
+

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace JetwaysAdmin.Entity
 {
+
+
     public class CustomerDetails
     {
 

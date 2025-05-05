@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JetwaysAdmin.Entity
 {
@@ -12,72 +8,96 @@ namespace JetwaysAdmin.Entity
     public class LegalEntity
     {
         [Key]
-       // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        
-        public string LegalEntityName { get; set; }
+        public string? LegalEntityName { get; set; }
 
-        
-        public string LegalEntityCode { get; set; }
+        public string? LegalEntityCode { get; set; }
 
-        
-        public string ParentLegalEntityCode { get; set; }
+        public string? ParentLegalEntityCode { get; set; } = "EEEBP";
 
-        
-        public string AssignIATAGroup { get; set; }
+        public string? AssignIATAGroup { get; set; }
 
-        
-        public string CorporateAccountsCode { get; set; }
+        public string? CorporateAccountsCode { get; set; }
 
-        public bool ManageAccountBalance { get; set; }
+        [MaxLength(50)]
+        public string? FirstName { get; set; }
 
-        
-        public string AddressLine1 { get; set; }
+        [MaxLength(50)]
+        public string? LastName { get; set; }
 
-        
-        public string AddressLine2 { get; set; }
+        [MaxLength(60)]
+        public string? BussinesEmail { get; set; }
 
-        
-        public string Country { get; set; }
+        [MaxLength(30)]
+        public string? Password { get; set; }
 
-        
-        public string State { get; set; }
+        public string? MobileNumber { get; set; }
 
-        
-        public string City { get; set; }
+        [MaxLength(10)]
+        public string? Gender { get; set; }
 
-       
-        public string PostalCode { get; set; }
+        [MaxLength(255)]
+        public string? AddressLine1 { get; set; }
 
-        
-        public string IntegrationRefNumber { get; set; }
+        [MaxLength(255)]
+        public string? AddressLine2 { get; set; }
 
-       
-        public bool GSTApplicableManagementFee { get; set; }
+        [MaxLength(100)]
+        public string? Country { get; set; }
 
-       
-        public bool PassGSTDetailsAirline { get; set; }
+        [MaxLength(100)]
+        public string? State { get; set; }
 
-       
-        public bool IsSEZ { get; set; }
+        [MaxLength(100)]
+        public string? City { get; set; }
 
-        public string CustomerBaseCurrency { get; set; }
+        [MaxLength(20)]
+        public string? PostalCode { get; set; }
 
-     
-        //public byte[] Logo { get; set; }
+        [MaxLength(40)]
+        public string? AccountType { get; set; }
 
-        
-        public string CreatedBy { get; set; }
+        [MaxLength(100)]
+        public string? IntegrationRefNumber { get; set; }
 
-       
-        public DateTime CreatedDate { get; set; }
+        public bool? GSTApplicableManagementFee { get; set; }
 
-        public string ModifyBy { get; set; }
+        public bool? PassGSTDetailsAirline { get; set; }
 
-        public DateTime? ModifyDate { get; set; }
+        public bool? IsSEZ { get; set; } = true;
 
-       
-        public int AppStatus { get; set; }
+        [MaxLength(50)]
+        public string? CustomerBaseCurrency { get; set; }
+
+        [MaxLength(50)]
+        public string? CustomerBaseCountry { get; set; }
+
+        [MaxLength(50)]
+        public string? TravelDeskEmail { get; set; }
+
+        public DateTime? AcountActivationDate { get; set; }
+
+        public DateTime? AccountDeactivationDate { get; set; }
+
+        public bool? CreateNewGDSProfile { get; set; }
+
+        public bool? UpdateExistingCustomerProfile { get; set; }
+
+        // Uncomment when implementing logo support
+        // public byte[] Logo { get; set; }
+
+        [MaxLength(50)]
+        public string Createdby { get; set; } = "Admin";
+
+        public DateTime? CreatedDate { get; set; } = DateTime.Now;
+
+        [MaxLength(50)]
+        public string ModifyBy { get; set; } = "Admin2";
+
+        public DateTime? ModifyDate { get; set; } = DateTime.Now;
+
+        public int? AppStatus { get; set; } = 1;
     }
 }

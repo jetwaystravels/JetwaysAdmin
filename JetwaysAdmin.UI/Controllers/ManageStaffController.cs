@@ -1,29 +1,36 @@
-﻿using JetwaysAdmin.UI.ApplicationUrl;
+﻿using JetwaysAdmin.Entity;
+using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace JetwaysAdmin.UI.Controllers
 {
     public class ManageStaffController : Controller
     {
-        public async  Task<IActionResult> ShowManageStaff()
+        public async Task<IActionResult> ShowManageStaff()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManageStaff([FromForm] CustomerManageStaff customermanagestaff)
         {
             using (HttpClient client = new HttpClient())
             {
-
-                var response = await client.GetAsync(AppUrlConstant.GetmenuList);
-                List<MenuHeaddata> _menuItem = new List<MenuHeaddata>();
-
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(customermanagestaff);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.ManageStaff, customermanagestaff);
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-
-                    _menuItem = JsonConvert.DeserializeObject<List<MenuHeaddata>>(result);
                 }
-                ViewBag.ErrorMessage = "Invalid login credentials";
-                return View(_menuItem);
+                ViewBag.ErrorMessage = "Data not  insert";
+                return RedirectToAction("ShowManageStaff");
             }
         }
+
+
     }
 }

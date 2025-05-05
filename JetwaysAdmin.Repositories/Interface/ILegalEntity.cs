@@ -15,5 +15,6 @@ namespace JetwaysAdmin.Repositories.Interface
         Task UpdateLegalEntity(LegalEntity legalEntity);
         Task DeleteLegalEntity(int id);
 
+
     }
 }

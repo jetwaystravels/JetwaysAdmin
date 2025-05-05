@@ -9,21 +9,7 @@ namespace JetwaysAdmin.UI.Controllers
     {
         public async Task<IActionResult> ShowPassthroughSettings()
         {
-            using (HttpClient client = new HttpClient())
-            {
-
-                var response = await client.GetAsync(AppUrlConstant.GetmenuList);
-                List<MenuHeaddata> _menuItem = new List<MenuHeaddata>();
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-
-                    _menuItem = JsonConvert.DeserializeObject<List<MenuHeaddata>>(result);
-                }
-                ViewBag.ErrorMessage = "Invalid login credentials";
-                return View(_menuItem);
-            }
+            return View();
         }
     }
 }

@@ -147,7 +147,7 @@ code {
 .main-body .page-wrapper {
 	padding: 0.8rem 1.8rem;
 	-webkit-transition: all ease-in 0.3s;
-	transition: all ease-in 0.3s;
+	transition: all ease-in 0.3s;	
 }
 
 
@@ -650,7 +650,7 @@ input:checked + .slider:before {-webkit-transform: translateX(26px);-ms-transfor
 .sml-btn-danger:hover {background-color: #e72727;border-color: #e72727;}
 .sml-btn-danger:focus {box-shadow:none;}
 .sml-b {margin-top: 19px;}
-.form-material.form-row .float-label {left: 4px;}
+.form-material.form-row .float-label {left: 10px;}
 .letter-length {overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width: 270px;	display: block;}
 .pcoded .card.full-card {position: fixed;top: calc(56px + 15px);z-index: 99999;	-webkit-box-shadow: 0 0 35px 0px rgba(0, 0, 0, 0.44);box-shadow: 0 0 35px 0px rgba(0, 0, 0, 0.44);left: 15px;border-radius: 5px;width: calc(100vw - 50px);	height: calc(100vh - 86px);	-webkit-transition: all 5s ease-in-out;	transition: all 5s ease-in-out;}
 .pcoded .card.full-card.card-load {position: fixed;}
@@ -673,6 +673,8 @@ input:checked + .slider:before {-webkit-transform: translateX(26px);-ms-transfor
 .modal-header .close {padding: 1rem; margin: -1rem -1rem -1rem auto; font-size: 23px;}
 .modal-header .close:focus{outline:none;}
 textarea:focus {border-color: #ccc !important;}
+.entity-link {border: none;outline: none;background: none;cursor: pointer;}
+.entity-link:focus {outline: none;}
 .pcoded .card.card-load .card-loader {
 	position: absolute;
 	top: 0;
@@ -750,16 +752,18 @@ textarea:focus {border-color: #ccc !important;}
 	position: relative;
 	border-radius: 0;
 	color: #fff;
-	background:#fff;
+	background: #fff;	
 }
 
+
 .page-header:before {
-	content: "";	
+	content: "";
 	width: 100%;
 	height: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
+	box-shadow: 0px 1px 20px 0px rgba(69, 90, 100, 0.12);
 }
 
 .page-header .page-block {
@@ -1552,6 +1556,8 @@ ul.chosen-results li {
 	border-top: none;
 	border-left: none;
 	border-right: none;
+	padding-top: 15px;
+	padding-bottom: 3px
 }
 
 .ms-options-wrap > button:after {
@@ -1560,7 +1566,7 @@ ul.chosen-results li {
 	color: #495057;
 	height: 0;
 	position: absolute;
-	top: 18%;
+	top: 57%;
 	right: 16px;
 	width: 0;
 	border-top-color: #999;
@@ -1626,6 +1632,46 @@ ul.chosen-results li {
 .gdsDtl .last-btn{width:146px;}
 
 /**======  multi select End ======**/
+
+
+/**======  custome arrow start ======**/
+
+.custom-select-wrapper {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+}
+
+.custom-select-wrapper select {
+	appearance: none; /* Remove native arrow */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	padding-right: 2rem; /* Make space for arrow */
+	width: 100%;
+	height: 40px; /* Or your desired height */
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+/* Custom Arrow */
+.custom-select-wrapper::after {
+	content: "\f107";
+	font: normal normal normal 16px / 1 FontAwesome;
+	color: #495057;
+	height: 0;
+	position: absolute;
+	top: 57%;
+	right: 16px;
+	width: 0;
+	border-top-color: #999;
+	margin-top: -3px;
+	font-weight: 700;
+}
+
+/**======  custome arrow End ======**/
+
+
 
 /*=======dater picker start ========*/
 .ui-menu-icons {
@@ -4077,14 +4123,29 @@ img.comment-img {
       Theme-preloader css start
 ==========================  **/
 
+.page-wrapper {
+	opacity: 0.9;
+	pointer-events: none;
+	filter: blur(9px);	
+}
+
+.page-wrapper.loaded {
+	opacity: 1;
+	filter: blur(0px);
+	pointer-events: auto;
+}
+
 .theme-loader {
-	height: 100%;
-	width: 100%;
-	background: #fff;
-	position: fixed;
-	z-index: 999999;
+	position: absolute;
 	top: 0;
 	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(255,255,255,0.9);
+	z-index: 999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .theme-loader .loader-track {
@@ -6552,6 +6613,7 @@ table tbody .border-bottom-info td {
 	font-size: 16px;
 	line-height: 3.5;
 	width: 40px;
+	color: #fff;
 }
 
 @media only screen and (max-width: 768px) {
@@ -6608,6 +6670,7 @@ table tbody .border-bottom-info td {
 .header-navbar .navbar-wrapper .navbar-container .nav-left a,
 .header-navbar .navbar-wrapper .navbar-container .nav-right a {
 	padding: 0 0.6rem;
+	color:#fff;
 }
 
 .header-navbar .navbar-wrapper .navbar-container .nav-left .mega-menu-top i,
@@ -6900,12 +6963,16 @@ table tbody .border-bottom-info td {
 	display: block;
 	position: relative;
 	background: #f8f9fb;
-	min-height: calc(100vh - 56px);
+	/*min-height: calc(100vh - 56px);*/
 }
 
 .pcoded .pcoded-content {
 	position: relative;
 	display: block;
+}
+
+.pcoded-content {
+	margin-left: 235px;
 }
 
 .pcoded-inner-navbar {
@@ -9253,7 +9320,7 @@ input[type=radio] {
 	margin-bottom: 1.25em;
 }
 
-.form-group.col-md-3{padding-left:0;}
+/*.form-group.col-md-3{padding-left:0;}*/
 
 .form-group .form-control-lg {
 		font-size: 1.25em;
@@ -10787,17 +10854,17 @@ input[type=radio] {
 
 .form-material .form-group {
 	position: relative;
-	margin-bottom: 47px;
+	margin-bottom: 20px;
 }
 
 .form-material .form-group .form-control ~ .float-label {
-	top: -14px;
+	top: -4px;
 	font-size: 12px;
 	font-weight: 500;
 }
 
 .form-material .form-group .select2-container ~ .float-label {
-	top: -14px;
+	top: -4px;
 	font-size: 12px;
 	font-weight: 500;
 }
@@ -10974,7 +11041,7 @@ input[type=radio] {
 
 .form-material .form-control.fill~.float-label,
 .form-material .form-material .form-control.fill~.float-label {
-	top: -14px;
+	top: -4px;
 	font-size: 11px;
 }
 
@@ -15762,7 +15829,7 @@ SetValues
 					right: auto;
 					left: 0;
 					top: 0;
-					width: 60px;
+					width: 60px;					
 				}
 
 				.header-navbar .navbar-wrapper .navbar-logo .mobile-search {

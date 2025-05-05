@@ -1,6 +1,4 @@
-﻿@using JetwaysAdmin.UI.ViewModel
-@model List<MenuHeaddata>
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,177 +27,182 @@
     <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
 </head>
 <body>
-    <!-- Pre-loader start -->
-    <div class="theme-loader">
-        <div class="loader-track">
-            <div class="preloader-wrapper">
-                <div class="spinner-layer spinner-blue">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
+    <header>
+        <!-- Pre-loader end -->
+        <!-- Pre-loader start -->
+        <div class="theme-loader">
+            <div class="loader-track">
+                <div class="preloader-wrapper">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Pre-loader end -->
-    <div id="pcoded" class="pcoded">
-        <div class="pcoded-overlay-box"></div>
-        <div class="pcoded-container navbar-wrapper">
-            <nav class="navbar header-navbar pcoded-header">
-                <div class="navbar-wrapper">
-                    <div class="navbar-logo">
-                        <a href="settingsMain.html">
-                            <img class="img-fluid" title="logo" src="../assets/images/logo.png" alt="logo" style="width:180px;" />
-                        </a>
-                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
-                            <i class="ti-menu"></i>
-                        </a>
-                    </div>
-                    <div class="navbar-container container-fluid">
-                        <ul class="nav-left">
-                            <li>
-                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
-                            </li>
-                            <li>
-                                <a href="#" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
-                                    <i class="ti-fullscreen"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav-right">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">My Trips</a></li>
-                            <li><a href="#">Approvals</a></li>
-                            <li><a href="#">Tripbox</a></li>
-                            <li><a href="#">Analytics</a></li>
-                            <li class="user-profile header-notification">
-                                <a href="#" class="waves-effect waves-light">
-                                    <img class="user-pic" title="user-icon" alt="img" loading="lazy" src="../assets/images/login-img.svg">
-                                    <span>Login</span>
-                                    <i class="ti-angle-down"></i>
-                                </a>
-                                <ul class="show-notification profile-notification">
-                                    <li class="first">
-                                        <div style="border-bottom: #eee 1px solid; padding-bottom: 7px;">
-                                            <div class="d-flex" style="margin-bottom: 4px;">
-                                                <img class="user-pic" title="user-icon" alt="img" loading="lazy" src="../assets/images/login-img.svg">
-                                                 <strong style="font-weight: 600; margin-top: 8px;">Bhupendra M</strong>
+        <!-- Pre-loader end -->
+
+        <div id="pcoded" class="pcoded">
+            <div class="pcoded-overlay-box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <nav class="navbar header-navbar pcoded-header">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-logo">
+                            <a asp-controller="Login" asp-action="dashboard">
+                                <img class="img-fluid" title="logo" src="../assets/images/logo.png" alt="logo" style="width:180px;" />
+                            </a>
+                            <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                                <i class="ti-menu"></i>
+                            </a>
+                        </div>
+                        <div class="navbar-container container-fluid">
+                            <ul class="nav-left">
+                                <li>
+                                    <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                        <i class="ti-fullscreen"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav-right">
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">My Trips</a></li>
+                                <li><a href="#">Approvals</a></li>
+                                <li><a href="#">Tripbox</a></li>
+                                <li><a href="#">Analytics</a></li>
+                                <li class="user-profile header-notification">
+                                    <a href="#" class="waves-effect waves-light">
+                                        <img class="user-pic" title="user-icon" alt="img" loading="lazy" src="../assets/images/login-img.svg">
+                                        <span>Login</span>
+                                        <i class="ti-angle-down"></i>
+                                    </a>
+                                    <ul class="show-notification profile-notification">
+                                        <li class="first">
+                                            <div style="border-bottom: #eee 1px solid; padding-bottom: 7px;">
+                                                <div class="d-flex" style="margin-bottom: 4px;">
+                                                    <img class="user-pic" title="user-icon" alt="img" loading="lazy" src="../assets/images/login-img.svg">
+                                                    <strong style="font-weight: 600; margin-top: 8px;">Bhupendra M</strong>
+                                                </div>
+                                                <div>
+                                                    <p style="color: #a9a9a9; margin-bottom: 2px;">bhupendra.m@jetwaystravels.com</p>
+                                                    <p style="color: #a9a9a9; margin-bottom: 2px;">[JET001] Jetways Travels</p>
+                                                    <p style="color:#a9a9a9;margin-bottom: 2px; "> Balance : <i class="fa fa-inr" aria-hidden="true" style="vertical-align:middle;"></i></p>
+
+                                                </div>
                                             </div>
-                                            <div>
-                                                <p style="color: #a9a9a9; margin-bottom: 2px;">bhupendra.m@jetwaystravels.com</p>
-                                                <p style="color: #a9a9a9; margin-bottom: 2px;">[JET001] Jetways Travels</p>
-                                                <p style="color:#a9a9a9;margin-bottom: 2px; "> Balance : <i class="fa fa-inr" aria-hidden="true" style="vertical-align:middle;"></i></p>
+                                        </li>
+                                        <li><strong style="font-weight:600;"><i class="fa fa-address-card" aria-hidden="true"></i>Account</strong></li>
+                                        <li class="waves-effect waves-light">
+                                            <a href="#!">
+                                                <i class="fa fa-television" aria-hidden="true"></i> Emulate
+                                            </a>
+                                        </li>
+                                        <li class="waves-effect waves-light">
+                                            <a href="user-profile.html">
+                                                <i class="fa fa-list" aria-hidden="true"></i> Checklist
+                                            </a>
+                                        </li>
+                                        <li class="waves-effect waves-light">
+                                            <a href="email-inbox.html">
+                                                <i class="ti-user"></i> My Profile
+                                            </a>
+                                        </li>
+                                        <li class="waves-effect waves-light">
+                                            <a href="auth-lock-screen.html">
+                                                <i class="ti-lock"></i> Change Password
+                                            </a>
+                                        </li>
+                                        <li><a href="#"><i class="ti-settings"></i>Settings</a></li>
+                                        <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"></i>User Management</a></li>
+                                        <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i>Contact Us</a></li>
+                                        <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>Feedbacks</a></li>
+                                        <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><strong>User Manual</strong></a></li>
 
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li><strong style="font-weight:600;"><i class="fa fa-address-card" aria-hidden="true"></i>Account</strong></li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="fa fa-television" aria-hidden="true"></i> Emulate
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="user-profile.html">
-                                            <i class="fa fa-list" aria-hidden="true"></i> Checklist
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="email-inbox.html">
-                                            <i class="ti-user"></i> My Profile
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="auth-lock-screen.html">
-                                            <i class="ti-lock"></i> Change Password
-                                        </a>
-                                    </li>
-                                    <li><a href="#"><i class="ti-settings"></i>Settings</a></li>
-                                    <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"></i>User Management</a></li>
-                                    <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i>Contact Us</a></li>
-                                    <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>Feedbacks</a></li>
-                                    <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><strong>User Manual</strong></a></li>
-
-                                    <li class="waves-effect waves-light">
-                                        <a href="auth-normal-sign-in.html">
-                                            <strong style="font-weight:600;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</strong>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                                        <li class="waves-effect waves-light">
+                                            <a href="auth-normal-sign-in.html">
+                                                <strong style="font-weight:600;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</strong>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
-            <div class="pcoded-main-container">
-                <div class="pcoded-wrapper">
-                    <nav class="pcoded-navbar">
-                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
-                        <div class="pcoded-inner-navbar main-menu">
-                            <div class="">
-                                <div class="main-menu-header">
-                                    <a href="customers.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
-                                    <img class="img-80" title="logo" src="../assets/images/customer-logo/default-logo.png" alt="logo">
-                                    <h6 style="font-weight:700;">
-                                        Benteler Automotive Inida Pvt
-                                        <a href="organization-structure.html" style="color: #0e93d8; display:block; margin-top:12px;">View Org. Structure </a>
-                                    </h6>
+                </nav>
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav class="pcoded-navbar">
+                            <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                            <div class="pcoded-inner-navbar main-menu">
+                                <div class="">
+                                    <div class="main-menu-header">
+                                        <a href="customers.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
+                                        <img class="img-80" title="logo" src="../assets/images/customer-logo/default-logo.png" alt="logo">
+                                        <h6 style="font-weight:700;">
+                                            Benteler Automotive Inida Pvt
+                                            <a href="organization-structure.html" style="color: #0e93d8; display:block; margin-top:12px;">View Org. Structure </a>
+                                        </h6>
 
+                                    </div>
+                                </div>
+                              @*<ul class="pcoded-item pcoded-left-item">
+                                    @foreach (var menuHead in Model)
+                                    {
+                                        if (menuHead.IsActive)
+                                        {
+                                            var menuId = $"menu-{menuHead.MenuId}";
+                                            <li class="pcoded-hasmenu">
+                                                <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>BC</b></span>
+                                                    <span class="pcoded-mtext">@menuHead.Title.Trim()</span>
+                                                    <span class="pcoded-mcaret"></span>
+                                                </a>
+                                                @if (menuHead.SubMenus != null && menuHead.SubMenus.Any(sm => sm.IsActive))
+                                                {
+                                                    <ul class="pcoded-submenu">
+                                                        @foreach (var subMenu in menuHead.SubMenus.Where(sm => sm.IsActive))
+                                                        {
+                                                            <li class="">
+                                                                <a asp-controller="@subMenu.Url" asp-action="@subMenu.Action" class="waves-effect waves-dark">
+                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                                    <span class="pcoded-mtext">@subMenu.Name</span>
+                                                                    <span class="pcoded-mcaret"></span>
+                                                                </a>
+                                                            </li>
+                                                        }
+
+                                                    </ul>
+                                                }
+                                            </li>
+                                        }
+                                    }
+                                </ul> *@
+                                <div>
+                                    @await Component.InvokeAsync("SidebarMenu")
                                 </div>
                             </div>
-                            <ul class="pcoded-item pcoded-left-item">
-                           @foreach (var menuHead in Model)
-                              {
-                                 if (menuHead.IsActive)
-                                   {
-                                   var menuId = $"menu-{menuHead.MenuId}";
-                            <li class="pcoded-hasmenu">
-                                <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>BC</b></span>
-                                    <span class="pcoded-mtext">@menuHead.Title.Trim()</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                                 @if (menuHead.SubMenus != null && menuHead.SubMenus.Any(sm => sm.IsActive))
-                                       {
-                                <ul class="pcoded-submenu">
-                                    @foreach (var subMenu in menuHead.SubMenus.Where(sm => sm.IsActive))
-                                                                            {
-                                    <li class="">
-                                        <a asp-controller="@subMenu.Url" asp-action="@subMenu.Action" class="waves-effect waves-dark">
-                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                            <span class="pcoded-mtext">@subMenu.Name</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                     }
-           
-                                </ul>
-                                }
-                            </li>
-                               }
-                            }
-                        </ul>
-
-                        </div>
-                    </nav>
-
-
-                    <div class="pcoded-content">
-                        <main role="main" class="pb-3">
-                            @RenderBody()
-                        </main>
+                        </nav>
                     </div>
                 </div>
             </div>
-            <!-- Main-body end -->
         </div>
-    </div>
+    </header>
+
+    <div class="pcoded-content">
+    <main role="main" class="pb-3">
+    @RenderBody()
+  </main>
+ </div>
+           
     <!-- Required Jquery -->
     <script type="text/javascript" src="~/assets/js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="~/assets/js/jquery-ui/jquery-ui.min.js"></script>
@@ -209,16 +212,20 @@
     <script src="~/assets/pages/waves/js/waves.min.js"></script>
     <!-- jquery slimscroll js -->
     <script type="text/javascript" src="~/assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
-
     <!-- slimscroll js -->
     <script src="~/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-
     <!-- menu js -->
     <script src="~/assets/js/pcoded.min.js"></script>
     <script src="~/assets/js/vertical/vertical-layout.min.js"></script>
     <script type="text/javascript" src="~/assets/js/script.js"></script>
     <!-- select with search js Start -->
     <script type="text/javascript" src="~/assets/js/select2.min.js"></script>
+    <!-- multiple selection Jquery -->
+    <script type="text/javascript" src="~/assets/js/jquery.multiselect.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
     <script>
         $(function () {
             $(".select").select2();
@@ -227,12 +234,17 @@
     <!-- select with search js End -->
     <!-- datepicker start -->
     <script>
-        $(function () {
-            $(".date-main").datepicker({
-                changeMonth: true,
-                changeYear: true
-            });
-        });
+        // $(function () {
+        //     $(".date-main").datepicker({
+        //         changeMonth: true,
+        //         changeYear: true
+        //     });
+        // });
+      
+    flatpickr(".date-main", {
+        dateFormat: "Y-m-d",
+        allowInput: true
+    });
     </script>
     <!-- datepicker End -->
 
@@ -253,5 +265,25 @@
             $(this).parents('.DomainsEmail').remove();
         });
     </script>
+
+    <!-- multiple selection Jquery start -->
+    <script>
+    $('.langOpt').each(function () {
+    var placeholderText = $(this).data('placeholder') || 'Select option';
+    $(this).multiselect({
+        placeholder: placeholderText,
+    });
+    });
+    </script>
+    
+ <script>
+        setTimeout(function () {
+          $(".theme-loader").fadeOut(400);
+          setTimeout(function () {
+            $(".page-wrapper").addClass("loaded");
+          }, 400);
+        }, 400);
+    </script>
+
 </body>
 </html>
