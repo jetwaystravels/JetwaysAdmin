@@ -27,13 +27,26 @@ namespace JetwaysAdmin.UI.ViewModel
         public bool IsActive { get; set; }
         public List<MenuItemdata> SubMenus { get; set; }  
         public List<IATAGroupView> IATAGruopName { get; set; }
-
-       
+        public List<AddUser> usermanage { get; set; }
+        public List<AddSupplier> getsupplier { get; set; }
+        public List<CustomersEmployee> customersemployee { get; set; }
+        public List<EmployeeFrequentFlyer> flyerList { get; set; }
+        public List<FrequentFlyerDisplay> FlyerDisplayList { get; set; }
 
     }
 
- 
 
+    public class FrequentFlyerDisplay
+    {
+        public int FrequentFlyerID { get; set; }
+        public string EmployeeID { get; set; }
+
+        public int UserID { get; set; }
+        public string EmployeeName { get; set; }
+        public string SupplierName { get; set; }
+        public string SupplierCode { get; set; }
+        public string FrequentFlyerNumber { get; set; }
+    }
 
 
 

@@ -10,5 +10,7 @@ namespace JetwaysAdmin.Repositories.Interface
     public interface IAddUser<T> where T : class
     {
         Task AddUser(AddUser addUser);
+        Task<IEnumerable<AddUser>> GetManageUser();
+
     }
 }

@@ -35,6 +35,14 @@ namespace JetwaysAdmin.Repositories
 
         public DbSet<HierarchyLegalEntity> hierarchyLegalEntity { get; set; }
 
+        public DbSet<AddSupplier> tb_SuppliersDetail { get; set; }
+        public DbSet<CustomersEmployee> tb_CustomersEmployee { get; set; }
+        public DbSet<EmployeeFrequentFlyer> tb_EmployeeFrequentFlyers { get; set; }
+       
+
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomerDetails>().HasNoKey(); // No primary key because it's a model

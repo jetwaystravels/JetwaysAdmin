@@ -19,7 +19,7 @@ namespace JetwaysAdmin.UI.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                var json = Newtonsoft.Json.JsonConvert.SerializeObject(customermanagestaff);
+                var json = JsonConvert.SerializeObject(customermanagestaff);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.ManageStaff, customermanagestaff);
                 if (response.IsSuccessStatusCode)

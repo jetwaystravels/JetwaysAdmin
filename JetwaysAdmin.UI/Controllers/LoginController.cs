@@ -64,24 +64,56 @@ namespace JetwaysAdmin.UI.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                var DashboardResponse = await client.GetAsync(AppUrlConstant.Dashboard);
-                if (DashboardResponse.IsSuccessStatusCode)
-                {
-                    var result = await DashboardResponse.Content.ReadAsStringAsync();
+                var dashboardResponse = await client.GetAsync(AppUrlConstant.Dashboard);
+                var supplierResponse = await client.GetAsync(AppUrlConstant.GetSupplier);
+                var GetIATAGroupResponse = await client.GetAsync(AppUrlConstant.GetIATAGroup);
 
-                    // Instead of direct deserialization, try parsing integer
+                if (dashboardResponse.IsSuccessStatusCode)
+                {
+                    var result = await dashboardResponse.Content.ReadAsStringAsync();
+
                     if (int.TryParse(result, out int customerCount))
                     {
-                        dashboard = new Dashboard
-                        {
-                            CustomerCount = customerCount
-                        };
+                        dashboard.CustomerCount = customerCount;
                     }
                     else
                     {
-                        // Optionally, you can throw an error or handle this
+                        
                     }
                 }
+
+                if (supplierResponse.IsSuccessStatusCode)
+                {
+                    var supplierResult = await supplierResponse.Content.ReadAsStringAsync();
+
+                    try
+                    {
+                        var suppliers = JsonConvert.DeserializeObject<List<AddSupplier>>(supplierResult);
+                        dashboard.SupplierCount = suppliers?.Count ?? 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        dashboard.SupplierCount = 0;
+                    }
+                }
+
+                if (GetIATAGroupResponse.IsSuccessStatusCode)
+                {
+                    var GetIATAGroupResult = await GetIATAGroupResponse.Content.ReadAsStringAsync();
+
+                    try
+                    {
+                        var GetIATAgroup = JsonConvert.DeserializeObject<List<AddSupplier>>(GetIATAGroupResult);
+                        dashboard.IATAGroupsCount = GetIATAgroup?.Count ?? 0;
+                    }
+                    catch (Exception ex)
+                    {
+
+                        dashboard.IATAGroupsCount = 0;
+                    }
+                }
+
             }
 
             return View(dashboard);

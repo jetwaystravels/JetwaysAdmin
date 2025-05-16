@@ -1,0 +1,209 @@
+﻿@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+<main id="main" class="main">
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">User Groups</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">
+                                        User Management
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    User Groups
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary data-search" style="width: 280px; margin-bottom: 0;">
+                                                <input id="search-input" type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div>
+                                            <a href="addnew-group.html"><button class="btn sml-btn-danger">+ Add New</button></a>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="data-table" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th><button class="srt-btn" type="button" aria-label="group-name">Group Name </button></th>
+                                                    <th><button class="srt-btn" type="button" aria-label="group-description">Group Description</button></th>
+                                                    <th><button class="srt-btn" type="button" aria-label="group-email-id">Group Email ID</button></th>
+                                                    <th><button class="srt-btn" type="button" aria-label="users-in-group">Users in Group</button></th>
+                                                    <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                    <th><button class="srt-btn" type="button" aria-label="default-user-group">Default User Group</button></th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr style="cursor:pointer;">
+                                                    <td onclick="location.href='';"> Mumbai Consultant Group </td>
+                                                    <td onclick="location.href='';"></td>
+                                                    <td onclick="location.href='';">sudhir.kurlekar@jetwaystravels.com </td>
+                                                    <td onclick="location.href='';">3</td>
+                                                    <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label></td>
+                                                    <td>
+                                                        <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
+                                                            <input type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                            <a class="dropdown-item" href="#">Disable</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr style="cursor:pointer;">
+                                                    <td onclick="location.href='';"> Hotels Group </td>
+                                                    <td onclick="location.href='';">hotel</td>
+                                                    <td onclick="location.href='';"> hotels.portal@jetwaystravels.com </td>
+                                                    <td onclick="location.href='';">7</td>
+                                                    <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label></td>
+                                                    <td>
+                                                        <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
+                                                            <input type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                            <a class="dropdown-item" href="#">Disable</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr style="cursor:pointer;">
+                                                    <td onclick="location.href='';">Pune Consultant Group</td>
+                                                    <td onclick="location.href='';"></td>
+                                                    <td onclick="location.href='';">pune@jetwaystravels.com</td>
+                                                    <td onclick="location.href='';">8</td>
+                                                    <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label></td>
+                                                    <td>
+                                                        <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
+                                                            <input type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                            <a class="dropdown-item" href="#">Disable</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr style="cursor:pointer;">
+                                                    <td onclick="location.href='';"> Delhi Consultant Group </td>
+                                                    <td onclick="location.href='';"></td>
+                                                    <td onclick="location.href='';"> Shalini@jetwaystravels.com </td>
+                                                    <td onclick="location.href='';">25</td>
+                                                    <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label></td>
+                                                    <td>
+                                                        <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
+                                                            <input type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                            <a class="dropdown-item" href="#">Disable</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr style="cursor:pointer;">
+                                                    <td onclick="location.href='';"> Mumbai Consultant Group </td>
+                                                    <td onclick="location.href='';"></td>
+                                                    <td onclick="location.href='';">sudhir.kurlekar@jetwaystravels.com </td>
+                                                    <td onclick="location.href='';">3</td>
+                                                    <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label></td>
+                                                    <td>
+                                                        <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
+                                                            <input type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                            <a class="dropdown-item" href="#">Disable</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between pagination-section">
+                                <span class="pagination-info">
+                                    Showing 1-4 of 4
+                                </span>
+                                <div class="float-right pagination">
+                                    <span class="m-t-5 m-r-5">Items per page:</span>
+                                    <select class="form-select form-select-sm">
+                                        <option>5</option>
+                                        <option>10</option>
+                                        <option selected="">25</option>
+                                        <option>100</option>
+                                    </select>
+                                    <ul class="pagination">
+                                        <li class="page-item page-pre"><a class="page-link" aria-label="previous page" href="javascript:void(0)">‹</a></li>
+                                        <li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">0</a></li>
+                                        <li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)">›</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+        </div>
+    </div>
+</main>

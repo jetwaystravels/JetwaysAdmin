@@ -1,0 +1,142 @@
+﻿@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">User Invitations</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">
+                                        User Management
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Manage Users
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary data-search" style="width: 280px; margin-bottom: 0;">
+                                                <input id="search-input" type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+
+                                        <div>
+                                            <button class="btn sml-btn-danger" data-toggle="modal" data-target="#sendInvite">+ Send New Invite</button>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active table-border-style" id="flights1" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <table id="data-table" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><button class="srt-btn" type="button" aria-label="legal-entity">Legal Entity</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="users-email-id ">Users Email Id </button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-center" colspan="3">No Data Found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                            </div>                           
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+            <div id="styleSelector"> </div>
+        </div>
+     </div>
+    <!-- Start modal start -->
+    <div class="modal fade" id="sendInvite" tabindex="-1" role="dialog" aria-labelledby="sendInviteTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content" style="padding: 10px 20px 0 ">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="sendInviteTitle">Send New Invite - User Registration</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-material form-row">
+                        <div class="form-group form-primary col-md-6">
+                            <select class="select">
+                                <option value="">Jetways Travels</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group form-primary col-md-12">
+                            <input type="text" name="Name on card" class="form-control" required>
+                            <span class="form-bar"></span>
+                            <label class="float-label">Business Email ID<span>*</span></label>
+                        </div>
+                        <p><i>Enter multiple Email ID's in comma separated to send invite to more new users</i></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary disabled" data-dismiss="modal" disabled>Send</button>
+                    <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start modal end -->
+</main>
+
+<footer>
+    <script>
+        $(function () {
+            $(".select").select2();
+        });
+    </script>
+</footer>

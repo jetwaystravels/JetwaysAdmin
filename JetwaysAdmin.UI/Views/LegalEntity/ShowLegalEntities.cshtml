@@ -68,23 +68,29 @@
                                                 <label class="float-label">Legal Entity Name<span>*</span></label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="LegalEntityCode" class="form-control">
+                                          
+                                            <input type="text" name="LegalEntityCode" value="" class="form-control">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Legal Entity Code</label>
                                             </div>
+                                        @{
+                                            var CodeLegal = TempData["LegalEntityCode"] as string;
+                                        }
+                                        <input type="hidden" name="ParentLegalEntityCode" value="@(CodeLegal ?? "")" class="form-control">
+
                                             <div class="form-group form-primary col-md-3">
                                             <select name="AssignIATAGroup" class="form-control fill">
                                                  <option value="opt1">Assign IATA Group</option>
                                                 @foreach (var group in Model.IATAGruopName)
                                                 {
-                                                    <option value="@group.GroupID">@group.GroupName</option>
+                                                    <option value="@group.GroupName">@group.GroupName</option>
                                                 }
                                                 </select>
                                                 <span class="form-bar"></span>                                            
                                                 <label class="float-label">Assign IATA Group</label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="CorporateAccountsCode" class="form-control">
+                                            <input type="text" name="CorporateAccountsCode"  class="form-control">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Corporate Accounts Code</label>
                                             </div>

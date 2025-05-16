@@ -1,4 +1,4 @@
-﻿@model List<JetwaysAdmin.Entity.LegalEntity>
+﻿@model List<JetwaysAdmin.UI.ViewModel.HierarchyLegalEntityView>
 
 @{
     Layout = "~/Views/Shared/Admin.cshtml";
@@ -49,56 +49,73 @@
                                                 </tr>
                                             </thead>
                                         </table>
-                                   @foreach(var entity in Model)
-                                     {
-                                        <div class="d-flex justify-content-between organization-structure-ac">
+                                        @foreach (var parent in Model)
+                                        {
+                                            <div class="d-flex justify-content-between organization-structure-ac">
+                                                <!-- Parent Row -->
                                                 <div class="d-flex first">
-                                                    <div style="width:110px;"> <a href="#" class="toggle-btn"><i class="fa fa-chevron-right m-r-10" aria-hidden="true"></i></a><img class="img-70 m-r-5" src="../assets/images/default-logo-smal.png" alt="logo"></div>
-                                                        <div type="submit" class="entity-link" style="cursor:pointer;">
-                                                            
-                                                             <form method="post" action="/LegalEntity/UpdateLegalEntities">
-                                                             <button class="entity-link"><span class="m-r-5">[@entity.LegalEntityCode]</span>@entity.LegalEntityName</button>
-                                                             <input type="hidden" id="entityId" name="Id" value="@entity.Id" />
-                                                             <input type="hidden" id="entityCode" name="Code" value="@entity.LegalEntityCode"  />
-                                                             <input type="hidden" id="entityName" name="Name" value="@entity.LegalEntityName"  />
-                                                             </form>
-                                                             
-                                                            <small class="d-block">0<span class="sub-text">Subs</span><a asp-controller="LegalEntity" asp-action="ShowLegalEntities"><i class="fa fa-plus-circle sub-icon" aria-hidden="true"></i></a></small>
+                                                    <div style="width:110px;">
+                                                        @if (parent.SubEntities.Any())
+                                                        {
+                                                            <a href="#" class="toggle-btn" data-toggle="collapse" data-target="#collapse-@parent.LegalEntityCode">
+                                                                <i class="fa fa-chevron-right m-r-10"></i>
+                                                            </a>
+                                                        }
+                                                        <img src="../assets/images/default-logo-smal.png" class="img-70 m-r-5" />
+                                                    </div>
+                                                    <div>
+                                                        <form method="post" action="/LegalEntity/UpdateLegalEntities">
+                                                            <button class="entity-link"><span class="m-r-5">[@parent.LegalEntityCode]</span>@parent.LegalEntityName</button>
+                                                            <input type="hidden" name="Id" value="@parent.Id" />
+                                                            <input type="hidden" name="Code" value="@parent.LegalEntityCode" />
+                                                            <input type="hidden" name="Name" value="@parent.LegalEntityName" />
+                                                        </form>
+                                                        <form class="d-block" method="post" action="/LegalEntity/ShowLegalEntities">
+                                                            <input type="hidden" name="LegalEntityCode" value="@parent.LegalEntityCode" />
+                                                            0<span class="sub-text">Subs</span>
+                                                            <button type="submit" class="btn btn-link p-0 add-sub-entity" style="border: none; background: none;">
+                                                                <i class="fa fa-plus-circle sub-icon" aria-hidden="true"></i>
+                                                            </button>
+                                                        </form>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="second">@parent.SubEntities.Count</div>
+                                                <div class="third">
+                                                    <label class="lavel-text" style="color:red">
+                                                        <i class="fa fa-circle m-r-10" style="font-size: 9px;"></i>Deactivated
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <!-- Child Rows -->
+                                            @foreach (var child in parent.SubEntities)
+                                            {
+                                                <div class="justify-content-between organization-structure-ac sub-branch collapse" id="collapse-@parent.LegalEntityCode" style="display: none;">
+                                                    <div class="d-flex first">
+                                                        <button disabled class="bdr"></button>
+                                                        <div><img class="img-70 m-r-5" src="../assets/images/default-logo-smal.png" /></div>
+                                                        <div>
+                                                            <span class="m-r-5">[@child.LegalEntityCode]</span>@child.LegalEntityName
+                                                            <form class="d-block" method="post" action="/LegalEntity/ShowLegalEntities">
+                                                                <input type="hidden" name="LegalEntityCode" value="@child.LegalEntityCode" />
+                                                                0<span class="sub-text">Subs</span>
+                                                                <button type="submit" class="btn btn-link p-0 add-sub-entity" style="border: none; background: none;">
+                                                                    <i class="fa fa-plus-circle sub-icon" aria-hidden="true"></i>
+                                                                </button>
+                                                            </form>
                                                         </div>
-                                                      
+                                                    </div>
+                                                    <div class="second">0</div>
+                                                    <div class="third">
+                                                        <label class="lavel-text" style="color:#00b809">
+                                                            <i class="fa fa-circle m-r-10" style="font-size: 9px;"></i>Active
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            
-                                            <div class="second">0</div>
-                                            <div class="third">
-                                                <label class="lavel-text" style="color:red"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Deactivated </label><span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
-                                                <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                                    <a class="dropdown-item" href="#">Enable</a>
-                                                    <a class="dropdown-item" href="#">Copy Settings</a>
-                                                    <a class="dropdown-item" href="#">Deactivate</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Multiple Sub-Branch Sections (Initially Hidden) -->
-                                        <div class="justify-content-between organization-structure-ac sub-branch">
-                                            <div class="d-flex first">
-                                                <button disabled="" class="bdr"></button>
-                                                <div><img class="img-70 m-r-5" src="../assets/images/default-logo-smal.png" alt="logo"></div>
-                                                <div onclick="location.href='company-information.html';" style="cursor:pointer;">
-                                                    <span class="m-r-5">[@entity.ParentLegalEntityCode]</span>@entity.LegalEntityName
-                                                    <a href="add-legal-entity.html"><small class="d-block">0<span class="sub-text">Subs</span><i class="fa fa-plus-circle sub-icon" aria-hidden="true"></i></small></a>
-                                                </div>
-                                            </div>
-                                            <div class="second">0</div>
-                                            <div class="third">
-                                                <label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label><span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
-                                                <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                                    <a class="dropdown-item" href="#">Enable</a>
-                                                    <a class="dropdown-item" href="#">Copy Settings</a>
-                                                    <a class="dropdown-item" href="#">Deactivate</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                     }
+                                            }
+                                        }
+
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +150,27 @@
         });
 
 
+        // $(document).ready(function () {
+        //     $('.add-sub-entity').on('click', function (e) {
+        //         e.preventDefault();
 
+        //         var legalEntityCode = $(this).data('code');
+
+        //         $.ajax({
+        //             url: '/LegalEntity/ShowLegalEntities', 
+        //             type: 'POST',
+        //             data: { LegalEntityCode: legalEntityCode },
+        //             success: function (response) {
+        //                 console.log("Success:", response);
+        //                 window.location.href = '/LegalEntity/ShowLegalEntities';  
+        //             },
+        //             error: function (xhr, status, error) {
+        //                 console.error("AJAX Error:", error);
+        //                 alert("Something went wrong. Please try again.");
+        //             }
+        //         });
+        //     });
+        // });
 
         // $(document).ready(function () {
         //     $(".entity-link").click(function (e) {

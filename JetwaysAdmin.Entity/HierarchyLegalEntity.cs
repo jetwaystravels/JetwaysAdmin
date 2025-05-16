@@ -12,5 +12,9 @@ namespace JetwaysAdmin.Entity
         public string? ParentLegalEntityCode { get; set; }
         public int? Level { get; set; }
 
+        public int Id { get; set; }
+
+        public string LegalEntityName {get; set; }
+
     }
 }

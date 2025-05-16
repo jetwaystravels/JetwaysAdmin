@@ -30,12 +30,32 @@
         public static string AddAccountDetails = BaseURL + "api/AccountDetailsAPI/AddAccountDetails";
 
         public static string AddNewUser = BaseURL + "api/AddUserAPI/AddUser";
+        public static string Manageuser = BaseURL + "api/AddUserAPI/GetManageUser";
 
         public static string AddAccountBalance = BaseURL + "api/AccountBalanceAPI/AccountBalance";
 
         public static string ManageStaff = BaseURL + "api/ManageStaffAPI/ManageStaff";
 
         public static string Dashboard = BaseURL + "api/DashboardAPI/Dashboard";
+
+        public static string LegalHeirachy = BaseURL + "api/Customer/Gethierarchicallegal";
+
+        public static string AddSupplier = BaseURL + "api/SupplierAPI/AddSupplier";
+        public static string GetSupplier = BaseURL + "api/SupplierAPI/GetSupplier";
+
+        public static string GetSupplierID = BaseURL + "api/SupplierAPI";
+
+        public static string EditSupplierID = BaseURL + "api/SupplierAPI";
+
+        public static string GetCustomerEmployee = BaseURL + "api/CustomersEmployeeAPI/GetCustomerEmployee";
+
+        public static string AddFrequentFlyer = BaseURL + "api/FrequentFlyerAPI/AddFrequentFlyer";
+
+        public static string GetFrequentFlyer = BaseURL + "api/FrequentFlyerAPI/GetFrequentFlyer";
+
+        public static string UpdateFrequentFlyer = BaseURL + "api/FrequentFlyerAPI";
+
+      
 
         #endregion
 

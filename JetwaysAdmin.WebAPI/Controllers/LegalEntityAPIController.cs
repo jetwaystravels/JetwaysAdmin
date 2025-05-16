@@ -16,11 +16,6 @@ namespace JetwaysAdmin.WebAPI.Controllers
             this._legalEntity = legalEntity;
         }
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
 
         [HttpGet]
         [Route("GetAllLegalEntity")]

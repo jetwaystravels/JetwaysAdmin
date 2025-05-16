@@ -79,6 +79,85 @@ namespace JetwaysAdmin.Repositories.Migrations
                     b.ToTable("tb_CustomersAccountDetail");
                 });
 
+            modelBuilder.Entity("JetwaysAdmin.Entity.AddSupplier", b =>
+                {
+                    b.Property<int>("SupplierId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierId"), 1L, 1);
+
+                    b.Property<string>("AddressLine1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AddressLine2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("AppStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CarrierType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Currency")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Domain")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FlightCode")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Logo")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PinCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("SendAmendmentNotifications")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SupplierCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SupplierEmails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SupplierName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SupplierType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SupplierId");
+
+                    b.ToTable("tb_SuppliersDetail");
+                });
+
             modelBuilder.Entity("JetwaysAdmin.Entity.AddUser", b =>
                 {
                     b.Property<int>("UserId")
@@ -86,6 +165,9 @@ namespace JetwaysAdmin.Repositories.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
+
+                    b.Property<bool>("AppStatus")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("ApprovalRequiredForBooking")
                         .HasColumnType("bit");
@@ -104,7 +186,7 @@ namespace JetwaysAdmin.Repositories.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EmailId")
+                    b.Property<string>("EmplyId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -193,11 +275,11 @@ namespace JetwaysAdmin.Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EmployeeID")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FrequentFlyerNumbers")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -439,14 +521,13 @@ namespace JetwaysAdmin.Repositories.Migrations
             modelBuilder.Entity("JetwaysAdmin.Entity.CustomerDetails", b =>
                 {
                     b.Property<string>("EmployeeNames")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LegalEntityName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("PresentBalance")
+                    b.Property<decimal?>("PresentBalance")
                         .HasColumnType("decimal(18,2)");
 
                     b.ToTable("CustomerDetails");
@@ -494,6 +575,79 @@ namespace JetwaysAdmin.Repositories.Migrations
                     b.ToTable("tb_CustomerManageStaff");
                 });
 
+            modelBuilder.Entity("JetwaysAdmin.Entity.CustomersEmployee", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
+
+                    b.Property<int?>("AppStatus")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("ApprovalRequiredForBooking")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("ApprovalRequiredForDeviation")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("BusinessEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmployeeID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FrequentflyerNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GDSProfileType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LegalEntityCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MobileCountryCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MobileNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifyBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nationality")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SystemIntegrationRefNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WorkLocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("tb_CustomersEmployee");
+                });
+
             modelBuilder.Entity("JetwaysAdmin.Entity.DashboardSummary", b =>
                 {
                     b.Property<int>("Id")
@@ -531,17 +685,51 @@ namespace JetwaysAdmin.Repositories.Migrations
                     b.ToTable("DashboardSummary");
                 });
 
+            modelBuilder.Entity("JetwaysAdmin.Entity.EmployeeFrequentFlyer", b =>
+                {
+                    b.Property<int>("FrequentFlyerID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FrequentFlyerID"), 1L, 1);
+
+                    b.Property<int?>("AirlineID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EmployeeID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EnrollmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FrequentFlyerNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MembershipLevel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FrequentFlyerID");
+
+                    b.ToTable("tb_EmployeeFrequentFlyers");
+                });
+
             modelBuilder.Entity("JetwaysAdmin.Entity.HierarchyLegalEntity", b =>
                 {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.Property<string>("LegalEntityCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Level")
+                    b.Property<string>("LegalEntityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Level")
                         .HasColumnType("int");
 
                     b.Property<string>("ParentLegalEntityCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.ToTable("hierarchyLegalEntity");

@@ -15,7 +15,7 @@ namespace JetwaysAdmin.Entity
 
         public string? LegalEntityCode { get; set; }
 
-        public string? ParentLegalEntityCode { get; set; } = "EEEBP";
+        public string? ParentLegalEntityCode { get; set; }
 
         public string? AssignIATAGroup { get; set; }
 

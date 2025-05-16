@@ -21,12 +21,13 @@ namespace JetwaysAdmin.Entity
         public string Nationality { get; set; }
         public string WorkLocation { get; set; }
         public string BusinessEmail { get; set; }
-        public string EmailId { get; set; }
+        public string EmplyId { get; set; }
         public string SystemIntegrationRef { get; set; }
         public bool ApprovalRequiredForBooking { get; set; }
         public bool ApprovalRequiredForDeviation { get; set; }
         public bool GDSProfileType { get; set; }
         public bool ExistingCustomer { get; set; }
+        public bool AppStatus { get; set; } = true;
         public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

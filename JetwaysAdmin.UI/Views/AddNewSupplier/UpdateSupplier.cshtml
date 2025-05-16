@@ -1,0 +1,183 @@
+﻿@model JetwaysAdmin.Entity.AddSupplier
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    var Data = Model;
+}
+
+<main id="main" class="main">
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Supplier Info</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        @if (TempData["supplier_message"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                @TempData["supplier_message"]
+                            </div>
+                        }
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Setting</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Manage Suppliers</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Suppliers Information
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block">
+                                    <!--  suppeir info Start -->
+                                    <form class="form-material form-row" enctype="multipart/form-data" method="post" asp-controller="AddNewSupplier" asp-action="EditSupplier">
+                                        <input type="hidden" name="SupplierId"  value="@Model.SupplierId"class="form-control" >
+                                        <div class="form-group form-primary col-md-6">
+                                            <input type="text" name="SupplierName" value="@Model.SupplierName" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Supplier Name<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="SupplierCode" value="@Model.SupplierCode" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Supplier Code</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="FlightCode" value="@Model.FlightCode" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Choose Supplier Product(s)<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-6">
+                                            <input type="text" name="AddressLine1" value="@Model.AddressLine1" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Address Line 1</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-6">
+                                            <input type="text" name="AddressLine2" value="@Model.AddressLine2" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Address Line 2<span>*</span></label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="Country" class="form-control fill">
+                                                <option value="opt1">Country*</option>
+                                                <option value="opt2">Type 2</option>
+                                                <option value="opt3">Type 3</option>
+                                                <option value="opt4">Type 4</option>
+                                                <option value="opt5">Type 5</option>
+                                                <option value="opt6">Type 6</option>
+                                                <option value="opt7">Type 7</option>
+                                                <option value="opt8">Type 8</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="State" class="form-control fill">
+                                                <option value="opt1">State*</option>
+                                                <option value="opt2">Type 2</option>
+                                                <option value="opt3">Type 3</option>
+                                                <option value="opt4">Type 4</option>
+                                                <option value="opt5">Type 5</option>
+                                                <option value="opt6">Type 6</option>
+                                                <option value="opt7">Type 7</option>
+                                                <option value="opt8">Type 8</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="City" class="form-control fill">
+                                                <option value="opt1">City*</option>
+                                                <option value="opt2">Type 2</option>
+                                                <option value="opt3">Type 3</option>
+                                                <option value="opt4">Type 4</option>
+                                                <option value="opt5">Type 5</option>
+                                                <option value="opt6">Type 6</option>
+                                                <option value="opt7">Type 7</option>
+                                                <option value="opt8">Type 8</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="PinCode" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Pin Code</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="Username" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Username</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="Password" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Password</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="Domain" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Domain</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="SupplierEmails" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Supplier Emails</label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="Currency" class="form-control fill">
+                                                <option value="opt1">Currency</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="PhoneNumber" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Phone Number</label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3 m-t-15">
+                                            <strong style="font-weight:700;">Send Amendment Notifications?</strong>
+                                            <label class="switch m-l-5">
+                                                <input type="checkbox" name="SendAmendmentNotifications" value="true">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-5">
+                                            <input type="file" name="Logo" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <span style="font-size:11px;font-weight:700;">Upload logo allowed formats: .JPG / .PNG, Maximum file size: 1mb, Resolution 200px x 90px</span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-7 m-l-5">
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--  suppliers info end -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+        </div>
+    </div>
+</main>

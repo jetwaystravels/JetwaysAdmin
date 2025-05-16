@@ -1,0 +1,314 @@
+﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
+
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    var Data = Model;
+}
+<head>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+</head>
+<main id="main" class="main">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Frequent Flyer</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                            {
+                              <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+                            }
+                            @if (TempData["update_message"] != null)
+                            {
+                                <div class="alert alert-success">
+                                    @TempData["update_message"]
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">Settings</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Frequent Flyer
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                           <div class="page-body">
+                            <div class="card">
+                                <form asp-controller="FrequentFlyerMap" asp-action="AddFrequentFlyer" id="formsave" method="post">
+                                    <div class="card-block  dropdown-group">
+                                    <div class="form-material form-row">
+                                  <div class="form-group form-primary col-md-3">
+
+                                                <select name="EmployeeID" class="select" required>
+                                                 @foreach(var vny in Model.customersemployee){
+                                                  <option value="@vny.UserID">[@vny.EmployeeID] @vny.FirstName @vny.LastName</option>
+                                                 }
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Employee Name<span>*</span></label>
+                                        </div> 
+                                    
+                                        <div class="form-group form-primary col-md-3">
+                                                <select name="AirlineID" class="select" required>
+                                                @foreach (var vnay in Model.getsupplier)
+                                                {
+                                                 <option value="@vnay.SupplierId">@vnay.SupplierName</option>
+                                                }
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Supplier Name<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3 m-t-15">
+                                            <strong>Allow Frequent Flyer</strong>
+                                            <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
+                                                <input type="checkbox" name="AllowPersonalBooking" value="true" id="personalBooking">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3" id="branchSelect" style="display: none;">
+                                         <input type="text" name="FrequentFlyerNumber" id="frequentFlyerInput" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Frequent Flyer Number</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-primary col-md-12">
+                                        <button id="saveBtn" class="btn btn-primary waves-effect waves-light">Save</button>
+                                    </div>
+                                </div>
+                                </form>
+
+                               <div class="card-block  dropdown-group" id="formupdate">
+                                        <div class="form-material form-row">
+                                            <div class="form-group form-primary col-md-4">
+                                            <select id="updateEmployeeID" name="EmployeeID"  class="select" disabled>
+                                                @foreach (var emp in Model.customersemployee)
+                                                {
+                                                    <option value="@emp.UserID">@emp.EmployeeID - @emp.FirstName @emp.LastName</option>
+                                                }
+                                            </select>
+                                            </div>
+                                            <div class="form-group form-primary col-md-4">
+                                            <select id="updateSupplierID" name="AirlineID" class="select" disabled>
+                                                @foreach (var sup in Model.getsupplier)
+                                                {
+                                                    <option value="@sup.SupplierId">@sup.SupplierName</option>
+                                                }
+                                            </select>
+                                            </div>
+                                            <div class="form-group form-primary col-md-4">
+                                            <input type="text" id="updateFlyerNumber" name="FrequentFlyerNumber" class="form-control">
+                                            <input type="hidden" name="FrequentFlyerID" id="updateFrequentFlyerID" />
+                                                <span class="form-bar"></span>
+                                                <label class="float-label">Frequent Flyer Number</label>
+                                            </div>
+
+                                            <div class="form-group form-primary col-md-1">
+                                                <button id="updateBtn" class="btn btn-primary waves-effect waves-light">Update</button>
+                                            </div>
+                                            <div class="form-group form-primary col-md-1">
+                                                <button id="searchBtn" class="btn btn-primary waves-effect waves-light">Search</button>
+                                            </div>
+                                            <div class="form-group form-primary col-md-1">
+                                                <button id="restartBtn" class="btn btn-primary waves-effect waves-light">Restart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                              
+
+                               <!-------Tabel Start---------------->
+                                <div class="card-block tab-content">
+                                    <div class="tab-pane active table-border-style" id="" role="tabpanel">
+                                        <div class="table-responsive" id="flyerTableWrapper">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th><button class="srt-btn" type="button" aria-label="commercials-name">Employee ID</button></th>
+                                                        <th><button class="srt-btn" type="button" aria-label="commercials-name">Employee Name</button></th>
+                                                        <th><button class="srt-btn" type="button" aria-label="commercials-name">Supplier Name</button></th>
+                                                        <th><button class="srt-btn" type="button" aria-label="commercials-name">Frequent Flyer Number</button></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var flyer in Model.FlyerDisplayList)
+                                                    {
+                                                    <tr>
+                                                        <td>@flyer.EmployeeID</td>
+                                                        <td>@flyer.EmployeeName</td>
+                                                        <td>@flyer.SupplierName</td>
+                                                        <td>@flyer.FrequentFlyerNumber</td>
+                                                            <td>
+                                                                <a href="#" class="editform"
+                                                                   data-id="@flyer.FrequentFlyerID">
+                                                                    <i class="text-success lead fas fa-edit"></i>
+                                                                </a>
+                                                            </td>
+                                                    </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                               <!--------Tabel End-------------->
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+           </div>
+
+        </div>
+    </div>
+
+</main>
+<footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- jQuery and jQuery UI -->
+   
+<script>
+        $(document).ready(function () {
+            $('#personalBooking').on('change', function () {
+                if ($(this).is(':checked')) {
+                    $('#branchSelect').show();
+                } else {
+                    $('#branchSelect').hide();
+                }
+            });
+            $('#saveBtn').on('click', function (e) {
+                if ($('#branchSelect').is(':visible')) {
+                    const inputVal = $('#frequentFlyerInput').val().trim();
+                    if (inputVal === '') {
+                        alert('Please enter a Frequent Flyer Number.');
+                        e.preventDefault();
+                    }
+                }
+            });
+
+            //update start
+            $('#formupdate').hide();
+            $('.editform').on('click', function (e) {
+                e.preventDefault();
+                const flyerId = $(this).data('id');
+                $.ajax({
+                    url: '/FrequentFlyerMap/GetFrequentFlyerById',
+                    method: 'GET',
+                    data: { id: flyerId },
+                    success: function (data) {
+                        $('#updateEmployeeID').val(data.employeeID.toString()).trigger('change');
+                        $('#updateSupplierID').val(data.airlineID).trigger('change');
+                        $('#updateFlyerNumber').val(data.frequentFlyerNumber);
+                        $('#updateFrequentFlyerID').val(data.frequentFlyerID);
+                        $('#formupdate').show();
+                        $('#formsave').hide();
+                    },
+                    error: function () {
+                        alert('Unable to load frequent flyer data.');
+                    }
+                });
+                $("#updateFlyerNumber").focus();
+            });
+
+            $('#updateBtn').on('click', function (e) {
+                e.preventDefault();
+                const flyer = {
+                    FrequentFlyerID: parseInt($('#updateFrequentFlyerID').val()),
+                    EmployeeID: parseInt($('#updateEmployeeID').val()),
+                    AirlineID: parseInt($('#updateSupplierID').val()),
+                    FrequentFlyerNumber: $('#updateFlyerNumber').val()
+                };
+                $.ajax({
+                    url: '/FrequentFlyerMap/UpdateFrequentFlyer',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(flyer),
+                    success: function () {
+                        alert('Frequent Flyer updated successfully!');
+                        location.reload();
+                    },
+                    error: function () {
+                        alert('Update failed. Please try again.');
+                    }
+                });
+            });
+
+            //Restart Button
+            $('#restartBtn').on('click', function (e) {
+                e.preventDefault(); 
+                location.reload();  
+            });
+
+
+            $('#searchBtn').on('click', function (e) {
+                e.preventDefault();
+
+                const empId = $('#updateEmployeeID').val();
+
+                if (!empId) {
+                    alert("Please select an employee.");
+                    return;
+                }
+
+                $.ajax({
+                    url: '/FrequentFlyerMap/ShowFrequentFlyerMap',
+                    type: 'GET',
+                    data: { employeeId: empId },
+                    success: function (html) {
+                        // Replace the table HTML with what comes from the server
+                        const newDoc = $(html);
+                        const updatedTable = newDoc.find('table tbody').html();
+                        $('table tbody').html(updatedTable);
+                    },
+                    error: function () {
+                        alert('Search failed. Please try again.');
+                    }
+                });
+            });
+
+
+
+
+        });
+
+</script>
+</footer>
+

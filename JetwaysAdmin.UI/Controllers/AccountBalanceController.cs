@@ -12,18 +12,18 @@ namespace JetwaysAdmin.UI.Controllers
     {
         public async Task<IActionResult> ShowAccountBalance()
         {
-           
+
             return View();
 
         }
 
 
         [HttpPost]
-        public async  Task<IActionResult> AddAccountBalance([FromForm] CustomerAccountBalance accountbalance)
+        public async Task<IActionResult> AddAccountBalance([FromForm] CustomerAccountBalance accountbalance)
         {
             using (HttpClient client = new HttpClient())
             {
-                var json = Newtonsoft.Json.JsonConvert.SerializeObject(accountbalance);
+                var json = JsonConvert.SerializeObject(accountbalance);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddAccountBalance, accountbalance);
                 if (response.IsSuccessStatusCode)

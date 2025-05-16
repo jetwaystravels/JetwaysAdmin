@@ -1,0 +1,191 @@
+﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    var Data = Model;
+}
+<main id="main" class="main">
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Internal Users</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">
+                                        User Management
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Manage Users
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary data-search" style="width: 620px; margin-bottom: 0;">
+                                                <input id="search-input" type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                                <i class="fa fa-caret-down arrow toggle-arrow" aria-hidden="true" style="cursor:pointer;"></i>
+                                            </div>
+
+                                            <div class="hidden-div">
+                                                <div class="form-material form-row">
+                                                    <div class="form-group form-primary col-md-12">
+                                                        <select class="form-control langOpt" name="Legal Entity" multiple data-placeholder="Legal Entity">
+                                                            <option value="2">[JET001] Jetways Travels</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <input class="form-control date-main" type="text" placeholder="From Date">
+                                                        <span class="form-bar"></span>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <input class="form-control date-main" type="text" placeholder="To Date">
+                                                        <span class="form-bar"></span>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Status">
+                                                            <option value="2">Active</option>
+                                                            <option value="3">Disable</option>
+                                                            <option value="4">Pending</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Department">
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Designation">
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Cost Center">
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Band">
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Work location">
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 p-t-10">
+                                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Search</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div>
+                                            <a asp-controller="AddUser" asp-action="ShowAddUser" class="btn sml-btn-danger">+ Add New</a>
+                                            <div class="dropdown-primary dropdown open">
+                                                <button class="btn btn-primary sml-b dropdown-toggle" type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Bulk</button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                    <a class="dropdown-item waves-light waves-effect" href="#">Upload</a>
+                                                    <a class="dropdown-item waves-light waves-effect" href="#">Update</a>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown-primary dropdown open">
+                                                <button class="btn btn-primary sml-b dropdown-toggle" type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Export</button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                    <a class="dropdown-item waves-light waves-effect" href="#">User Profiles</a>
+                                                    <a class="dropdown-item waves-light waves-effect" href="#">User Approvers</a>
+                                                    <a class="dropdown-item waves-light waves-effect" href="#">User RMS</a>
+                                                    <a class="dropdown-item waves-light waves-effect" href="#">User Frequent Flyer</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active table-border-style" id="flights1" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <table id="data-table" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><button class="srt-btn" type="button" aria-label="entity-name ">Entity Name </button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="user-name">User Name</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="email-id">Email Id</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="employee-id">Employee Id</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="designation">Designation</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="approver-status">Approver Status</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            <th>&nbsp;</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        @foreach (var user in Model.usermanage){
+                                                        <tr style="cursor:pointer;">
+                                                            <td onclick="location.href='user-information.html';">@user.LegalEntityId</td>
+                                                                <td onclick="location.href='user-information.html';">@user.FirstName</td>
+                                                                <td onclick="location.href='user-information.html';">@user.BusinessEmail</td>
+                                                            <td onclick="location.href='user-information.html';">@user.EmplyId</td>
+                                                            <td onclick="location.href='user-information.html';"></td>
+                                                            <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Approved</label></td>
+                                                            <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label></td>
+                                                            <td>
+                                                                <span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                                <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                                    <a class="dropdown-item" href="#">Disable</a>
+                                                                    <a class="dropdown-item" href="#">Deactivate</a>
+                                                                    <a class="dropdown-item" href="#">Reset Password</a>
+                                                                    <a class="dropdown-item" href="#">Change Email</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+            <div id="styleSelector"> </div>
+        </div>
+   </div>
+
+</main>

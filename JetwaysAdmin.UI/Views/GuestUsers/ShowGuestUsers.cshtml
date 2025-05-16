@@ -1,0 +1,156 @@
+﻿@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Guest Users</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    Settings
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary data-search" style="width: 280px; margin-bottom: 0;">
+                                                <input id="search-input" type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div>
+                                            <button onclick="location.href='addnew-guest-users.html';" class="btn sml-btn-danger">+ Add New</button>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active table-border-style" id="flights1" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <table id="data-table" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><button class="srt-btn" type="button" aria-label="guest-name">Guest Name</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="dob">DOB</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="email-id">Email Id</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="mobile-number">Mobile Number</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="approver-status">Approver Status</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            <th>&nbsp;</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr style="cursor:pointer;">
+                                                            <td onclick="location.href='edit-guest-user.html';">Ravi sharma</td>
+                                                            <td onclick="location.href='edit-guest-user.html';"></td>
+                                                            <td onclick="location.href='edit-guest-user.html';">amit.kumar@jetwaystravels.com</td>
+                                                            <td onclick="location.href='edit-guest-user.html';"> 9818801867 </td>
+                                                            <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Approved</label></td>
+                                                            <td><label class="lavel-text" style="color:red"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Disabled</label></td>
+                                                            <td>
+                                                                <span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                                <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                                    <a class="dropdown-item" href="#">Active</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="cursor:pointer;">
+                                                            <td onclick="location.href='edit-guest-user.html';">Rahul Arora</td>
+                                                            <td onclick="location.href='edit-guest-user.html';"></td>
+                                                            <td onclick="location.href='edit-guest-user.html';">Rahul.qqqqqqqqqqqtest@gmail.com</td>
+                                                            <td onclick="location.href='edit-guest-user.html';">9911001100</td>
+                                                            <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Approved</label></td>
+                                                            <td><label class="lavel-text" style="color:red"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Disabled</label></td>
+                                                            <td>
+                                                                <span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                                <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                                    <a class="dropdown-item" href="#">Active</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="cursor:pointer;">
+                                                            <td onclick="location.href='edit-guest-user.html';">Test Mahesh</td>
+                                                            <td onclick="location.href='edit-guest-user.html';"></td>
+                                                            <td onclick="location.href='edit-guest-user.html';">testmahesh@jetwaystravels.com</td>
+                                                            <td onclick="location.href='edit-guest-user.html';"> 9818801867</td>
+                                                            <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Approved</label></td>
+                                                            <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label></td>
+                                                            <td>
+                                                                <span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                                <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                                    <a class="dropdown-item" href="#">Disable</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between pagination-section">
+                                <span class="pagination-info">
+                                    Showing 1-3 of 3
+                                </span>
+                                <div class="float-right pagination">
+                                    <span class="m-t-5 m-r-5">Items per page:</span>
+                                    <select class="form-select form-select-sm">
+                                        <option>5</option>
+                                        <option>10</option>
+                                        <option selected="">25</option>
+                                        <option>100</option>
+                                    </select>
+                                    <ul class="pagination">
+                                        <li class="page-item page-pre"><a class="page-link" aria-label="previous page" href="javascript:void(0)">‹</a></li>
+                                        <li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">0</a></li>
+                                        <li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)">›</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+            <div id="styleSelector"> </div>
+        </div>
+    </div>
+</main>

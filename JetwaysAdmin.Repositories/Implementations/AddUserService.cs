@@ -1,5 +1,6 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,12 @@ namespace JetwaysAdmin.Repositories.Implementations
           await _adduser.tb_AddNewUser.AddAsync(adduser);
           await _adduser.SaveChangesAsync();
         }
+
+        public  async Task<IEnumerable<AddUser>> GetManageUser()
+        {
+            return await _adduser.tb_AddNewUser.ToListAsync();
+        }
+
+       
     }
 }

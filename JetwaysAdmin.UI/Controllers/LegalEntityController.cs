@@ -13,11 +13,11 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class LegalEntityController : Controller
     {
-        public async Task<IActionResult> ShowLegalEntities()
+       
+        public async Task<IActionResult> ShowLegalEntities(string LegalEntityCode)
         {
-
+            TempData["LegalEntityCode"] = LegalEntityCode;
             List<IATAGroupView> iataGroups = new List<IATAGroupView>();
-
             using (HttpClient client = new HttpClient())
             {
                 var iataResponse = await client.GetAsync(AppUrlConstant.GetIATAGroup);
@@ -27,10 +27,9 @@ namespace JetwaysAdmin.UI.Controllers
                     iataGroups = JsonConvert.DeserializeObject<List<IATAGroupView>>(result);
                 }
             }
-
             var viewModel = new MenuHeaddata
             {
-                IATAGruopName = iataGroups
+                IATAGruopName = iataGroups,
             };
 
             return View(viewModel);
@@ -58,8 +57,8 @@ namespace JetwaysAdmin.UI.Controllers
 
 
 
-       
-        public async  Task<IActionResult> UpdateLegalEntities(int Id, string Code, string Name)
+
+        public async Task<IActionResult> UpdateLegalEntities(int Id, string Code, string Name)
         {
             LegalEntity entity = null;
             using (HttpClient client = new HttpClient())
@@ -77,17 +76,17 @@ namespace JetwaysAdmin.UI.Controllers
         }
 
 
-      
+
 
         [HttpPost]
         public async Task<IActionResult> EditLegalEntities(LegalEntity legalEntity)
         {
             using (HttpClient client = new HttpClient())
             {
-           
+
                 string Data = JsonConvert.SerializeObject(legalEntity);
                 StringContent content = new StringContent(Data, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PutAsync(AppUrlConstant.EditLegalEntityID + "/" +legalEntity.Id, content).Result;
+                HttpResponseMessage response = client.PutAsync(AppUrlConstant.EditLegalEntityID + "/" + legalEntity.Id, content).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     TempData["update_message"] = "Entities Update";

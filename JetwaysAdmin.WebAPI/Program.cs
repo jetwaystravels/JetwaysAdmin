@@ -35,6 +35,11 @@ builder.Services.AddScoped<IAddUser<AddUser>, AddUserService>();
 builder.Services.AddScoped<ICustomerAccountBalance<CustomerAccountBalance>, AccountBalanceService>();
 builder.Services.AddScoped<IManageStaff<CustomerManageStaff>, ManageStaffService>();
 builder.Services.AddScoped<IDashboard<DashboardSummary>, DashboardService>();
+builder.Services.AddScoped<IAddNewSupplier<AddSupplier>, AddNewSupplierService>();  
+builder.Services.AddScoped<ICustomersEmployee<CustomersEmployee>, CustomersEmployeeService>();  
+builder.Services.AddScoped<IFrequentFlyer<EmployeeFrequentFlyer>, FrequentFlyerService>();  
+
+
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
