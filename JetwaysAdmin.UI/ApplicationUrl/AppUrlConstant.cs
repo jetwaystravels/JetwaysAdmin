@@ -53,9 +53,13 @@
 
         public static string GetFrequentFlyer = BaseURL + "api/FrequentFlyerAPI/GetFrequentFlyer";
 
-        public static string UpdateFrequentFlyer = BaseURL + "api/FrequentFlyerAPI";
+        public static string UpdateFrequentFlyer = BaseURL + "api/FrequentFlyerAPI"; 
 
-      
+        public static string AddInternalusers = BaseURL + "api/InternalUsersAPI/AddInternalUsers";
+        public static string GetInternalusers = BaseURL + "api/InternalUsersAPI/GetInternalUsers";
+
+        public static string GetInternalusersID = BaseURL + "api/InternalUsersAPI";
+        
 
         #endregion
 

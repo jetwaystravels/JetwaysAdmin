@@ -17,7 +17,7 @@ namespace JetwaysAdmin.Entity
         public string MobileNumber { get; set; }
         public string BusinessEmail { get; set; }
 
-        public string FrequentFlyerNumbers { get; set; }
+        public string? FrequentFlyerNumbers { get; set; }
 
         public string LocationName { get; set; }
         public string GSTNumber { get; set; }

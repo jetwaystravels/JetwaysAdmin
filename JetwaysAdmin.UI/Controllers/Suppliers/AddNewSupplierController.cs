@@ -83,7 +83,6 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
 
                 string Data = JsonConvert.SerializeObject(supplier);
                 StringContent content = new StringContent(Data, Encoding.UTF8, "application/json");
-                //HttpResponseMessage response = client.PutAsync(AppUrlConstant.EditSupplierID + "/" + supplier.SupplierId, content).Result;
                 HttpResponseMessage response = await client.PutAsync(AppUrlConstant.EditSupplierID + "/" + supplier.SupplierId, content);
                 if (response.IsSuccessStatusCode)
                 {

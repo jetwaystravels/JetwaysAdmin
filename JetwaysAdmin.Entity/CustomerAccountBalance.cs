@@ -11,9 +11,10 @@ namespace JetwaysAdmin.Entity
     public class CustomerAccountBalance
     {
         public int Id { get; set; }
-        public bool? ManageAccountBalance { get; set; }
+        public string? LegalEntityCode { get; set; }
+         public bool? ManageAccountBalance { get; set; }
         public string AccountBalanceEntity { get; set; }
-        public string BalanceType { get; set; }
+        public string? BalanceType { get; set; }
         public int? OriginalLimit { get; set; }
         public DateTime? ExpiryDate { get; set; }
         public int? PresentBalance { get; set; }

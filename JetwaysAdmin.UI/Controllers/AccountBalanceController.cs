@@ -21,6 +21,7 @@ namespace JetwaysAdmin.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAccountBalance([FromForm] CustomerAccountBalance accountbalance)
         {
+           
             using (HttpClient client = new HttpClient())
             {
                 var json = JsonConvert.SerializeObject(accountbalance);

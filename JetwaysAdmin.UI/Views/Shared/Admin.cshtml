@@ -138,6 +138,10 @@
                         </div>
                     </div>
                 </nav>
+                @{
+                    TempData.Keep("LegalEntityName");
+                    TempData.Keep("LegalEntityCode");
+                }
                 <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
                         <nav class="pcoded-navbar">
@@ -148,44 +152,12 @@
                                         <a href="customers.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
                                         <img class="img-80" title="logo" src="../assets/images/customer-logo/default-logo.png" alt="logo">
                                         <h6 style="font-weight:700;">
-                                            Benteler Automotive Inida Pvt
+                                            @TempData["LegalEntityName"] -  @TempData["LegalEntityCode"]
                                             <a href="organization-structure.html" style="color: #0e93d8; display:block; margin-top:12px;">View Org. Structure </a>
                                         </h6>
 
                                     </div>
                                 </div>
-                              @*<ul class="pcoded-item pcoded-left-item">
-                                    @foreach (var menuHead in Model)
-                                    {
-                                        if (menuHead.IsActive)
-                                        {
-                                            var menuId = $"menu-{menuHead.MenuId}";
-                                            <li class="pcoded-hasmenu">
-                                                <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>BC</b></span>
-                                                    <span class="pcoded-mtext">@menuHead.Title.Trim()</span>
-                                                    <span class="pcoded-mcaret"></span>
-                                                </a>
-                                                @if (menuHead.SubMenus != null && menuHead.SubMenus.Any(sm => sm.IsActive))
-                                                {
-                                                    <ul class="pcoded-submenu">
-                                                        @foreach (var subMenu in menuHead.SubMenus.Where(sm => sm.IsActive))
-                                                        {
-                                                            <li class="">
-                                                                <a asp-controller="@subMenu.Url" asp-action="@subMenu.Action" class="waves-effect waves-dark">
-                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                                    <span class="pcoded-mtext">@subMenu.Name</span>
-                                                                    <span class="pcoded-mcaret"></span>
-                                                                </a>
-                                                            </li>
-                                                        }
-
-                                                    </ul>
-                                                }
-                                            </li>
-                                        }
-                                    }
-                                </ul> *@
                                 <div>
                                     @await Component.InvokeAsync("SidebarMenu")
                                 </div>

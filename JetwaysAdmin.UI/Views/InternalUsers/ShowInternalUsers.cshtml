@@ -1,0 +1,333 @@
+﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    var Data = Model;
+}
+<main id="main" class="main">
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title d-flex">
+                                <h5 class="m-b-10">Internal Users</h5>
+                                @if (TempData["InternalUserAdd"] != null)
+                                {
+                                    <div class="px-3 alert-success alert-success">
+                                        @TempData["InternalUserAdd"]
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">
+                                        User Management
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Internal Users
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block">
+                                    <form class="form-material form-row" id="addinternaluser" enctype="multipart/form-data" method="post" asp-controller="InternalUsers" asp-action="AddInternalUsers" style="display:none;">
+                                        <div class="form-group form-primary col-md-4">
+                                            <select class="form-control langOpt" name="LegalEntity">
+                                                <option value="JET001">[JET001] Jetways Travels</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Select Legal Entity<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-1">
+                                            <select name="Title" class="select">
+                                                <option value="MR">Mr</option>
+                                                <option value="MS">Ms</option>
+                                                <option value="MRS">Mrs</option>
+                                                <option value="MSTR">Mstr</option>
+                                                <option value="MISS">Miss</option>
+                                                <option value="DR">Dr (M)</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Title<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-2">
+                                            <input type="text" name="FirstName" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">First Name<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="LastName" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Last Name<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-4">
+                                            <input type="text" name="BusinessEmail" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Business Email ID<span>*</span></label>
+                                        </div>
+                                       @*  <div class="form-group form-primary col-md-1">
+                                            <select name="CountryCode" class="select">
+                                                <option value="+91">IN(+91)</option>
+                                                <option value="AF">AF (+93)</option>
+                                                <option value="AL">AL (+355)</option>
+                                                <option value="DZ">DZ (+213)</option>
+                                                <option value="AO">AO (+244)</option>
+                                                <option value="AR">AR (+54)</option>
+                                                <option value="AM">AM (+374)</option>
+                                                <option value="AW">AW (+297)</option>
+                                                <option value="AU">AU (+61)</option>
+                                                <option value="AZ">AZ (+994)</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Mobile Number</label>
+                                        </div> *@
+                                        <div class="form-group form-primary col-md-2">
+                                            <input type="number" name="MobileNumber" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label"></label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="Nationality" class="select">
+                                                <option value="INDIA">INDIA</option>
+
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Nationality<span>*</span></label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-2">
+                                            <select name="WorkLocation" class="select">
+                                                <option value="">No data found</option>
+                                                <option value="DEL">Delhi</option>
+                                                <option value="PNQ">Pune</option>
+                                                <option value="BOM">Mumbai</option>
+                                                <option value="GURG">Gurgaon</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Work Location<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="UserType" class="select">
+                                                <option value="">Select User Type</option>
+                                                <option value="I">Internal User</option>
+                                                <option value="G">Guest User</option>
+                                                <option value="E">Extenal User</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">User Type<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-4">
+                                            <input type="text" name="EmpId" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Employee ID</label>
+                                        </div>
+                                     
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="SystemIntegrationRef" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">System Integration Ref. Nos. (Optional)</label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-4 m-t-15">
+                                            Approval Required for Booking?
+                                            <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
+                                                <input type="checkbox" name="ApprovalRequiredBooking" value="true">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-4 m-t-15">
+                                            Approval Required for Deviation Booking?
+                                            <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
+                                                <input type="checkbox" name="ApprovalDeviationBooking" value="true">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-12">
+                                            <input type="file" name="Logo" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <span style="font-size:11px;font-weight:700;">Upload logo allowed formats: .JPG / .PNG, Maximum file size: 1mb, Resolution 200px x 90px</span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-12">
+                                            <button class="btn btn-primary waves-effect waves-light">Add New</button>
+                                            <button class="btn btn-danger waves-effect waves-light">Cancel</button>
+                                        </div>
+                                    </form>
+                                
+                                    <div id="manageinteruser">
+                                        <div class="d-flex justify-content-between m-b-10">
+                                            <form class="form-material">
+                                                <div class="form-group form-primary data-search" style="width: 620px; margin-bottom: 0;">
+                                                    <input id="search-input" type="text" name="footer-email" class="form-control">
+                                                    <span class="form-bar"></span>
+                                                    <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                                    <i class="fa fa-caret-down arrow toggle-arrow" aria-hidden="true" style="cursor:pointer;"></i>
+                                                </div>
+
+                                                <div class="hidden-div">
+                                                    <div class="form-material form-row">
+                                                        <div class="form-group form-primary col-md-12">
+                                                            <select class="form-control langOpt" name="Legal Entity" multiple data-placeholder="Legal Entity">
+                                                                <option value="2">[JET001] Jetways Travels</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group form-primary col-md-6">
+                                                            <input class="form-control date-main" type="text" placeholder="From Date">
+                                                            <span class="form-bar"></span>
+                                                        </div>
+                                                        <div class="form-group form-primary col-md-6">
+                                                            <input class="form-control date-main" type="text" placeholder="To Date">
+                                                            <span class="form-bar"></span>
+                                                        </div>
+                                                        <div class="form-group form-primary col-md-6">
+                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Status">
+                                                                <option value="2">Active</option>
+                                                                <option value="3">Disable</option>
+                                                                <option value="4">Pending</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group form-primary col-md-6">
+                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Department">
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group form-primary col-md-6">
+                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Designation">
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group form-primary col-md-6">
+                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Cost Center">
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group form-primary col-md-6">
+                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Band">
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group form-primary col-md-6">
+                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Work location">
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6 p-t-10">
+                                                            <button type="submit" class="btn btn-primary waves-effect waves-light">Search</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div>
+                                                <a id="addnewuser" class="btn sml-btn-danger text-white">+ Add New</a>
+                                                <div class="dropdown-primary dropdown open">
+                                                    <button class="btn btn-primary sml-b dropdown-toggle" type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Bulk</button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                        <a class="dropdown-item waves-light waves-effect" href="#">Upload</a>
+                                                        <a class="dropdown-item waves-light waves-effect" href="#">Update</a>
+                                                    </div>
+                                                </div>
+                                                <div class="dropdown-primary dropdown open">
+                                                    <button class="btn btn-primary sml-b dropdown-toggle" type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Export</button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                        <a class="dropdown-item waves-light waves-effect" href="#">User Profiles</a>
+                                                        <a class="dropdown-item waves-light waves-effect" href="#">User Approvers</a>
+                                                        <a class="dropdown-item waves-light waves-effect" href="#">User RMS</a>
+                                                        <a class="dropdown-item waves-light waves-effect" href="#">User Frequent Flyer</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active table-border-style" id="flights1" role="tabpanel">
+                                                <div class="table-responsive">
+                                                    <table id="data-table" class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="employee-id">Employee Id</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="user-name">User Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="email-id">Email Id</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="designation">Designation</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="approver-status">Approver Status</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                                <th>&nbsp;</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            @foreach (var user in Model.InternalUsers)
+                                                            {
+                                                                <tr  data-userid="@user.UserID" style="cursor:pointer;">
+                                                                    <td class="clickable">@user.EmpId</td>
+                                                                    <td class="clickable">@user.FirstName</td>
+                                                                    <td class="clickable">@user.BusinessEmail</td>
+                                                                    <td onclick="location.href='user-information.html';"></td>
+                                                                    <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Approved</label></td>
+                                                                    <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label></td>
+                                                                    <td>
+                                                                        <span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+                                                                        <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                                            <a class="dropdown-item" href="#">Disable</a>
+                                                                            <a class="dropdown-item" href="#">Deactivate</a>
+                                                                            <a class="dropdown-item" href="#">Reset Password</a>
+                                                                            <a class="dropdown-item" href="#">Change Email</a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#addnewuser').on('click', function () {
+                $('#addinternaluser').show();        
+                $('#manageinteruser').hide();       
+            });
+
+
+            //Table click data get  
+            $('td.clickable').on('click', function () {
+                var userId = $(this).closest('tr').data('userid');
+            $.ajax({
+                url: '/InternalUsers/UpdateInternalUsers',
+                type: 'GET',
+                data: { UserID: userId },
+                success: function (response) {  
+            // Example: Navigate to a detail page
+            window.location.href = '/InternalUsers/UpdateInternalUsers?UserID=' + userId;
+        },
+        error: function (xhr) {
+            alert('Error: ' + xhr.responseText);
+        }
+        });
+        });
+        });
+    </script>
+</footer>

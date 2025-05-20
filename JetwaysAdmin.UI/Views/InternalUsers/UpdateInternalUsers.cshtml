@@ -1,0 +1,163 @@
+﻿@model JetwaysAdmin.Entity.InternalUsers
+@{
+    Layout = "~/Views/Shared/UserProfile.cshtml";
+    var Data = Model;
+}
+<main id="main" class="main">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Personal Information</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">
+                                        User Management
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Manage Users
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block">
+                                    <form enctype="multipart/form-data" method="post" asp-controller="InternalUsers" asp-action="EditInternalUsers">
+                                    
+                                        <div class="row">
+                                         <input type="hidden" name="UserID" value="@Model.UserID" class="form-control">
+                                        <div class="col-md-2 text-center upload-image">
+                                            <!-- Hidden File Input -->
+                                            <input type="file" name="Logo" id="imageInput" accept="image/*">
+                                            <div class="profile-img-main" onclick="document.getElementById('imageInput').click();">
+                                                <img id="preview" class="m-t-10 mCS_img_loaded" src="data:image/png;base64,@Convert.ToBase64String(Model.Logo)" alt="user-img" loading="lazy" style="width: 110px; border-radius: 80px; height: 110px;">
+                                                <div class="profile-img"><i class="fa fa-camera" aria-hidden="true"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                                
+                                            <div class="form-material form-row">
+                                                <div class="form-group form-primary col-md-2">
+                                                        <select name="Title" class="select">
+                                                        <option value="@Model.Title">@Model.Title</option>
+                                                 
+                                                    </select>
+                                                </div>
+                                                <div class="form-group form-primary col-md-5">
+                                                        <input type="text" name="FirstName" value="@Model.FirstName" class="form-control" required>
+                                                    <span class="form-bar"></span>
+                                                    <label class="float-label">First Name<span>*</span></label>
+                                                </div>
+                                                <div class="form-group form-primary col-md-5">
+                                                        <input type="text" name="LastName" value="@Model.LastName" class="form-control" required>
+                                                    <span class="form-bar"></span>
+                                                    <label class="float-label">Last Name/Surname<span>*</span></label>
+                                                </div>
+
+                                                <div class="form-group form-primary col-md-2">
+                                                        <select  class="select">
+                                                        <option value="">Mobile Numbe</option>
+                                                        <option value="">IN(+91)</option>
+                                                        <option value="AF">AF (+93)</option>
+                                                        <option value="AL">AL (+355)</option>
+                                                        <option value="DZ">DZ (+213)</option>
+                                                        <option value="AO">AO (+244)</option>
+                                                        <option value="AR">AR (+54)</option>
+                                                        <option value="AM">AM (+374)</option>
+                                                        <option value="AW">AW (+297)</option>
+                                                        <option value="AU">AU (+61)</option>
+                                                        <option value="AZ">AZ (+994)</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group form-primary col-md-5">
+                                                        <input type="number" value="@Model.MobileNumber" name="MobileNumber" class="form-control">
+                                                    <span class="form-bar"></span>
+                                                    <label class="float-label"></label>
+                                                </div>
+                                                <div class="form-group form-primary col-md-5">
+                                                        <input type="text" name="BusinessEmail" value="@Model.BusinessEmail" class="form-control">
+                                                    <span class="form-bar"></span>
+                                                    <label class="float-label">Business Email ID</label>
+                                                </div>
+                                                <div class="form-group form-primary col-md-7">
+                                                        <select name="Nationality" class="select">
+                                                        <option value="@Model.Nationality">@Model.Nationality</option>
+                                                    </select>
+                                                </div>
+
+                                              @*   <div class="form-group form-primary col-md-5">
+                                                    <input type="text" name="gender" class="form-control">
+                                                    <span class="form-bar"></span>
+                                                    <label class="float-label">Gender</label>
+                                                </div> *@
+                                                <div class="form-group form-primary col-md-7 U-select">
+                                                    <div class="m-b-10" style="font-size:13px;">My Delegating Supervisor(s)</div>
+                                                    <div class="m-b-10" style="position:relative;">
+                                                        <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8; position: absolute; left: 7px; top: 5px;"></i><input type="text" name="assign-supervisor" placeholder="Assign Supervisor" style="border: #eff1f4 1px solid; border-radius: 3px; padding-left: 27px;">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group form-primary col-md-5">
+                                                    <select class="select">
+                                                        <option value="">User Language</option>
+                                                        <option value="">English</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group form-primary col-md-12">
+                                                    <textarea rows="10" cols="10" class="form-control" placeholder="Signature(Type here...)" style="border: #ccc 1px solid; padding: 10px; border-radius: 3px;"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-primary col-md-12">
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-body end -->
+            <div id="styleSelector"> </div>
+        </div>
+    </div>
+
+</main>
