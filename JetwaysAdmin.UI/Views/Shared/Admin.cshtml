@@ -138,10 +138,10 @@
                         </div>
                     </div>
                 </nav>
-                @{
-                    TempData.Keep("LegalEntityName");
-                    TempData.Keep("LegalEntityCode");
-                }
+              @{
+                  TempData.Keep("LegalEntityName1");
+                  TempData.Keep("LegalEntityCode1");
+                } 
                 <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
                         <nav class="pcoded-navbar">
@@ -152,7 +152,10 @@
                                         <a href="customers.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
                                         <img class="img-80" title="logo" src="../assets/images/customer-logo/default-logo.png" alt="logo">
                                         <h6 style="font-weight:700;">
-                                            @TempData["LegalEntityName"] -  @TempData["LegalEntityCode"]
+                                            @if (@TempData["LegalEntityName1"] != null && @TempData["LegalEntityCode1"]!=null)
+                                            {
+                                            @($"{TempData["LegalEntityName1"]} -  {TempData["LegalEntityCode1"]}")
+                                            }
                                             <a href="organization-structure.html" style="color: #0e93d8; display:block; margin-top:12px;">View Org. Structure </a>
                                         </h6>
 

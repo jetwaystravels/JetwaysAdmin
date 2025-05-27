@@ -21,8 +21,10 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 {
                     var result = await userresponse.Content.ReadAsStringAsync();
                     internaluser = JsonConvert.DeserializeObject<List<InternalUsers>>(result);
+                    
                 }
             }
+            
             var viewModel = new MenuHeaddata
             {
                 InternalUsers = internaluser,
@@ -76,6 +78,23 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     internalesers = JsonConvert.DeserializeObject<InternalUsers>(result);
                 }
             }
+            if (internalesers != null)
+            {
+       
+                if (internalesers.Logo != null && internalesers.Logo.Length < 180_000) 
+                {
+                    string base64Logo = Convert.ToBase64String(internalesers.Logo);
+                    TempData["LogoBase64"] = base64Logo;
+                }
+                else
+                {
+                    TempData["LogoBase64"] = null; 
+                }
+
+                TempData["EmplID"] = internalesers.EmpId;
+                TempData["EmplName"] = $"{internalesers.FirstName} {internalesers.LastName}";
+            }
+
             return View(internalesers);
         }
 
@@ -91,7 +110,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 using (var ms = new MemoryStream())
                 {
                     await file.CopyToAsync(ms);
-                    internalusers.Logo = ms.ToArray(); // Assign image byte array to model
+                    internalusers.Logo = ms.ToArray(); 
                 }
             }
             using (HttpClient client = new HttpClient())

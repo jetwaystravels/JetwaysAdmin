@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace JetwaysAdmin.Repositories.Interface
 {
-    public  interface IIATAGroup<T> where T : class
+    public interface IContactUsDetails<T> where T : class 
     {
-        Task<List<IATAGroup>> GetIATAGruop();
+        Task AddContactUs(ContactUsDetails contactus);
+
     }
 }

@@ -5,11 +5,1986 @@
     Layout = "~/Views/Shared/Admin.cshtml";
 }
 <main id="main" class="main">
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Email Configurations</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Setting</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Manage Customers</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Email Configurations
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <!-- Nav tabs -->
+                            <div class="m-b-25">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#flights1" role="tab">Flights</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#hotel1" role="tab">Hotel</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#bus1" role="tab">Bus</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#Cabs2" role="tab">Cabs</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#visas2" role="tab">Visa</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#forex1" role="tab">Forex</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#insurances1" role="tab">Insurance</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#rail1" role="tab">Rail</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Tab panes -->
+                            <div class="d-flex justify-content-between m-b-10">
+                                <form class="form-material">
+                                    <div class="form-group form-primary search-bx" style="width:280px;">
+                                        <input type="text" name="footer-email" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label serach-l"><i class="fa fa-search m-r-10"></i>Search</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-content">
+                                <!--  flight section Start -->
+                                <div class="tab-pane active" id="flights1" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-block table-border-style" style="height: 600px; overflow: auto; cursor:pointer;">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="mail-template">Mail Template</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="email-display-name">Email From Display Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Flight Request Confirmation to Traveller">Flight Request Confirmation to Traveller </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Flight Approval Request to Manager "> Flight Approval Request to Manager </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Flight Request Approval Confirmation to User ">Flight Request Approval Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Flight Request Rejected Confirmation to User"> Flight Request Rejected Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Share Flight Option From dynamoDb to Other user">Share Flight Option From dynamoDb to Other user</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Share Flight Option From Cache to Other user">Share Flight Option From Cache to Other user </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cancellation Request"> Cancellation Request </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Reset Password Email"> Reset Password Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Ticket Canceled">Ticket Canceled</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="User Email Invitation"> User Email Invitation </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Offline Request">Offline Request </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Booking Confirmation"> Booking Confirmation </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Reschedule Request"> Reschedule Request </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Booking confirmation Email to the consultant(s)"> Booking confirmation Email to the consultant(s) </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Temporary Password Email"> Temporary Password Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Email notifications to traveller and consultant if booking is failed / pending"> Email notifications to traveller and consultant if booking is failed / pending </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Trip box Cancel Request"> Trip box Cancel Request  </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Split PNR request Email"> Split PNR request Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="On ignore of Amendment /Cancel should send email to Users for confirmation"> On ignore of Amendment /Cancel should send email to Users for confirmation </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Amendment Confirmation to Users"> Amendment Confirmation to Users </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Amendment Confirmation to the consultant(s)"> Amendment Confirmation to the consultant(s) </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Postbooking SSR Request"> Postbooking SSR Request </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Ticket Canceled to Admin"> Ticket Canceled to Admin </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Flight Disable at Legal Entity Email to User"> Flight Disable at Legal Entity Email to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Flight Request to Consultant For Processing"> Flight Request to Consultant For Processing </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
 
-    <h4>
-        ShowEmailConfigurations
-    </h4>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  flight section End -->
+                                <!--  hotel section Start -->
+                                <div class="tab-pane" id="hotel1" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-block table-border-style" style="height: 600px; overflow: auto; cursor:pointer;">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="mail-template">Mail Template</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="email-display-name">Email From Display Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Flight Request Confirmation to Traveller">Awaiting Approval Single Room User</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Booking Approval">Hotel Booking Approval</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Booking Confirmation to User">Hotel Booking Confirmation to User</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Booking Confirmation to Consultant(s)"> Hotel Booking Confirmation to Consultant(s) </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Request Approval Confirmation to User"> Hotel Request Approval Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Hotel Request Rejected Confirmation to User "> Hotel Request Rejected Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Hotel Booking cancellation User "> Hotel Booking cancellation User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Hotel Booking cancellation Admin"> Hotel Booking cancellation Admin </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Booking Failed Pending"> Booking Failed Pending </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Booking Cancellation Request "> Hotel Booking Cancellation Request </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Share Option "> Hotel Share Option </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Request Confirmation to User "> Hotel Request Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Request Confirmation to Consultant(s)"> Hotel Request Confirmation to Consultant(s) </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Booking confirmation Email to the consultant(s)"> Booking confirmation Email to the consultant(s) </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Hotel Booking Failed Confirmation User "> Hotel Booking Failed Confirmation User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Cancellation Request"> Hotel Cancellation Request </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Hotel Ignore Amendment "> Hotel Ignore Amendment </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Parallel Approver Email"> Hotel Parallel Approver Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Supervisor Approver Email"> Hotel Supervisor Approver Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Offline HSD">Hotel Offline HSD </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Feedback Submit">Hotel Feedback Submit</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Partially approved email to Traveler">Hotel Partially approved email to Traveler</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Cancellation failure notification to the consultant"> Hotel Cancellation failure notification to the consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Hotel Cancellation failure notification to user"> Hotel Cancellation failure notification to user </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Email To share Hotel Booking Link ">Email To share Hotel Booking Link</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
 
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  hotel section End -->
+                                <!--  bus section Start -->
+                                <div class="tab-pane" id="bus1" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-block table-border-style" style="height: 600px; overflow: auto; cursor:pointer;">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="mail-template">Mail Template</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="email-display-name">Email From Display Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Bus Booking Confirmation"> Bus Booking Confirmation </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Awaiting Approval  Bus User">Awaiting Approval  Bus User</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Approval Request to Bus  Manager"> Approval Request to Bus  Manager </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Bus Request Approved  Confirmation to User "> Bus Request Approved  Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Bus Request Reject  Confirmation to User"> Bus Request Reject  Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Bus Booking Canceled"> Bus Booking Canceled </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Bus Share Option"> Bus Share Option </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Email notifications to consultant if booking is failed / pending"> Email notifications to consultant if booking is failed / pending </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Bus Offline User View - Request"> Bus Offline User View - Request </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="User Cancellation Request"> User Cancellation Request </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Bus Cancelled  Request"> Bus Cancelled  Request </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Bus Offline Consultant View-Request"> Bus Offline Consultant View - Request </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Parallel Approval Request to Bus  Manager"> Parallel Approval Request to Bus  Manager </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Bus Supervisor Approver Email"> Bus Supervisor Approver Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Bus Booking Confirmation Email to Consultant"> Bus Booking Confirmation Email to Consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Email notifications to traveller and consultant if booking is failed / pending"> Bus Booking Cancellation Email to Consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Bus Request Cancel"> Bus Request Cancel </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Bus Partially Approved Confirmation to User"> Bus Partially Approved Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Bus Cancellation failure notification to the consultant "> Bus Cancellation failure notification to the consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Bus Cancellation failure notification to user "> Bus Cancellation failure notification to user </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Email To share Bus Booking Link"> Email To share Bus Booking Link </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Request for options to supplier"> Request for options to supplier </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Bus option(s) provided from supplier to travel desk "> Bus option(s) provided from supplier to travel desk  </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Bus option(s) shared from travel desk to employee "> Bus option(s) shared from travel desk to employee  </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Bus option(s) selected by employee "> Bus option(s) selected by employee </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  bus section End -->
+                                <!--  cabs section Start -->
+                                <div class="tab-pane" id="Cabs2" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-block table-border-style" style="height: 600px; overflow: auto; cursor:pointer;">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="mail-template">Mail Template</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="email-display-name">Email From Display Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Awaiting Approval Cab User"> Awaiting Approval Cab User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Approval Request to Approver"> Approval Request to Approver </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Request Approved  Confirmation to User "> Cab Request Approved  Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Request Rejected  Confirmation to User"> Cab Request Rejected  Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Supplier Update Pricing Details Confirmation to Consultant"> Cab Supplier Update Pricing Details Confirmation to Consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Cab Request to Consultant For Processing"> Cab Request to Consultant For Processing </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Booking Confirmed to User">Cab Booking Confirmed to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Booking Completed to Supplier for Updating Pricing Details"> Cab Booking Completed to Supplier for Updating Pricing Details </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Cancel Request to Consultant"> Cab Cancel Request to Consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Reschedule Request to Consultant"> Cab Reschedule Request to Consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Booking Rescheduled Confirmation to User"> Cab Booking Rescheduled Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Cancel Request Rejected to User"> Cab Cancel Request Rejected to User  </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Reschedule Request Rejected to User"> Cab Reschedule Request Rejected to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Booking Confirmed to Consultant(s)"> Cab Booking Confirmed to Consultant(s) </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Booking Completed with Pricing Details to User"> Cab Booking Completed with Pricing Details to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Booking Completed with Pricing Details to Consultant(s)"> Cab Booking Completed with Pricing Details to Consultant(s) </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Request Confirmation to User"> Cab Request Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Cab Share Option "> Cab Share Option </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Parallel Approval Request to Approver"> Parallel Approval Request to Approver </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Supervisor Approver Email"> Cab Supervisor Approver Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Request Cancel"> Cab Request Cancel </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Cab Partially Approved Confirmation to User"> Cab Partially Approved Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Supplier Email to Upload Invoice for Offline Bookings to Travel Desk"> Supplier Email to Upload Invoice for Offline Bookings to Travel Desk </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Supplier Email to Upload Invoice for Offline Bookings to User"> Supplier Email to Upload Invoice for Offline Bookings to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  cabs section End -->
+                                <!--  visa section Start -->
+                                <div class="tab-pane" id="visas2" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-block table-border-style" style="height: 600px; overflow: auto; cursor:pointer;">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="mail-template">Mail Template</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="email-display-name">Email From Display Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Visa Request Confirmation to User "> Visa Request Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Visa Approval Request to Manager"> Visa Approval Request to Manager </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Visa Request Approval Confirmation to User"> Visa Request Approval Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Visa Request Rejected Confirmation to User "> Visa Request Rejected Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Visa Request to Consultant"> Visa Request to Consultant</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Visa Request Cancel"> Visa Request Cancel </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Visa Parallel Approval Request to Manager"> Visa Parallel Approval Request to Manager </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Visa Supervisor Approver Email "> Visa Supervisor Approver Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Visa Share Option"> Visa Share Option </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Visa Tracking History Email"> Visa Tracking History Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Visa Request to User"> Visa Request to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Visa Partially Approved Confirmation to User "> Visa Partially Approved Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Visa Appling invoice Request to User "> Visa Appling invoice Request to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Visa Request invoice to Consultant "> Visa Request invoice to Consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  visa section End -->
+                                <!--  forex section Start -->
+                                <div class="tab-pane" id="forex1" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-block table-border-style" style="height: 600px; overflow: auto; cursor:pointer;">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="mail-template">Mail Template</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="email-display-name">Email From Display Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Forex Approval Request to Manager"> Forex Approval Request to Manager </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Forex Approval Request to User"> Forex Approval Request to User</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Forex Request Approved Confirmation to User"> Forex Request Approved Confirmation to User  </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Forex Request Rejected Confirmation to User"> Forex Request Rejected Confirmation to User  </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Forex Consultant Awaiting For Processing"> Forex Consultant Awaiting For Processing </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Consultant Sharing Options"> Consultant Sharing Options </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Forex Request Confirmation to User Duplicate"> Forex Request Confirmation to User Duplicate </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Forex Parallel Approval Request to Manager"> Forex Parallel Approval Request to Manager </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Tripbox Cancel Currency Request to Manager and Consultant"> Tripbox Cancel Currency Request to Manager and Consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Forex Supervisor Approver Email"> Forex Supervisor Approver Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Forex Partially Approved Confirmation to User">Forex Partially Approved Confirmation to User</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Booking Confirmation"> Forex Branch Processing Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="FCM Travel"> FCM Travel </td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  forex section End -->
+                                <!--  insurance section Start -->
+                                <div class="tab-pane" id="insurances1" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-block table-border-style" style="height: 600px; overflow: auto; cursor:pointer;">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="mail-template">Mail Template</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="email-display-name">Email From Display Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Awaiting Approval User"> Awaiting Approval User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Insurance Booking Confirmation"> Insurance Booking Confirmation </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Insurance Booking Cancelled"> Insurance Booking Cancelled </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Insurance  Request Approval Confirmation to User"> Insurance  Request Approval Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Approval Request to Manager"> Approval Request to Manager </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Flight Request Rejected Confirmation to User"> Flight Request Rejected Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Share Plan From Cache to Other user"> Share Plan From Cache to Other user </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Insurance Booking Confirmation Consultant"> Insurance Booking Confirmation Consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Offline Request to Consultant">Offline Request to Consultant</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Offline Request to User"> Offline Request to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Parallel Approval Request to Manager">Parallel Approval Request to Manager</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Insurance Cancel Request"> Insurance Cancel Request </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Insurance Ignore Request">Insurance Ignore Request</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Insurance Booking Canceled to Consultant"> Insurance Booking Canceled to Consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Insurance Supervisor Approver Email"> Insurance Supervisor Approver Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Insurance Request Cancel"> Insurance Request Cancel </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Insurance Partially Approved Confirmation to User"> Insurance Partially Approved Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Email To Share Insurance Booking Link "> Email To Share Insurance Booking Link </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Insurance Booking Invoice Confirmation"> Insurance Booking Invoice Confirmation </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Insurance Booking Invoice Confirmation Consultant"> Insurance Booking Invoice Confirmation Consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Insurance Booking Canceled Invoice"> Insurance Booking Canceled Invoice </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Insurance Booking Canceled Invoice to Consultant "> Insurance Booking Canceled Invoice to Consultant </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  insurance section End -->
+                                <!--  rail section Start -->
+                                <div class="tab-pane" id="rail1" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-block table-border-style" style="height: 600px; overflow: auto; cursor:pointer;">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="mail-template">Mail Template</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="email-display-name">Email From Display Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Awaiting Approval Rail User"> Awaiting Approval Rail User</td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Approval Request to Rail Manager"> Approval Request to Rail Manager </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Rail Request Approved  Confirmation to User"> Rail Request Approved  Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Rail Request Rejected  Confirmation to User"> Rail Request Rejected  Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail Booking Confirmation"> Rail Booking Confirmation </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title=" Rail Request to Consultant For Processing"> Rail Request to Consultant For Processing </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail Request Confirmation to User"> Rail Request Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Parallel Approval Request to Rail Manager"> Parallel Approval Request to Rail Manager </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail Supervisor Approver Email"> Rail Supervisor Approver Email </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail Request Cancel"> Rail Request Cancel </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail Cancellation Request to Consultant and User"> Rail Cancellation Request to Consultant and User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail Cancelled"> Rail Cancelled </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="On ignore of Cancel  send email to Users for confirmation"> On ignore of Cancel  send email to Users for confirmation </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail Partially Approved Confirmation to User"> Rail Partially Approved Confirmation to User </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail Share Option"> Rail Share Option </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Request for options to supplier"> Request for options to supplier </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail option(s) provided from supplier to travel desk"> Rail option(s) provided from supplier to travel desk </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail option(s) shared from travel desk to employee"> Rail option(s) shared from travel desk to employee </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail option(s) selected by employee"> Rail option(s) selected by employee </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail option approved by travel desk"> Rail option approved by travel desk </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail option(s) rejected by travel desk"> Rail option(s) rejected by travel desk </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td onclick="location.href='edit-emailconfig.html';" title="Rail Booking Confirmation Invoice"> Rail Booking Confirmation Invoice </td>
+                                                                <td onclick="location.href='edit-emailconfig.html';"></td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  rail section End -->
+
+                                <div class="d-flex justify-content-between pagination-section">
+                                    <span class="pagination-info">
+                                        Showing 1-2 of 2
+                                    </span>
+                                    <div class="float-right pagination">
+                                        <span class="m-t-5 m-r-5">Items per page:</span>
+                                        <select class="form-select form-select-sm">
+                                            <option>5</option>
+                                            <option>10</option>
+                                            <option selected>25</option>
+                                            <option>100</option>
+                                        </select>
+                                        <ul class="pagination">
+                                            <li class="page-item page-pre"><a class="page-link" aria-label="previous page" href="javascript:void(0)">‹</a></li>
+                                            <li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">0</a></li>
+                                            <li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)">›</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+        </div>
+    </div>
 </main>
 
 

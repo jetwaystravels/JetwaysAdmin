@@ -1,11 +1,10 @@
-﻿@using JetwaysAdmin.UI.ViewModel
-@model List<MenuHeaddata>
+﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
+
 
 @{
     Layout = "~/Views/Shared/Admin.cshtml";
+    var Data = Model;
 }
-
-
 
 <main id="main" class="main">
     <!-- Pre-loader start -->
@@ -62,6 +61,10 @@
                         <div class="page-body">
                             <div class="card">
                                 <form class="card-block" asp-controller="ManageStaff" asp-action="ManageStaff">
+                                    @{
+                                        TempData.Keep("LegalEntityCode1");
+                                    }
+                                    <input type="hidden" name="LegalEntityCode" value="@TempData["LegalEntityCode1"]">
                                     <div class="form-group form-primary col-md-3 U-select">
                                         <div class="dropdown" data-field="KeyAccountManager">
                                             <div class="m-b-15" style="font-size:13px;">Key Account Managers</div>
@@ -93,16 +96,16 @@
                                             </div>
                                             <div class="selected-items"></div>
                                             <div class="dropdown-list">
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Fc Support</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Fc Support</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
                                             </div>
                                             <input type="hidden" name="SalesSpoc" id="SalesSpoc" />
                                         </div>
@@ -116,19 +119,19 @@
                                             </div>
                                             <div class="selected-items"></div>
                                             <div class="dropdown-list">
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Fc Support</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
+                                                @foreach (var vny in Model.customersemployee)
+                                                {
+                                                    var fullName = $"{vny.FirstName} {vny.LastName}";
+                                                    <div class="dropdown-item" onclick="selectItem(event)"
+                                                         data-employee-id="@vny.EmployeeID" data-user-id="@vny.UserID">
+                                                        <img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">
+                                                        @vny.UserID-@fullName
+                                                    </div>
+                                                }
                                             </div>
                                             <input type="hidden" name="BookingConsultant" id="BookingConsultant" />
                                         </div>
+
                                     </div>
                                     <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
                                     <div class="form-group form-primary col-md-3 U-select">
@@ -139,16 +142,16 @@
                                             </div>
                                             <div class="selected-items"></div>
                                             <div class="dropdown-list">
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Fc Support</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Fc Support</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
                                             </div>
                                             <input type="hidden" name="EmergencyContact" id="EmergencyContact" />
                                         </div>
@@ -162,16 +165,16 @@
                                             </div>
                                             <div class="selected-items"></div>
                                             <div class="dropdown-list">
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Fc Support</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
-                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="./assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Fc Support</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
+                                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
                                             </div>
                                             <input type="hidden" name="UserGroup" id="UserGroup" />
                                         </div>
@@ -192,7 +195,7 @@
 
 
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- multiple selection Jquery start -->
 <script>
     $('#langOpt').multiselect({
@@ -272,6 +275,19 @@
             if (!list.closest('.dropdown').contains(event.target)) {
                 list.classList.remove('active');
             }
+        });
+    });
+
+    $(document).ready(function () {
+        $('.employee-item').on('click', function () {
+            var userId = $(this).data('user-id');
+            var name = $(this).text().trim();
+
+            // Set the hidden input value
+            $('#BookingConsultant').val(userId);
+
+            // Optional: show selected item
+            $('.selected-items').text(name);
         });
     });
 </script>

@@ -28,6 +28,6 @@ namespace JetwaysAdmin.Entity
         [Column("User_group")]
         public string UserGroup { get; set; }
 
-        public string LegalEntityCode { get; set; } = "EEJEt123";
+        public string LegalEntityCode { get; set; }
     }
 }

@@ -1,12 +1,6 @@
-﻿@using JetwaysAdmin.UI.ViewModel
-@model List<MenuHeaddata>
-
-@{
+﻿@{
     Layout = "~/Views/Shared/Admin.cshtml";
 }
-
-
-
 
 <main id="main" class="main">
     <!-- Pre-loader start -->
@@ -63,25 +57,58 @@
                                 <!-- contact us start -->
                                 <div class="card-block">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="redio-btn" value="option1" checked>
+                                        <input class="form-check-input" type="radio" name="editorType" value="html" checked>
                                         <label class="form-check-label" for="htmlEditor">
                                             HTML Editor
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="redio-btn" value="option1">
+                                        <input class="form-check-input" type="radio" name="editorType" value="url">
                                         <label class="form-check-label" for="URL">
                                             URL
                                         </label>
                                     </div>
                                     <div class="m-t-15 m-b-10">Add contact us details in HTML editor</div>
-                                    <div><img src="~/assets/images/html-editor.png" alt="logo"></div>
+                                    <!-- Editable Area -->
+                                    <div id="editorArea" contenteditable="true">Type a custom message here...</div>
+                                    <div class="editor-toolbar">
+                                        <div class="left">
+                                            <button title="Undo" onclick="format('undo')"><i class="fa fa-undo" aria-hidden="true"></i></button>
+                                            <button title="Redo" onclick="format('redo')"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+                                        </div>
+
+                                        <button onclick="format('bold')"><b>B</b></button>
+                                        <button onclick="format('italic')"><i>I</i></button>
+                                        <button onclick="format('underline')"><u>U</u></button>
+                                        <button title="left" onclick="format('justifyLeft')"><i class="fa fa-align-left" aria-hidden="true"></i></button>
+                                        <button title="center" onclick="format('justifyCenter')"><i class="fa fa-align-center" aria-hidden="true"></i></button>
+                                        <button title="right" onclick="format('justifyRight')"><i class="fa fa-align-right" aria-hidden="true"></i></button>
+                                        <button title="Justify" onclick="format('justifyFull')"><i class="fa fa-align-justify" aria-hidden="true"></i></button>
+                                        <button title="list" onclick="format('insertUnorderedList')"><i class="fa fa-list" aria-hidden="true"></i></button>
+                                        <button title="list" onclick="format('insertOrderedList')"><i class="fa fa-list-ol" aria-hidden="true"></i></button>
+
+
+                                        <select onchange="setFont(this.value)">
+                                            <option value="Arial" selected>Arial</option>
+                                            <option value="Times New Roman">Times New Roman</option>
+                                            <option value="Courier New">Courier New</option>
+                                        </select>
+
+                                        <select onchange="applyClass(this.value)">
+                                            <option value="">Clear Class</option>
+                                            <option value="quote">Quote</option>
+                                            <option value="redText">Red Text</option>
+                                            <option value="titleText">Title Text</option>
+                                        </select>
+                                    </div>
+                                    <!-- URL Input -->
+                                    <input type="text" id="urlInput" placeholder="Enter URL..." />
                                     <div class="m-t-20">
-                                        <button class="btn btn-primary waves-effect waves-light">Save</button>
+                                        <button type="button" class="btn btn-primary waves-effect waves-light contactus">Save</button>
+
                                         <button class="btn btn-danger waves-effect waves-light disabled">Cancel</button>
                                     </div>
                                 </div>
-                                <!--  Contact us end -->
                             </div>
                         </div>
                     </div>
@@ -91,3 +118,107 @@
         </div>
     </div>
 </main>
+<footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- editor section start -->
+    <script>
+        const editor = document.getElementById('editorArea');
+        const placeholderText = 'Type a custom message here...';
+        // Ensure editor is focused before formatting
+        function format(cmd) {
+            editor.focus();
+            document.execCommand(cmd, false, null);
+        }
+
+        function setFont(fontName) {
+            editor.focus();
+            document.execCommand('fontName', false, fontName);
+        }
+
+        function applyClass(className) {
+            editor.focus();
+            if (className === "") {
+                document.execCommand('removeFormat', false, null);
+                return;
+            }
+
+            const span = document.createElement('span');
+            span.className = className;
+            span.innerHTML = window.getSelection().toString();
+
+            const range = window.getSelection().getRangeAt(0);
+            range.deleteContents();
+            range.insertNode(span);
+        }
+
+        // Placeholder behavior
+        function checkPlaceholder() {
+            if (editor.innerHTML.trim() === '' || editor.innerHTML === '<br>') {
+                editor.innerHTML = placeholderText;
+                editor.style.color = '#aaa';
+            }
+        }
+
+        editor.addEventListener('focus', () => {
+            if (editor.innerText.trim() === placeholderText) {
+                editor.innerHTML = '';
+                editor.style.color = '#000';
+            }
+        });
+
+        editor.addEventListener('blur', () => {
+            checkPlaceholder();
+        });
+
+        // Toggle editor vs URL input
+        const radios = document.querySelectorAll('input[name="editorType"]');
+        radios.forEach(r => {
+            r.addEventListener('change', function () {
+                const showEditor = this.value === 'html';
+                editor.style.display = showEditor ? 'block' : 'none';
+                document.querySelector('.editor-toolbar').style.display = showEditor ? 'flex' : 'none';
+                document.getElementById('urlInput').style.display = showEditor ? 'none' : 'block';
+            });
+        });
+
+        // Set initial placeholder
+        checkPlaceholder();
+
+        // Ajax call value send 
+       
+            $(document).ready(function () {
+                $('.contactus').on('click', function () {
+                    debugger;
+                    const useHtml = $('input[name="editorType"]:checked').val() === 'html';
+                    const htmlContent = $('#editorArea').html();
+                    const urlValue = $('#urlInput').val();
+
+                    const dataToSend = {
+                        UseHtml: useHtml,
+                        HtmlContent: useHtml ? htmlContent : null,
+                        Url: useHtml ? null : urlValue
+                    };
+
+                    $.ajax({
+                        url: '/ContactUs/AddContactUs',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(dataToSend),
+                        success: function (response) {
+                            alert('Contact Us info saved successfully!');
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Error saving data: ' + error);
+                        }
+                    });
+                });
+            });
+   
+
+    </script>
+</footer>
+
+
+
+
+

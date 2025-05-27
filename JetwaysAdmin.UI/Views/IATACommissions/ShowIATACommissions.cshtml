@@ -5,10 +5,126 @@
     Layout = "~/Views/Shared/Admin.cshtml";
 }
 <main id="main" class="main">
+    <div class="pcoded-main-container">
+        <!-- Page-header start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">IATA Commissions</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Setting</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Manage Customers</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Organization Structure
+                            </li>
+                            <li class="breadcrumb-item">
+                                IATA Commissions
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <div class="pcoded-inner-content">
+            <!-- Main-body start -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- Page-body start -->
+                    <div class="page-body">
+                        <!-- Nav tabs -->
+                        <div class="m-b-25">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#air" role="tab">Air</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Tab panes -->
+                        <form class="form-material form-row">
 
-    <h4>
-        ShowIATACommissions
-    </h4>
+                            <div class="form-group form-primary col-md-6 m-t-15">
+                                <strong style="font-weight:700;">Domestic Passback ?</strong>
+                                <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
 
+                            <div class="form-group form-primary col-md-6 m-t-15">
+                                <strong style="font-weight:700;">International Passback ?</strong>
+                                <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                        </form>
+                        <div class="tab-content">
+                            <!--  Air section Start -->
+                            <div class="tab-pane active" id="flights1" role="tabpanel">
+                                <div class="d-flex justify-content-between m-b-10">
+                                    <form class="form-material">
+                                        <div class="form-group form-primary search-bx" style="width:280px;">
+                                            <input type="text" name="footer-email" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label serach-l"><i class="fa fa-search m-r-10"></i>Search</label>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card">
+                                    <div class="card-block table-border-style">
+                                        <div class="table-border-style">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><button class="srt-btn" type="button" aria-label="airline-name">Airline Name</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="cabin-class">Cabin Class</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="ticket-type">Ticket Type</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="fare-type">Fare Type</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="DOM-Comm">DOM Comm.(in%)</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="passback-comm">Passback Comm(in%)</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="INT-Comm">INT Comm.(in%)</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="passback-comm">Passback Comm(in%)</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="save">Save</button></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td title="Management fee"><a href="update-commercials.html">Air India</a></td>
+                                                            <td title=" Economy,Business,First Class,Premium Economy">Economy, Busine... </td>
+                                                            <td title="Both">Both</td>
+                                                            <td title="Corporate,Promo Fare,Published,Flexi Plus,SME,Family Fare,Special Return,Special Promo Fare,Coupon Fare,Super 6E,Sale Fare,6E Lite,Tactical ">Corporate,Promo...</td>
+                                                            <td title="0.5"> 0.5 </td>
+                                                            <td title=""><input type="text" name="passbook" class="form-control" placeholder="0" style="width:107px;"></td>
+                                                            <td title="0.5"> 0.5 </td>
+                                                            <td title=""><input type="text" name="passbook" class="form-control" placeholder="0" style="width:107px;"></td>
+                                                            <td><a href="#"><i class="fa fa-floppy-o" aria-hidden="true" style="color: #0e93d8; font-size: 20px; margin-top: 8px;"></i></a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  Air section End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-body end -->
+        </div>
+    </div>
 </main>
 

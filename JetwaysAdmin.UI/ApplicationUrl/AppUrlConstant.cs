@@ -14,7 +14,6 @@
         public static string getmenu= BaseURL + "api/Menu/MenuList";
         public static string GetmenuList = BaseURL + "api/Menu/MenuListData";
 
-
         public static string getcustomercount = BaseURL + "api/Customer/count";
 
         public static string AddLegalEntity = BaseURL + "api/LegalEntityAPI/AddLegalEntity";
@@ -59,7 +58,8 @@
         public static string GetInternalusers = BaseURL + "api/InternalUsersAPI/GetInternalUsers";
 
         public static string GetInternalusersID = BaseURL + "api/InternalUsersAPI";
-        
+
+        public static string AddContactUS = BaseURL + "api/ContactUsDetailsAPI/AddContactUs";
 
         #endregion
 

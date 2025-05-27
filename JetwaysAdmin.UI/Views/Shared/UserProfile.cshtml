@@ -140,6 +140,10 @@
                     </div>
                 </div>
             </nav>
+                @{
+                    TempData.Keep("EmplID");
+                    TempData.Keep("EmplName");
+                }
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
@@ -149,12 +153,20 @@
                                 <div class="main-menu-header">
                                     <div class="d-flex align-items-center">
                                         <a href="customers.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
-                                        <img class="m-t-10" src="../assets/images/login-img.svg" alt="user-img" loading="lazy" style="width:40px;">
-                                        <div class="m-l-10"><strong style="font-weight:700;">EMP ID:</strong></div>
+                                       
+                                            @if (TempData["LogoBase64"] != null)
+                                            {
+                                                <img class="m-t-10" src="data:image/png;base64,@TempData["LogoBase64"]" alt="Logo" alt="user-img" loading="lazy" style="width:40px;">
+                                            }
+                                            else
+                                            {
+                                                <img class="m-t-10" src="../assets/images/login-img.svg" alt="user-img" loading="lazy" style="width:40px;">
+                                            }
+                                        <div class="m-l-10"><strong style="font-weight:700;">EMP ID: @TempData["EmplID"]</strong></div>
                                     </div>
                                     <h6 style="font-weight:700;">
                                         <label style="margin-bottom:0;">
-                                            User Name
+                                           @TempData["EmplName"]
                                         </label>
                                     </h6>
                                 </div>

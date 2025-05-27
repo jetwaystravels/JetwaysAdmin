@@ -10,8 +10,8 @@ namespace JetwaysAdmin.UI.Controllers
     {
         public async Task<IActionResult> ShowOrganization(int Id, string legalEntityName, string legalEntityCode)
         {
-            TempData["LegalEntityName"] = legalEntityName;
-            TempData["LegalEntityCode"] = legalEntityCode;
+            TempData["LegalEntityName1"] = legalEntityName;
+            TempData["LegalEntityCode1"] = legalEntityCode;
             using (HttpClient client = new HttpClient())
             {
                 string apiUrl = $"{AppUrlConstant.LegalHeirachy}?LegalEntityCode={legalEntityCode}";

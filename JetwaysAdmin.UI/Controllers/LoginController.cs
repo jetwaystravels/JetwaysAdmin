@@ -43,7 +43,6 @@ namespace JetwaysAdmin.UI.Controllers
                     // Store the token in session or cookie
                     // HttpContext.Session.SetString("JwtToken", token);
                     //HttpContext.Session.SetString("AdminUsername", username);
-
                     //return RedirectToAction("LoginView");  // Redirect to dashboard
                     //return RedirectToAction("dashboard");
                     return RedirectToAction("Dashboard", new { userID = userid });

@@ -5,12 +5,437 @@
     Layout = "~/Views/Shared/Admin.cshtml";
 }
 
-
 <main id="main" class="main">
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Manage Commercials</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Setting</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Manage Customers</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Commercials
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <!-- Nav tabs -->
+                            <div class="m-b-25">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#flights1" role="tab">Flights</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#hotel1" role="tab">Hotel</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#bus1" role="tab">Bus</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#Cabs1" role="tab">Cabs</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#visas1" role="tab">Visa</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#forex1" role="tab">Forex</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#insurances1" role="tab">Insurance</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#rail1" role="tab">Rail</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <!--  flight section Start -->
+                                <div class="tab-pane active" id="flights1" role="tabpanel">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary search-bx" style="width:280px;">
+                                                <input type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label serach-l"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div><a href="add-new-commercials.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-block table-border-style">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="commercials-name">Commercials Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="travel-type">Travel Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="cabin-class">Cabin Class</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="airline-name">Airline Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="fare-type">Fare Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="carrier-type">Carrier Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Comm-type">Comm.Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="pax-type">Pax Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
 
-    <h4>
-        ShowCommercials
-    </h4>
+                                                            <tr>
+                                                                <td title="Management fee"><a href="update-commercials.html">Management fee</a></td>
+                                                                <td title="Domestic">Domestic</td>
+                                                                <td title="Economy, Business First Class">Economy, Busine... </td>
+                                                                <td></td>
+                                                                <td title="Corporate,Promo Fare,Published,Flexi Plus,SME,Family Fare,Special Return,Special Promo Fare,Coupon Fare,Super 6E,Sale Fare,6E Lite,Tactical"> Corporate,Promo Fare,Published...</td>
+                                                                <td title="Full Service Carrier & Low Cost Carrier "> Full Service C...</td>
+                                                                <td title="Per Sector Per Ticket  ">Per Sector Per Ticket</td>
+                                                                <td title="Adult, Child, Infant ">Adult, C...</td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
 
+                                                            <tr>
+                                                                <td title="Management fee"><a href="update-commercials.html">Management fee</a></td>
+                                                                <td title="Domestic">Domestic</td>
+                                                                <td title="Economy, Business First Class">Economy, Busine... </td>
+                                                                <td></td>
+                                                                <td title="Corporate,Promo Fare,Published,Flexi Plus,SME,Family Fare,Special Return,Special Promo Fare,Coupon Fare,Super 6E,Sale Fare,6E Lite,Tactical"> Corporate,Promo Fare,Published...</td>
+                                                                <td title="Full Service Carrier & Low Cost Carrier"> Full Service C...</td>
+                                                                <td title="Per Sector Per Ticket">Per Sector Per Ticket</td>
+                                                                <td title="Adult, Child, Infant">Adult, C...</td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between pagination-section">
+                                        <span class="pagination-info">
+                                            Showing 1-2 of 2
+                                        </span>
+                                        <div class="float-right pagination">
+                                            <span class="m-t-5 m-r-5">Items per page:</span>
+                                            <select class="form-select form-select-sm">
+                                                <option>5</option>
+                                                <option>10</option>
+                                                <option selected>25</option>
+                                                <option>100</option>
+                                            </select>
+                                            <ul class="pagination">
+                                                <li class="page-item page-pre"><a class="page-link" aria-label="previous page" href="javascript:void(0)">‹</a></li>
+                                                <li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">0</a></li>
+                                                <li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)">›</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  flight section End -->
+                                <!--  hotel section Start -->
+                                <div class="tab-pane" id="hotel1" role="tabpanel" ">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary" style="width:280px;">
+                                                <input type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-block table-border-style">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="commercials-name">Commercials Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="travel-type">Travel Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="cabin-class">Cabin Class</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="airline-name">Airline Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="fare-type">Fare Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="carrier-type">Carrier Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Comm-type">Comm.Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="pax-type">Pax Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div class="text-center m-t-10">
+                                                        <img class="img-fluid" src="../assets/images/no-data-img.png" alt="image">
+                                                        <div>No data found, please add new record</div>
+                                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  hotel section End -->
+                                <!--  bus section Start -->
+                                <div class="tab-pane" id="bus1" role="tabpanel" ">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary" style="width:280px;">
+                                                <input type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-block table-border-style">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="commercials-name">Commercials Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Comm-type">Comm.Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="booking-type">Booking Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div class="text-center m-t-10">
+                                                        <img class="img-fluid" src="../assets/images/no-data-img.png" alt="image">
+                                                        <div>No data found, please add new record</div>
+                                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  bus section End -->
+                                <!--  cabs section Start -->
+                                <div class="tab-pane" id="cabs1" role="tabpanel" ">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary" style="width:280px;">
+                                                <input type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-block table-border-style">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="commercials-name">Commercials Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Comm-type">Comm.Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="booking-type">Booking Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div class="text-center m-t-10">
+                                                        <img class="img-fluid" src="../assets/images/no-data-img.png" alt="image">
+                                                        <div>No data found, please add new record</div>
+                                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  cabs section End -->
+                                <!--  visa section Start -->
+                                <div class="tab-pane" id="visa1" role="tabpanel" ">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary" style="width:280px;">
+                                                <input type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-block table-border-style">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="commercials-name">Commercials Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Comm-type">Comm.Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="booking-type">Booking Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div class="text-center m-t-10">
+                                                        <img class="img-fluid" src="../assets/images/no-data-img.png" alt="image">
+                                                        <div>No data found, please add new record</div>
+                                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  visa section End -->
+                                <!--  forex section Start -->
+                                <div class="tab-pane" id="forex1" role="tabpanel" ">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary" style="width:280px;">
+                                                <input type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div></div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-block table-border-style">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="commercials-name">Commercials Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Comm-type">Comm.Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="booking-type">Booking Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div class="text-center m-t-10">
+                                                        <img class="img-fluid" src="../assets/images/no-data-img.png" alt="image">
+                                                        <div>No data found, please add new record</div>
+                                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  forex section End -->
+                                <!--  insurance section Start -->
+                                <div class="tab-pane" id="insurances1" role="tabpanel" ">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary" style="width:280px;">
+                                                <input type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-block table-border-style">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="commercials-name">Commercials Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Comm-type">Travel Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Comm-type">Comm.Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="booking-type">Booking Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div class="text-center m-t-10">
+                                                        <img class="img-fluid" src="../assets/images/no-data-img.png" alt="image">
+                                                        <div>No data found, please add new record</div>
+                                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  insurance section End -->
+                                <!--  rail section Start -->
+                                <div class="tab-pane" id="rail1" role="tabpanel" ">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary" style="width:280px;">
+                                                <input type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-block table-border-style">
+                                            <div class="table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><button class="srt-btn" type="button" aria-label="commercials-name">Commercials Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Comm-type">Travel Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Comm-type">Comm.Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="booking-type">Booking Type</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div class="text-center m-t-10">
+                                                        <img class="img-fluid" src="../assets/images/no-data-img.png" alt="image">
+                                                        <div>No data found, please add new record</div>
+                                                        <div><a href="create-suppliers.html"><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  rail section End -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+        </div>
+    </div>
 </main>
 
