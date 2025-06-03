@@ -49,6 +49,7 @@ namespace JetwaysAdmin.Repositories
         {
             modelBuilder.Entity<CustomerDetails>().HasNoKey(); // No primary key because it's a model
             modelBuilder.Entity<CompanyEmployeeGSTDetails>().HasNoKey();
+            modelBuilder.Entity<BillingEntity>().HasNoKey();
             modelBuilder.Entity<HierarchyLegalEntity>().HasNoKey();
             modelBuilder.Entity<Menu>()
        .HasOne(m => m.MenuHead)                 // navigation property in Menu (submenu)

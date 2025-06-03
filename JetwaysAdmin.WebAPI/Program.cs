@@ -28,6 +28,7 @@ builder.Services.AddScoped<ICustomer<Customer>, CustomerService>();
 builder.Services.AddScoped<ILegalEntity<LegalEntity>, LegalEntityService>();
 builder.Services.AddScoped<ICustomerDetailsByEmail<CustomerDetails>, CustomerDetailsByEmailService>();
 builder.Services.AddScoped<ICompanyEmployeeGST<CompanyEmployeeGSTDetails>, CompanyEmployeeGSTService>();
+builder.Services.AddScoped<IBillingEntity<BillingEntity>, BillingEntityService>();
 builder.Services.AddScoped<IHierarchyLegalEntity<HierarchyLegalEntity>, HierarchicallegalentityService>();
 builder.Services.AddScoped<IIATAGroup<IATAGroup>,IATAGruopService>();
 builder.Services.AddScoped<IAccountDetails<AccountDetails>, AccountDetailsService>();

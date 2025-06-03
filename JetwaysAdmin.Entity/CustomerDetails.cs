@@ -13,8 +13,11 @@ namespace JetwaysAdmin.Entity
 
         public string LegalEntityName { get; set; }
 
+       
         public string ? EmployeeNames { get; set; }
 
-        public decimal? PresentBalance { get; set; }
+        //public string? BillingEntities { get; set; }
+
+        //public decimal? PresentBalance { get; set; }
     }
 }

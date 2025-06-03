@@ -41,7 +41,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             if (admin != null)
             {
                 // Optionally set session or token here
-                return Ok(new { message = loginRequest.Username });
+                return Ok(new { id = admin.Result.admin_id,Name= admin.Result.admin_name });
             }
             else
             {

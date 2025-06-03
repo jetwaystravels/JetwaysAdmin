@@ -16,14 +16,16 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
         private readonly ICustomer<Customer> _Customer;
         private readonly ICustomerDetailsByEmail<CustomerDetails> _CustomerDetailsByEmail;
+        private readonly IBillingEntity<BillingEntity> _BillingEntity;
         private readonly ICompanyEmployeeGST<CompanyEmployeeGSTDetails> _CompanyEmployeeGST;
         private readonly IHierarchyLegalEntity<HierarchyLegalEntity> _hierarchyLegalEntity;
-        public CustomerController(ICustomer<Customer> Customer, ICustomerDetailsByEmail<CustomerDetails> customerDetailsByEmail, ICompanyEmployeeGST<CompanyEmployeeGSTDetails> companyEmployeeGST, IHierarchyLegalEntity<HierarchyLegalEntity> hierarchyLegalEntity)
+        public CustomerController(ICustomer<Customer> Customer, ICustomerDetailsByEmail<CustomerDetails> customerDetailsByEmail, ICompanyEmployeeGST<CompanyEmployeeGSTDetails> companyEmployeeGST, IHierarchyLegalEntity<HierarchyLegalEntity> hierarchyLegalEntity, IBillingEntity<BillingEntity> billingEntity)
         {
             this._Customer = Customer;
             _CustomerDetailsByEmail = customerDetailsByEmail;
             _CompanyEmployeeGST = companyEmployeeGST;
             _hierarchyLegalEntity = hierarchyLegalEntity;
+            _BillingEntity = billingEntity;
             //  _CompanyEmployeeGST = CompanyEmployeeGST;
         }
         //public IActionResult Index()
@@ -67,6 +69,20 @@ namespace JetwaysAdmin.WebAPI.Controllers
             var result = await _CustomerDetailsByEmail.GetCustomerDetailsByEmailAsync(email);
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("GetBillingEntity")]
+        public async Task<ActionResult<BillingEntity>> GetBillingEntity(string legalEntityCode ,string employeeCode )
+        {
+            if (string.IsNullOrEmpty(legalEntityCode) || string.IsNullOrEmpty(employeeCode))
+            {
+                return BadRequest("EmployeeCode and LegalEntityCode are required.");
+            }
+
+            var result = await _BillingEntity.GetBillingEntityAsync(legalEntityCode,employeeCode);
+            return Ok(result);
+        }
+
 
         [HttpGet]
         [Route("GetCompanyEmployeeGST")]
