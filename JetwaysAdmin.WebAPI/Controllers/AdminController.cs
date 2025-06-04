@@ -10,9 +10,11 @@ namespace JetwaysAdmin.WebAPI.Controllers
     public class AdminController : Controller
     {
         private readonly IAdmin<Admin> _admin;
-        public AdminController(IAdmin<Admin> admin)
+        private readonly IInternalUsers<InternalUsers> _internalUsers;
+        public AdminController(IAdmin<Admin> admin, IInternalUsers<InternalUsers> internalUsers)
         {
             this._admin = admin;
+            _internalUsers = internalUsers;
         }
 
 
@@ -48,6 +50,33 @@ namespace JetwaysAdmin.WebAPI.Controllers
                 return Unauthorized(new { message = "Invalid username or password." });
             }
         }
+        [HttpPost("CorporateLogIn")]
+        public async Task<IActionResult> CorporateLogIn([FromBody] CoprateLoginRequest CoprateloginRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await _internalUsers.LoginAsync(CoprateloginRequest.BusinessEmail, CoprateloginRequest.Password);
+
+            if (user != null)
+            {
+                return Ok(new
+                {
+                    user.UserID,
+                    user.FirstName,
+                    user.LastName,
+                    user.BusinessEmail,
+                    user.UserType
+                });
+            }
+            else
+            {
+                return Unauthorized(new { message = "Invalid email or password." });
+            }
+        }
+
 
         [HttpPost("AddAdmin")]
         public async Task AddAdmin(Admin admin)

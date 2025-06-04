@@ -5,7 +5,11 @@
     Layout = "~/Views/Shared/Admin.cshtml";
     var Data = Model;
 }
-
+<head>
+    <style>
+       .boxuser { margin-left:-8px; cursor:pointer;}
+    </style>
+</head>
 
 <main id="main" class="main">
     <div class="pcoded-main-container">
@@ -65,8 +69,8 @@
                                 {
                                     <div class="col-md-3">
                                         <div class="card" >
-                                            <div class="card-block sup-bx legalbox">
-                                                <div  class="bdr" style="padding-bottom:0;">
+                                            <div class="card-block sup-bx">
+                                                <div class="bdr  legalbox" style="padding-bottom:0;">
                                                     <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo">
                                                     <h6 class="m-t-10 m-l-10 gray-bg">@val.LegalEntityName<p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p></h6>
                                                     <input type="hidden" value="@val.Id" name="LegalEntityId" />
@@ -83,7 +87,13 @@
                                                         <div class="dot-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
                                                         <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                                             <a class="dropdown-item" href="#">Settings</a>
-                                                            <a class="dropdown-item" href="#">User Management</a>
+                                                          @*   <a asp-controller="Users" asp-action="ShowUsers" class="dropdown-item">User Management</a> *@
+                                                            <form  asp-controller="Users" asp-action="ShowUsers" method="get">
+                                                                <input type="hidden" value="@val.Id" name="LegalEntityId" />
+                                                                <input type="hidden" value="@val.LegalEntityName" name="LegalEntityName" />
+                                                                <input type="hidden" value="@val.LegalEntityCode" name="LegalEntityCode" />
+                                                                <button type="submit" class="dropdown-item boxuser">User Management</button>
+                                                           </form>
                                                             <a class="dropdown-item" href="#">Deactivate </a>
                                                         </div>
                                                     </div>
@@ -174,6 +184,11 @@
                     }
                 });
             });
+
+          
+          
+
+
         });
 
 

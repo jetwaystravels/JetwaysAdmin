@@ -17,6 +17,7 @@ namespace JetwaysAdmin.Entity
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? BusinessEmail { get; set; }
+        public string? Password { get; set; }
         public string? MobileNumber { get; set; }
         public string? Nationality { get; set; }
         public string? WorkLocation { get; set; }

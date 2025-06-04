@@ -15,12 +15,7 @@ namespace JetwaysAdmin.UI.Controllers
             using (HttpClient client = new HttpClient())
             {
                 var response = await client.GetAsync(AppUrlConstant.GetLegalEntity);
-                //if (response.IsSuccessStatusCode)
-                //{
-                //    var result = await response.Content.ReadAsStringAsync();
-                //    var responseData = JsonConvert.DeserializeObject<LegalEntityResponse>(result);
-                //    legalEntities = responseData?.Data ?? new List<LegalEntity>();
-                //}
+             
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
@@ -28,6 +23,7 @@ namespace JetwaysAdmin.UI.Controllers
                     legalEntities = responseData?.Data
                         ?.Where(le => string.IsNullOrEmpty(le.ParentLegalEntityCode))
                         .ToList() ?? new List<LegalEntity>();
+                   
                 }
             }
 

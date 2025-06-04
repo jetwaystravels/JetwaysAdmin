@@ -40,7 +40,8 @@ namespace JetwaysAdmin.Repositories
         public DbSet<EmployeeFrequentFlyer> tb_EmployeeFrequentFlyers { get; set; }
         public DbSet<InternalUsers> tb_InternalUsers { get; set; }
         public DbSet<ContactUsDetails> tb_ContactUsDetails { get; set; }
-       
+        public DbSet<EmployeeBillingEntity> tb_EmployeeBillingEntity { get; set; }
+                      
 
 
 

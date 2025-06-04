@@ -48,6 +48,9 @@
 
         public static string GetCustomerEmployee = BaseURL + "api/CustomersEmployeeAPI/GetCustomerEmployee";
 
+        public static string GetCustomerEmployeeID = BaseURL + "api/CustomersEmployeeAPI";
+        public static string AddCustomerEmployee = BaseURL + "api/CustomersEmployeeAPI/AddUsers";
+
         public static string AddFrequentFlyer = BaseURL + "api/FrequentFlyerAPI/AddFrequentFlyer";
 
         public static string GetFrequentFlyer = BaseURL + "api/FrequentFlyerAPI/GetFrequentFlyer";
@@ -60,6 +63,7 @@
         public static string GetInternalusersID = BaseURL + "api/InternalUsersAPI";
 
         public static string AddContactUS = BaseURL + "api/ContactUsDetailsAPI/AddContactUs";
+        public static string AddBillingEntity = BaseURL + "api/EmployeeBillingEntityAPI/AddBillingEntity";
 
         #endregion
 

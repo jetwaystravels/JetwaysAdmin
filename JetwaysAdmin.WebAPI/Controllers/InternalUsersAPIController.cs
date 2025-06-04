@@ -70,6 +70,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             suserupdate.MobileNumber = internalusers.MobileNumber ?? suserupdate.MobileNumber;
             suserupdate.BusinessEmail = internalusers.BusinessEmail ?? suserupdate.BusinessEmail;
             suserupdate.Logo = internalusers.Logo ?? suserupdate.Logo;
+            suserupdate.Password = internalusers.Password ?? suserupdate.Password;
             await _internaluser.UpdateInternalUsersById(suserupdate);
             return Ok(new { message = "Customer updated successfully!" });
         }

@@ -1,0 +1,792 @@
+﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
+
+@{
+    Layout = "~/Views/Shared/UserProfile.cshtml";
+    var Data = Model;
+}
+ @{
+   TempData.Keep("EmplID");
+   TempData.Keep("EmplName");
+ }
+<main id="main" class="main">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Organization Profile</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">
+                                        User Management
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Manage Users
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <div class="page-body">
+                        <div class="card">
+                            <div class="card-block">
+                                <div class="form-material form-row">
+                                    <div class="form-group form-primary col-md-3">
+                                        <select class="select">
+                                            @foreach(var legal in Data.LegalEntitydata)
+                                            {
+                                              <option value="@legal.LegalEntityCode">@legal.LegalEntityName</option>  
+                                            } 
+                                        </select>
+                                        <label class="float-label">Billing Entity Code</label>
+                                    </div>
+                                    <div class="form-group form-primary col-md-3">
+                                        <input type="text" name="legal-entity-code" value="@TempData["EmplID"]" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Employee ID</label>
+                                    </div>
+                                    <div class="form-group form-primary col-md-3">
+                                        <select class="select">
+                                            <option value="">Designation</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-primary col-md-3">
+                                        <select class="select">
+                                            <option value="">Band</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-primary col-md-3">
+                                        <input type="text" name="date-of-joining" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Date of Joining</label>
+                                    </div>
+                                    <div class="form-group form-primary col-md-3">
+                                        <select class="select">
+                                            <option value="">Work Location*</option>
+                                            <option value="Delhi">Delhi</option>
+                                            <option value="Pune">Pune</option>
+                                            <option value="Mumbai">Mumbai</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-primary col-md-3">
+                                        <select class="select">
+                                            <option value="">Department</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group form-primary col-md-3">
+                                        <select class="select">
+                                            <option value="">Customer center</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group form-primary col-md-3">
+                                        <input class="form-control date-main" type="text" placeholder="Date of Birth">
+                                        <span class="form-bar"></span>
+                                    </div>
+                                    <div class="form-group form-primary col-md-3">
+                                        <select class="select">
+                                            <option value="">Reporting Manager</option>
+                                            <option value="adhar-budhraja">Adhar Budhraja</option>
+                                            <option value="amit-kumar">Amit Kumar</option>
+                                            <option value="amit-morya">Amit Morya</option>
+                                            <option value="amol-kumar">Amol Kumar</option>
+                                            <option value="archana-chaturvedi">Archana chaturvedi</option>
+                                            <option value="asha-nagpal">Asha Nagpal</option>
+                                            <option value="ashok-KK">Ashok KK</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-primary col-md-1">
+                                        <input type="text" name="legal-entity-code" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">502206</label>
+                                    </div>
+                                    <div class="form-group form-primary col-md-2">
+                                        <input type="number" name="phone-number" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label"></label>
+                                    </div>
+                                    <div class="form-group form-primary col-md-3">
+                                        <select class="select">
+                                            <option value="">User Role</option>
+                                            <option value="AF">TMC User</option>
+                                            <option value="AL">TMC Super Admin</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-primary col-md-3">
+                                        <input type="text" name="access-role" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Access Role</label>
+                                    </div>
+                                    <div class="form-group form-primary col-md-3">
+                                        <select class="select">
+                                            <option value="">Employment Type</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="page-body">
+                                    <!-- Nav tabs -->
+                                    <div class="m-b-25">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#flights1" role="tab">Flights</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#hotel1" role="tab">Hotel</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#visas2" role="tab">Visa</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#forex1" role="tab">Forex</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#callingC2" role="tab">Calling Card</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#Cabs2" role="tab">Cabs</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#insurances1" role="tab">Insurance</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#bus1" role="tab">Bus</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#rail1" role="tab">Rail</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <!--  flight section Start -->
+                                        <div class="tab-pane active" id="flights1" role="tabpanel">
+                                            <div class="row form-material">
+                                                <div class="col-md-6 approver-domestic-bx">
+                                                    <div class="text-right m-b-10"><input class="m-r-5" type="checkbox" value="" style="vertical-align:text-top;">Same as Domestic</div>
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Add Approver for Domestic</th>
+                                                                <th>Approver Level</th>
+                                                                <th>Add Approver for International</th>
+                                                                <th>Approver Level</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <table class="table">
+                                                                        <tr class="add-row">
+                                                                            <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                                <td colspan="2">
+                                                                    <table class="table">
+                                                                        <tr class="add-row">
+                                                                            <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-6 approver-domestic-bx">
+                                                    <div class="text-right m-b-10"><input class="m-r-5" type="checkbox" value="" style="vertical-align:text-top;">Same as Domestic</div>
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Add Approver for Domestic</th>
+                                                                <th>Approver Level</th>
+                                                                <th>Add Approver for International</th>
+                                                                <th>Approver Level</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <table class="table">
+                                                                        <tr class="add-row">
+                                                                            <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                                <td colspan="2">
+                                                                    <table class="table">
+                                                                        <tr class="add-row">
+                                                                            <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="form-group form-primary col-md-3">
+                                                    <input type="text" name="approver-limit" class="form-control">
+                                                    <span class="form-bar"></span>
+                                                    <label class="float-label" style="padding-left: 19px;">Approver Limit</label>
+                                                </div>
+                                            </div>
+                                            <div class="row form-material" style="border-top:#dee2e6 1px solid;">
+                                                <div class="form-group form-primary col-md-4 m-t-15">
+                                                    Is Billable?
+                                                    <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
+                                                        <input type="checkbox">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-group form-primary col-md-4 m-t-15">
+                                                    Is User VIP / WIP?
+                                                    <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
+                                                        <input type="checkbox">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row form-material" style="border-top:#dee2e6 1px solid;">
+                                                <div class="m-t-15 col-md-4">
+                                                    <div class="m-b-15" style="font-size:13px;">Department Head</div>
+                                                    <div class="m-b-10" style="position:relative;">
+                                                        <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8; position: absolute; left: 7px; top: 5px;"></i><input type="text" name="assign-supervisor" placeholder="Assign Department Head" style="border: #eff1f4 1px solid; border-radius: 3px; padding-left: 27px; width: 217px; cursor:pointer;">
+                                                    </div>
+                                                    <div class="selected-items"></div>
+                                                </div>
+                                                <div class="form-group form-primary col-md-4 m-t-15">
+                                                    Restrict Booking
+                                                    <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
+                                                        <input type="checkbox">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-group form-primary col-md-4 m-t-15">
+                                                    Can Approve & Reject
+                                                    <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
+                                                        <input type="checkbox" checked>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row form-material" style="border-top:#dee2e6 1px solid;">
+                                                <div class="form-group form-primary col-md-6 m-t-15">
+                                                    <div class="ng-content-hd">Legal Entities allowed for Cross Billing</div>
+                                                    <table class="table legal-entities hidden">
+                                                        <tr>
+                                                            <td>
+                                                                <div class="autocomplete-container">
+                                                                    <div class="autocomplete-input-wrapper">
+                                                                        <input type="text" class="autocomplete-input" placeholder="Select Legal Entity" />
+                                                                        <span class="dropdown-icon"><i class="fa fa-caret-down"></i></span>
+                                                                    </div>
+                                                                    <ul class="suggestions"></ul>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group form-primary" style="position: relative;">
+                                                                    <input type="text" name="legal-entity-code" class="form-control legal-code-input" style="padding-left:30px;">
+                                                                    <span class="form-bar"></span>
+                                                                    <label class="float-label" style="padding-left:30px;">Reference Number</label>
+                                                                    <span class="close-icon" style="margin-left: 8px; cursor: pointer; display: inline-block; position: absolute; right: 0; top: 10px; color: red; font-size: 18px;">×</span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <div>
+                                                        <button class="add-legal-entity-row btn btn-primary">
+                                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add New
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-material" style="border-top:#dee2e6 1px solid;">
+                                                <div class="form-group form-primary col-md-6 m-t-15">
+                                                    <div class="ng-content-hd">TMC Multiple URLs linking</div>
+                                                    <table class="table legal-entities hidden">
+                                                        <tr>
+                                                            <td>
+                                                                <div class="autocomplete-container">
+                                                                    <div class="autocomplete-input-wrapper">
+                                                                        <input type="text" class="autocomplete-input" placeholder="TMC URLs" />
+                                                                        <span class="dropdown-icon"><i class="fa fa-caret-down"></i></span>
+                                                                    </div>
+                                                                    <ul class="suggestions"></ul>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group form-primary" style="position: relative;">
+                                                                    <input type="text" name="legal-entity-code" class="form-control legal-code-input" style="padding-left:30px;">
+                                                                    <span class="form-bar"></span>
+                                                                    <label class="float-label" style="padding-left:30px;"></label>
+                                                                    <span class="close-icon" style="margin-left: 8px; cursor: pointer; display: inline-block; position: absolute; right: 0; top: 10px; color: red; font-size: 18px;">×</span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <div>
+                                                        <button class="add-legal-entity-row btn btn-primary">
+                                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add New
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             <div>
+                                             <button class="add-legal-entity-row btn btn-primary">
+                                             Update
+                                            </button>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <!-- Required Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+    <!-- waves js -->
+    <script src="assets/pages/waves/js/waves.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <!-- slimscroll js -->
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- menu js -->
+    <script src="assets/js/pcoded.min.js"></script>
+    <script src="assets/js/vertical/vertical-layout.min.js"></script>
+    <script type="text/javascript" src="assets/js/script.js"></script>
+    <!-- multiple selection Jquery -->
+    <script type="text/javascript" src="assets/js/jquery.multiselect.js"></script>
+    <!-- select with search js Start -->
+    <script type="text/javascript" src="assets/js/select2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        $(function () {
+            $(".select").select2();
+        });
+    </script>
+    <!-- datepicker start -->
+    <script>
+        $(function () {
+            // $(".date-main").datepicker({
+            //     changeMonth: true,
+            //     changeYear: true
+            // });
+              flatpickr(".date-main", {
+        dateFormat: "Y-m-d",
+        allowInput: true
+    });
+        });
+    </script>
+    <!-- datepicker End -->
+    <!-- approver-domestic-bx start -->
+    <script>
+        const suggestionsList = [
+            'Adhar Budhraja', 'Amit Kumar', 'Amit Morya', 'Amol Kumar', 'Archana Chaturvedi', 'Asha Nagpal',
+            'Ashok Kk', 'Ayush Gupta', 'Bhupendra M', 'Bintu JangraChetan Mc',
+        ];
+
+        function setupAutocomplete(container) {
+            const input = container.querySelector('input');
+            const suggestions = container.querySelector('.suggestions');
+            const toggleBtn = container.querySelector('button');
+
+            const showSuggestions = (items) => {
+                suggestions.innerHTML = '';
+                if (items.length === 0) {
+                    suggestions.style.display = 'none';
+                    return;
+                }
+                items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    li.addEventListener('click', () => {
+                        input.value = item;
+                        suggestions.style.display = 'none';
+                    });
+                    suggestions.appendChild(li);
+                });
+                suggestions.style.display = 'block';
+            };
+
+            const filterSuggestions = () => {
+                const query = input.value.toLowerCase();
+                const filtered = suggestionsList.filter(item =>
+                    item.toLowerCase().includes(query)
+                );
+                showSuggestions(filtered);
+            };
+
+            input.addEventListener('input', filterSuggestions);
+            input.addEventListener('focus', () => {
+                showSuggestions(suggestionsList);
+            });
+
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (suggestions.style.display === 'block') {
+                    suggestions.style.display = 'none';
+                } else {
+                    showSuggestions(suggestionsList);
+                    input.focus();
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!container.contains(e.target)) {
+                    suggestions.style.display = 'none';
+                }
+            });
+        }
+
+        document.querySelectorAll('.add').forEach(button => {
+            button.addEventListener('click', function () {
+                const tableBody = button.closest('tbody');
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                        <td>
+                            <div class="autocomplete-container form-group" style="position: relative;">
+                            <div class="input-wrapper">
+                                <input type="text" placeholder="Select Approver" />
+                                <button type="button"><i class="fa fa-caret-down"></i></button>
+                            </div>
+                            <ul class="suggestions"></ul>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" name="Name on card" class="form-control" placeholder="1">
+                        </td>
+                        `;
+                tableBody.insertBefore(newRow, button.closest('tr'));
+                setupAutocomplete(newRow.querySelector('.autocomplete-container'));
+            });
+        });
+
+        function setupAutocomplete(container) {
+            const input = container.querySelector('input');
+            const suggestions = container.querySelector('.suggestions');
+            const toggleBtn = container.querySelector('button');
+
+            // Create close (×) icon dynamically
+            const closeBtn = document.createElement('span');
+            closeBtn.textContent = '×';
+            closeBtn.style.marginLeft = '8px';
+            closeBtn.style.cursor = 'pointer';
+            closeBtn.style.display = 'none';
+            toggleBtn.after(closeBtn);
+
+            const wrapper = container.closest('tr'); // the <tr> to hide
+            const tbody = wrapper.closest('tbody');  // get parent table section
+            const addRow = tbody.querySelector('.add-row'); // row containing Add New button
+
+            const showSuggestions = (items) => {
+                suggestions.innerHTML = '';
+                if (items.length === 0) {
+                    suggestions.style.display = 'none';
+                    return;
+                }
+                items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    li.addEventListener('click', () => {
+                        input.value = item;
+                        input.readOnly = true;
+                        suggestions.style.display = 'none';
+                        toggleBtn.style.display = 'none';
+                        closeBtn.style.display = 'inline-block';
+                        addRow.style.display = 'none'; // hide Add New button row
+                    });
+                    suggestions.appendChild(li);
+                });
+                suggestions.style.display = 'block';
+            };
+
+            const filterSuggestions = () => {
+                const query = input.value.toLowerCase();
+                const filtered = suggestionsList.filter(item =>
+                    item.toLowerCase().includes(query)
+                );
+                showSuggestions(filtered);
+            };
+
+            input.addEventListener('input', filterSuggestions);
+            input.addEventListener('focus', () => {
+                if (!input.readOnly) {
+                    showSuggestions(suggestionsList);
+                }
+            });
+
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!input.readOnly) {
+                    if (suggestions.style.display === 'block') {
+                        suggestions.style.display = 'none';
+                    } else {
+                        showSuggestions(suggestionsList);
+                        input.focus();
+                    }
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                input.value = '';
+                input.readOnly = false;
+                toggleBtn.style.display = 'inline-block';
+                closeBtn.style.display = 'none';
+                wrapper.remove(); // hide the current row
+                addRow.style.display = ''; // show Add New button again
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!container.contains(e.target)) {
+                    suggestions.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+    <!-- approver-domestic-bx end -->
+    <!-- Start Legal Entities allowed-->
+
+    <script>
+        const data = ["[JET001] Jetways Travels"];
+
+        function initializeAutocomplete(row) {
+            const input = row.querySelector('.autocomplete-input');
+            const suggestionsBox = row.querySelector('.suggestions');
+            const dropdownIcon = row.querySelector('.dropdown-icon');
+
+            function renderSuggestions(filtered) {
+                suggestionsBox.innerHTML = '';
+                filtered.forEach(item => {
+                    const div = document.createElement('div');
+                    div.textContent = item;
+                    div.classList.add('suggestion');
+                    div.addEventListener('click', () => {
+                        input.value = item;
+                        suggestionsBox.innerHTML = '';
+                    });
+                    suggestionsBox.appendChild(div);
+                });
+            }
+
+            input.addEventListener('input', () => {
+                const inputValue = input.value.toLowerCase();
+                if (inputValue === '') {
+                    suggestionsBox.innerHTML = '';
+                    return;
+                }
+                const filtered = data.filter(item => item.toLowerCase().startsWith(inputValue));
+                renderSuggestions(filtered);
+            });
+
+            input.addEventListener('focus', () => {
+                renderSuggestions(data);
+            });
+
+            dropdownIcon.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (suggestionsBox.innerHTML === '') {
+                    renderSuggestions(data);
+                } else {
+                    suggestionsBox.innerHTML = '';
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.autocomplete-container')) {
+                    suggestionsBox.innerHTML = '';
+                }
+            });
+        }
+
+        function initializeRemoveIcon(row) {
+            const closeIcon = row.querySelector('.close-icon');
+            if (!closeIcon) return;
+            closeIcon.addEventListener('click', () => row.remove());
+        }
+
+        function createNewRow() {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <div class="autocomplete-container">
+                        <div class="autocomplete-input-wrapper">
+                            <input type="text" class="autocomplete-input" placeholder="Select Legal Entity" />
+                            <span class="dropdown-icon"><i class="fa fa-caret-down"></i></span>
+                        </div>
+                        <ul class="suggestions"></ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group form-primary" style="position: relative;">
+                        <input type="text" name="legal-entity-code" class="form-control legal-code-input" style="padding-left:30px;">
+                        <span class="form-bar"></span>
+                        <label class="float-label" style="padding-left:30px;">Reference Number</label>
+                        <span class="close-icon" style="margin-left: 8px; cursor: pointer; display: inline-block; position: absolute; right: 0; top: 10px; color: red; font-size: 18px;">×</span>
+                    </div>
+                </td>`;
+            return row;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.add-legal-entity-row').forEach(button => {
+                const container = button.closest('.form-material');
+                const table = container.querySelector('.legal-entities');
+
+                const firstRow = table.querySelector('tr');
+                if (firstRow) {
+                    initializeAutocomplete(firstRow);
+                    initializeRemoveIcon(firstRow);
+                }
+
+                button.addEventListener('click', () => {
+                    table.classList.remove('hidden');
+                    const newRow = createNewRow();
+                    table.appendChild(newRow);
+                    initializeAutocomplete(newRow);
+                    initializeRemoveIcon(newRow);
+                });
+            });
+        });
+    </script>
+
+
+
+    <script>
+        const data = ["[JET001]  Jetways Travels"];
+
+        function initializeAutocomplete(row) {
+            const input = row.querySelector('.autocomplete-input');
+            const suggestionsBox = row.querySelector('.suggestions');
+            const dropdownIcon = row.querySelector('.dropdown-icon');
+
+            function renderSuggestions(filtered) {
+                suggestionsBox.innerHTML = '';
+                filtered.forEach(item => {
+                    const div = document.createElement('div');
+                    div.textContent = item;
+                    div.classList.add('suggestion');
+                    div.addEventListener('click', () => {
+                        input.value = item;
+                        suggestionsBox.innerHTML = '';
+                    });
+                    suggestionsBox.appendChild(div);
+                });
+            }
+
+            input.addEventListener('input', () => {
+                const inputValue = input.value.toLowerCase();
+                if (inputValue === '') {
+                    suggestionsBox.innerHTML = '';
+                    return;
+                }
+                const filtered = data.filter(item => item.toLowerCase().startsWith(inputValue));
+                renderSuggestions(filtered);
+            });
+
+            input.addEventListener('focus', () => {
+                renderSuggestions(data);
+            });
+
+            dropdownIcon.addEventListener('click', () => {
+                if (suggestionsBox.innerHTML === '') {
+                    renderSuggestions(data);
+                } else {
+                    suggestionsBox.innerHTML = '';
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.autocomplete-container')) {
+                    suggestionsBox.innerHTML = '';
+                }
+            });
+        }
+
+        function initializeRemoveIcon(row) {
+            const closeIcon = row.querySelector('.close-icon');
+            if (!closeIcon) return;
+
+            closeIcon.addEventListener('click', () => {
+                row.remove();
+            });
+        }
+
+        // Initialize first row
+        const firstRow = document.querySelector('#legal-entities-table tr');
+        initializeAutocomplete(firstRow);
+        initializeRemoveIcon(firstRow);
+
+        // ✅ Updated add button selector
+        document.querySelector('.add-legal-entity-row').addEventListener('click', () => {
+            const table = document.getElementById('legal-entities-table');
+            // 🔥 Show the table by removing 'hidden' class
+            table.classList.remove('hidden');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>
+                <div class="autocomplete-container">
+                    <div class="autocomplete-input-wrapper">
+                    <input type="text" class="autocomplete-input" placeholder="Select Legal Entity" />
+                    <span class="dropdown-icon"><i class="fa fa-caret-down"></i></span>
+                    </div>
+                    <ul class="suggestions"></ul>
+                </div>
+                </td>
+                <td>
+                <div class="form-group form-primary" style="position: relative;">
+                    <input type="text" name="legal-entity-code" class="form-control legal-code-input" style="padding-left:30px;">
+                    <span class="form-bar"></span>
+                    <label class="float-label" style="padding-left:30px;">Reference Number</label>
+                    <span class="close-icon" style="margin-left: 8px; cursor: pointer; display: inline-block; position: absolute; right: 0; top: 10px; color: red; font-size: 18px;">×</span>
+                </div>
+                </td>
+                                        `;
+            table.appendChild(newRow);
+            initializeAutocomplete(newRow);
+            initializeRemoveIcon(newRow);
+        });
+    </script>
+</footer>

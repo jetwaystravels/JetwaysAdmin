@@ -22,5 +22,26 @@ namespace JetwaysAdmin.Repositories.Implementations
             return await _context.tb_CustomersEmployee.ToListAsync();
         }
 
-    } 
+        public async Task<CustomersEmployee> GetUsersById(int id)
+        {
+            return await _context.tb_CustomersEmployee.FirstOrDefaultAsync(e => e.UserID == id);
+        }
+
+
+        public async Task Addusers(CustomersEmployee UserAdd)
+        {
+            await _context.tb_CustomersEmployee.AddAsync(UserAdd);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateUsersById(CustomersEmployee Users)
+        {
+            _context.tb_CustomersEmployee.Update(Users);
+            await _context.SaveChangesAsync();
+        }
+
+      
+
+        
+    }
 }

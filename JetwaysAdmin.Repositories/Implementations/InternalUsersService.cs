@@ -39,6 +39,11 @@ namespace JetwaysAdmin.Repositories.Implementations
             _internaluser.tb_InternalUsers.Update(internalUsers);
             await _internaluser.SaveChangesAsync();
         }
+        public async Task<InternalUsers> LoginAsync(string businessEmail, string password)
+        {
+            return await _internaluser.tb_InternalUsers
+                .FirstOrDefaultAsync(u => u.BusinessEmail == businessEmail && u.Password == password);
+        }
 
     }
 }

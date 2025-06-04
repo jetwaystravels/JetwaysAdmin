@@ -33,6 +33,7 @@ namespace JetwaysAdmin.UI.ViewModel
         public List<EmployeeFrequentFlyer> flyerList { get; set; }
         public List<FrequentFlyerDisplay> FlyerDisplayList { get; set; }
         public List<InternalUsers> InternalUsers { get; set; }
+        public List<LegalEntity> LegalEntitydata { get; set; }
 
     }
 

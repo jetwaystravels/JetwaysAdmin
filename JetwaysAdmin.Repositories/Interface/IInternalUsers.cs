@@ -14,5 +14,7 @@ namespace JetwaysAdmin.Repositories.Interface
         Task<InternalUsers> GetInternalUsersById(int id);
        
         Task UpdateInternalUsersById(InternalUsers internalUsers);
+
+        Task<InternalUsers> LoginAsync(string businessEmail, string password);
     }
 }

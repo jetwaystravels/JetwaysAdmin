@@ -1,0 +1,321 @@
+﻿@{
+    Layout = "~/Views/Shared/UserProfile.cshtml";
+    var Data = Model;
+}
+
+<main id="main" class="main">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Contact Details</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">
+                                        User Management
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Manage Users
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- Main-body start -->
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- Nav tabs -->
+                            <div class="m-b-25">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#Address1" role="tab">Address</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#email1" role="tab">Email</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#Phone1" role="tab">Phone</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#Emergency1" role="tab">Emergency Contacts</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Tab panes -->
+                            <!-- Page-body start -->
+                            <div class="page-body">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="Address1" role="tabpanel">
+                                                <div style="background: #f2f2f2; padding: 12px; margin-bottom: 10px; border-radius:3px;">
+                                                    <h6 style="margin-bottom:0;">Current Address</h6>
+                                                </div>
+                                                <div class="form-material form-row">
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <input type="text" name="legal-entity-code" class="form-control">
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Address Line 1</label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <input type="text" name="legal-entity-code" class="form-control">
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Address Line 2</label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <select class="select" required>
+                                                            <option value="">Country*</option>
+                                                            <option value="abkhazia">Abkhazia</option>
+                                                            <option value="akrotiri">Akrotiri and Dhekelia</option>
+                                                            <option value="aland-island">Aland Island</option>
+                                                            <option value="albania">Albania</option>
+                                                            <option value="algeria">algeria</option>
+                                                            <option value="american-samoa">American Samoa</option>
+                                                            <option value="andorra">Andorra</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <select class="select" required>
+                                                            <option value="">State*</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <select class="select" required>
+                                                            <option value="">City*</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <input type="text" name="legal-entity-code" class="form-control">
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Postal Code</label>
+                                                    </div>
+                                                    <div class="col-md-12 d-flex justify-content-between" style="background: #f2f2f2; padding: 12px; margin-bottom: 10px; border-radius:3px;">
+                                                        <h6 style="margin-bottom:0;">Permanent Address</h6>
+                                                        <h6 style="margin-bottom: 0; color: #0e93d8; cursor:pointer;">Same as Current Address</h6>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <input type="text" name="legal-entity-code" class="form-control">
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Address Line 1</label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-6">
+                                                        <input type="text" name="legal-entity-code" class="form-control">
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Address Line 2</label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <select class="select" required>
+                                                            <option value="">Country*</option>
+                                                            <option value="abkhazia">Abkhazia</option>
+                                                            <option value="akrotiri">Akrotiri and Dhekelia</option>
+                                                            <option value="aland-island">Aland Island</option>
+                                                            <option value="albania">Albania</option>
+                                                            <option value="algeria">algeria</option>
+                                                            <option value="american-samoa">American Samoa</option>
+                                                            <option value="andorra">Andorra</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <select class="select" required>
+                                                            <option value="">State*</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <select class="select" required>
+                                                            <option value="">City*</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <input type="text" name="legal-entity-code" class="form-control">
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Postal Code</label>
+                                                    </div>
+                                                    <button class="btn btn-primary waves-effect waves-light m-t-5">Update</button>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="email1" role="tabpanel">
+                                                <div class="form-material form-row">
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <input type="text" name="legal-entity-code" class="form-control">
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Email Type<span>*</span></label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <input type="text" name="legal-entity-code" class="form-control">
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Email ID<span>*</span></label>
+                                                    </div>
+
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <span class="m-l-5">Receive Invoice</span>
+                                                        <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
+                                                            <input type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <span class="m-l-5">Receive Email Communication</span>
+                                                        <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
+                                                            <input type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="items-container add-bx"></div>
+                                                <button class="add btn waves-effect waves-light btn-primary btn-outline-primary">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Add New
+                                                </button>
+                                                <div class="form-group form-primary col-md-12 m-t-20" style="padding:0;">
+                                                    <button class="btn btn-primary waves-effect waves-light">Update</button>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="Phone1" role="tabpanel">
+                                                <div class="form-material form-row">
+                                                    <div class="form-group form-primary col-md-2">
+                                                        <select name="select" class="form-control fill">
+                                                            <option value="opt1">Phone Type</option>
+                                                            <option value="opt2">Work[Landline]</option>
+                                                            <option value="opt3">Work[Mobile]</option>
+                                                            <option value="opt4">personal</option>
+                                                        </select>
+                                                        <span class="form-bar"></span>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-1">
+                                                        <select class="select">
+                                                            <option>Mobile Number*</option>
+                                                            <option value="">IN(+91)</option>
+                                                            <option value="AF">AF (+93)</option>
+                                                            <option value="AL">AL (+355)</option>
+                                                            <option value="DZ">DZ (+213)</option>
+                                                            <option value="AO">AO (+244)</option>
+                                                            <option value="AR">AR (+54)</option>
+                                                            <option value="AM">AM (+374)</option>
+                                                            <option value="AW">AW (+297)</option>
+                                                            <option value="AU">AU (+61)</option>
+                                                            <option value="AZ">AZ (+994)</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-2">
+                                                        <input type="number" name="phone-number" class="form-control">
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label"></label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <input type="text" name="email-type" class="form-control" placeholder=" " />
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Extension</label>
+                                                    </div>
+                                                    <div class="form-group col-md-2 text-center" style="margin-top:30px;"><span class="remove" style="color: #0e93d8; cursor: pointer;">Set as prefereed</span></div>
+                                                    <div class="form-group col-md-2 text-center" style="margin-top:30px;">
+                                                        <span class="remove" style="color: #0e93d8; cursor: pointer;">Remove</span>
+                                                    </div>
+                                                </div>
+                                                <div class="items-container-two add-bx"></div>
+                                                <button class="add btn waves-effect waves-light btn-primary btn-outline-primary">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Add New
+                                                </button>
+                                                <div class="form-group form-primary col-md-12 m-t-20" style="padding:0;">
+                                                    <button class="btn btn-primary waves-effect waves-light disabled" disebled>Update</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane" id="Emergency1" role="tabpanel">
+                                                <div class="form-material form-row">
+                                                    <div class="form-group form-primary col-md-2">
+                                                        <input type="text" name="contact-number" class="form-control" placeholder=" " />
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Contact Name<span>*</span></label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-2">
+                                                        <input type="text" name="relation" class="form-control" placeholder=" " />
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Relation</label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-2">
+                                                        <input type="text" name="email" class="form-control" placeholder=" " />
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label">Email</label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-2">
+                                                        <select name="select" class="form-control fill">
+                                                            <option value="opt1">Phone Type</option>
+                                                            <option value="opt2">Landline</option>
+                                                            <option value="opt3">Mobile</option>
+                                                        </select>
+                                                        <span class="form-bar"></span>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-1">
+                                                        <select class="select">
+                                                            <option>Mobile Number*</option>
+                                                            <option value="">IN(+91)</option>
+                                                            <option value="AF">AF (+93)</option>
+                                                            <option value="AL">AL (+355)</option>
+                                                            <option value="DZ">DZ (+213)</option>
+                                                            <option value="AO">AO (+244)</option>
+                                                            <option value="AR">AR (+54)</option>
+                                                            <option value="AM">AM (+374)</option>
+                                                            <option value="AW">AW (+297)</option>
+                                                            <option value="AU">AU (+61)</option>
+                                                            <option value="AZ">AZ (+994)</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-2">
+                                                        <input type="number" name="phone-number" class="form-control">
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label"></label>
+                                                    </div>
+                                                    <div class="form-group col-md-1 text-center" style="margin-top:30px;">
+                                                        <span class="remove" style="color: #0e93d8; cursor: pointer;">Remove</span>
+                                                    </div>
+                                                </div>
+                                                <div class="items-container-three add-bx"></div>
+                                                <button class="add btn waves-effect waves-light btn-primary btn-outline-primary">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Add New
+                                                </button>
+                                                <div class="form-group form-primary col-md-12 m-t-20" style="padding:0;">
+                                                    <button class="btn btn-primary waves-effect waves-light">Update</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page-body end -->
+                </div>
+             </div>
+        </div>
+    </div>
+</main>

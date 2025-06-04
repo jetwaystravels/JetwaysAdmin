@@ -41,6 +41,7 @@ builder.Services.AddScoped<ICustomersEmployee<CustomersEmployee>, CustomersEmplo
 builder.Services.AddScoped<IFrequentFlyer<EmployeeFrequentFlyer>, FrequentFlyerService>();  
 builder.Services.AddScoped<IInternalUsers<InternalUsers>, InternalUsersService>();  
 builder.Services.AddScoped<IContactUsDetails<ContactUsDetails>, ContactUsDetailsService>();
+builder.Services.AddScoped<IEmployeeBillingEntity<EmployeeBillingEntity>, EmployeeBillingEntityService>();
 
 
 

@@ -2,6 +2,8 @@
 using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -129,6 +131,41 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             return View();
         }
 
+
+        [HttpGet]
+        public async  Task<IActionResult> OrganizationProfile(string legalEntityCode, string legalEntityName, string legalEntityId)
+        {
+            List<LegalEntity> legalEntities= new List<LegalEntity>();
+            MenuHeaddata legaldata = new MenuHeaddata();
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.GetAsync(AppUrlConstant.GetLegalEntity);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    var responseData = JsonConvert.DeserializeObject<LegalEntityResponse>(result);
+                    legalEntities = responseData?.Data ?? new List<LegalEntity>();
+                    var filteredEntities = legalEntities
+                       .Where(le =>
+                             le.LegalEntityCode == legalEntityCode ||
+                           le.ParentLegalEntityCode == legalEntityCode)
+                    .ToList();
+                    legaldata.LegalEntitydata = filteredEntities;
+
+                }
+                
+            }
+            return View(legaldata);
+        }
+
+
+      
+
+        public IActionResult UserContactDetails()
+        {
+            return View();
+        }
 
 
 

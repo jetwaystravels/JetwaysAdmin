@@ -10,5 +10,9 @@ namespace JetwaysAdmin.Repositories.Interface
     public interface ICustomersEmployee<T> where T : class
     {
         Task<IEnumerable<CustomersEmployee>> GetAllCustomerEmployee();
+        Task<CustomersEmployee> GetUsersById(int id);
+        Task Addusers(CustomersEmployee UserAdd);
+        Task UpdateUsersById(CustomersEmployee Users);
+       
     }
 }
