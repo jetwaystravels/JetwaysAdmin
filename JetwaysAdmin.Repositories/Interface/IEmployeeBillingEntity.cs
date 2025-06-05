@@ -10,5 +10,6 @@ namespace JetwaysAdmin.Repositories.Interface
     public interface IEmployeeBillingEntity<T> where T : class
     {
         Task AddEmplBillingEntity(EmployeeBillingEntity emplBillingEntity);
+        Task<EmployeeBillingEntity> GetEmplBillingEntityById(int id);
     }
 }

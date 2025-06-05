@@ -1,5 +1,6 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,11 @@ namespace JetwaysAdmin.Repositories.Implementations
             await _context.tb_EmployeeBillingEntity.AddAsync(emplBillingEntity);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<EmployeeBillingEntity> GetEmplBillingEntityById(int id)
+        {
+            return await _context.tb_EmployeeBillingEntity.FirstOrDefaultAsync(e => e.UserID == id);
+        }
+
     }
 }

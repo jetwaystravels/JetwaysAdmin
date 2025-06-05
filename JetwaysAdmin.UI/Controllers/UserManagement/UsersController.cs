@@ -24,9 +24,13 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     customerdetail = JsonConvert.DeserializeObject<List<CustomersEmployee>>(result);
                 }
             }
+            var filteredUsers = customerdetail
+              .Where(u => u.LegalEntityCode != null && u.LegalEntityCode.Equals(legalEntityCode, StringComparison.OrdinalIgnoreCase))
+              .ToList();
+
             var userAlldetail = new MenuHeaddata
             {
-                customersemployee = customerdetail,
+                customersemployee = filteredUsers,
             };
             TempData["LegalEntityId"] = legalEntityId;
             TempData["LegalEntityName"] = legalEntityName;
@@ -36,6 +40,8 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
 
         public async  Task<IActionResult> updateUser(int UserID)
         {
+           
+
             CustomersEmployee users = null;
             using (HttpClient client = new HttpClient())
             {
@@ -175,6 +181,10 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 {
                     var result = await response.Content.ReadAsStringAsync();
                     TempData["Addbillingentity"] = "User Add Successfully";
+                }
+                else
+                {
+                    TempData["DuplicateBillingEntity"] = "A billing entity for this user already exists!";
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
                 return RedirectToAction("ShowUsers");

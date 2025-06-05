@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_UserProfile.cshtml";
     var Data = Model;
 }
+
+@{
+    TempData.Keep("LegalEntityCode");
+    TempData.Keep("LegalEntityName");
+}
 <main id="main" class="main">
     <div class="pcoded-main-container">
         <div class="pcoded-wrapper">
@@ -43,7 +48,7 @@
                                     <form class="form-material form-row" id="addinternaluser" enctype="multipart/form-data" method="post" asp-controller="Users" asp-action="AddUsers" style="display:none;">
                                         <div class="form-group form-primary col-md-4">
                                             <select class="form-control langOpt" name="LegalEntityCode">
-                                                <option value="JET001">[JET001] Jetways Travels</option>
+                                                <option value="@TempData["LegalEntityCode"]">[@TempData["LegalEntityCode"]] @TempData["LegalEntityName"]</option>
                                             </select>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Select Legal Entity<span>*</span></label>
@@ -306,6 +311,20 @@
 </main>
 <footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            var duplicateMsg = '@TempData["DuplicateBillingEntity"]';
+            if (duplicateMsg && duplicateMsg !== '') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Duplicate Entry',
+                    text: duplicateMsg,
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    </script>
     <script>
         $(document).ready(function () {
             $('#addnewuser').on('click', function () {
