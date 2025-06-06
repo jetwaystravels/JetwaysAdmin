@@ -9,6 +9,29 @@
     TempData.Keep("LegalEntityCode");
     TempData.Keep("LegalEntityName");
 }
+
+<style>
+    .alert {
+        padding: 5px;
+        background-color: #11c15b;
+        color: white;
+        width: 25%;
+    }
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+     .closebtn:hover {
+            color: black;
+        }
+</style>
 <main id="main" class="main">
     <div class="pcoded-main-container">
         <div class="pcoded-wrapper">
@@ -43,6 +66,13 @@
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                         <div class="page-body">
+                            @if (TempData["AddUSers"] != null)
+                            {
+                                <div class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                    <strong></strong> @TempData["AddUSers"]
+                                </div>
+                            }
                             <div class="card">
                                 <div class="card-block">
                                     <form class="form-material form-row" id="addinternaluser" enctype="multipart/form-data" method="post" asp-controller="Users" asp-action="AddUsers" style="display:none;">

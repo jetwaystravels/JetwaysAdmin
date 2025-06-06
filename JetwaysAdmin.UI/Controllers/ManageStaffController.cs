@@ -14,18 +14,18 @@ namespace JetwaysAdmin.UI.Controllers
         [ServiceFilter(typeof(LogActionFilter))]
         public async Task<IActionResult> ShowManageStaff()
         {
-            List<CustomersEmployee> customeremployee = new List<CustomersEmployee>();
+            List<InternalUsers> customeremployee = new List<InternalUsers>();
             using (HttpClient client = new HttpClient())
             {
-                var response = await client.GetAsync(AppUrlConstant.GetCustomerEmployee);
+                var response = await client.GetAsync(AppUrlConstant.GetInternalusers);
                 if(response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    customeremployee = JsonConvert.DeserializeObject<List<CustomersEmployee>>(result);
+                    customeremployee = JsonConvert.DeserializeObject<List<InternalUsers>>(result);
                 }
                 var viewModel = new MenuHeaddata
                 {
-                    customersemployee = customeremployee,
+                    InternalUsers = customeremployee,
                 };
 
                 return View(viewModel);
@@ -55,6 +55,7 @@ namespace JetwaysAdmin.UI.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
+                    TempData["DataUpdate"] = "Update successfully";
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
                 return RedirectToAction("ShowManageStaff");

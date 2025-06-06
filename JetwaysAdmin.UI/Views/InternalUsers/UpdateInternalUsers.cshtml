@@ -3,6 +3,31 @@
     Layout = "~/Views/Shared/UserProfile.cshtml";
     var Data = Model;
 }
+
+<style>
+    .alert {
+        padding: 5px;
+        background-color: #11c15b;
+        color: white;
+        width: 25%;
+    }
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+   .closebtn:hover {
+       color: black;
+        }
+</style>
+
 <main id="main" class="main">
     <!-- Pre-loader start -->
     <div class="theme-loader">
@@ -57,6 +82,13 @@
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                         <div class="page-body">
+                            @if (TempData["IuserUpdate"] != null)
+                            {
+                                <div class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                    <strong></strong> @TempData["IuserUpdate"]
+                                </div>
+                            }
                             <div class="card">
                                 <div class="card-block">
                                     <form enctype="multipart/form-data" method="post" asp-controller="InternalUsers" asp-action="EditInternalUsers">

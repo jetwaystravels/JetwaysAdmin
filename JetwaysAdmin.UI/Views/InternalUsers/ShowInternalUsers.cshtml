@@ -4,6 +4,29 @@
     Layout = "~/Views/Shared/Admin.cshtml";
     var Data = Model;
 }
+<style>
+    .alert {
+        padding: 5px;
+        background-color: #11c15b;
+        color: white;
+        width: 25%;
+    }
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .closebtn:hover {
+            color: black;
+        }
+</style>
+
 <main id="main" class="main">
     <div class="pcoded-main-container">
         <div class="pcoded-wrapper">
@@ -12,15 +35,6 @@
                 <div class="page-block">
                     <div class="row align-items-center">
                         <div class="col-md-8">
-                            <div class="page-header-title d-flex">
-                                <h5 class="m-b-10">Internal Users</h5>
-                                @if (TempData["InternalUserAdd"] != null)
-                                {
-                                    <div class="px-3 alert-success alert-success">
-                                        @TempData["InternalUserAdd"]
-                                    </div>
-                                }
-                            </div>
                         </div>
                         <div class="col-md-4">
                             <ul class="breadcrumb">
@@ -150,7 +164,11 @@
                                             <span class="form-bar"></span>
                                             <label class="float-label">System Integration Ref. Nos. (Optional)</label>
                                         </div>
-
+                                        <div class="form-group form-primary col-md-4">
+                                            <input type="text" name="CreateNewGDSProfile" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">GDS Profile Type</label>
+                                        </div>
                                         <div class="form-group form-primary col-md-4 m-t-15">
                                             Approval Required for Booking?
                                             <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
@@ -166,7 +184,7 @@
                                             </label>
                                         </div>
                                         <div class="form-group form-primary col-md-12">
-                                            <input type="file" name="Logo" class="form-control">
+                                            <input type="file" name="Logo" class="form-control" >
                                             <span class="form-bar"></span>
                                             <span style="font-size:11px;font-weight:700;">Upload logo allowed formats: .JPG / .PNG, Maximum file size: 1mb, Resolution 200px x 90px</span>
                                         </div>
@@ -177,6 +195,13 @@
                                     </form>
                                 
                                     <div id="manageinteruser">
+                                        @if (TempData["InternalUserAdd"] != null)
+                                        {
+                                          <div class="alert">
+                                          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                          <strong></strong> @TempData["InternalUserAdd"]
+                                          </div>
+                                        }
                                         <div class="d-flex justify-content-between m-b-10">
                                             <form class="form-material">
                                                 <div class="form-group form-primary data-search" style="width: 620px; margin-bottom: 0;">

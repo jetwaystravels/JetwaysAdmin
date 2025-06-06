@@ -23,7 +23,8 @@ namespace JetwaysAdmin.UI.Controllers
                     legalEntities = responseData?.Data
                         ?.Where(le => string.IsNullOrEmpty(le.ParentLegalEntityCode))
                         .ToList() ?? new List<LegalEntity>();
-                   
+
+                    TempData["CustomerAdd"] = "Add Successfully";
                 }
             }
 

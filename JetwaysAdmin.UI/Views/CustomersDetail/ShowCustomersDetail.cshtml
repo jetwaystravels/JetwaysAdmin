@@ -8,6 +8,28 @@
 <head>
     <style>
        .boxuser { margin-left:-8px; cursor:pointer;}
+  
+        .alert {
+            padding: 5px;
+            background-color: #11c15b;
+            color: white;
+            width: 25%;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .closebtn:hover {
+                color: black;
+            }
     </style>
 </head>
 
@@ -43,6 +65,13 @@
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                         <div class="page-body">
+                         @*    @if (TempData["CustomerAdd"] != null)
+                            {
+                                <div class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                    <strong></strong> @TempData["CustomerAdd"]
+                                </div>
+                            } *@
                             <div class="d-flex justify-content-between m-b-10">
                                 <form class="form-material">
                                     <div class="form-group form-primary" style="width:280px;">

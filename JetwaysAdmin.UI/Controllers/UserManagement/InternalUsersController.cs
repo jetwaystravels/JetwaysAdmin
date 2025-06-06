@@ -59,7 +59,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    TempData["UserAdd"] = "User Add Successfully";
+                    TempData["InternalUserAdd"] = "User Add Successfully";
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
                 return RedirectToAction("ShowInternalUsers");
@@ -123,7 +123,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 HttpResponseMessage response = await client.PutAsync(AppUrlConstant.GetInternalusersID + "/" + internalusers.UserID, content);
                 if (response.IsSuccessStatusCode)
                 {
-                    TempData["supplier_message"] = "Supplier Update";
+                    TempData["IuserUpdate"] = "User Update";
                     return RedirectToAction("UpdateInternalUsers", new { UserID = internalusers.UserID });
 
                 }
