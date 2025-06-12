@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Jetways Travels</title>
@@ -25,10 +24,15 @@
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
+    <style>
+        .page-wrapper {
+            filter: unset;
+            pointer-events: unset;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <!-- Pre-loader end -->
         <!-- Pre-loader start -->
         <div class="theme-loader">
             <div class="loader-track">
@@ -48,7 +52,6 @@
             </div>
         </div>
         <!-- Pre-loader end -->
-
         <div id="pcoded" class="pcoded">
             <div class="pcoded-overlay-box"></div>
             <div class="pcoded-container navbar-wrapper">
@@ -68,7 +71,7 @@
                                     <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
                                 </li>
                                 <li>
-                                    <a href="#" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
                                         <i class="ti-fullscreen"></i>
                                     </a>
                                 </li>
@@ -80,8 +83,8 @@
                                 <li><a href="#">Tripbox</a></li>
                                 <li><a href="#">Analytics</a></li>
                                 <li class="user-profile header-notification">
-                                    <a href="#" class="waves-effect waves-light">
-                                        <img class="user-pic" title="user-icon" alt="img" loading="lazy" src="../assets/images/login-img.svg">
+                                    <a href="#!" class="waves-effect waves-light">
+                                        <img onerror="this.src='../assets/images/login-img.svg'" class="user-pic" loading="lazy" src="../assets/images/login-img.svg">
                                         <span>Login</span>
                                         <i class="ti-angle-down"></i>
                                     </a>
@@ -89,7 +92,7 @@
                                         <li class="first">
                                             <div style="border-bottom: #eee 1px solid; padding-bottom: 7px;">
                                                 <div class="d-flex" style="margin-bottom: 4px;">
-                                                    <img class="user-pic" title="user-icon" alt="img" loading="lazy" src="../assets/images/login-img.svg">
+                                                    <img class="user-pic" loading="lazy" src="../assets/images/login-img.svg">
                                                     <strong style="font-weight: 600; margin-top: 8px;">Bhupendra M</strong>
                                                 </div>
                                                 <div>
@@ -122,11 +125,10 @@
                                             </a>
                                         </li>
                                         <li><a href="#"><i class="ti-settings"></i>Settings</a></li>
-                                        <li><a asp-controller="InternalUsers" asp-action="ShowInternalUsers"><i class="fa fa-user-o" aria-hidden="true"></i>User Management</a></li>
+                                        <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"></i>User Management</a></li>
                                         <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i>Contact Us</a></li>
                                         <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>Feedbacks</a></li>
                                         <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><strong>User Manual</strong></a></li>
-
                                         <li class="waves-effect waves-light">
                                             <a href="auth-normal-sign-in.html">
                                                 <strong style="font-weight:600;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</strong>
@@ -138,16 +140,47 @@
                         </div>
                     </div>
                 </nav>
+
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav class="pcoded-navbar">
+                            <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                            <div class="pcoded-inner-navbar main-menu">
+                                <div class="">
+                                    <div class="main-menu-header">
+                                        <div class="d-flex align-items-center">
+                                            <a href="customers.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
+
+                                        </div>
+                                        <h6 style="font-weight:700;">
+                                            <label style="margin-bottom:0;">
+
+                                            </label>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <ul class="pcoded-item pcoded-left-item">
+                                    <li class="active">
+                                        <a class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">Manage Suppliers</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <div class="pcoded-content">
+                            <main role="main" class="pb-3">
+                                @RenderBody()
+                            </main>
+                        </div>
+                        <div id="styleSelector"> </div>
+                    </div>
+                </div>
             </div>
+            <!-- Main-body end -->
         </div>
     </header>
-
-    <div class="">
-    <main role="main" class="pb-3">
-    @RenderBody()
-  </main>
- </div>
-           
     <!-- Required Jquery -->
     <script type="text/javascript" src="~/assets/js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="~/assets/js/jquery-ui/jquery-ui.min.js"></script>
@@ -159,16 +192,15 @@
     <script type="text/javascript" src="~/assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
     <!-- slimscroll js -->
     <script src="~/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
     <!-- menu js -->
     <script src="~/assets/js/pcoded.min.js"></script>
     <script src="~/assets/js/vertical/vertical-layout.min.js"></script>
     <script type="text/javascript" src="~/assets/js/script.js"></script>
-    <!-- select with search js Start -->
-    <script type="text/javascript" src="~/assets/js/select2.min.js"></script>
     <!-- multiple selection Jquery -->
     <script type="text/javascript" src="~/assets/js/jquery.multiselect.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- select with search js Start -->
+    <script type="text/javascript" src="~/assets/js/select2.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
     <script>
@@ -176,59 +208,7 @@
             $(".select").select2();
         });
     </script>
-    <!-- select with search js End -->
-    <!-- datepicker start -->
-    <script>
-        // $(function () {
-        //     $(".date-main").datepicker({
-        //         changeMonth: true,
-        //         changeYear: true
-        //     });
-        // });
-      
-    flatpickr(".date-main", {
-        dateFormat: "Y-m-d",
-        allowInput: true
-    });
-    </script>
-    <!-- datepicker End -->
-
-    <script>
-        $(".add").click(function () {
-            $(this).closest('.content-one').append('<div class="row p-l-p DomainsEmail"><div class="col-md-12"><input class="form-control" type="text" placeholder="Please enter domain name"><span class="remove"><i class="add fa fa-minus-circle m-t-15" aria-hidden="true" style="color: #ff1515; cursor:pointer; position: absolute; right: 22px;"></i></span></div></div>');
-        });
-    </script>
-
-    <script>
-        $(".add").click(function () {
-            $(this).closest('.content-two').append('<div class="row p-l-p DomainsEmail"><div class="col-md-12"><input class="form-control" type="text" placeholder="Please add approver email(s) in comma seperated"><span class="remove"><i class="add fa fa-minus-circle m-t-15" aria-hidden="true" style="color: #ff1515; cursor:pointer; position: absolute; right: 22px;"></i></span></div></div>');
-        });
-    </script>
-
-    <script>
-        $("body").on('click', '.remove', function () {
-            $(this).parents('.DomainsEmail').remove();
-        });
-    </script>
-
-    <!-- multiple selection Jquery start -->
-    <script>
-    $('.langOpt').each(function () {
-    var placeholderText = $(this).data('placeholder') || 'Select option';
-    $(this).multiselect({
-        placeholder: placeholderText,
-    });
-    });
-    </script>
-    
- <script>
-        setTimeout(function () {
-          $(".theme-loader").fadeOut(400);
-          setTimeout(function () {
-            $(".page-wrapper").addClass("loaded");
-          }, 400);
-        }, 400);
-    </script>
+    <!-- Upload image format start -->
 
 </body>
 </html>

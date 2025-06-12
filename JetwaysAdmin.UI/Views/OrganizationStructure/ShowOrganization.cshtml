@@ -96,7 +96,12 @@
                                                         <button disabled class="bdr"></button>
                                                         <div><img class="img-70 m-r-5" src="../assets/images/default-logo-smal.png" /></div>
                                                         <div>
-                                                            <span class="m-r-5">[@child.LegalEntityCode]</span>@child.LegalEntityName
+                                                            <form method="post" action="/LegalEntity/UpdateLegalEntities">
+                                                                <button type="submit" class="entity-link"><span class="m-r-5">[@child.LegalEntityCode]</span>@child.LegalEntityName</button>
+                                                                <input type="hidden" name="Id" value="@child.Id" />
+                                                                <input type="hidden" name="Code" value="@child.LegalEntityCode" />
+                                                                <input type="hidden" name="Name" value="@child.LegalEntityName" />
+                                                            </form>
                                                             <form class="d-block" method="post" action="/LegalEntity/ShowLegalEntities">
                                                                 <input type="hidden" name="LegalEntityCode" value="@child.LegalEntityCode" />
                                                                 0<span class="sub-text">Subs</span>
