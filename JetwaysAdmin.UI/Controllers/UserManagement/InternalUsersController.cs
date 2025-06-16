@@ -32,6 +32,8 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 InternalUsers = internaluser,
             };
 
+           
+
             return View(viewModel);
         }
 
@@ -78,6 +80,8 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 {
                     var result = await response.Content.ReadAsStringAsync();
                     internalesers = JsonConvert.DeserializeObject<InternalUsers>(result);
+
+                    ViewBag.Userid = UserID;
                 }
             }
             if (internalesers != null)
@@ -123,7 +127,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 HttpResponseMessage response = await client.PutAsync(AppUrlConstant.GetInternalusersID + "/" + internalusers.UserID, content);
                 if (response.IsSuccessStatusCode)
                 {
-                    TempData["IuserUpdate"] = "User Update";
+                    ViewBag.MessageIUser = "User Update";
                     return RedirectToAction("UpdateInternalUsers", new { UserID = internalusers.UserID });
 
                 }
@@ -133,7 +137,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
 
 
         [HttpGet]
-        public async  Task<IActionResult> OrganizationProfile(string legalEntityCode, string legalEntityName, string legalEntityId)
+        public async  Task<IActionResult> OrganizationProfile(string legalEntityCode, string legalEntityName, string legalEntityId, string UserID)
         {
             List<LegalEntity> legalEntities= new List<LegalEntity>();
             MenuHeaddata legaldata = new MenuHeaddata();
@@ -153,6 +157,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     .ToList();
                     legaldata.LegalEntitydata = filteredEntities;
 
+                    ViewBag.Userid = UserID;
                 }
                 
             }

@@ -26,10 +26,13 @@
     <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
     <style>
         .page-wrapper {
-            filter: unset;
-            pointer-events: unset;
+        filter: unset;
+        pointer-events: unset;
         }
     </style>
+    @{
+        string test = "";
+    }
 </head>
 <body>
     <header>
@@ -125,7 +128,7 @@
                                             </a>
                                         </li>
                                         <li><a href="#"><i class="ti-settings"></i>Settings</a></li>
-                                        <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"></i>User Management</a></li>
+                                        <li><a asp-controller="InternalUsers" asp-action="ShowInternalUsers"><i class="fa fa-user-o" aria-hidden="true"></i>User Management</a></li>
                                         <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i>Contact Us</a></li>
                                         <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>Feedbacks</a></li>
                                         <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><strong>User Manual</strong></a></li>

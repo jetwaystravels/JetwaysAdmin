@@ -31,6 +31,9 @@
         }
     </style>
 </head>
+@{
+    string test = "";
+}
 <body>
     <header>
         <!-- Pre-loader start -->
@@ -173,19 +176,19 @@
                             </div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="active">
-                                    <a  class="waves-effect waves-dark">
+                                        <a asp-controller="InternalUsers" asp-action="UpdateInternalUsers" class="waves-effect waves-dark" asp-route-UserID="@ViewBag.Userid">
                                         <span class="pcoded-micon"><i class="fa fa-user" aria-hidden="true"></i></span>
                                         <span class="pcoded-mtext">Personal Info</span>
                                     </a>
                                 </li>
                                 <li class="">
-                                     <a asp-controller="InternalUsers" asp-action="OrganizationProfile" class="waves-effect waves-dark">
+                                        <a asp-controller="InternalUsers" asp-action="OrganizationProfile" class="waves-effect waves-dark" asp-route-UserID="@ViewBag.Userid">
                                         <span class="pcoded-micon"><i class="fa fa-building-o" aria-hidden="true"></i></span>
                                         <span class="pcoded-mtext">Organization Profile</span>
                                     </a>
                                 </li>
                                 <li class="">
-                                      <a asp-controller="InternalUsers" asp-action="UserContactDetails" class="waves-effect waves-dark">
+                                        <a asp-controller="InternalUsers" asp-action="UserContactDetails" class="waves-effect waves-dark" asp-route-UserID="@ViewBag.Userid">
                                         <span class="pcoded-micon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                                         <span class="pcoded-mtext">Contact Details</span>
                                     </a>

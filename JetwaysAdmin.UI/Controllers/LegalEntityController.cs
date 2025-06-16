@@ -49,6 +49,7 @@ namespace JetwaysAdmin.UI.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
+                    TempData["LegalAdd"] = "Legal Entity Add Successfully";
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
                 return RedirectToAction("ShowLegalEntities");

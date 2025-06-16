@@ -1,4 +1,4 @@
-﻿
+﻿@using System.Security.Claims;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,6 +74,7 @@
                                 </li>
                             </ul>
                             <ul class="nav-right">
+                               
                                 <li><a href="#">Home</a></li>
                                 <li><a href="#">My Trips</a></li>
                                 <li><a href="#">Approvals</a></li>
@@ -87,18 +88,31 @@
                                     </a>
                                     <ul class="show-notification profile-notification">
                                         <li class="first">
-                                            <div style="border-bottom: #eee 1px solid; padding-bottom: 7px;">
-                                                <div class="d-flex" style="margin-bottom: 4px;">
-                                                    <img class="user-pic" title="user-icon" alt="img" loading="lazy" src="../assets/images/login-img.svg">
-                                                    <strong style="font-weight: 600; margin-top: 8px;">Bhupendra M</strong>
-                                                </div>
-                                                <div>
-                                                    <p style="color: #a9a9a9; margin-bottom: 2px;">bhupendra.m@jetwaystravels.com</p>
-                                                    <p style="color: #a9a9a9; margin-bottom: 2px;">[JET001] Jetways Travels</p>
-                                                    <p style="color:#a9a9a9;margin-bottom: 2px; "> Balance : <i class="fa fa-inr" aria-hidden="true" style="vertical-align:middle;"></i></p>
+                                            
+                                                
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
 
+                                                    var identity = (ClaimsIdentity)User.Identity;
+                                                    IEnumerable<Claim> claims = identity.Claims;
+
+                                                    var userName = claims.Where(c => c.Type == ClaimTypes.Name).ToList()[0].Value;
+                                                    var userEmail = claims.Where(c => c.Type == ClaimTypes.Email).ToList()[0].Value;
+
+                                                <div style="border-bottom: #eee 1px solid; padding-bottom: 7px;">
+                                                    <div class="d-flex" style="margin-bottom: 4px;">
+                                                        <img class="user-pic" title="user-icon" alt="img" loading="lazy" src="../assets/images/login-img.svg">
+                                                        <strong style="font-weight: 600; margin-top: 8px;">@userName</strong>
+                                                    </div>
+                                                    <div>
+                                                        <p style="color: #a9a9a9; margin-bottom: 2px;">@userEmail</p>
+                                                        <p style="color: #a9a9a9; margin-bottom: 2px;">[JET001] Jetways Travels</p>
+                                                        <p style="color:#a9a9a9;margin-bottom: 2px; "> Balance : <i class="fa fa-inr" aria-hidden="true" style="vertical-align:middle;"></i></p>
+                                                    </div>
+                                                    <a class="nav-link dropbtn signOutBtn" href="@Url.Action("Logout", "Login")">Logout</a>
                                                 </div>
-                                            </div>
+                                                }
+                                            
                                         </li>
                                         <li><strong style="font-weight:600;"><i class="fa fa-address-card" aria-hidden="true"></i>Account</strong></li>
                                         <li class="waves-effect waves-light">

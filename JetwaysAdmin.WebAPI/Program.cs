@@ -42,7 +42,7 @@ builder.Services.AddScoped<IFrequentFlyer<EmployeeFrequentFlyer>, FrequentFlyerS
 builder.Services.AddScoped<IInternalUsers<InternalUsers>, InternalUsersService>();  
 builder.Services.AddScoped<IContactUsDetails<ContactUsDetails>, ContactUsDetailsService>();
 builder.Services.AddScoped<IEmployeeBillingEntity<EmployeeBillingEntity>, EmployeeBillingEntityService>();
-
+builder.Services.AddScoped<ILocationsandTax<LocationsandTax>, LocationsandTaxService>();
 
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()

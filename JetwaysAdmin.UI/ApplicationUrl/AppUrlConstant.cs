@@ -64,6 +64,7 @@
 
         public static string AddContactUS = BaseURL + "api/ContactUsDetailsAPI/AddContactUs";
         public static string AddBillingEntity = BaseURL + "api/EmployeeBillingEntityAPI/AddBillingEntity";
+        public static string AddLoactionTax = BaseURL + "api/LocationsandTaxAPI/AddLocationsandTax";
 
         #endregion
 

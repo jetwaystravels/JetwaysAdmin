@@ -2,10 +2,32 @@
 
 
 @{
-    Layout = "~/Views/Shared/Admin.cshtml";
+    Layout = "~/Views/Shared/_LegalEntities.cshtml";
     var Data = Model;
 }
+<style>
+    .alert {
+        padding: 5px;
+        background-color: #11c15b;
+        color: white;
+        width: 25%;
+    }
 
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .closebtn:hover {
+            color: black;
+        }
+</style>
 <main id="main" class="main">
     <!-- Pre-loader start -->
     <div class="theme-loader">
@@ -58,6 +80,13 @@
                         <div class="page-wrapper">
                             <!-- Page-body start -->
                             <div class="page-body">
+                            @if (TempData["LegalAdd"] != null)
+                            {
+                                <div class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                    <strong></strong> @TempData["LegalAdd"]
+                                </div>
+                            }
                                 <div class="card">
                                     <div class="card-block">
                                         <!--  suppeir info Start -->
@@ -69,7 +98,7 @@
                                             </div>
                                             <div class="form-group form-primary col-md-3">
                                           
-                                            <input type="text" name="LegalEntityCode" value="" class="form-control">
+                                            <input type="text" name="LegalEntityCode" value="" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Legal Entity Code</label>
                                             </div>
@@ -95,7 +124,7 @@
                                                 <label class="float-label">Corporate Accounts Code</label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="FirstName" class="form-control">
+                                            <input type="text" name="FirstName" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">First Name</label>
                                             </div>

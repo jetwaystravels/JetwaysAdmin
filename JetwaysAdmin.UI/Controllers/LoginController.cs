@@ -10,6 +10,10 @@ using System.Text;
 using System.Text.Json;
 using JetwaysAdmin.UI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+using System;
 
 namespace JetwaysAdmin.UI.Controllers
 {
@@ -36,8 +40,23 @@ namespace JetwaysAdmin.UI.Controllers
                 {
                     Admin _admin = new Admin();
                     var result = await response.Content.ReadAsStringAsync();
+
+                    JObject jsonResult = JObject.Parse(result);
+
                     var JsonObj = JsonConvert.DeserializeObject<Admin>(result);
                     var userid = _admin.admin_id;
+
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, Convert.ToString(jsonResult["id"])),
+                        new Claim(ClaimTypes.Name, Convert.ToString(jsonResult["name"])),
+                        new Claim(ClaimTypes.Email, Convert.ToString(username)),
+                        new Claim("UserType", Convert.ToString(username))
+                    };
+
+                    var identity = new ClaimsIdentity(claims, "Password");
+                    var principal = new ClaimsPrincipal(identity);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                     //var userid= JsonObj.
                     // Store the token in session or cookie
@@ -136,6 +155,14 @@ namespace JetwaysAdmin.UI.Controllers
             }
         }
 
+
+
+        public IActionResult Logout()
+        {
+
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("UserLogin", "Login");
+        }
 
     }
 }
