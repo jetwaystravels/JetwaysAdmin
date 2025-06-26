@@ -28,5 +28,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
 
             return View(viewModel);
         }
+
+       
     }
 }

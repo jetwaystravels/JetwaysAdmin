@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Jetways Travels</title>
@@ -30,9 +31,7 @@
             pointer-events: unset;
         }
     </style>
-    @{
-        string test = "";
-    }
+
 </head>
 <body>
     <header>
@@ -93,18 +92,28 @@
                                     </a>
                                     <ul class="show-notification profile-notification">
                                         <li class="first">
-                                            <div style="border-bottom: #eee 1px solid; padding-bottom: 7px;">
-                                                <div class="d-flex" style="margin-bottom: 4px;">
-                                                    <img class="user-pic" loading="lazy" src="../assets/images/login-img.svg">
-                                                    <strong style="font-weight: 600; margin-top: 8px;">Bhupendra M</strong>
-                                                </div>
-                                                <div>
-                                                    <p style="color: #a9a9a9; margin-bottom: 2px;">bhupendra.m@jetwaystravels.com</p>
-                                                    <p style="color: #a9a9a9; margin-bottom: 2px;">[JET001] Jetways Travels</p>
-                                                    <p style="color:#a9a9a9;margin-bottom: 2px; "> Balance : <i class="fa fa-inr" aria-hidden="true" style="vertical-align:middle;"></i></p>
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
 
+                                                var identity = (ClaimsIdentity)User.Identity;
+                                                IEnumerable<Claim> claims = identity.Claims;
+
+                                                var userName = claims.Where(c => c.Type == ClaimTypes.Name).ToList()[0].Value;
+                                                var userEmail = claims.Where(c => c.Type == ClaimTypes.Email).ToList()[0].Value;
+
+                                                <div style="border-bottom: #eee 1px solid; padding-bottom: 7px;">
+                                                    <div class="d-flex" style="margin-bottom: 4px;">
+                                                        <img class="user-pic" title="user-icon" alt="img" loading="lazy" src="../assets/images/login-img.svg">
+                                                        <strong style="font-weight: 600; margin-top: 8px;">@userName</strong>
+                                                    </div>
+                                                    <div>
+                                                        <p style="color: #a9a9a9; margin-bottom: 2px;">@userEmail</p>
+                                                        <p style="color: #a9a9a9; margin-bottom: 2px;">[JET001] Jetways Travels</p>
+                                                        <p style="color:#a9a9a9;margin-bottom: 2px; "> Balance : <i class="fa fa-inr" aria-hidden="true" style="vertical-align:middle;"></i></p>
+                                                    </div>
+                                                    <a class="nav-link dropbtn signOutBtn" href="@Url.Action("Logout", "Login")">Logout</a>
                                                 </div>
-                                            </div>
+                                            }
                                         </li>
                                         <li><strong style="font-weight:600;"><i class="fa fa-address-card" aria-hidden="true"></i>Account</strong></li>
                                         <li class="waves-effect waves-light">
@@ -128,7 +137,7 @@
                                             </a>
                                         </li>
                                         <li><a href="#"><i class="ti-settings"></i>Settings</a></li>
-                                        <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"></i>User Management</a></li>
+                                        <li><a asp-controller="Users" asp-action="ShowUsers"><i class="fa fa-user-o" aria-hidden="true"></i>User Management</a></li>
                                         <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i>Contact Us</a></li>
                                         <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>Feedbacks</a></li>
                                         <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><strong>User Manual</strong></a></li>
@@ -176,19 +185,19 @@
                                 </div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li class="active">
-                                        <a class="waves-effect waves-dark">
+                                        <a asp-controller="Users" asp-action="updateUser" asp-route-UserID="@ViewBag.EUserid" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-user" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Personal Info</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="Users" asp-action="OrganizationUsersProfile" class="waves-effect waves-dark">
+                                        <a asp-controller="Users" asp-action="OrganizationUsersProfile" asp-route-UserID="@ViewBag.EUserid" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-building-o" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Organization Profile</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="InternalUsers" asp-action="UserContactDetails" class="waves-effect waves-dark">
+                                        <a  class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Contact Details</span>
                                         </a>

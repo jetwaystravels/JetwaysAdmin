@@ -1,0 +1,249 @@
+﻿@model JetwaysAdmin.Entity.AddSupplier
+@{
+    Layout = "~/Views/Shared/_Supplier.cshtml";
+    var Data = Model;
+}
+
+<main id="main" class="main">
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Fare Type Settings</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Settings</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Manage Suppliers</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Fare Type Settings
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block table-border-style">
+                                    <!--  Fare type setting Start -->
+                                    <div class="table-border-style">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th><button class="srt-btn" type="button" aria-label="fare-type">Fare Type</button></th>
+                                                        <th><button class="srt-btn" type="button" aria-label="pass-GST">Pass GST in Booking?</button></th>
+                                                        <th><button class="srt-btn" type="button" aria-label="rename-fare">Rename Fare Type</button></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td>Corporate</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Promo Fare</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Published</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control" placeholder="SpiceSaver"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Flexi Plus</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SME</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Family Fare</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Special Return</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Special Promo Fare</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Coupon Fare</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Super 6E</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Sale Fare</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>6E Lite</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tactical</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Stretch</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Stretch Plus</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>MarineFare</td>
+                                                        <td>
+                                                            <select class="form-control" style="height: 35px; border-top: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid;">
+                                                                <option>Mandatory</option>
+                                                                <option value="1">Optional</option>
+                                                                <option value="2">Don't Sand GST'</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="m-l-10 m-t-15"><button class="btn btn-primary waves-effect waves-light">Update</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  Fare type setting Start end -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+            <div id="styleSelector">
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,4 +1,5 @@
 ﻿using JetwaysAdmin.Entity;
+using JetwaysAdmin.Repositories.Interface;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -42,6 +43,10 @@ namespace JetwaysAdmin.Repositories
         public DbSet<ContactUsDetails> tb_ContactUsDetails { get; set; }
         public DbSet<EmployeeBillingEntity> tb_EmployeeBillingEntity { get; set; }
         public DbSet<LocationsandTax> tb_CustomerLocationTaxDetails { get; set; }
+        public DbSet<Country> tb_Country { get; set; }
+        public DbSet<State> tb_State { get; set; }
+        public DbSet<City> tb_City { get; set; }
+        public DbSet<SuppliersCredential> tb_SuppliersCredential { get; set; }
                       
 
 

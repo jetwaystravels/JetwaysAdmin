@@ -148,22 +148,69 @@
                             <div class="pcoded-inner-navbar main-menu">
                                 <div class="">
                                     <div class="main-menu-header">
-                                        <div class="d-flex align-items-center">
-                                            <a href="customers.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
-
-                                        </div>
-                                        <h6 style="font-weight:700;">
-                                            <label style="margin-bottom:0;">
-
-                                            </label>
-                                        </h6>
+                                        <a href="#" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
+                                        @if ((int)ViewBag.SupplierId == 2)
+                                        {
+                                            <img class="img-80" src="~/assets/images/side-bar-logo-1.png" alt="logo">
+                                            <h6 style="font-weight:700;">SpiceJet (Jetways)</h6>
+                                        }
+                                        else if ((int)ViewBag.SupplierId == 3)
+                                        {
+                                           <img class="img-80" src="~/assets/images/airlines-logo/logo-8.png" alt="logo" />
+                                           <h6 style="font-weight:700;">Indigo (Jetways)</h6>
+                                        }
+                                        else if ((int)ViewBag.SupplierId == 4)
+                                        {
+                                            <img class="img-80" src="~/assets/images/airlines-logo/logo-6.png" alt="logo" />
+                                            <h6 style="font-weight:700;">Air India Exp. (Jetways)</h6>
+                                        }
+                                        else if ((int)ViewBag.SupplierId == 5)
+                                        {
+                                            <img class="img-80" src="~/assets/images/airlines-logo/logo-9.png" alt="logo" />
+                                            <h6 style="font-weight:700;">Akasa (Jetways)</h6>
+                                        }
+                                        else if ((int)ViewBag.SupplierId == 6)
+                                        {
+                                            <img class="img-80" src="~/assets/images/airlines-logo/logo-10.png" alt="logo" />
+                                            <h6 style="font-weight:700;">Air India (Jetways)</h6>
+                                        }
                                     </div>
                                 </div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li class="active">
-                                        <a class="waves-effect waves-dark">
+                                        <a asp-controller="AddNewSupplier" asp-action="UpdateSupplier" asp-route-SupplierId="@ViewBag.SupplierId" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                            <span class="pcoded-mtext">Manage Suppliers</span>
+                                            <span class="pcoded-mtext">Supplier info</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a asp-controller="AddNewSupplier" asp-action="Credentials" asp-route-SupplierId="@ViewBag.SupplierId" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-codepen" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">Credentials</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a asp-controller="AddNewSupplier" asp-action="DealCodes" asp-route-SupplierId="@ViewBag.SupplierId" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-percent" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">Deal Codes</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a asp-controller="AddNewSupplier" asp-action="NetRemitCodes" asp-route-SupplierId="@ViewBag.SupplierId" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-money" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">Net Remit Codes</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a asp-controller="AddNewSupplier" asp-action="AdvancePricingMarkup" asp-route-SupplierId="@ViewBag.SupplierId" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-newspaper-o" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">Advance Pricing Markup</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a asp-controller="AddNewSupplier" asp-action="FareTypeSettings" asp-route-SupplierId="@ViewBag.SupplierId" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">Fare Type Settings</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -206,6 +253,13 @@
     <script>
         $(function () {
             $(".select").select2();
+        });
+
+        $('#langOpt').multiselect({
+            columns: 1,
+            texts: {
+                placeholder: 'Associated Fare Type(s) *'
+            }
         });
     </script>
     <!-- Upload image format start -->

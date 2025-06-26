@@ -1,0 +1,357 @@
+﻿@model JetwaysAdmin.Entity.AddSupplier
+@{
+    Layout = "~/Views/Shared/_Supplier.cshtml";
+    var Data = Model;
+}
+
+<main id="main" class="main">
+    <div class="pcoded-main-container" id="Nemit1" style="display:none">
+        <div class="pcoded-wrapper" >
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10"><a href="netremitlist.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Add Net Remit Code</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Setting</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Manage Suppliers</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Netremmit Codes
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block">
+                                    <!--  Add Net Remit Code Start -->
+                                    <form class="form-material form-row">
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="select" class="form-control fill">
+                                                <option value="airlince" style="background:#eee;">Select Airline*</option>
+                                                <option value="indigo"> IndiGo </option>
+                                                <option value="spicejet"> Spicejet </option>
+                                                <option value="go-first">Go First</option>
+                                                <option value="air-india">Air India</option>
+                                                <option value="vistra">Vistra</option>
+                                                <option value="air-india-express">Air India Express</option>
+                                                <option value="emerates">Emirates</option>
+                                                <option value="go-first">Etihads Airways</option>
+                                                <option value="go-first">Etihads Airways</option>
+                                                <option value="lufthansa">Lufthansa</option>
+                                                <option value="qatar-airways">Qatar Airways</option>
+                                                <option value="singapore-airlines">Singapore Airlines</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="priority" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Priority<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="net-remit-code" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Net Remit Code Name<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="select" class="form-control fill">
+                                                <option value="opt1">Travel Mode*</option>
+                                                <option value="opt3"> Domestic </option>
+                                                <option value="opt2"> International </option>
+                                                <option value="opt4">Both</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <select class="form-control" name="Cabin Class" multiple id="cb">
+                                                <option value="2">Economy</option>
+                                                <option value="3">Business</option>
+                                                <option value="4">First</option>
+                                                <option value="5">Primium Economy</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <select class="form-control" name="Associated Fare" multiple id="langOpt">
+                                                <option value="2">Corporate</option>
+                                                <option value="3">Promo fare</option>
+                                                <option value="4">Published</option>
+                                                <option value="5">Flexi Plus </option>
+                                                <option value="6">SME </option>
+                                                <option value="7">Family Fare </option>
+                                                <option value="8">Special Return  </option>
+                                                <option value="9">Special Promo Fare </option>
+                                                <option value="10">Coupon Fare </option>
+                                                <option value="10">Super 6E </option>
+                                                <option value="10">Sale Fare </option>
+                                                <option value="10">6E Lite </option>
+                                                <option value="10">Tactical </option>
+                                                <option value="10">Stretch </option>
+                                                <option value="10"> Stretch Plus </option>
+                                                <option value="10"> MarineFare </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="select" class="form-control fill">
+                                                <option value="booking-type">Booking Type</option>
+                                                <option value="business"> Business</option>
+                                                <option value="personal"> Personal </option>
+                                                <option value="Both">Both</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input class="form-control date-main" type="text" placeholder="Expiry Date">
+                                            <span class="form-bar"></span>
+                                        </div>
+                                    </form>
+                                    <div class="table-border-style sec-form">
+                                        <div class="table-responsive m-t-15">
+                                            <table class="table content">
+                                                <thead style="background: #f2f2f2; ">
+                                                    <tr>
+                                                        <th>Sector: From & to</th>
+                                                        <th>Flight Numbers (Comma seperated)</th>
+                                                        <th>RBDs (Comma seperated)</th>
+                                                        <th>Fare Basis (Comma seperated)</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tr class="row-bdr-btm flightdtl">
+                                                    <td class="first">
+                                                        <span>
+                                                            <input type="text" class="form-control">
+                                                        </span>
+                                                        <span style="margin-right:0;">
+                                                            <input type="text" class="form-control">
+                                                        </span>
+                                                    </td>
+                                                    <td><input type="text" class="form-control"></td>
+                                                    <td><input type="text" class="form-control"></td>
+                                                    <td><input type="text" class="form-control"></td>
+                                                    <td><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add</button></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <form class="form-material form-row">
+                                        <div class="form-group form-primary col-md-3 m-t-15 content-one ">
+                                            <div class="ng-content-hd">Booking Dates</div>
+                                            <div class="row p-l-p flightdtl">
+                                                <div class="col-md-5">
+                                                    <input class="form-control date-main" type="text" placeholder="Start Date">
+                                                    <span class="form-bar"></span>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input class="form-control date-main" type="text" placeholder="End Date">
+                                                    <span class="form-bar"></span>
+                                                </div>
+                                                <div class="col-md-1 text-center"><i class="add fa fa-plus-circle m-t-15" aria-hidden="true" style="color: #0764ff; cursor:pointer"></i></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3 m-t-15 content-one">
+                                            <div class="ng-content-hd">Travel Dates </div>
+                                            <div class="row p-l-p flightdtl">
+                                                <div class="col-md-5">
+                                                    <input class="form-control date-main" type="text" placeholder="Start Date">
+                                                    <span class="form-bar"></span>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input class="form-control date-main" type="text" placeholder="End Date">
+                                                    <span class="form-bar"></span>
+                                                </div>
+                                                <div class="col-md-1 text-center"><i class="add fa fa-plus-circle m-t-15" aria-hidden="true" style="color: #0764ff; cursor: pointer"></i></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3 m-t-15 content-two">
+                                            <div class="ng-content-hd">Blackout Travel Dates</div>
+                                            <div class="row p-l-p flightdtl">
+                                                <div class="col-md-10">
+                                                    <input class="form-control date-main" type="text" placeholder="Select Date">
+                                                    <span class="form-bar"></span>
+                                                </div>
+                                                <div class="col-md-1 text-center"><i class="add fa fa-plus-circle m-t-15" aria-hidden="true" style="color: #0764ff; cursor: pointer"></i></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3 m-t-15 content-two">
+                                            <div class="ng-content-hd">Blackout Booking Dates</div>
+                                            <div class="row p-l-p flightdtl">
+                                                <div class="col-md-10">
+                                                    <input class="form-control date-main" type="text" placeholder="Select Date">
+                                                    <span class="form-bar"></span>
+                                                </div>
+                                                <div class="col-md-1 text-center"><i class="add fa fa-plus-circle m-t-15" aria-hidden="true" style="color: #0764ff; cursor: pointer"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-primary col-md-7 m-l-5 m-t-15">
+                                            <button class="btn btn-primary waves-effect waves-light">Add New </button>
+                                            <button class="btn btn-danger waves-effect waves-light disabled">Cancel</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <!--  Add Net Remit Codeend -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+        </div>
+    </div>
+    <!----Detail Start--->
+    <div class="pcoded-main-container" id="Nemit2">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Net Remit Codes</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Setting</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Manage Suppliers</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Net Remit Codes
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="d-flex justify-content-between m-b-10">
+                                <form class="form-material">
+                                    <div class="form-group form-primary" style="width:280px;">
+                                        <input type="text" name="footer-email" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                    </div>
+                                </form>
+                                <div><button type="button" class="btn sml-btn-danger waves-effect waves-light addNetRemit">+ Add New</button></div>
+                            </div>
+                            <div class="card">
+                                <div class="card-block table-border-style">
+                                    <!--  Net remit codes Start -->
+                                    <div class="table-border-style">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th><button class="srt-btn" type="button" aria-label="airline name">Airline Name</button></th>
+                                                        <th><button class="srt-btn" type="button" aria-label="priority">Priority</button></th>
+                                                        <th><button class="srt-btn" type="button" aria-label="net remit code">Net Remit Code Name</button></th>
+                                                        <th><button class="srt-btn" type="button" aria-label="travelmode">Travel Mode</button></th>
+                                                        <th><button class="srt-btn" type="button" aria-label="net remit code">Net Remit Code</button></th>
+                                                        <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-center" colspan="7">No Data Found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  Net remit codes end -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // New JS.
+        $(document).ready(function () {
+            $('.addNetRemit').on('click', function () {
+                $('#Nemit1').show();
+                $('#Nemit2').hide();
+            });
+        });
+
+        $('#langOpt').multiselect({
+            columns: 1,
+            texts: {
+                placeholder: 'Associated Fare Type(s) *'
+            }
+        });
+        $('#cb').multiselect({
+            columns: 1,
+            texts: {
+                placeholder: 'Cabin Class *'
+            }
+        });
+  
+        $(function () {
+            $(".date-main").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+   
+        $(".add").click(function () {
+            $(this).closest('.content').append('<tr class="row-bdr-btm flightdtl"><td class="first"><span><input type="text" class="form-control"></span><span style="margin-right:0;"><input type="text" class="form-control"></span></td><td><input type="text" class="form-control"></td><td><input type="text" class="form-control"></td><td><input type="text" class="form-control"></td><td><span class="remove btn waves-effect waves-light btn-danger btn-outline-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i></span></td></tr>');
+        });
+  
+        $(".add").click(function () {
+            $(this).closest('.content-one').append(' <div class="row p-l-p flightdtl"><div class="col-md-5"><input class="form-control date-main" type="text" placeholder="Start Date"> <span class="form-bar"></span></div><div class="col-md-5"><input class="form-control date-main" type="text" placeholder="End Date"><span class="form-bar"></span></div><div class="col-md-1 text-center"><span class="remove"><i class="add fa fa-minus-circle m-t-15" aria-hidden="true" style="color: #ff1515; cursor:pointer"></i></span></div></div>');
+        });
+   
+        $(".add").click(function () {
+            $(this).closest('.content-two').append(' <div class="row p-l-p flightdtl"><div class="col-md-10"><input class="form-control date-main" type="text" placeholder="Select Date"><span class="form-bar"></span></div><div class="col-md-1 text-center"><span class="remove"><i class="add fa fa-minus-circle m-t-15" aria-hidden="true" style="color: #ff1515; cursor:pointer"></i></span></div></div>');
+        });
+    
+        $("body").on('click', '.remove', function () {
+            $(this).parents('.flightdtl').remove();
+        });
+
+      
+    </script>
+   
+
+</footer>

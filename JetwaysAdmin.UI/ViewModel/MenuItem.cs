@@ -34,6 +34,8 @@ namespace JetwaysAdmin.UI.ViewModel
         public List<FrequentFlyerDisplay> FlyerDisplayList { get; set; }
         public List<InternalUsers> InternalUsers { get; set; }
         public List<LegalEntity> LegalEntitydata { get; set; }
+        public List<SuppliersCredential> supplierscredential { get; set; }
+        
 
     }
 

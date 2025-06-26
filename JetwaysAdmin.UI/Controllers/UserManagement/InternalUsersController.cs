@@ -167,8 +167,9 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
 
       
 
-        public IActionResult UserContactDetails()
+        public IActionResult UserContactDetails(string UserID)
         {
+            ViewBag.Userid = UserID;
             return View();
         }
 
