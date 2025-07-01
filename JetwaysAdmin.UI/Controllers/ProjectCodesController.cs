@@ -7,8 +7,10 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class ProjectCodesController : Controller
     {
-        public async Task<IActionResult> ShowProjectCodes()
+        public async Task<IActionResult> ShowProjectCodes(string LegalEntityCode, string LegalEntityName)
         {
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
             return View();
         }
     }

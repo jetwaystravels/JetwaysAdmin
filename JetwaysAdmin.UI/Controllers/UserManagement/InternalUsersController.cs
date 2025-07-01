@@ -100,11 +100,8 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 TempData["EmplID"] = internalesers.EmpId;
                 TempData["EmplName"] = $"{internalesers.FirstName} {internalesers.LastName}";
             }
-
             return View(internalesers);
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> EditInternalUsers(InternalUsers internalusers)

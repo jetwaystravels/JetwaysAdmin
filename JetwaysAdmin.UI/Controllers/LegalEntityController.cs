@@ -14,9 +14,10 @@ namespace JetwaysAdmin.UI.Controllers
     public class LegalEntityController : Controller
     {
        
-        public async Task<IActionResult> ShowLegalEntities(string LegalEntityCode)
+        public async Task<IActionResult> ShowLegalEntities(string LegalEntityCode, string LegalEntityName)
         {
-            TempData["LegalEntityCode"] = LegalEntityCode;
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
             List<IATAGroupView> iataGroups = new List<IATAGroupView>();
             using (HttpClient client = new HttpClient())
             {

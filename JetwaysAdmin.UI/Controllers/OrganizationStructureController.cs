@@ -10,8 +10,8 @@ namespace JetwaysAdmin.UI.Controllers
     {
         public async Task<IActionResult> ShowOrganization(int Id, string legalEntityName, string legalEntityCode)
         {
-            TempData["LegalEntityName1"] = legalEntityName;
-            TempData["LegalEntityCode1"] = legalEntityCode;
+            //ViewBag.LegalEntityName1 = legalEntityName;
+            //ViewBag.LegalEntityCode1 = legalEntityCode;
             using (HttpClient client = new HttpClient())
             {
                 string apiUrl = $"{AppUrlConstant.LegalHeirachy}?LegalEntityCode={legalEntityCode}";
@@ -21,8 +21,6 @@ namespace JetwaysAdmin.UI.Controllers
                 {
                     string jsonData = await response.Content.ReadAsStringAsync();
                     var flatList = JsonConvert.DeserializeObject<List<HierarchyLegalEntityView>>(jsonData);
-
-                    // Build parent-child hierarchy
                     var hierarchy = flatList
                         .Where(e => string.IsNullOrEmpty(e.ParentLegalEntityCode))
                         .Select(parent =>
@@ -33,7 +31,6 @@ namespace JetwaysAdmin.UI.Controllers
                             return parent;
                         })
                         .ToList();
-
                     return View(hierarchy); // Pass only parent-level list with nested SubEntities
                 }
 

@@ -7,8 +7,10 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class TravelPoliciesController : Controller
     {
-        public async Task<IActionResult> ShowTravelPolicies()
+        public async Task<IActionResult> ShowTravelPolicies(string LegalEntityCode, string LegalEntityName)
         {
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
             return View();
         }
     }

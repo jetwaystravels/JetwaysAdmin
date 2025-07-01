@@ -7,8 +7,10 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class IATACommissionsController : Controller
     {
-        public async Task<IActionResult> ShowIATACommissions()
+        public async Task<IActionResult> ShowIATACommissions(string LegalEntityCode, string LegalEntityName)
         {
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
             return View();
         }
     }

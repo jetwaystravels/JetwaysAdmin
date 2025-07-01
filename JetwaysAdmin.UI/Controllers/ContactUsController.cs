@@ -10,15 +10,17 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class ContactUsController : Controller
     {
-        public async Task<IActionResult> ShowContactUs()
+        public async Task<IActionResult> ShowContactUs(string LegalEntityCode, string LegalEntityName)
         {
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
             return View();
         }
 
        [HttpPost]
        public async Task<IActionResult> AddContactUs([FromBody] ContactUsDetails contactus)
        {
-            using (HttpClient client = new HttpClient())
+          using (HttpClient client = new HttpClient())
             {
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(contactus);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");

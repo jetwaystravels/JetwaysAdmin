@@ -10,9 +10,10 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class AccountBalanceController : Controller
     {
-        public async Task<IActionResult> ShowAccountBalance()
+        public async Task<IActionResult> ShowAccountBalance(string LegalEntityCode, string LegalEntityName)
         {
-
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
             return View();
 
         }

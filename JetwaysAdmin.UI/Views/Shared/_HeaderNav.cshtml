@@ -1,0 +1,97 @@
+﻿@using System.Security.Claims;
+<nav class="navbar header-navbar pcoded-header">
+    <div class="navbar-wrapper">
+        <div class="navbar-logo">
+            <a asp-controller="Login" asp-action="dashboard">
+                <img class="img-fluid" title="logo" src="../assets/images/logo.png" alt="logo" style="width:180px;" />
+            </a>
+            <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                <i class="ti-menu"></i>
+            </a>
+        </div>
+        <div class="navbar-container container-fluid">
+            <ul class="nav-left">
+                <li>
+                    <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+                </li>
+                <li>
+                    <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                        <i class="ti-fullscreen"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav-right">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">My Trips</a></li>
+                <li><a href="#">Approvals</a></li>
+                <li><a href="#">Tripbox</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li class="user-profile header-notification">
+                    <a href="#!" class="waves-effect waves-light">
+                        <img onerror="this.src='../assets/images/login-img.svg'" class="user-pic" loading="lazy" src="../assets/images/login-img.svg">
+                        <span>Login</span>
+                        <i class="ti-angle-down"></i>
+                    </a>
+                    <ul class="show-notification profile-notification">
+                        <li class="first">
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+
+                                var identity = (ClaimsIdentity)User.Identity;
+                                IEnumerable<Claim> claims = identity.Claims;
+
+                                var userName = claims.Where(c => c.Type == ClaimTypes.Name).ToList()[0].Value;
+                                var userEmail = claims.Where(c => c.Type == ClaimTypes.Email).ToList()[0].Value;
+
+                                <div style="border-bottom: #eee 1px solid; padding-bottom: 7px;">
+                                    <div class="d-flex" style="margin-bottom: 4px;">
+                                        <img class="user-pic" title="user-icon" alt="img" loading="lazy" src="../assets/images/login-img.svg">
+                                        <strong style="font-weight: 600; margin-top: 8px;">@userName</strong>
+                                    </div>
+                                    <div>
+                                        <p style="color: #a9a9a9; margin-bottom: 2px;">@userEmail</p>
+                                        <p style="color: #a9a9a9; margin-bottom: 2px;">[JET001] Jetways Travels</p>
+                                        <p style="color:#a9a9a9;margin-bottom: 2px; "> Balance : <i class="fa fa-inr" aria-hidden="true" style="vertical-align:middle;"></i></p>
+                                    </div>
+                                    <a class="nav-link dropbtn signOutBtn" href="@Url.Action("Logout", "Login")">Logout</a>
+                                </div>
+                            }
+                        </li>
+                        <li><strong style="font-weight:600;"><i class="fa fa-address-card" aria-hidden="true"></i>Account</strong></li>
+                        <li class="waves-effect waves-light">
+                            <a href="#!">
+                                <i class="fa fa-television" aria-hidden="true"></i> Emulate
+                            </a>
+                        </li>
+                        <li class="waves-effect waves-light">
+                            <a href="user-profile.html">
+                                <i class="fa fa-list" aria-hidden="true"></i> Checklist
+                            </a>
+                        </li>
+                        <li class="waves-effect waves-light">
+                            <a href="email-inbox.html">
+                                <i class="ti-user"></i> My Profile
+                            </a>
+                        </li>
+                        <li class="waves-effect waves-light">
+                            <a href="auth-lock-screen.html">
+                                <i class="ti-lock"></i> Change Password
+                            </a>
+                        </li>
+                        <li><a href="#"><i class="ti-settings"></i>Settings</a></li>
+                        <li><a asp-controller="InternalUsers" asp-action="ShowInternalUsers"><i class="fa fa-user-o" aria-hidden="true"></i>User Management</a></li>
+                        <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i>Contact Us</a></li>
+                        <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>Feedbacks</a></li>
+                        <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><strong>User Manual</strong></a></li>
+                        <li class="waves-effect waves-light">
+                            <a href="auth-normal-sign-in.html">
+                                <strong style="font-weight:600;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

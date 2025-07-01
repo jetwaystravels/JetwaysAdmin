@@ -7,7 +7,7 @@
 @{
     TempData.Keep("EmplID");
     TempData.Keep("EmplName");
-    TempData.Keep("LegalEntityCode");
+    //TempData.Keep("LegalEntityCode");
 }
 <main id="main" class="main">
 
@@ -67,7 +67,7 @@
                         <div class="card">
                             <div class="card-block">
                                 <div class="form-material form-row">
-                                    <input type="hidden" name="LegalEntityCode" value="@TempData["LegalEntityCode"]" class="form-control">
+                                        <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" class="form-control">
                                   <div class="form-group form-primary col-md-3">
                                             <select name="BillingEntityCode" class="select">
                                             @foreach (var legal in Data.LegalEntitydata)

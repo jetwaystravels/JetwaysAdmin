@@ -78,7 +78,7 @@
                                     <form class="form-material form-row" id="addinternaluser" enctype="multipart/form-data" method="post" asp-controller="Users" asp-action="AddUsers" style="display:none;">
                                         <div class="form-group form-primary col-md-4">
                                             <select class="form-control langOpt" name="LegalEntityCode">
-                                                <option value="@TempData["LegalEntityCode"]">[@TempData["LegalEntityCode"]] @TempData["LegalEntityName"]</option>
+                                                <option value="@ViewBag.LegalEntityCode">[@ViewBag.LegalEntityCode] @ViewBag.LegalEntityName</option>
                                             </select>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Select Legal Entity<span>*</span></label>

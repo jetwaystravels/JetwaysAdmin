@@ -8,8 +8,10 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class LocationsandTaxController : Controller
     {
-        public IActionResult ShowLocationsandTax()
+        public IActionResult ShowLocationsandTax(string LegalEntityCode, string LegalEntityName)
         {
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
             return View();
         }
 

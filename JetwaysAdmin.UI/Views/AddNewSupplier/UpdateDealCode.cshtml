@@ -1,0 +1,172 @@
+﻿@model JetwaysAdmin.Entity.DealCode
+@{
+    Layout = "~/Views/Shared/_Supplier.cshtml";
+    var Data = Model;
+}
+
+<main id="main" class="main">
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">
+                                    <a href="deal-code.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Update Deal Code
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Setting</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Manage Suppliers</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Credentials
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="card">
+                                <div class="card-block">
+                                    <!--  credential form Start -->
+                                    <form class="form-material form-row" method="post">
+                                        <input type="hidden" name="DealCodeId" value="@Model.DealCodeId">
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="PCC" class="form-control" value="@Model.PCC">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">PCC</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="DealCodeName" value="@Model.DealCodeName" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Deal Code Name</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="SelectedCredentialId" value="@Model.SelectedCredentialId" class="form-control fill">
+                                                <option value="opt1">Selected Credentials*</option>
+                                                <option value="opt2">JW DEL SME</option>
+                                                <option value="opt3">JW DEL Corp </option>
+                                                <option value="opt4">JW DEL Retail</option>
+                                                <option value="opt4">JW PNQ</option>
+                                                <option value="opt4">JW BOM</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="TravelMode" value="@Model.TravelMode" class="form-control fill">
+                                                <option value="opt1">Travel Mode*</option>
+                                                <option value="opt2">Domestic</option>
+                                                <option value="opt3">International</option>
+                                                <option value="opt4">Both</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <select class="form-control" value="@Model.CabinClass" name="CabinClass" multiple id="cb">
+                                                <option value="2">Economy</option>
+                                                <option value="3">Business</option>
+                                                <option value="4">First</option>
+                                                <option value="5">Primium Economy</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="DealPricingCode" value="@Model.DealPricingCode" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Deal/Pricing Code</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="TourCode" value="@Model.TourCode" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Tour Code</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="AssociatedFareTypes" value="@Model.AssociatedFareTypes" class="form-control fill">
+                                                <option value="opt1">Associated Fare Type(s)*</option>
+                                                <option value="opt2">Corporate</option>
+                                                <option value="opt3">promo fare</option>
+                                                <option value="opt4">Published</option>
+                                                <option value="opt5">Flexi Plus</option>
+                                                <option value="opt6">SME</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="DefaultValue" value="@Model.DefaultValue" class="form-control fill">
+                                                <option value="opt1">Default</option>
+                                                <option value="opt2">Pormotional</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input class="form-control date-main" type="text" value="@Model.ExpiryDate.Value.ToString("dd-MM-yyyy")" name="ExpiryDate" placeholder="Expiry Date">
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="ClassOfSeats" value="@Model.ClassOfSeats" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Class of Seats(RBDs)</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3 m-t-15">
+                                            <strong>Auto enable this deal code to legal entity</strong>
+                                            <label class="switch m-l-5">
+                                                <input type="checkbox" name="AutoEnableDealCode" value="true">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3 m-t-15">
+                                            <span style="display:block">GST Mandatory</span>
+                                            <label class="switch">
+                                                <input type="checkbox" name="GSTMandatory" value="true">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3 m-t-15">
+                                            <span style="display:block">Override Customer GST?</span>
+                                            <label class="switch">
+                                                <input type="checkbox" name="OverrideCustomerGST" value="true">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="BookingType" value="@Model.BookingType" class="form-control fill">
+                                                <option>Booking Type</option>
+                                                <option value="opt1">Business</option>
+                                                <option value="opt2">Personal</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-7 m-l-5">
+                                            <button type="submit" formaction="/AddNewSupplier/EditDealCode" class="btn btn-primary waves-effect waves-light">Update</button>
+                                            <button class="btn btn-danger waves-effect waves-light disabled">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--  credentials form end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="styleSelector"> </div>
+        </div>
+    </div>
+</main>

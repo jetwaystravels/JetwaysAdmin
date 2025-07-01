@@ -45,6 +45,7 @@ builder.Services.AddScoped<IEmployeeBillingEntity<EmployeeBillingEntity>, Employ
 builder.Services.AddScoped<ILocationsandTax<LocationsandTax>, LocationsandTaxService>();
 builder.Services.AddScoped<ILocation<AddressCountryState>, LocationService>();
 builder.Services.AddScoped<ISuppliersCredential<SuppliersCredential>, SuppliersCredentialService>();
+builder.Services.AddScoped<IDealCode<DealCode>, DealCodeService>();
 
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()

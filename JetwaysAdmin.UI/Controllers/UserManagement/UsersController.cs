@@ -9,8 +9,6 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
 {
     public class UsersController : Controller
     {
-        
-        
         [HttpGet]
         public async Task<IActionResult> ShowUsers(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID)
         {
@@ -32,17 +30,15 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             {
                 customersemployee = filteredUsers,
             };
-            TempData["LegalEntityId"] = legalEntityId;
-            TempData["LegalEntityName"] = legalEntityName;
-            TempData["LegalEntityCode"] = legalEntityCode;
+            ViewBag.LegalEntityId = legalEntityId;
+            ViewBag.LegalEntityName = legalEntityName;
+            ViewBag.LegalEntityCode = legalEntityCode;
             ViewBag.EUserid = UserID;
             return View(userAlldetail);
         }
 
-        public async  Task<IActionResult> updateUser(int UserID)
+        public async  Task<IActionResult> updateUser(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID)
         {
-           
-
             CustomersEmployee users = null;
             using (HttpClient client = new HttpClient())
             {
@@ -66,21 +62,19 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 {
                     TempData["LogoBase64"] = null;
                 }
-
                 TempData["EmplID"] = users.UserID;
                 TempData["EmplName"] = $"{users.FirstName} {users.LastName}";
+                ViewBag.LegalEntityId = legalEntityId;
+                ViewBag.LegalEntityName = legalEntityName;
+                ViewBag.LegalEntityCode = legalEntityCode;
                 ViewBag.EUserid = users.UserID;
             }
             return View(users);
         }
-
-
-
         [HttpPost]
         public async Task<IActionResult> EditUsers(CustomersEmployee users)
         {
             var file = Request.Form.Files.FirstOrDefault(f => f.Name == "Logo");
-
             if (file != null && file.Length > 0)
             {
                 using (var ms = new MemoryStream())
@@ -97,24 +91,15 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 HttpResponseMessage response = await client.PutAsync(AppUrlConstant.GetCustomerEmployeeID + "/" + users.UserID, content);
                 if (response.IsSuccessStatusCode)
                 {
-                   
                     return RedirectToAction("updateUser", new { UserID = users.UserID });
-
-
                 }
             }
             return View();
         }
 
         [HttpGet]
-        public async Task<IActionResult> OrganizationUsersProfile(int UserID)
+        public async Task<IActionResult> OrganizationUsersProfile(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID)
         {
-            var legalEntityId = TempData["LegalEntityId"] as string;
-            var legalEntityName = TempData["LegalEntityName"] as string;
-            var legalEntityCode = TempData["LegalEntityCode"] as string;
-            TempData.Keep("LegalEntityId");
-            TempData.Keep("LegalEntityName");
-            TempData.Keep("LegalEntityCode");
             List<LegalEntity> legalEntities = new List<LegalEntity>();
             MenuHeaddata legaldata = new MenuHeaddata();
             using (HttpClient client = new HttpClient())
@@ -131,21 +116,18 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                            le.ParentLegalEntityCode == legalEntityCode)
                     .ToList();
                     legaldata.LegalEntitydata = filteredEntities;
-                    ViewBag.EUserid = UserID;
                 }
             }
+            ViewBag.LegalEntityId = legalEntityId;
+            ViewBag.LegalEntityName = legalEntityName;
+            ViewBag.LegalEntityCode = legalEntityCode;
+            ViewBag.EUserid = UserID;
             return View(legaldata);
         }
-
-
-
-
-
         [HttpPost]
         public async Task<IActionResult> AddUsers([FromForm] CustomersEmployee adduser)
         {
             var file = Request.Form.Files.FirstOrDefault(f => f.Name == "Logo");
-
             if (file != null && file.Length > 0)
             {
                 using (var ms = new MemoryStream())
@@ -154,7 +136,6 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     adduser.Logo = ms.ToArray();
                 }
             }
-
             using (HttpClient client = new HttpClient())
             {
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(adduser);
@@ -170,13 +151,10 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             }
         }
 
-
         [HttpPost]
         public async Task<IActionResult> AddBillingEntity(EmployeeBillingEntity billingentity, int UserID)
         {
-          
-
-            using (HttpClient client = new HttpClient())
+          using (HttpClient client = new HttpClient())
             {
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(billingentity);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");

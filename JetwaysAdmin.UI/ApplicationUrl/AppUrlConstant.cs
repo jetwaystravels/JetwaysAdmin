@@ -71,6 +71,9 @@
         public static string AddSupplierCredential = BaseURL + "api/SuppliersCredentialAPI/addsuppliercred";
         public static string GetSupplierCredential = BaseURL + "api/SuppliersCredentialAPI/getsuppliercred";
         public static string GetSupplierCredentialID = BaseURL + "api/SuppliersCredentialAPI";
+        public static string AddDealCode = BaseURL + "api/DealCodeAPI/AddDealCode";
+        public static string GetDealCode = BaseURL + "api/DealCodeAPI/GetDealCode";
+        public static string GetDealCodeID = BaseURL + "api/DealCodeAPI";
 
         #endregion
 

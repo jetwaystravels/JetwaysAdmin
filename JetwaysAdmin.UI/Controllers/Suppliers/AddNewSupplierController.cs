@@ -183,8 +183,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
 
             ViewBag.SupplierId = supplierId;
             return View(supplierscredential);
-        }
-
+        }  
         [HttpPost]
         public async Task<IActionResult> EditInternalUsers(SuppliersCredential supplierscredential)
         {
@@ -200,12 +199,78 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
             }
             return RedirectToAction("UpdateCredential");
         }
-
-        public IActionResult DealCodes(int supplierId)
+        [HttpGet]
+        public async Task<IActionResult> DealCodes(int supplierId)
         {
+            List<DealCode> dealcode = new List<DealCode>();
+            using(HttpClient client=new HttpClient())
+            {
+                var dealresponse = await client.GetAsync(AppUrlConstant.GetDealCode);
+                if (dealresponse.IsSuccessStatusCode)
+                {
+                    var result = await dealresponse.Content.ReadAsStringAsync();
+                    dealcode = JsonConvert.DeserializeObject<List<DealCode>>(result);
+                }
+            }
+            var dealCode = new MenuHeaddata
+            {
+                  DealCodeView= dealcode
+            };
             ViewBag.SupplierId = supplierId;
-            return View();
-        } 
+            return View(dealCode);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDealCodes(int supplierId, DealCode dealcode)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(dealcode);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddDealCode, dealcode);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                }
+            }
+            ViewBag.SupplierId = supplierId;
+            return RedirectToAction("DealCodes");
+        }
+        [HttpGet]
+        public async Task<IActionResult> UpdateDealCode(int supplierId, int Id)
+        {
+            DealCode dealcode = null;
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetDealCodeID}/{Id}";
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dealcode = JsonConvert.DeserializeObject<DealCode>(result);
+                }
+            }
+
+            ViewBag.SupplierId = supplierId;
+            return View(dealcode);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditDealCode(int supplierId, DealCode dealcode)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string Data = JsonConvert.SerializeObject(dealcode);
+                StringContent content = new StringContent(Data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(AppUrlConstant.GetDealCodeID + "/" + dealcode.DealCodeId, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    ViewBag.SupplierId = supplierId;
+                    return RedirectToAction("UpdateDealCode", new { Id = dealcode.DealCodeId });
+                }
+              
+            }
+            return RedirectToAction("UpdateDealCode");
+        }
         public IActionResult NetRemitCodes(int supplierId)
         {
             ViewBag.SupplierId = supplierId;

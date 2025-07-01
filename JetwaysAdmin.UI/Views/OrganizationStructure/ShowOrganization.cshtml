@@ -1,15 +1,11 @@
 ﻿@model List<JetwaysAdmin.UI.ViewModel.HierarchyLegalEntityView>
-
 @{
     Layout = "~/Views/Shared/Admin.cshtml";
     var Data = Model;
 }
-
-
 <main id="main" class="main">
     <div class="pcoded-main-container">
         <div class="pcoded-wrapper">
-
             <!-- Page-header start -->
             <div class="page-header">
                 <div class="page-block">
@@ -64,7 +60,7 @@
                                                         <img src="../assets/images/default-logo-smal.png" class="img-70 m-r-5" />
                                                     </div>
                                                     <div>
-                                                        <form method="post" action="/LegalEntity/UpdateLegalEntities">
+                                                        <form method="post" action="/LegalEntity/UpdateLegalEntities/?LegalEntityName=@parent.LegalEntityName">
                                                             <button class="entity-link"><span class="m-r-5">[@parent.LegalEntityCode]</span>@parent.LegalEntityName</button>
                                                             <input type="hidden" name="Id" value="@parent.Id" />
                                                             <input type="hidden" name="Code" value="@parent.LegalEntityCode" />
