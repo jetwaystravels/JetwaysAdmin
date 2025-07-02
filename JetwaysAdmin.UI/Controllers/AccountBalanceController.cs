@@ -1,5 +1,6 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Interface;
+using JetwaysAdmin.Repositories.Migrations;
 using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -20,10 +21,9 @@ namespace JetwaysAdmin.UI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddAccountBalance([FromForm] CustomerAccountBalance accountbalance)
+        public async Task<IActionResult> AddAccountBalance([FromForm] CustomerAccountBalance accountbalance, string LegalEntityCode, string LegalEntityName)
         {
-           
-            using (HttpClient client = new HttpClient())
+           using (HttpClient client = new HttpClient())
             {
                 var json = JsonConvert.SerializeObject(accountbalance);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -33,7 +33,11 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await response.Content.ReadAsStringAsync();
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
-                return RedirectToAction("ShowAccountBalance");
+                return RedirectToAction("ShowAccountBalance", new
+                {
+                    LegalEntityCode = LegalEntityCode,
+                    LegalEntityName = LegalEntityName
+                });
             }
         }
     }

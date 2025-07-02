@@ -9,17 +9,6 @@
             <div class="pcoded-overlay-box"></div>
             <div class="pcoded-container navbar-wrapper">
                 @Html.Partial("_HeaderNav")
-                @{
-                    if(ViewBag.LegalEntityName != null)
-                    {
-                        @ViewBag.LegalEntityName
-                    }
-
-                    if (ViewBag.LegalEntityCode != null)
-                    {
-                        @ViewBag.LegalEntityCode
-                    }
-                }
                 <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
                         <nav class="pcoded-navbar">
@@ -39,7 +28,7 @@
                                             {
                                                @("-")  @ViewBag.LegalEntityCode
                                             }
-                                            <a href="organization-structure.html" style="color: #0e93d8; display:block; margin-top:12px;">View Org. Structure </a>
+                                            <a href="#" style="color: #0e93d8; display:block; margin-top:12px;">View Org. Structure </a>
                                         </h6>
                                     </div>
                                 </div>

@@ -1,4 +1,5 @@
 ﻿using JetwaysAdmin.Entity;
+using JetwaysAdmin.Repositories.Migrations;
 using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +11,7 @@ namespace JetwaysAdmin.UI.Controllers
     {
         public async Task<IActionResult> ShowOrganization(int Id, string legalEntityName, string legalEntityCode)
         {
-            //ViewBag.LegalEntityName1 = legalEntityName;
-            //ViewBag.LegalEntityCode1 = legalEntityCode;
+           
             using (HttpClient client = new HttpClient())
             {
                 string apiUrl = $"{AppUrlConstant.LegalHeirachy}?LegalEntityCode={legalEntityCode}";
@@ -31,6 +31,9 @@ namespace JetwaysAdmin.UI.Controllers
                             return parent;
                         })
                         .ToList();
+                    ViewBag.LegalEntityId = Id;
+                    ViewBag.LegalEntityName = legalEntityName;
+                    ViewBag.LegalEntityCode = legalEntityCode;
                     return View(hierarchy); // Pass only parent-level list with nested SubEntities
                 }
 

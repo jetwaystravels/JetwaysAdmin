@@ -91,7 +91,13 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 HttpResponseMessage response = await client.PutAsync(AppUrlConstant.GetCustomerEmployeeID + "/" + users.UserID, content);
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("updateUser", new { UserID = users.UserID });
+                    return RedirectToAction("updateUser", new
+                    {
+                        UserID = users.UserID,
+                        legalEntityId = Request.Form["legalEntityId"],
+                        legalEntityName = Request.Form["legalEntityName"],
+                        legalEntityCode = Request.Form["legalEntityCode"]
+                    });
                 }
             }
             return View();
@@ -147,12 +153,18 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     TempData["AddUSers"] = "User Add Successfully";
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
-                return RedirectToAction("ShowUsers");
+                return RedirectToAction("ShowUsers", new
+                {
+                    UserID = Request.Form["UserID"],
+                    legalEntityId = Request.Form["legalEntityId"],
+                    legalEntityName = Request.Form["legalEntityName"],
+                    legalEntityCode = Request.Form["legalEntityCode"]
+                });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBillingEntity(EmployeeBillingEntity billingentity, int UserID)
+        public async Task<IActionResult> AddBillingEntity(EmployeeBillingEntity billingentity, int UserID, string legalEntityCode, string legalEntityName, string legalEntityId)
         {
           using (HttpClient client = new HttpClient())
             {
@@ -170,7 +182,13 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     TempData["DuplicateBillingEntity"] = "A billing entity for this user already exists!";
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
-                return RedirectToAction("ShowUsers");
+                return RedirectToAction("ShowUsers", new
+                {
+                    UserID = UserID,
+                    legalEntityId = Request.Form["legalEntityId"],
+                    legalEntityName = Request.Form["legalEntityName"],
+                    legalEntityCode = Request.Form["legalEntityCode"]
+                });
             }
         }
 

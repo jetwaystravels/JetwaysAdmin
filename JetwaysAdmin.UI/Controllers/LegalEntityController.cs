@@ -57,9 +57,6 @@ namespace JetwaysAdmin.UI.Controllers
             }
         }
 
-
-
-
         public async Task<IActionResult> UpdateLegalEntities(int Id, string Code, string Name)
         {
             LegalEntity entity = null;
@@ -74,6 +71,8 @@ namespace JetwaysAdmin.UI.Controllers
                     entity = JsonConvert.DeserializeObject<LegalEntity>(result);
                 }
             }
+            ViewBag.LegalEntityCode = Code;
+            ViewBag.LegalEntityName = Name;
             return View(entity);
         }
 

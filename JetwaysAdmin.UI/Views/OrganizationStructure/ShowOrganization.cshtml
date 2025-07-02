@@ -60,7 +60,7 @@
                                                         <img src="../assets/images/default-logo-smal.png" class="img-70 m-r-5" />
                                                     </div>
                                                     <div>
-                                                        <form method="post" action="/LegalEntity/UpdateLegalEntities/?LegalEntityName=@parent.LegalEntityName">
+                                                        <form method="post" action="/LegalEntity/UpdateLegalEntities/?LegalEntityName=@parent.LegalEntityName & LegalEntityCode=@parent.LegalEntityCode">
                                                             <button class="entity-link"><span class="m-r-5">[@parent.LegalEntityCode]</span>@parent.LegalEntityName</button>
                                                             <input type="hidden" name="Id" value="@parent.Id" />
                                                             <input type="hidden" name="Code" value="@parent.LegalEntityCode" />

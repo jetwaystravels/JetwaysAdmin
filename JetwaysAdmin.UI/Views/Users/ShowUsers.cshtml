@@ -305,7 +305,9 @@
                                                    <tbody>
                                                             @foreach (var user in Model.customersemployee)
                                                             {
-                                                                <tr data-userid="@user.UserID" style="cursor:pointer;">
+                                                                <tr data-userid="@user.UserID" data-legalentityid="@ViewBag.LegalEntityId"
+                                                                    data-legalentityname="@ViewBag.LegalEntityName"
+                                                                    data-legalentitycode="@ViewBag.LegalEntityCode" style="cursor:pointer;">
                                                                     <td class="clickable">@user.UserID</td>
                                                                     <td class="clickable">@user.FirstName</td>
                                                                     <td class="clickable">@user.BusinessEmail</td>
@@ -364,20 +366,35 @@
 
 
             //Table click data get
+            // $('td.clickable').on('click', function () {
+            //     var userId = $(this).closest('tr').data('userid');
+            //     $.ajax({
+            //         url: '/Users/updateUser',
+            //         type: 'GET',
+            //         data: { UserID: userId },
+            //         success: function (response) {
+            //             window.location.href = '/Users/updateUser?UserID=' + userId;
+            //         },
+            //         error: function (xhr) {
+            //             alert('Error: ' + xhr.responseText);
+            //         }
+            //     });
+            // });
             $('td.clickable').on('click', function () {
-                var userId = $(this).closest('tr').data('userid');
-                $.ajax({
-                    url: '/Users/updateUser',
-                    type: 'GET',
-                    data: { UserID: userId },
-                    success: function (response) {
-                        window.location.href = '/Users/updateUser?UserID=' + userId;
-                    },
-                    error: function (xhr) {
-                        alert('Error: ' + xhr.responseText);
-                    }
-                });
+                var $row = $(this).closest('tr');
+                var userId = $row.data('userid');
+                var legalEntityId = $row.data('legalentityid');
+                var legalEntityName = $row.data('legalentityname');
+                var legalEntityCode = $row.data('legalentitycode');
+
+                // Optional: You don't need the AJAX call if you're just navigating
+                window.location.href = '/Users/updateUser' +
+                    '?UserID=' + encodeURIComponent(userId) +
+                    '&legalEntityId=' + encodeURIComponent(legalEntityId) +
+                    '&legalEntityName=' + encodeURIComponent(legalEntityName) +
+                    '&legalEntityCode=' + encodeURIComponent(legalEntityCode);
             });
+
         });
     </script>
 </footer>

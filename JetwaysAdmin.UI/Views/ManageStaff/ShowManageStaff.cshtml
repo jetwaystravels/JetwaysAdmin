@@ -90,10 +90,7 @@
                             }
                             <div class="card">
                                 <form class="card-block" asp-controller="ManageStaff" asp-action="ManageStaff">
-                                    @{
-                                        TempData.Keep("LegalEntityCode1");
-                                    }
-                                    <input type="hidden" name="LegalEntityCode" value="@TempData["LegalEntityCode1"]">
+                                    <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode">
                                     <div class="form-group form-primary col-md-3 U-select">
                                         <div class="dropdown" data-field="KeyAccountManager">
                                             <div class="m-b-15" style="font-size:13px;">Key Account Managers</div>

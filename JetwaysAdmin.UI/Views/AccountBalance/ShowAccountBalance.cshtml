@@ -42,7 +42,7 @@
                             <div class="card">
                                 <div class="card-block">
                                     <form class="form-material form-row" asp-controller="AccountBalance" asp-action="AddAccountBalance">
-                                        <input type="hidden" name="LegalEntityCode" value="@TempData["LegalEntityCode1"]">
+                                        <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode">
                                         <div class="form-group form-primary col-md-6 m-t-15">
                                             <strong style="font-weight:700;">Manage account balance at other entity?</strong>
                                             <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">

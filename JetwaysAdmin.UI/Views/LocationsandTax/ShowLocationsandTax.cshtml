@@ -3,6 +3,7 @@
 
 @{
     Layout = "~/Views/Shared/_LegalEntities.cshtml";
+    var Data = Model;
 }
 <style>
     .alert {
@@ -22,7 +23,6 @@
         cursor: pointer;
         transition: 0.3s;
     }
-
         .closebtn:hover {
             color: black;
         }
@@ -89,13 +89,14 @@
                                     <strong></strong> @TempData["AddTax"]
                                 </div>
                             }
-                            @{
-                                TempData.Keep("LegalEntityCode1");
-                            }
+                           
                             <div class="card">
                                 <div class="card-block">
                                     <form class="form-material form-row" asp-controller="LocationsandTax" method="post">
-                                        <input type="hidden" name="LegalEntityCode" class="form-control" value="@TempData["LegalEntityCode1"]">
+                                        @{
+                                            var legalEntityCode = @ViewBag.LegalEntityCode;
+                                        }
+                                        <input type="hidden" name="LegalEntityCode" class="form-control" value="@legalEntityCode">
                                         <div class="form-group form-primary col-md-6">
                                             <input type="text" name="LocationName" class="form-control" required>
                                             <span class="form-bar"></span>
