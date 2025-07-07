@@ -225,9 +225,38 @@
     @Html.Partial("Footer")
 
     @await RenderSectionAsync("Scripts", required: false)
+    <!-- multiple selection Jquery start -->
+    <script>
+        $('.langOpt').multiselect({
+            columns: 1,
+            texts: {
+                placeholder: 'Associated Fare Type(s) *'
+            }
+        });
+        $('.langOptone').multiselect({
+            columns: 1,
+            texts: {
+                placeholder: 'Business Travel'
+            }
+        });
+
+        $('.langOpttwo').multiselect({
+            columns: 1,
+            texts: {
+                placeholder: 'Personal Travel'
+            }
+        });
+    </script>
+    <!-- multiple selection Jquery start -->
     <script>
         $(function () {
             $(".select").select2();
+        });
+        $(function () {
+            $(".date-main").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
         });
     </script>
     <!-- Upload image format start -->

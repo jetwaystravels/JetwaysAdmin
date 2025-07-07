@@ -37,8 +37,6 @@ namespace JetwaysAdmin.UI.Controllers
 
         }
 
-
-
         [HttpPost]
         public async Task<IActionResult> AddLegalEntity([FromForm] LegalEntity legalEntity)
         {
@@ -75,9 +73,6 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.LegalEntityName = Name;
             return View(entity);
         }
-
-
-
 
         [HttpPost]
         public async Task<IActionResult> EditLegalEntities(LegalEntity legalEntity)

@@ -33,7 +33,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             return Ok(credentials);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<SuppliersCredential>> GetInternalUsersById(int Id)
+        public async Task<ActionResult<SuppliersCredential>> GetSupplierCredentialsById(int Id)
         {
             var updatesupplier = await _suppliersCredentialService.GetSupplierCredentialById(Id);
             if (updatesupplier == null)

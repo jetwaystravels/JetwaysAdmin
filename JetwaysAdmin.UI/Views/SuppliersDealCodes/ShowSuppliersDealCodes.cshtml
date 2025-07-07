@@ -1,15 +1,366 @@
-﻿@using JetwaysAdmin.UI.ViewModel
-@model List<MenuHeaddata>
+﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
 
 @{
     Layout = "~/Views/Shared/_LegalEntities.cshtml";
+    var Data = Model;
 }
 <main id="main" class="main">
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                <!-- Page-header start -->
+                <div class="page-header">
+                    <div class="page-block">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <div class="page-header-title">
+                                    <h5 class="m-b-10">Suppliers and Deal Codes</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="#">Setting</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="#">Manage Suppliers</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        Suppliers and Deal Codes
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pcoded-inner-content">
+                    <!-- Main-body start -->
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- Page-body start -->
+                            <div class="page-body">
+                                <!-- Nav tabs -->
+                                <div class="m-b-25">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#flights1" role="tab">Flights</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#hotel1" role="tab">Hotel</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#bus1" role="tab">Bus</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#cabs1" role="tab">Cabs</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#visa1" role="tab">Visa</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#forex1" role="tab">Forex</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#insurances1" role="tab">Insurance</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#rail1" role="tab">Rail</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <!--  Suppliers manage start -->
+                                    <div class="tab-pane active" id="flights1" role="tabpanel">
+                                        <div class="d-flex justify-content-end m-b-10 flex-btn">
+                                            <div><button class="btn btn-danger add-btn">+ Add New</button></div>
+                                        </div>
+                                        <div class="default-content">
+                                            <div class="d-flex justify-content-between m-b-15" style="width:320px;">
+                                                <h5>Manage Flights Suppliers?</h5>
+                                                <label class="switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                            <div class="row">
+                                                <!-- flight start -->
+                                             @foreach(var dealCode in Model.getsupplier)
+                                             {
+                                                <div class="col-md-3">
+                                                    <div class="card">
+                                                        <div class="card-block sup-bx">
+                                                            <div class="d-flex bdr" style="cursor:pointer;" onclick="navigateToCredential(this)" data-supplierid="@dealCode.SupplierId"
+                                                                 data-legalcode="@ViewBag.LegalEntityCode"
+                                                                 data-legalname="@ViewBag.LegalEntityName">
+                                                                    <img class="img-fluid img-h" src="data:image/png;base64,@Convert.ToBase64String(dealCode.Logo)" alt="logo">
+                                                                    <h6 class="m-t-10 m-l-10">
+                                                                        @dealCode.CarrierType
+                                                                        <p class="light-gray">@dealCode.SupplierName</p>
+                                                                    </h6>
+                                                                    <input type="hidden" name="SupplierId" value="@dealCode.SupplierId" />
+                                                                    <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" />
+                                                                    <input type="hidden" name="LegalEntityName" value="@ViewBag.LegalEntityName" />
+                                                                </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="m-b-0 light-gray">Last updated:@dealCode.ModifyDate.ToString("dd-MM-yyyy")</p>
+                                                                <label class="switch">
+                                                                    <input type="checkbox">
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                             }
+                                                <!-- flight card end -->
+                                            </div>
+                                        </div>
+                                        
+                                     <div class="supplier-content" style="display: none;">
+                                            <h5 class="m-b-10">
+                                                <a href="supplieranddealcodes.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Add New Supplier for Flights
+                                            </h5>
+                                            <div class="text-center m-t-10">
+                                                <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                                <div>No data found, please add new record</div>
+                                                <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="hotel1" role="tabpanel">
+                                        <div class="d-flex justify-content-end m-b-10 flex-btn">
+                                            <div><button class="btn btn-danger add-btn">+ Add New</button></div>
+                                        </div>
+                                        <div class="default-content">
+                                            <div class="d-flex justify-content-between m-b-15" style="width:320px;">
+                                                <h5>Manage Hotel Suppliers?</h5>
+                                                <label class="switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                            <div class="row">
+                                                <!-- hotel start -->
+                                                <div class="col-md-3">
+                                                    <div class="card">
+                                                        <div class="card-block sup-bx">
+                                                            <div class="d-flex bdr">
+                                                                <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-1.png" alt="logo">
+                                                                <h6 class="m-t-10 m-l-10">Travel Boutique Hotels <p class="light-gray">Hotel</p></h6>
 
-    <h4>
-        ShowSuppliersDealCodes
-    </h4>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="m-b-0 light-gray">Last updated:15-01-2025</p>
+                                                                <label class="switch">
+                                                                    <input type="checkbox" checked>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="card">
+                                                        <div class="card-block sup-bx">
+                                                            <div class="d-flex bdr">
+                                                                <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-2.png" alt="logo">
+                                                                <h6 class="m-t-10 m-l-10">HOTEL BEDS <p class="light-gray">Hotel</p></h6>
 
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="m-b-0 light-gray">Last updated : 27-11-2024</p>
+                                                                <label class="switch">
+                                                                    <input type="checkbox" checked>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="card">
+                                                        <div class="card-block sup-bx">
+                                                            <div class="d-flex bdr">
+                                                                <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-3.png" alt="logo">
+                                                                <h6 class="m-t-10 m-l-10">RateHawk <p class="light-gray">Hotel</p></h6>
+
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="m-b-0 light-gray">Last updated : 21-11-2024</p>
+                                                                <label class="switch">
+                                                                    <input type="checkbox" checked>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- hotel card end -->
+                                            </div>
+                                        </div>
+                                        <div class="supplier-content" style="display:none;">
+                                            <h5 class="m-b-20">
+                                                <a href="#" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Add New Supplier for Hotel
+                                            </h5>
+                                            <div class="col-md-3 p-l-0">
+                                                <div class="card">
+                                                    <div class="card-block sup-bx">
+                                                        <div class="bdr text-center">
+                                                            <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-4.png" alt="logo">
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <p>Yatra<br /><span class="m-b-0 light-gray">Hotels</span></p>
+                                                            <p><input class="m-t-5" type="checkbox" value=""></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="m-t-20">
+                                                <button class="btn btn-primary waves-effect waves-light">Add</button>
+                                                <button class="btn btn-danger waves-effect waves-light">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="bus1" role="tabpanel">
+                                        <div class="text-center m-t-10">
+                                            <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                            <div>No data found, please add new record</div>
+                                            <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="visa1" role="tabpanel">
+                                        <div class="text-center m-t-10">
+                                            <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                            <div>No data found, please add new record</div>
+                                            <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="forex1" role="tabpanel">
+                                        <div class="text-center m-t-10">
+                                            <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                            <div>No data found, please add new record</div>
+                                            <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="insurances1" role="tabpanel">
+                                        <div class="text-center m-t-10">
+                                            <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                            <div>No data found, please add new record</div>
+                                            <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="rail1" role="tabpanel">
+                                        <div class="text-center m-t-10">
+                                            <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                            <div>No data found, please add new record</div>
+                                            <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                        </div>
+                                    </div>
+                                    <!--  Suppliers manage end -->
+                                </div>
+                            </div>
+                            <!-- Page-body end -->
+                        </div>
+                    </div>
+                    <!-- Page-body end -->
+                </div>
+            </div>
+        </div>
+  
 </main>
+
+<footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  
+
+    <!-- datepicker start -->
+    <script>
+        $(function () {
+            $(".date-main").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+    </script>
+    <!-- datepicker End -->
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+    <!-- Suppliers and Deal add and remove start -->
+    <script>
+        $(document).ready(function () {
+            // Click event for "+ Add New" button
+            $(document).on("click", ".add-btn", function () {
+                let parentTab = $(this).closest(".tab-pane");
+
+                // Hide the default content
+                parentTab.find(".default-content").hide();
+
+                // Show the "Add New Supplier" content
+                parentTab.find(".supplier-content").show();
+
+                // Hide the "+ Add New" button
+                $(this).hide();
+            });
+
+            // Click event for ".default-content"
+            $(document).on("click", ".default-content", function () {
+                let parentTab = $(this).closest(".tab-pane");
+
+                // Hide default-content and "+ Add New" button
+                parentTab.find(".default-content, .add-btn").hide();
+
+                // Show new supplier content
+                parentTab.find(".new-spplier").show();
+            });
+
+            // Reset tab content when switching back
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                let targetTab = $($(e.target).attr("href"));
+
+                // Restore default content
+                targetTab.find(".default-content").show();
+
+                // Hide new supplier and supplier content
+                targetTab.find(".new-spplier, .supplier-content").hide();
+
+                // Restore "+ Add New" button
+                targetTab.find(".add-btn").show();
+            });
+
+            // Ensure clicking the active tab restores content
+            $('.nav-link').on("click", function () {
+                let targetTab = $($(this).attr("href"));
+                // Restore everything when clicking on the same tab
+                targetTab.find(".default-content").show();
+                targetTab.find(".new-spplier, .supplier-content").hide();
+                targetTab.find(".add-btn").show();
+            });
+        });
+    </script>
+    <!-- Suppliers and Deal add and remove End -->
+    <script>
+        function navigateToCredential(el) {
+            const supplierId = el.dataset.supplierid;
+            const legalCode = el.dataset.legalcode;
+            const legalName = el.dataset.legalname;
+            const url = `/SuppliersDealCodes/GetSupplierCredential?SupplierId=${supplierId}&LegalEntityCode=${encodeURIComponent(legalCode)}&LegalEntityName=${encodeURIComponent(legalName)}`;
+            window.location.href = url;
+        }
+    </script>
+
+</footer>
 
 
