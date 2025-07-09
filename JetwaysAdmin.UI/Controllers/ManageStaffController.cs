@@ -12,10 +12,11 @@ namespace JetwaysAdmin.UI.Controllers
     {
 
         [ServiceFilter(typeof(LogActionFilter))]
-        public async Task<IActionResult> ShowManageStaff(string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowManageStaff(int Id, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = Id;
             List<InternalUsers> customeremployee = new List<InternalUsers>();
             using (HttpClient client = new HttpClient())
             {

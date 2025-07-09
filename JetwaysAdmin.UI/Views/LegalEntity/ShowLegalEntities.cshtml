@@ -1,8 +1,6 @@
 ﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
-
-
 @{
-    Layout = "~/Views/Shared/_LegalEntities.cshtml";
+    Layout = "~/Views/Shared/Admin.cshtml";
     var Data = Model;
 }
 <style>
@@ -23,10 +21,9 @@
         cursor: pointer;
         transition: 0.3s;
     }
-
-        .closebtn:hover {
+ .closebtn:hover {
             color: black;
-        }
+   }
 </style>
 <main id="main" class="main">
     <!-- Pre-loader start -->
@@ -92,7 +89,10 @@
                                         <!--  suppeir info Start -->
                                     <form class="form-material form-row" asp-controller="LegalEntity" asp-action="AddLegalEntity">
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="LegalEntityName" class="form-control" required>
+                                        <input type="hidden" name="LegalEntityCodeStaf" value="@ViewBag.LegalEntityCode" />
+                                         <input type="hidden" name="LegalEntityNameStaf" value="@ViewBag.LegalEntityName" /> 
+                                            <input type="hidden" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
+                                             <input type="text" name="LegalEntityName" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Legal Entity Name<span>*</span></label>
                                             </div>

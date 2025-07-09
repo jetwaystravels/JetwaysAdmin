@@ -7,8 +7,11 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class GDSProfileController : Controller
     {
-        public async Task<IActionResult> ShowGDSProfile()
+        public async Task<IActionResult> ShowGDSProfile(int Id, string LegalEntityCode, string LegalEntityName)
         {
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = Id;
             return View();
         }
     }

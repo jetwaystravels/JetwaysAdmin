@@ -7,8 +7,11 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class EmploymentTypesController : Controller
     {
-        public async Task<IActionResult> ShowEmploymentTypes()
+        public async Task<IActionResult> ShowEmploymentTypes(int Id, string LegalEntityCode, string LegalEntityName)
         {
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = Id;
             return View();
         }
     }

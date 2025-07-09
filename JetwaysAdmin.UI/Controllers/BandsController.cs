@@ -7,10 +7,11 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class BandsController : Controller
     {
-        public async Task<IActionResult> ShowBands(string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowBands(int Id, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = Id;
             return View();
         }
     }

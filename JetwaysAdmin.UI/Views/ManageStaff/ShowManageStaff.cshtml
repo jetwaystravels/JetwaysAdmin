@@ -1,6 +1,4 @@
 ﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
-
-
 @{
     Layout = "~/Views/Shared/_LegalEntities.cshtml";
     var Data = Model;
@@ -24,31 +22,11 @@
         transition: 0.3s;
     }
 
-        .closebtn:hover {
+  .closebtn:hover {
             color: black;
         }
 </style>
-
 <main id="main" class="main">
-    <!-- Pre-loader start -->
-    <div class="theme-loader">
-        <div class="loader-track">
-            <div class="preloader-wrapper">
-                <div class="spinner-layer spinner-blue">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Pre-loader end -->
     <div class="pcoded-main-container">
         <div class="pcoded-wrapper">
             <!-- Page-header start -->
@@ -91,6 +69,8 @@
                             <div class="card">
                                 <form class="card-block" asp-controller="ManageStaff" asp-action="ManageStaff">
                                     <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode">
+                                    <input type="hidden" name="LegalEntityCodeStaf" value="@ViewBag.LegalEntityCode" />
+                                    <input type="hidden" name="LegalEntityNameStaf" value="@ViewBag.LegalEntityName" />
                                     <div class="form-group form-primary col-md-3 U-select">
                                         <div class="dropdown" data-field="KeyAccountManager">
                                             <div class="m-b-15" style="font-size:13px;">Key Account Managers</div>

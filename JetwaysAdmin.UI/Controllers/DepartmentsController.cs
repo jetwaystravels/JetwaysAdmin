@@ -7,10 +7,11 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class DepartmentsController : Controller
     {
-        public IActionResult ShowDepartments(string LegalEntityCode, string LegalEntityName)
+        public IActionResult ShowDepartments(int Id, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = Id;
             return View();
         }
 

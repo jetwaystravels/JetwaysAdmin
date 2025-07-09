@@ -17,7 +17,7 @@ namespace JetwaysAdmin.UI.Controllers
         public async Task<IActionResult> ShowLegalEntities(string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
-            ViewBag.LegalEntityName = LegalEntityName;
+            //ViewBag.LegalEntityName = LegalEntityName;
             List<IATAGroupView> iataGroups = new List<IATAGroupView>();
             using (HttpClient client = new HttpClient())
             {
@@ -32,9 +32,7 @@ namespace JetwaysAdmin.UI.Controllers
             {
                 IATAGruopName = iataGroups,
             };
-
             return View(viewModel);
-
         }
 
         [HttpPost]
@@ -71,6 +69,7 @@ namespace JetwaysAdmin.UI.Controllers
             }
             ViewBag.LegalEntityCode = Code;
             ViewBag.LegalEntityName = Name;
+            ViewBag.Id = Id;
             return View(entity);
         }
 

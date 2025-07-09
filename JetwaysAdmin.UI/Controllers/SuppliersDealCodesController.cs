@@ -12,11 +12,11 @@ namespace JetwaysAdmin.UI.Controllers
     public class SuppliersDealCodesController : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> ShowSuppliersDealCodes(string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowSuppliersDealCodes(int Id, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
-
+            ViewBag.Id = Id;
             List<AddSupplier> supplier = new List<AddSupplier>();
             using (HttpClient client = new HttpClient())
             {
@@ -35,7 +35,7 @@ namespace JetwaysAdmin.UI.Controllers
             return View(viewModel);
         }
         [HttpGet]
-        public async Task<IActionResult> GetSupplierCredential(int SupplierId, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> GetSupplierCredential(int SupplierId,int Id, string LegalEntityCode, string LegalEntityName)
         {
             List<SuppliersCredential> allCredentials = new List<SuppliersCredential>();
             List<SuppliersCredential> filteredCredentials = new List<SuppliersCredential>();
@@ -73,6 +73,7 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.SupplierCode = SupplierId;
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = Id;
             return View(dealCode); 
         }
         //public async Task<IActionResult> UpdateSupplierCredential(int Id, string Code, string Name)
@@ -93,7 +94,7 @@ namespace JetwaysAdmin.UI.Controllers
         //    return View(credentailupdate);
         //}
         [HttpPost]
-        public async Task<IActionResult> EditSupplierCredential(SuppliersCredential supplierscredential, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> EditSupplierCredential(SuppliersCredential supplierscredential,int Id, string LegalEntityCode, string LegalEntityName)
         {
            using (HttpClient client = new HttpClient())
             {
@@ -106,7 +107,8 @@ namespace JetwaysAdmin.UI.Controllers
                     {
                         SupplierId = supplierscredential.SupplierCode,
                         LegalEntityCode = LegalEntityCode,
-                        LegalEntityName = LegalEntityName
+                        LegalEntityName = LegalEntityName,
+                        Id=Id
                     });
                 }
             }
@@ -114,7 +116,7 @@ namespace JetwaysAdmin.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCredentials(int supplierId, SuppliersCredential suppliersCredential, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> AddCredentials(int supplierId, SuppliersCredential suppliersCredential,int Id, string LegalEntityCode, string LegalEntityName)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -131,11 +133,12 @@ namespace JetwaysAdmin.UI.Controllers
             {
                 SupplierId = supplierId,
                 LegalEntityCode = LegalEntityCode,
-                LegalEntityName = LegalEntityName
+                LegalEntityName = LegalEntityName,
+                Id = Id
             });
         }
         [HttpPost]
-        public async Task<IActionResult> AddDealCodes(int supplierId, DealCode dealcode, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> AddDealCodes(int supplierId, DealCode dealcode,int Id, string LegalEntityCode, string LegalEntityName)
         {
              supplierId = int.Parse(dealcode.SupplierCode);
             using (HttpClient client = new HttpClient())
@@ -152,7 +155,8 @@ namespace JetwaysAdmin.UI.Controllers
             {
                 SupplierId = supplierId,
                 LegalEntityCode = LegalEntityCode,
-                LegalEntityName = LegalEntityName
+                LegalEntityName = LegalEntityName,
+                Id = Id
             });
         }
     }

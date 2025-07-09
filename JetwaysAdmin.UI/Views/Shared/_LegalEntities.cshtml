@@ -34,139 +34,139 @@
                                 </div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li class="active">
-                                        <a asp-controller="LegalEntity" asp-action="ShowLegalEntities" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="LegalEntity" asp-action="UpdateLegalEntities" asp-route-Id="@ViewBag.Id" asp-route-Name="@ViewBag.LegalEntityName" asp-route-Code="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-user" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Legal Entity Info</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="AccountDetails" asp-action="ShowAccountDetails" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="AccountDetails" asp-action="ShowAccountDetails" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-building-o" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Account Details</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="AccountBalance" asp-action="ShowAccountBalance" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="AccountBalance" asp-action="ShowAccountBalance" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Account Balance</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="ContactUs" asp-action="ShowContactUs" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="ContactUs" asp-action="ShowContactUs" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Contact Us</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="ManageStaff" asp-action="ShowManageStaff" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="ManageStaff" asp-action="ShowManageStaff" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-exchange" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Manage Staff</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="LocationsandTax" asp-action="ShowLocationsandTax" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="LocationsandTax" asp-action="ShowLocationsandTax" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Locations and Tax</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="Departments" asp-action="ShowDepartments" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="Departments" asp-action="ShowDepartments" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-group" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Departments</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="Designations" asp-action="ShowDesignations" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="Designations" asp-action="ShowDesignations" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Designations</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="Bands" asp-action="ShowBands" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="Bands" asp-action="ShowBands" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Bands</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="ProjectCodes" asp-action="ShowProjectCodes" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="ProjectCodes" asp-action="ShowProjectCodes" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Project Codes</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="Commercials" asp-action="ShowCommercials" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="Commercials" asp-action="ShowCommercials" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Commercials</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="IATACommissions" asp-action="ShowIATACommissions" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="IATACommissions" asp-action="ShowIATACommissions" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">IATA Commissions</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="ApprovalWorkflows" asp-action="ShowApprovalWorkflows" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="ApprovalWorkflows" asp-action="ShowApprovalWorkflows" asp-route-Id="@ViewBag.Id" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Approval Workflows</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="TravelPolicies" asp-action="ShowTravelPolicies" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="TravelPolicies" asp-action="ShowTravelPolicies" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Travel Policies</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="EmailConfigurations" asp-action="ShowEmailConfigurations" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="EmailConfigurations" asp-action="ShowEmailConfigurations" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Email Configurations</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="GDSProfile" asp-action="ShowGDSProfile" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="GDSProfile" asp-action="ShowGDSProfile" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">GDS Profile</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="SuppliersDealCodes" asp-action="ShowSuppliersDealCodes" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="SuppliersDealCodes" asp-action="ShowSuppliersDealCodes" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Suppliers & Deal Codes</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="AccountConfiguration" asp-action="ShowAccountConfiguration" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="AccountConfiguration" asp-action="ShowAccountConfiguration" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Account Configuration</span>
                                         </a>
                                     </li>
                                        <li class="">
-                                        <a asp-controller="CreditCards" asp-action="ShowCreditCards" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="CreditCards" asp-action="ShowCreditCards" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Credit Cards</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="ReportingParameters" asp-action="ShowReportingParameters" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="ReportingParameters" asp-action="ShowReportingParameters" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Reporting Parameters</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="PassthroughSettings" asp-action="ShowPassthroughSettings" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="PassthroughSettings" asp-action="ShowPassthroughSettings" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Passthrough Settings</span>
                                         </a>
                                     </li>
                                      <li class="">
-                                        <a asp-controller="EmploymentTypes" asp-action="ShowEmploymentTypes" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="EmploymentTypes" asp-action="ShowEmploymentTypes" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Employment Types</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="FinancialCharges" asp-action="ShowFinancialCharges" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="FinancialCharges" asp-action="ShowFinancialCharges" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Financial Charges</span>
                                         </a>
@@ -178,31 +178,31 @@
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="CostCenter" asp-action="ShowCostCenter" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="CostCenter" asp-action="ShowCostCenter" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Cost Center</span>
                                         </a>
                                     </li>
                                        <li class="">
-                                        <a asp-controller="UserManuals" asp-action="ShowUserManuals" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="UserManuals" asp-action="ShowUserManuals" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">User Manuals</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="ApprovalPolicies" asp-action="ShowApprovalPolicies" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="ApprovalPolicies" asp-action="ShowApprovalPolicies" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Approval Policies</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="Budgets" asp-action="ShowBudgets" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="Budgets" asp-action="ShowBudgets" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Budgets</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a asp-controller="FrequentFlyerMap" asp-action="ShowFrequentFlyerMap" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                        <a asp-controller="FrequentFlyerMap" asp-action="ShowFrequentFlyerMap" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-cc-jcb" aria-hidden="true"></i></span>
                                             <span class="pcoded-mtext">Frequent Flyer Map</span>
                                         </a>
@@ -260,6 +260,28 @@
         });
     </script>
     <!-- Upload image format start -->
-    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebarItems = document.querySelectorAll('.pcoded-navbar .pcoded-item li');
+            const currentPath = window.location.pathname.toLowerCase();
+            let matched = false;
+            sidebarItems.forEach(function (li) {
+                const link = li.querySelector('a');
+                if (link) {
+                    const linkHref = new URL(link.href, window.location.origin).pathname.toLowerCase();
+
+                    if (currentPath === linkHref) {
+                        li.classList.add('active');
+                        matched = true;
+                    } else {
+                        li.classList.remove('active');
+                    }
+                }
+            });
+            if (!matched && sidebarItems.length > 0) {
+                sidebarItems[0].classList.add('active');
+            }
+        });
+    </script>
 </body>
 </html>

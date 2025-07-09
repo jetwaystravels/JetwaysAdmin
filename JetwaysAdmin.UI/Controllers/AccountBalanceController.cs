@@ -11,17 +11,18 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class AccountBalanceController : Controller
     {
-        public async Task<IActionResult> ShowAccountBalance(string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowAccountBalance(int Id,string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = Id;
             return View();
 
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> AddAccountBalance([FromForm] CustomerAccountBalance accountbalance, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> AddAccountBalance([FromForm] CustomerAccountBalance accountbalance, int Id, string LegalEntityCode, string LegalEntityName)
         {
            using (HttpClient client = new HttpClient())
             {
@@ -36,7 +37,8 @@ namespace JetwaysAdmin.UI.Controllers
                 return RedirectToAction("ShowAccountBalance", new
                 {
                     LegalEntityCode = LegalEntityCode,
-                    LegalEntityName = LegalEntityName
+                    LegalEntityName = LegalEntityName,
+                    Id=Id
                 });
             }
         }
