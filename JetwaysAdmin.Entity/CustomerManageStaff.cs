@@ -14,20 +14,21 @@ namespace JetwaysAdmin.Entity
         public int Id { get; set; }
 
         [Column("key_account_manager")]
-        public string KeyAccountManager { get; set; }
+        public string? KeyAccountManager { get; set; }
 
         [Column("Sales_spoc")]
-        public string SalesSpoc { get; set; }
+        public string? SalesSpoc { get; set; }
 
         [Column("Booking_consultant")]
+        [Required]
         public string BookingConsultant { get; set; }
 
         [Column("Emergency_contact")]
-        public string EmergencyContact { get; set; }
+        public string? EmergencyContact { get; set; }
 
         [Column("User_group")]
-        public string UserGroup { get; set; }
-
+        public string? UserGroup { get; set; }
+        [Required]
         public string LegalEntityCode { get; set; }
     }
 }

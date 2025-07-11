@@ -17,7 +17,7 @@ namespace JetwaysAdmin.UI.Controllers
         public async Task<IActionResult> ShowLegalEntities(string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
-            //ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.LegalEntityName = LegalEntityName;
             List<IATAGroupView> iataGroups = new List<IATAGroupView>();
             using (HttpClient client = new HttpClient())
             {
@@ -36,7 +36,7 @@ namespace JetwaysAdmin.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddLegalEntity([FromForm] LegalEntity legalEntity)
+        public async Task<IActionResult> AddLegalEntity([FromForm] LegalEntity legalEntity, string LegalEntityCode, string LegalEntityName)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -49,7 +49,7 @@ namespace JetwaysAdmin.UI.Controllers
                     TempData["LegalAdd"] = "Legal Entity Add Successfully";
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
-                return RedirectToAction("ShowLegalEntities");
+                return RedirectToAction("ShowLegalEntities", new { legalEntity = legalEntity , LegalEntityCode = LegalEntityCode });
             }
         }
 
@@ -60,7 +60,6 @@ namespace JetwaysAdmin.UI.Controllers
             {
                 string url = $"{AppUrlConstant.GetLegalEntityID}/{Id}";
                 var response = await client.GetAsync(url);
-
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();

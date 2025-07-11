@@ -61,6 +61,13 @@
             <div class="main-body">
                 <div class="page-wrapper">
                     <div class="page-body">
+                        @if (TempData["Addbillingentity"] != null)
+                        {
+                            <div class="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                <strong></strong> @TempData["Addbillingentity"]
+                            </div>
+                        }
                         <form method="post" asp-controller="Users" asp-action="AddBillingEntity">
                         <div class="card">
                             <div class="card-block">
@@ -76,7 +83,8 @@
                                        <label class="float-label">Billing Entity Code*</label>
                                     </div>
                                     <div class="form-group form-primary col-md-3">
-                                        <input type="text" name="UserID" value="@TempData["EmplID"]" class="form-control">
+                                        <input type="hidden" name="UserID" value="@TempData["EmplID"]" class="form-control">
+                                        <input type="text" name="EmployeeID"  class="form-control">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Employee ID</label>
                                     </div>

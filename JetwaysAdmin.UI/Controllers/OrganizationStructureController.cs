@@ -16,7 +16,6 @@ namespace JetwaysAdmin.UI.Controllers
             {
                 string apiUrl = $"{AppUrlConstant.LegalHeirachy}?LegalEntityCode={legalEntityCode}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
-
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonData = await response.Content.ReadAsStringAsync();
@@ -34,7 +33,7 @@ namespace JetwaysAdmin.UI.Controllers
                     ViewBag.LegalEntityId = Id;
                     ViewBag.LegalEntityName = legalEntityName;
                     ViewBag.LegalEntityCode = legalEntityCode;
-                    return View(hierarchy); // Pass only parent-level list with nested SubEntities
+                    return View(hierarchy);
                 }
 
                 TempData["ErrorMessage"] = "Failed to retrieve data.";

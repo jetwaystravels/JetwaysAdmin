@@ -47,9 +47,7 @@ namespace JetwaysAdmin.UI.Controllers
             .Split(',', StringSplitOptions.RemoveEmptyEntries)       
             .Select(emp => emp.Split('-')[0].Trim())                 
             .ToList();
-
             customermanagestaff.BookingConsultant = string.Join(",", employeeID);
-
             using (HttpClient client = new HttpClient())
             {
                 var json = JsonConvert.SerializeObject(customermanagestaff);

@@ -18,7 +18,6 @@ namespace JetwaysAdmin.UI.Controllers
             List<AddSupplier> supplier = new List<AddSupplier>();
             List<EmployeeFrequentFlyer> frequentflyerList = new List<EmployeeFrequentFlyer>();
             List<FrequentFlyerDisplay> flyerDisplayList = new List<FrequentFlyerDisplay>();
-
             using (HttpClient client = new HttpClient())
             {
                 var userresponse = await client.GetAsync(AppUrlConstant.GetCustomerEmployee);
@@ -27,7 +26,6 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await userresponse.Content.ReadAsStringAsync();
                     manageuser = JsonConvert.DeserializeObject<List<CustomersEmployee>>(result);
                 }
-
                 var getsupplier = await client.GetAsync(AppUrlConstant.GetSupplier);
                 if (userresponse.IsSuccessStatusCode)
                 {
@@ -41,8 +39,6 @@ namespace JetwaysAdmin.UI.Controllers
                     var flyerResult = await flyerResponse.Content.ReadAsStringAsync();
                     frequentflyerList = JsonConvert.DeserializeObject<List<EmployeeFrequentFlyer>>(flyerResult);
                 }
-
-
             }
             flyerDisplayList = (from f in frequentflyerList
                                 join e in manageuser on f.EmployeeID equals e.UserID

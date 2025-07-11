@@ -34,11 +34,11 @@ namespace JetwaysAdmin.UI.Controllers
                 {
                   ViewBag.ErrorMessage = "Data not  insert";
                 }
-                //return RedirectToAction("ShowLocationsandTax");
                 return RedirectToAction("ShowLocationsandTax", new
                 {
                     LegalEntityName = LegalEntityName,
-                    LegalEntityCode = LegalEntityCode
+                    LegalEntityCode = LegalEntityCode,
+                    Id=Id
                 });
             }
         }
