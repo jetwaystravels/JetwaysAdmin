@@ -1,0 +1,91 @@
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
+<html lang="en">
+@Html.Partial("Head")
+<body>
+    <header>
+        @Html.Partial("_Loader")
+        <div id="pcoded" class="pcoded">
+            <div class="pcoded-overlay-box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                @Html.Partial("_HeaderNav")
+             
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav class="pcoded-navbar">
+                            <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                            <div class="pcoded-inner-navbar main-menu">
+                                <div class="">
+                                    <div class="main-menu-header">
+                                        <a href="#" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
+                                        <img class="m-t-10" src="../assets/images/logo-1.png" alt="user-img" loading="lazy" style="width:40px;">
+                                        <h6 style="font-weight:700;">
+                                            @ViewBag.LegalEntityName
+                                            <lable style="color: #0e93d8; display: block; margin-top: 6px; font-size: 11px; font-weight: 500;">Users</lable>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <ul class="pcoded-item pcoded-left-item">
+                                    <li class="active">
+                                        <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">Manager Users</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">User Groups</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">User Invitations</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">Guest Users</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <div class="pcoded-content">
+                            <main role="main" class="pb-3">
+                                @RenderBody()
+                            </main>
+                        </div>
+                        <div id="styleSelector"> </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main-body end -->
+        </div>
+    </header>
+    @Html.Partial("Footer")
+
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(function () {
+            $(".select").select2();
+        });
+    </script>
+    <!-- Upload image format start -->
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function (event) {
+            const file = event.target.files[0]; // Get the selected file
+            if (file) {
+                const reader = new FileReader(); // Create FileReader
+                reader.onload = function (e) {
+                    document.getElementById('preview').src = e.target.result; // Set new image source
+                };
+                reader.readAsDataURL(file); // Read the file as Data URL
+            }
+        });
+    </script>
+    <!-- Upload image format End -->
+</body>
+</html>

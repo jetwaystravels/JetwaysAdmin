@@ -37,7 +37,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             return View(userAlldetail);
         }
 
-        public async  Task<IActionResult> updateUser(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID)
+        public async  Task<IActionResult> updateUser(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID, string empId)
         {
             CustomersEmployee users = null;
             using (HttpClient client = new HttpClient())
@@ -68,6 +68,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 ViewBag.LegalEntityName = legalEntityName;
                 ViewBag.LegalEntityCode = legalEntityCode;
                 ViewBag.EUserid = users.UserID;
+                ViewBag.empId = users.EmployeeID;
             }
             return View(users);
         }
@@ -104,7 +105,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
         }
 
         [HttpGet]
-        public async Task<IActionResult> OrganizationUsersProfile(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID)
+        public async Task<IActionResult> OrganizationUsersProfile(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID, string empId)
         {
             List<LegalEntity> legalEntities = new List<LegalEntity>();
             MenuHeaddata legaldata = new MenuHeaddata();
@@ -128,6 +129,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             ViewBag.LegalEntityName = legalEntityName;
             ViewBag.LegalEntityCode = legalEntityCode;
             ViewBag.EUserid = UserID;
+            ViewBag.empId = empId;
             return View(legaldata);
         }
         [HttpPost]
@@ -158,7 +160,8 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     UserID = Request.Form["UserID"],
                     legalEntityId = Request.Form["legalEntityId"],
                     legalEntityName = Request.Form["legalEntityName"],
-                    legalEntityCode = Request.Form["legalEntityCode"]
+                    legalEntityCode = Request.Form["legalEntityCode"],
+                    empId = Request.Form["empId"]
                 });
             }
         }

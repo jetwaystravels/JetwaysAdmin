@@ -1,7 +1,7 @@
 ﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
 
 @{
-    Layout = "~/Views/Shared/_UserProfile.cshtml";
+    Layout = "~/Views/Shared/_ManageUser.cshtml";
     var Data = Model;
 }
 
@@ -307,8 +307,8 @@
                                                             {
                                                                 <tr data-userid="@user.UserID" data-legalentityid="@ViewBag.LegalEntityId"
                                                                     data-legalentityname="@ViewBag.LegalEntityName"
-                                                                    data-legalentitycode="@ViewBag.LegalEntityCode" style="cursor:pointer;">
-                                                                    <td class="clickable">@user.UserID</td>
+                                                                    data-legalentitycode="@ViewBag.LegalEntityCode" data-empid="@user.EmployeeID" style="cursor:pointer;">
+                                                                    <td class="clickable">@user.EmployeeID</td>
                                                                     <td class="clickable">@user.FirstName</td>
                                                                     <td class="clickable">@user.BusinessEmail</td>
                                                                     <td onclick="location.href='user-information.html';"></td>
@@ -386,13 +386,14 @@
                 var legalEntityId = $row.data('legalentityid');
                 var legalEntityName = $row.data('legalentityname');
                 var legalEntityCode = $row.data('legalentitycode');
+                var empId = $row.data('empid');
 
                 // Optional: You don't need the AJAX call if you're just navigating
                 window.location.href = '/Users/updateUser' +
                     '?UserID=' + encodeURIComponent(userId) +
                     '&legalEntityId=' + encodeURIComponent(legalEntityId) +
                     '&legalEntityName=' + encodeURIComponent(legalEntityName) +
-                    '&legalEntityCode=' + encodeURIComponent(legalEntityCode);
+                    '&legalEntityCode=' + encodeURIComponent(legalEntityCode) + '&empId=' + encodeURIComponent(empId);
             });
 
         });
