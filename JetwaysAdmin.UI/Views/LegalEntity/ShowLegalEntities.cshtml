@@ -96,15 +96,15 @@
                                             </div>
                                             <div class="form-group form-primary col-md-3">
                                           
-                                            <input type="text" name="LegalEntityCode" value="" class="form-control" required>
+                                            <input type="text" name="LegalEntityCode" value="" oninput="this.value = this.value.replace(/\s/g, '')" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Legal Entity Code</label>
                                             </div>
-                                        @{
+                                       @*  @{
                                             var CodeLegal = TempData["LegalEntityCode"] as string;
                                         }
-                                        <input type="hidden" name="ParentLegalEntityCode" value="@(CodeLegal ?? "")" class="form-control">
-
+                                        <input type="text" name="ParentLegalEntityCode" value="@(CodeLegal ?? "")" class="form-control">
+ *@
                                             <div class="form-group form-primary col-md-3">
                                             <select name="AssignIATAGroup" class="form-control fill" required>
                                                  <option value="opt1">Assign IATA Group</option>
@@ -117,7 +117,7 @@
                                                 <label class="float-label">Assign IATA Group</label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="CorporateAccountsCode"  class="form-control">
+                                            <input type="text" name="CorporateAccountsCode" oninput="this.value = this.value.replace(/\s/g, '')" class="form-control">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Corporate Accounts Code</label>
                                             </div>
@@ -218,7 +218,7 @@
                                             <label class="float-label">City<span>*</span></label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="PostalCode" class="form-control">
+                                            <input type="text" name="PostalCode" oninput="this.value = this.value.replace(/\s/g, '')" class="form-control">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Postal Code<span>*</span></label>
                                             </div>
@@ -233,7 +233,7 @@
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="IntegrationRefNumber" class="form-control" required>
+                                            <input type="text" name="IntegrationRefNumber" oninput="this.value = this.value.replace(/\s/g, '')" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Integration Ref. Number</label>
                                             </div>

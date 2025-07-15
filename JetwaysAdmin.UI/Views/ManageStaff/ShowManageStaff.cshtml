@@ -69,8 +69,10 @@
                             <div class="card">
                                 <form class="card-block" asp-controller="ManageStaff" asp-action="ManageStaff">
                                     <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode">
-                                    <input type="hidden" name="LegalEntityCodeStaf" value="@ViewBag.LegalEntityCode" />
-                                    <input type="hidden" name="LegalEntityNameStaf" value="@ViewBag.LegalEntityName" />
+                                    <input type="hidden" name="LegalEntityName" value="@ViewBag.LegalEntityName" />
+                                    <input type="hidden" name="Id" value="@ViewBag.Id" />
+                                   @*  <input type="hidden" name="LegalEntityCodeStaf" value="@ViewBag.LegalEntityCode" />
+                                    <input type="hidden" name="LegalEntityNameStaf" value="@ViewBag.LegalEntityName" /> *@
                                     <div class="form-group form-primary col-md-3 U-select">
                                         <div class="dropdown" data-field="KeyAccountManager">
                                             <div class="m-b-15" style="font-size:13px;">Key Account Managers</div>

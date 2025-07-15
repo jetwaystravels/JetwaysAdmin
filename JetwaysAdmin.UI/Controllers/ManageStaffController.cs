@@ -39,7 +39,7 @@ namespace JetwaysAdmin.UI.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(LogActionFilter))]
-        public async Task<IActionResult> ManageStaff([FromForm] CustomerManageStaff customermanagestaff)
+        public async Task<IActionResult> ManageStaff([FromForm] CustomerManageStaff customermanagestaff, int Id, string LegalEntityCode, string LegalEntityName)
         {
           
             string employeeData = customermanagestaff.BookingConsultant;
@@ -59,7 +59,7 @@ namespace JetwaysAdmin.UI.Controllers
                     TempData["DataUpdate"] = "Update successfully";
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
-                return RedirectToAction("ShowManageStaff");
+                return RedirectToAction("ShowManageStaff", new { Id = Id , LegalEntityCode= LegalEntityCode, LegalEntityName = LegalEntityName });
             }
         }
 
