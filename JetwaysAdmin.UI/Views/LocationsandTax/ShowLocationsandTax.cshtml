@@ -12,7 +12,6 @@
         color: white;
         width: 25%;
     }
-
     .closebtn {
         margin-left: 15px;
         color: white;
@@ -23,7 +22,7 @@
         cursor: pointer;
         transition: 0.3s;
     }
-        .closebtn:hover {
+    .closebtn:hover {
             color: black;
         }
 </style>
@@ -83,12 +82,12 @@
                                             <label class="float-label">Location Name<span>*</span></label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="LocationCode" class="form-control">
+                                            <input type="text" name="LocationCode" class="form-control" required>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Location Code</label>
                                         </div>
                                         <div class="form-group form-primary col-md-6">
-                                            <input type="text" name="AddressLine1" class="form-control">
+                                            <input type="text" name="AddressLine1" class="form-control" required>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Address Line 1<span>*</span></label>
                                         </div>
@@ -98,7 +97,7 @@
                                             <label class="float-label">Address Line 2</label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <select name="Country" class="select">
+                                            <select name="Country" class="select" required>
                                                 <option value="">Country*</option>
                                                 <option value="IN">India</option>
                                                 <option value="AF">Abkhazia</option>
@@ -113,19 +112,19 @@
                                             </select>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <select name="State" class="select">
+                                            <select name="State" class="select" required>
                                                 <option value="">State*</option>
                                                 <option value="Delhi">Delhi</option>
                                             </select>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <select name="City" class="select">
+                                            <select name="City" class="select" required>
                                                 <option value="">City*</option>
                                                 <option value="Delhi">Delhi</option>
                                             </select>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="PostalCode" class="form-control">
+                                            <input type="text" name="PostalCode" class="form-control" required>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Postal Code<span>*</span></label>
                                         </div>
@@ -171,17 +170,17 @@
                                             </div>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="GSTNumber" class="form-control">
+                                            <input type="text" name="GSTNumber" class="form-control" required>
                                             <span class="form-bar"></span>
                                             <label class="float-label">GST Number<span>*</span></label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="GSTName" class="form-control">
+                                            <input type="text" name="GSTName" class="form-control" required>
                                             <span class="form-bar"></span>
                                             <label class="float-label">GST Name<span>*</span></label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="GSTEmail" class="form-control">
+                                            <input type="text" name="GSTEmail" class="form-control" required>
                                             <span class="form-bar"></span>
                                             <label class="float-label">GST Email<span>*</span></label>
                                         </div>
@@ -200,7 +199,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group form-primary col-md-2">
-                                            <input type="number" name="MobileNumber" class="form-control">
+                                            <input type="number" name="MobileNumber" class="form-control" required>
                                             <span class="form-bar"></span>
                                             <label class="float-label"></label>
                                         </div>

@@ -89,8 +89,6 @@
                                         <!--  suppeir info Start -->
                                     <form class="form-material form-row" asp-controller="LegalEntity" asp-action="AddLegalEntity">
                                             <div class="form-group form-primary col-md-3">
-                                       @*  <input type="hidden" name="LegalEntityCodeStaf" value="@ViewBag.LegalEntityCode" />
-                                         <input type="hidden" name="LegalEntityNameStaf" value="@ViewBag.LegalEntityName" />  *@
                                             <input type="hidden" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
                                              <input type="text" name="LegalEntityName" class="form-control" required>
                                                 <span class="form-bar"></span>
@@ -108,7 +106,7 @@
                                         <input type="hidden" name="ParentLegalEntityCode" value="@(CodeLegal ?? "")" class="form-control">
 
                                             <div class="form-group form-primary col-md-3">
-                                            <select name="AssignIATAGroup" class="form-control fill">
+                                            <select name="AssignIATAGroup" class="form-control fill" required>
                                                  <option value="opt1">Assign IATA Group</option>
                                                 @foreach (var group in Model.IATAGruopName)
                                                 {
@@ -124,7 +122,7 @@
                                                 <label class="float-label">Corporate Accounts Code</label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="FirstName" class="form-control" required>
+                                            <input type="text" name="FirstName" class="form-control" >
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">First Name</label>
                                             </div>
@@ -178,12 +176,12 @@
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="AddressLine1" class="form-control">
+                                            <input type="text" name="AddressLine1" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Registered Address Line 1<span>*</span></label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="AddressLine2" class="form-control">
+                                            <input type="text" name="AddressLine2" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Registered Address Line 2<span>*</span></label>
                                             </div>
@@ -235,7 +233,7 @@
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="IntegrationRefNumber" class="form-control">
+                                            <input type="text" name="IntegrationRefNumber" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Integration Ref. Number</label>
                                             </div>

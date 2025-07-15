@@ -6,92 +6,18 @@
 <head>
 
     <style>
-
-        .ms-options-wrap.ms-active > .ms-options {
-            /* visibility: visible;
-            width: 250px;
-             left: 18px;*/
-        }
-
-        .dropdown-bx {
-            position: relative;
-        }
-
-            .dropdown-bx .ms-options-wrap.ms-active > .ms-options {
-                width: 170px;
-                position: absolute;
-                top: 38px;
-            }
-
-            .dropdown-bx button:focus {
-                padding: 0;
-                -webkit-transition: auto;
-            }
-
-        .form-material.form-row .float-label {
-            left: 10px;
-            top: -4px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-
-        .dropdown-bx button {
-            border: none !important;
-            font-weight: 700;
-            height: 27px;
-            cursor: pointer;
-            padding-left: 0;
-            overflow: visible;
-            background-color: transparent;
-            padding: 0;
-        }
-
-            .dropdown-bx button span {
-                font-size: 14px;
-            }
-
-        .dropdown-bx .ms-options-wrap {
-            width: 79%;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            position: absolute;
-            top: -14px;
-            background: transparent;
-        }
-
-            .dropdown-bx .ms-options-wrap > button:after {
-                content: "\f107";
-                font: normal normal normal 16px / 1 FontAwesome;
-                color: #495057;
-                height: 0;
-                position: absolute;
-                top: 31%;
-                right: 16px;
-                width: 0;
-                border-top-color: #999;
-                margin-top: -3px;
-                font-weight: 700;
-            }
-
-        .ms-options a.ms-selectall.global {
-            display: none !important;
-        }
-
-        .dropdown-bx .ms-options {
-            min-height: auto !important;
-            max-height: none !important;
-            overflow-y: visible !important;
-            height: auto !important;
-        }
-
-        #gatewaySection .ms-options-wrap.ms-has-selections button {
-            border: none;
-            cursor: pointer;
-            padding-left: 13px;
-            position: absolute;
-            top: 0px;
-        }
+ .ms-options-wrap.ms-active > .ms-options {}
+.dropdown-bx {position: relative;}
+.dropdown-bx .ms-options-wrap.ms-active > .ms-options {width: 170px;position: absolute;top: 38px;}
+.dropdown-bx button:focus {padding: 0;-webkit-transition: auto;}
+.form-material.form-row .float-label {left: 10px;top: -4px;font-size: 12px;font-weight: 500;}
+.dropdown-bx button {border: none !important;font-weight: 700;height: 27px;cursor: pointer; padding-left: 0;overflow: visible;background-color: transparent; padding: 0;}
+.dropdown-bx button span {font-size: 14px;}
+.dropdown-bx .ms-options-wrap {width: 79%;text-overflow: ellipsis;white-space: nowrap;position: absolute;top: -14px;background: transparent;}
+.dropdown-bx .ms-options-wrap > button:after { content: "\f107";font: normal normal normal 16px / 1 FontAwesome;color: #495057;height: 0;position: absolute;top: 31%;right: 16px; width: 0;border-top-color: #999;margin-top: -3px;font-weight: 700;}
+.ms-options a.ms-selectall.global {display: none !important;}
+.dropdown-bx .ms-options {min-height: auto !important;max-height: none !important;overflow-y: visible !important;height: auto !important;}
+#gatewaySection .ms-options-wrap.ms-has-selections button { border: none;cursor: pointer; padding-left: 13px;position: absolute;top: 0px;}
 
         .bdr-btm .ms-options-wrap button {
             border: none;
@@ -151,7 +77,7 @@
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                         <div class="page-body">
-                           <form asp-controller="AccountDetails" asp-action="AddAccountDetails">
+                           <form asp-controller="AccountDetails" asp-action="AddAccountDetails" method="post">
                             <div class="card">
                                 <div class="card-block dropdown-group">
                                     <div class="form-material form-row">
@@ -208,13 +134,11 @@
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
-
                                         <div class="form-group form-primary col-md-3" id="tdsInfo" style="display: none;">
                                             <input type="text" name="TDSRate" value="0 %" class="form-control fill">
                                             <span class="form-bar"></span>
                                             <label class="float-label">TDS Rate<span>*</span></label>
                                         </div>
-
                                     </div>
                                     <div class="col-md-12 m-t-10 m-b-10" style="padding:0;">
                                         <div class="page-header-title m-b-30" style="border-bottom: 1px solid #dee2e6">
@@ -936,13 +860,13 @@ If booked by travel agent, you can also check below 'Booked By' section for the 
                                                 <span class="slider round" style="background:#ddd;"></span>
                                             </label>
                                         </div>
-                                        <div class="form-group form-primary col-md-12">
-                                            <button class="btn btn-primary waves-effect waves-light">Update</button>
-                                        </div>
+                                            <div class="form-group form-primary col-md-12">
+                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
+                                            </div>
                                     </form>
                                 </div>
                             </div>
-                           </form>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -154,6 +154,10 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     var result = await response.Content.ReadAsStringAsync();
                     TempData["AddUSers"] = "User Add Successfully";
                 }
+                else
+                {
+                    TempData["NotAddUSers"] = "User not add ";
+                }
                 ViewBag.ErrorMessage = "Data not  insert";
                 return RedirectToAction("ShowUsers", new
                 {
