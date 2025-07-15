@@ -30,7 +30,6 @@ namespace JetwaysAdmin.UI.Controllers
             {
                 IATAGruopName = iataGroups
             };
-
             return View(viewModel);
         }
 
@@ -51,8 +50,5 @@ namespace JetwaysAdmin.UI.Controllers
                 return RedirectToAction("ShowAccountDetails");
             }
         }
-
-
-
     }
 }

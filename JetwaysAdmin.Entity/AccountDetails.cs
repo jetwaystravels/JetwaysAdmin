@@ -14,29 +14,29 @@ namespace JetwaysAdmin.Entity
         [Key]
         public int AccountID { get; set; }
 
-        public string? LegalEntityCode { get; set; } = "EEVB#56";
+        public string LegalEntityCode { get; set; }
 
         public string IATAGroup { get; set; }
 
-        public string CorporateBookingCode { get; set; }
+        public string? CorporateBookingCode { get; set; }
 
-        public bool AllowPersonalBooking { get; set; }
+        public bool? AllowPersonalBooking { get; set; }
 
-        public string PersonalBookingCode { get; set; }
+        public string? PersonalBookingCode { get; set; }
 
-        public string PANName { get; set; }
+        public string? PANName { get; set; }
 
-        public string PANNumber { get; set; }
+        public string? PANNumber { get; set; }
 
-        public bool ApplyDisplayTDS { get; set; }
+        public bool? ApplyDisplayTDS { get; set; }
 
-        public string TDSRate { get; set; }
+        public decimal? TDSRate { get; set; }
 
-        public string PaymentMode { get; set; }
+        public string? PaymentMode { get; set; }
 
-        public bool AllowPartialPassthrough { get; set; }
+        public bool? AllowPartialPassthrough { get; set; }
 
-        public string CreditDebitLimit { get; set; }
+        public decimal? CreditDebitLimit { get; set; }
 
     }
 }
