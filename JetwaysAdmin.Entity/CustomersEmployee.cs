@@ -12,26 +12,18 @@ namespace JetwaysAdmin.Entity
     {
         [Key]
         public int UserID { get; set; }
-        [Required]
-        public string LegalEntityCode { get; set; }
-        [Required]
-        public string EmployeeID { get; set; }
-        [Required]
-        public string Title { get; set; }
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
-        [Required]
-        public string BusinessEmail { get; set; }
-        [Required]
-        public string MobileCountryCode { get; set; }
-        [Required]
-        public string MobileNumber { get; set; }
-        [Required]
-        public string Nationality { get; set; }
-        [Required]
-        public string WorkLocation { get; set; }
+
+        public string? LegalEntityCode { get; set; }
+        public string EmployeeID { get; set; } = string.Empty;
+        public string? Title { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? BusinessEmail { get; set; }
+        public string? MobileCountryCode { get; set; }
+        public string? MobileNumber { get; set; }
+        public string? Nationality { get; set; }
+        public string? WorkLocation { get; set; }
+
         public string? UserType { get; set; }
         public byte[]? Logo { get; set; }
         public string? SystemIntegrationRefNo { get; set; }
@@ -41,7 +33,7 @@ namespace JetwaysAdmin.Entity
         public string? CreatedBy { get; set; } = "Admin";
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
         public string? ModifyBy { get; set; } = "Admin";
-        public DateTime? ModifyDate { get; set; }= DateTime.Now;
-        public int? AppStatus { get; set; } =0;
+        public DateTime? ModifyDate { get; set; } = DateTime.Now;
+        public int? AppStatus { get; set; } = 0;
     }
 }

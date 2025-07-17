@@ -74,9 +74,6 @@ namespace JetwaysAdmin.WebAPI.Controllers
             supplierupdate.AddressLine2 = supplier.AddressLine2 ?? supplierupdate.AddressLine2;
             supplierupdate.City = supplier.City ?? supplierupdate.City;
             supplierupdate.Country = supplier.Country ?? supplierupdate.Country;
-            supplierupdate.Domain = supplier.Domain ?? supplierupdate.Domain;
-            supplierupdate.Username = supplier.Username ?? supplierupdate.Username;
-            supplierupdate.Password = supplier.Password ?? supplierupdate.Password;
             supplierupdate.PhoneNumber = supplier.PhoneNumber ?? supplierupdate.PhoneNumber;
             supplierupdate.State = supplier.State ?? supplierupdate.State;
             supplierupdate.SendAmendmentNotifications = supplier.SendAmendmentNotifications ?? supplierupdate.SendAmendmentNotifications;

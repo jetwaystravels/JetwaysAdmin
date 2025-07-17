@@ -109,10 +109,10 @@
                                                     <input type="hidden" name="SupplierId" value="@vny.SupplierId" class="form-control">
                                                 <button type="submit" class="card-block sup-bx">
                                                     <div class="d-flex bdr">
-                                                            <img class="img-fluid img-h" src="data:image/png;base64,@Convert.ToBase64String(vny.Logo)"
-                                                                  alt="logo">
-                                                        <h6 class="m-t-10 m-l-10">@vny.CarrierType @vny.SupplierName <p class="light-gray">Flights</p></h6>
-
+                                                        <img class="img-fluid img-h"
+                                                                 src="@(vny.Logo != null ? $"data:image/png;base64,{Convert.ToBase64String(vny.Logo)}" : "assets/images/default-logo.png")"
+                                                                 alt="logo">
+                                                     <h6 class="m-t-10 m-l-10">@vny.CarrierType @vny.SupplierName <p class="light-gray">Flights</p></h6>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <p class="m-b-0 light-gray">Last updated:@vny.ModifyDate</p>

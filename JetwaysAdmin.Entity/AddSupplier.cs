@@ -28,12 +28,10 @@ namespace JetwaysAdmin.Entity
         public bool? SendAmendmentNotifications { get; set; } = false;
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime ModifyDate { get; set; } = DateTime.Now;
-
         public bool? AppStatus { get; set; } = false;
-
-        public string? Password { get; set; } = null;
-        public string? Domain { get; set; } = null;
-        public string? Username { get; set; } = null;
+        //public string? Password { get; set; } = null;
+        //public string? Domain { get; set; } = null;
+        //public string? Username { get; set; } = null;
         public int? FlightCode { get; set; } = null;
         public string? Currency { get; set; } = null;
         public string? PhoneNumber { get; set; } = null;
