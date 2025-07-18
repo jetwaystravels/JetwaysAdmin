@@ -2,6 +2,7 @@
 using JetwaysAdmin.Repositories.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Core.Types;
 
 namespace JetwaysAdmin.WebAPI.Controllers
 {
@@ -23,6 +24,16 @@ namespace JetwaysAdmin.WebAPI.Controllers
             }
             await _managestaff.ManageStaff(customerManageStaff);
             return Ok(new { message = "Manage Staff successfully!", data = customerManageStaff });
+        }
+
+        [HttpGet("BookingConsultants")]
+        public async Task<IActionResult> BookingConsultants(string legalEntityCode)
+        {
+            var result = await _managestaff.GetBookingConsultantsAsync(legalEntityCode);
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
         }
     }
 }

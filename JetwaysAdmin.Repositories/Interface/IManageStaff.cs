@@ -10,5 +10,6 @@ namespace JetwaysAdmin.Repositories.Interface
     public interface IManageStaff<T> where T : class
     {
         Task ManageStaff(CustomerManageStaff customermanagestaff);
+        Task<BookingConsultantDto?> GetBookingConsultantsAsync(string legalEntityCode);
     }
 }

@@ -92,8 +92,11 @@
                                                             <div class="d-flex bdr" style="cursor:pointer;" onclick="navigateToCredential(this)" data-supplierid="@dealCode.SupplierId"
                                                                  data-legalcode="@ViewBag.LegalEntityCode"
                                                                  data-legalname="@ViewBag.LegalEntityName">
+                                                                 @if(dealCode.Logo !=null)
+                                                                 {
                                                                     <img class="img-fluid img-h" src="data:image/png;base64,@Convert.ToBase64String(dealCode.Logo)" alt="logo">
-                                                                    <h6 class="m-t-10 m-l-10">
+                                                                } 
+                                                                <h6 class="m-t-10 m-l-10">
                                                                         @dealCode.CarrierType
                                                                         <p class="light-gray">@dealCode.SupplierName</p>
                                                                     </h6>

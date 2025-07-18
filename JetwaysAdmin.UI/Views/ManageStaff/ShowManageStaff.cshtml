@@ -25,6 +25,22 @@
   .closebtn:hover {
             color: black;
         }
+
+    .alert {
+        padding: 5px;
+        width: 25%;
+        margin-bottom: 10px;
+        color: white;
+    }
+
+        .alert.success {
+            background-color: #11c15b;
+        }
+
+        .alert.error,
+        .alert.validation-error {
+            background-color: #e74c3c;
+        }
 </style>
 <main id="main" class="main">
     <div class="pcoded-main-container">
@@ -60,11 +76,16 @@
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                         <div class="page-body">
-                            @if(TempData["DataUpdate"] !=null){
-                            <div class="alert">
-                                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                                <strong>Data!</strong> @TempData["DataUpdate"]
-                            </div>
+                            @{
+                                var alertMessage = TempData["ErrorMessage"] ?? TempData["DataUpdate"];
+                                var isError = TempData["ErrorMessage"] != null;
+                            }
+                            @if (alertMessage != null)
+                            {
+                                <div class="alert" style="background-color:@(isError ? "#e74c3c" : "#11c15b"); color:white;">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                    <strong>@(isError ? "Error!" : "Success:")</strong> @alertMessage
+                                </div>
                             }
                             <div class="card">
                                 <form class="card-block" asp-controller="ManageStaff" asp-action="ManageStaff">
@@ -141,7 +162,8 @@
                                         </div>
 
                                     </div>
-                                    <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
+                                    <div>@Model.BookingConsultants.BookingConsultantNames</div>
+                                    <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>                                    
                                     <div class="form-group form-primary col-md-3 U-select">
                                         <div class="dropdown" data-field="EmergencyContact">
                                             <div class="m-b-15" style="font-size:13px;">Emergency Contact Person</div>
@@ -300,3 +322,46 @@
     });
 </script>
 <!-- Select Users End -->
+<!-- validation Users -->
+
+<script>
+    document.querySelector('form.card-block').addEventListener('submit', function (e) {
+        const requiredFields = [
+            { id: 'BookingConsultant', name: 'Booking Consultant' },
+            { id: 'SalesSpoc', name: 'Sales Spoc' },
+            { id: 'KeyAccountManager', name: 'Key Account Manager' },
+            { id: 'EmergencyContact', name: 'Emergency Contact' },
+            { id: 'UserGroup', name: 'User Group' }
+        ];
+
+        const filledFields = requiredFields.filter(f => {
+            const val = document.getElementById(f.id).value.trim();
+            return val !== '';
+        });
+
+        if (filledFields.length === 0) {
+            e.preventDefault();
+
+            // Remove existing error if present
+            const oldError = document.querySelector('.validation-error');
+            if (oldError) oldError.remove();
+
+            // Show error
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'alert validation-error';
+            errorDiv.style.backgroundColor = '#e74c3c';
+            errorDiv.style.color = 'white';
+            errorDiv.style.marginTop = '15px';
+            errorDiv.style.padding = '10px';
+            errorDiv.innerHTML = `
+                <strong>Error:</strong> Please select at least one of the following:
+                <ul style="margin:0;">${requiredFields.map(f => `<li>${f.name}</li>`).join('')}</ul>
+            `;
+
+            const form = document.querySelector('form.card-block');
+            form.parentElement.insertBefore(errorDiv, form);
+        }
+    });
+</script>
+
+<!-- validation Users END  -->

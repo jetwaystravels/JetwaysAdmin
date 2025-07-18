@@ -36,7 +36,9 @@ namespace JetwaysAdmin.UI.ViewModel
         public List<LegalEntity> LegalEntitydata { get; set; }
         public List<SuppliersCredential> supplierscredential { get; set; }
         public List<DealCode> DealCodeView { get; set; }
-        
+
+        public BookingConsultantDto BookingConsultants { get; set; } 
+
 
     }
 
