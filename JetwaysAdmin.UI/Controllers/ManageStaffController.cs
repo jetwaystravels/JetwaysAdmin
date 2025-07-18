@@ -58,7 +58,7 @@ namespace JetwaysAdmin.UI.Controllers
                 var viewModel = new MenuHeaddata
                 {
                     InternalUsers = customeremployee,
-                    BookingConsultants = bookingConsultant
+                    BookingConsultants = bookingConsultant ?? new BookingConsultantDto()
                 };
 
                 return View(viewModel);

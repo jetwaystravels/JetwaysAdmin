@@ -148,15 +148,19 @@
                                             </div>
                                             <div class="selected-items"></div>
                                             <div class="dropdown-list">
-                                                @foreach (var vny in Model.InternalUsers) 
+                                                @if (Model.InternalUsers != null)
                                                 {
-                                                    var fullName = $"{vny.FirstName} {vny.LastName}";
-                                                    <div class="dropdown-item" onclick="selectItem(event)"
-                                                         data-employee-id="@vny.EmpId" data-user-id="@vny.UserID">
-                                                        <img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">
-                                                        @vny.UserID-@fullName
-                                                    </div>
+                                                    foreach (var vny in Model.InternalUsers)
+                                                    {
+                                                        var fullName = $"{vny.FirstName} {vny.LastName}";
+                                                        <div class="dropdown-item" onclick="selectItem(event)"
+                                                             data-employee-id="@vny.EmpId" data-user-id="@vny.UserID">
+                                                            <img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">
+                                                            @vny.UserID - @fullName
+                                                        </div>
+                                                    }
                                                 }
+                                               
                                             </div>
                                             <input type="hidden" name="BookingConsultant" id="BookingConsultant" />
                                         </div>

@@ -131,6 +131,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
         [HttpGet]
         public async Task<IActionResult> Credentials(int supplierId)
         {
+   
             List<SuppliersCredential> suppliersCredential = new List<SuppliersCredential>();
             using (HttpClient client = new HttpClient())
             {
@@ -138,7 +139,10 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
                 if (userresponse.IsSuccessStatusCode)
                 {
                     var result = await userresponse.Content.ReadAsStringAsync();
-                    suppliersCredential = JsonConvert.DeserializeObject<List<SuppliersCredential>>(result);
+                    var allCredentialsdata = JsonConvert.DeserializeObject<List<SuppliersCredential>>(result);
+                     suppliersCredential = allCredentialsdata
+                        .Where(x => x.SupplierCode != null && x.SupplierCode.ToString() == supplierId.ToString())
+                        .ToList();
                 }
             }
             var Supplierdata = new MenuHeaddata
@@ -160,6 +164,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
+                    TempData["Add_Credentials"] = "Credentials add succefully";
                 }
             }
             ViewBag.SupplierId = supplierId;
