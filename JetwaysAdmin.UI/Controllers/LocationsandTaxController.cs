@@ -19,28 +19,37 @@ namespace JetwaysAdmin.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTaxLocation(LocationsandTax locationsandaax,int Id, string LegalEntityCode, string LegalEntityName)
         {
-           
+
             using (HttpClient client = new HttpClient())
             {
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(locationsandaax);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
+
                 HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddLoactionTax, locationsandaax);
+
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    TempData["AddTax"] = "Tax & Location Add Successfully";
+                    TempData["AddTax"] = "Tax & Location added successfully";
+                    return RedirectToAction("ShowLocationsandTax", new
+                    {
+                        LegalEntityName = LegalEntityName,
+                        LegalEntityCode = LegalEntityCode,
+                        Id = Id
+                    });
                 }
                 else
                 {
-                  ViewBag.ErrorMessage = "Data not  insert";
+                    TempData["ErrorMessage"] = "Failed to insert Tax & Location. Please try again.";
+                    return RedirectToAction("AddLocationTax", new
+                    {
+                        LegalEntityName = LegalEntityName,
+                        LegalEntityCode = LegalEntityCode,
+                        Id = Id
+                    });
                 }
-                return RedirectToAction("ShowLocationsandTax", new
-                {
-                    LegalEntityName = LegalEntityName,
-                    LegalEntityCode = LegalEntityCode,
-                    Id=Id
-                });
             }
+
         }
     }
 }
