@@ -76,6 +76,7 @@
         public static string AddDealCode = BaseURL + "api/DealCodeAPI/AddDealCode";
         public static string GetDealCode = BaseURL + "api/DealCodeAPI/GetDealCode";
         public static string GetDealCodeID = BaseURL + "api/DealCodeAPI";
+        public static string GetDealCodeSupplierId = BaseURL + "api/DealCodeAPI/GetDealCodeSupplierId";
 
         #endregion
 

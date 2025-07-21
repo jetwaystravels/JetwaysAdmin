@@ -5,6 +5,7 @@ using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Text;
 
 namespace JetwaysAdmin.UI.Controllers
@@ -12,7 +13,7 @@ namespace JetwaysAdmin.UI.Controllers
     public class FrequentFlyerMapController : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> ShowFrequentFlyerMap(int? employeeId = null)
+        public async Task<IActionResult> ShowFrequentFlyerMap(int? employeeId = null, int Id = 0, string LegalEntityCode = "", string LegalEntityName = "")
         {
             List<CustomersEmployee> manageuser = new List<CustomersEmployee>();
             List<AddSupplier> supplier = new List<AddSupplier>();
@@ -71,13 +72,17 @@ namespace JetwaysAdmin.UI.Controllers
                                 FlyerDisplayList = flyerDisplayList
                             };
 
-                            return View(viewModel);
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = Id;
+
+            return View(viewModel);
         }
 
 
 
         [HttpPost]
-        public async Task<IActionResult> AddFrequentFlyer([FromForm] EmployeeFrequentFlyer frequentFlyer)
+        public async Task<IActionResult> AddFrequentFlyer([FromForm] EmployeeFrequentFlyer frequentFlyer, string LegalEntityCode, string LegalEntityName, int Id)
         {
 
             List<EmployeeFrequentFlyer> frequentflyerList = new List<EmployeeFrequentFlyer>();
@@ -98,7 +103,12 @@ namespace JetwaysAdmin.UI.Controllers
                 if (isDuplicate)
                 {
                     ViewBag.ErrorMessage = "This Employee + Airline combination already exists.";
-                    var viewResult = await ShowFrequentFlyerMap() as ViewResult;
+                    var viewResult = await ShowFrequentFlyerMap(frequentFlyer.EmployeeID, Id, LegalEntityCode, LegalEntityName) as ViewResult;
+
+                    //ViewBag.EmployeeId = "";
+                    //ViewBag.LegalEntityCode = LegalEntityCode;
+                    //ViewBag.LegalEntityName = LegalEntityName;
+                    //ViewBag.Id = Id;
 
                     return View("ShowFrequentFlyerMap", viewResult.Model);
                 }
@@ -109,7 +119,7 @@ namespace JetwaysAdmin.UI.Controllers
                 HttpResponseMessage response = await client.PostAsync(AppUrlConstant.AddFrequentFlyer, content);
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("ShowFrequentFlyerMap");
+                    return RedirectToAction("ShowFrequentFlyerMap", new { EmployeeID = frequentFlyer.EmployeeID, Id = Id, LegalEntityCode = LegalEntityCode, LegalEntityName = LegalEntityName });
                 }
 
                 ViewBag.ErrorMessage = "Data not inserted.";

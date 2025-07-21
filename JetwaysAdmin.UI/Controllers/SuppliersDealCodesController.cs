@@ -54,7 +54,9 @@ namespace JetwaysAdmin.UI.Controllers
                      .ToList();
                 }
 
-                var dealresponse = await client.GetAsync(AppUrlConstant.GetDealCode);
+                url = $"{AppUrlConstant.GetDealCodeSupplierId}/?SupplierId={SupplierId}";
+
+                var dealresponse = await client.GetAsync(url);
                 if (dealresponse.IsSuccessStatusCode)
                 {
                     var result = await dealresponse.Content.ReadAsStringAsync();

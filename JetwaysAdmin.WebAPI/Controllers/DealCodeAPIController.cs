@@ -3,6 +3,9 @@ using JetwaysAdmin.Repositories.Implementations;
 using JetwaysAdmin.Repositories.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace JetwaysAdmin.WebAPI.Controllers
 {
@@ -30,9 +33,20 @@ namespace JetwaysAdmin.WebAPI.Controllers
         [Route("GetDealCode")]
         public async Task<ActionResult<IEnumerable<DealCode>>> GetDealCode()
         {
-            var getdealCode = await _dealCodeService.GetDealCode();
+
+           var getdealCode = await _dealCodeService.GetDealCode();
             return Ok(getdealCode);
         }
+
+        [HttpGet]
+        [Route("GetDealCodeSupplierId")]
+        public async Task<ActionResult<IEnumerable<DealCode>>> GetDealCodeSupplierId(int SupplierId)
+        {
+
+            var getdealCode = await _dealCodeService.GetDealCodeSupplierId(SupplierId);
+            return Ok(getdealCode);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<DealCode>> GetDealCodeById(int id)
         {

@@ -1,5 +1,6 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Interface;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,20 @@ namespace JetwaysAdmin.Repositories.Implementations
         public async Task<IEnumerable<DealCode>> GetDealCode()
         {
             return await _dealCodeRepository.tb_DealCode.ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<DealCode>> GetDealCodeSupplierId(int SupplierId)
+        {
+
+            var empParam = new SqlParameter("@supplierid", SupplierId);
+
+            return await _dealCodeRepository
+                .Set<DealCode>()
+                .FromSqlRaw("EXEC sp_GetDealsBySupplierId @supplierid", empParam)
+                .ToListAsync();
+
+            // return await _dealCodeRepository.tb_DealCode.ToListAsync();
         }
         public async Task<DealCode> GetDealCodeById(int DealCodeId)
         {

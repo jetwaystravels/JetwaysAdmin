@@ -11,7 +11,11 @@ namespace JetwaysAdmin.Repositories.Interface
     {
         Task AddDealCode(DealCode dealCode);
         Task<IEnumerable<DealCode>> GetDealCode();
+
+        Task<IEnumerable<DealCode>> GetDealCodeSupplierId(int Supplierid);
         Task<DealCode> GetDealCodeById(int DealCodeId);
         Task UpdateDealCodeById(DealCode dealCode);
+
+      
     }
 }

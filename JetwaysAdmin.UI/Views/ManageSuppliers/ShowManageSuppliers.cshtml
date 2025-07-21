@@ -104,22 +104,44 @@
                                         <!-- flight start -->
                                         @foreach(var vny in Model.getsupplier)
                                         {
+                                            string cursor = "pointer";
+                                            string backgrnd = "0";
+                                            if(vny.AppStatus == false)
+                                            {
+                                                cursor = "pointer-events: none;";
+                                                backgrnd = "opacity:0.7";
+                                            }
+
+
                                         <div class="col-md-3">
                                                 <form class="card supplier-card" asp-controller="AddNewSupplier" asp-action="UpdateSupplier" method="post">
                                                     <input type="hidden" name="SupplierId" value="@vny.SupplierId" class="form-control">
-                                                <button type="submit" class="card-block sup-bx">
-                                                    <div class="d-flex bdr">
+                                                    <button type="submit" class="card-block sup-bx" style="@backgrnd; @cursor">
+                                                   
+                                                        <div class="d-flex bdr" >
                                                         <img class="img-fluid img-h"
                                                                  src="@(vny.Logo != null ? $"data:image/png;base64,{Convert.ToBase64String(vny.Logo)}" : "assets/images/default-logo.png")"
                                                                  alt="logo">
                                                      <h6 class="m-t-10 m-l-10">@vny.CarrierType @vny.SupplierName <p class="light-gray">Flights</p></h6>
                                                     </div>
+
+
                                                     <div class="d-flex justify-content-between">
                                                         <p class="m-b-0 light-gray">Last updated:@vny.ModifyDate</p>
-                                                        <label class="switch">
-                                                            <input type="checkbox">
-                                                            <span class="slider round"></span>
-                                                        </label>
+                                                            @if(vny.AppStatus == false)
+                                                            {
+                                                                <label class="switch">
+                                                                    <input type="checkbox">
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            }
+                                                            else
+                                                            {
+                                                                <label class="switch">
+                                                                    <input type="checkbox" checked>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            }
                                                     </div>
                                                 </button>
                                             </form>
