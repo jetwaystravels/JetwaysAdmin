@@ -15,6 +15,7 @@ namespace JetwaysAdmin.Entity
         public int? AirlineID { get; set; }
         public string? FrequentFlyerNumber { get; set; }
         public string? MembershipLevel { get; set; }
+        public string LegalEntityCode { get; set; }
         public DateTime? EnrollmentDate { get; set; } = DateTime.Now;
 
 

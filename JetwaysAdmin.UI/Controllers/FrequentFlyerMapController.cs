@@ -21,7 +21,9 @@ namespace JetwaysAdmin.UI.Controllers
             List<FrequentFlyerDisplay> flyerDisplayList = new List<FrequentFlyerDisplay>();
             using (HttpClient client = new HttpClient())
             {
-                var userresponse = await client.GetAsync(AppUrlConstant.GetCustomerEmployee);
+                // var userresponse = await client.GetAsync(AppUrlConstant.GetCustomerEmployee);
+                string requestUrl = $"{AppUrlConstant.GetCustomerEmployee}?LegalEntityCode={LegalEntityCode}";
+                var userresponse = await client.GetAsync(requestUrl);
                 if (userresponse.IsSuccessStatusCode)
                 {
                     var result = await userresponse.Content.ReadAsStringAsync();
@@ -112,7 +114,7 @@ namespace JetwaysAdmin.UI.Controllers
 
                     return View("ShowFrequentFlyerMap", viewResult.Model);
                 }
-
+                frequentFlyer.LegalEntityCode = LegalEntityCode;
                 var json = JsonConvert.SerializeObject(frequentFlyer);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
