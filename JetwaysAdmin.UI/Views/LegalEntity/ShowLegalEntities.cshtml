@@ -90,21 +90,18 @@
                                     <form class="form-material form-row" asp-controller="LegalEntity" asp-action="AddLegalEntity">
                                             <div class="form-group form-primary col-md-3">
                                             <input type="hidden" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
-                                             <input type="text" name="LegalEntityName" class="form-control" required>
+                                            <input type="text" name="LegalEntityName" class="form-control" oninput="validateLegalEntityName(this)" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Legal Entity Name<span>*</span></label>
+                                            <span id="legalEntityNameError" style="color: red; font-size: 12px;"></span>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                          
-                                            <input type="text" name="LegalEntityCode" value="" oninput="this.value = this.value.replace(/\s/g, '')" class="form-control" required>
+                                            <input type="text" name="LegalEntityCode" value="" id="legalEntityCode" maxlength="10"
+                                                   oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode()" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Legal Entity Code</label>
+                                            <span id="legalEntityCodeError" style="color: red; font-size: 12px;"></span>
                                             </div>
-                                       @*  @{
-                                            var CodeLegal = TempData["LegalEntityCode"] as string;
-                                        }
-                                        <input type="text" name="ParentLegalEntityCode" value="@(CodeLegal ?? "")" class="form-control">
- *@
                                             <div class="form-group form-primary col-md-3">
                                             <select name="AssignIATAGroup" class="form-control fill" required>
                                                  <option value="opt1">Assign IATA Group</option>
@@ -122,14 +119,16 @@
                                                 <label class="float-label">Corporate Accounts Code</label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="FirstName" class="form-control" >
+                                            <input type="text" id="fName" name="FirstName" class="form-control" minlength="3" maxlength="15" oninput="nameValidate(this)">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">First Name</label>
+                                            <span id="firstNameError" style="color: red; font-size: 12px;"></span>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="LastName" class="form-control">
+                                            <input type="text" name="LastName" id="lName" minlength="3" maxlength="15" oninput="nameValidate(this)" class="form-control">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Last Name</label>
+                                            <span id="lastNameError" style="color: red; font-size: 12px;"></span>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
                                             <input type="text" name="BussinesEmail" class="form-control" autocomplete="new-email">
@@ -333,3 +332,6 @@
         </div>
     </div>
 </main>
+<footer>
+    <script src="~/assets/js/custom/addlegalentity.js"></script>
+</footer>

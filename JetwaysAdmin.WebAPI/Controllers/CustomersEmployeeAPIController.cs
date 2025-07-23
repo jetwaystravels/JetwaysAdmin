@@ -17,7 +17,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
         [HttpGet]
         [Route("GetCustomerEmployee")]
-        [HttpGet]
+       
         public async Task<ActionResult<IEnumerable<CustomersEmployee>>> GetCustomerEmployee([FromQuery] string LegalEntityCode)
         {
             if (string.IsNullOrEmpty(LegalEntityCode))

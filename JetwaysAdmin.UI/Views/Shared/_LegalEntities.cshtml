@@ -16,7 +16,7 @@
                             <div class="pcoded-inner-navbar main-menu">
                                 <div class="">
                                     <div class="main-menu-header">
-                                        <a href="customers.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
+                                        <a asp-controller="OrganizationStructure" asp-action="ShowOrganization" asp-route-id="@ViewBag.LegalEntityId" asp-route-legalentitycode="@ViewBag.LegalEntityCode" asp-route-legalentityname="@ViewBag.LegalEntityName" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
                                         <img class="img-80" title="logo" src="../assets/images/customer-logo/default-logo.png" alt="logo">
                                         <h6 style="font-weight:700;">
                                             @if(ViewBag.LegalEntityName != null)

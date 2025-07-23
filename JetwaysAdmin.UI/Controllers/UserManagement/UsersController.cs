@@ -15,7 +15,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             List<CustomersEmployee> customerdetail = new List<CustomersEmployee>();
             using (HttpClient client = new HttpClient())
             {
-                var userdetail = await client.GetAsync(AppUrlConstant.GetCustomerEmployee);
+                var userdetail = await client.GetAsync($"{AppUrlConstant.GetCustomerEmployee}?LegalEntityCode={legalEntityCode}");
                 if (userdetail.IsSuccessStatusCode)
                 {
                     var result = await userdetail.Content.ReadAsStringAsync();
