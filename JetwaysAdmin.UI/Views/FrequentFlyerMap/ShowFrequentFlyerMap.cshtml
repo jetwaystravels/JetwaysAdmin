@@ -75,9 +75,12 @@
                                 <form asp-controller="FrequentFlyerMap" asp-action="AddFrequentFlyer" id="formsave" method="post" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-Id="@ViewBag.Id">
                                     <div class="card-block  dropdown-group">
                                     <div class="form-material form-row">
+                                            <input type="hidden" id="legalEntityCode" value="@ViewBag.LegalEntityCode" />
+                                            <input type="hidden" id="legalEntityName" value="@ViewBag.LegalEntityName" />
+                                            <input type="hidden" id="viewid" value="@ViewBag.Id" />
                                   <div class="form-group form-primary col-md-3">
 
-                                                <select name="EmployeeID" class="select" required>
+                                                <select id="employeeSelect" name="EmployeeID" class="select" required>
                                                  @foreach(var vny in Model.customersemployee){
                                                   <option value="@vny.UserID">[@vny.EmployeeID] @vny.FirstName @vny.LastName</option>
                                                  }
@@ -312,5 +315,66 @@
         });
 
 </script>
+    <script>
+        $(document).ready(function () {
+            $('#employeeSelect').on('change', function () {
+                debugger;
+                const empId = $(this).val();
+                const legalEntityCode = $('#legalEntityCode').val();
+                const legalEntityName = $('#legalEntityName').val();
+                const viewId = $('#viewid').val();
+
+                $.ajax({
+                    url: '/FrequentFlyerMap/ShowFrequentFlyerMap',
+                    type: 'GET',
+                    data: {
+                        employeeId: empId,
+                        LegalEntityCode: legalEntityCode,
+                        LegalEntityName: legalEntityName,
+                        Id: viewId
+                    },
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                           success: function (data) {
+            const tbody = $('table tbody');
+          
+            // tbody.empty();
+           
+
+            if (!data || data.length === 0) {
+                tbody.append('<tr><td colspan="5" class="text-center">No data found</td></tr>');
+                return;
+            }
+
+            $.each(data, function (i, flyer) {
+                tbody.append(`
+                    <tr>
+                        <td>${flyer.EmployeeID}</td>
+                        <td>${flyer.EmployeeName}</td>
+                        <td>${flyer.SupplierName}</td>
+                        <td>${flyer.FrequentFlyerNumber || ''}</td>
+                        <td>
+                            <a href="#" class="editform" data-id="${flyer.FrequentFlyerID}">
+                                <i class="text-success lead fas fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                `);
+            });
+        }
+        ,
+                    error: function () {
+                        alert('Failed to load frequent flyer data.');
+                    }
+                });
+            });
+
+            $(document).on('click', '.editform', function (e) {
+                e.preventDefault();
+                const flyerId = $(this).data('id');
+                // existing edit logic
+            });
+        });
+    </script>
+
 </footer>
 

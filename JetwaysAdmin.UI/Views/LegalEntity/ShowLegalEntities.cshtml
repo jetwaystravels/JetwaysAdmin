@@ -1,7 +1,9 @@
-﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
+﻿@using JetwaysAdmin.Entity
+@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
 @{
     Layout = "~/Views/Shared/Admin.cshtml";
     var Data = Model;
+    var countryData = ViewBag.CountryList;
 }
 <style>
     .alert {
@@ -198,44 +200,39 @@
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
-                                            <select name="Country" class="select">
-                                                <option value="AF">Abkhazia</option>
-                                                    <option value="AL">Afghanistan</option>
-                                                    <option value="DZ">Akrotiri and Dhekelia</option>
-                                                    <option value="AO">Aland Island</option>
-                                                    <option value="AR">Albania</option>
-                                                    <option value="AM">Algeria</option>
-                                                    <option value="AW">American Samoa</option>
-                                                    <option value="AU">Andorra</option>
-                                                    <option value="AZ">Angola</option>
-                                                </select>
+                                            <select id="CountryId" name="Country" class="form-control fill" onchange="loadStates()" required>
+                                                <option value="NULL">-- Select Country --</option>
+                                                @foreach (var country in countryData ?? new List<Country>())
+                                                {
+                                                    <option value="@country.CountryID">@country.CountryName</option>
+                                                }
+                                            </select>
                                                 <span class="form-bar"></span>
-                                                <label class="float-label">Country<span>*</span></label>                                           
-                                            </div>
-                                            <div class="form-group form-primary col-md-3">
-                                            <select name="State" class="select">
-                                                    <option value=""></option>
-                                                <option value="Delhi">Delhi</option>
-                                                </select>
-                                                <span class="form-bar"></span>
-                                                <label class="float-label">State<span>*</span></label>
+                                            <label class="float-label">Country<span>*</span></label>
                                         </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <select name="City" class="select">
-                                                    <option value=""></option>
-                                                <option value="Delhi">Delhi</option>
-                                                </select>
+                                            <select id="StateId" name="State" class="form-control fill" onchange="loadCities()" required>
+                                                <option value="">-- Select State --</option>
+                                            </select>
+                                                <span class="form-bar"></span>
+                                            <label class="float-label">State<span>*</span></label>
+                                        </div>
+                                            <div class="form-group form-primary col-md-3">
+                                            <select id="CityId" name="City" class="form-control fill" required>
+                                                <option value="">-- Select City --</option>
+                                            </select>
                                             <span class="form-bar"></span>
                                             <label class="float-label">City<span>*</span></label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="PostalCode" oninput="this.value = this.value.replace(/\s/g, '')" class="form-control">
+                                            <input type="text" name="PostalCode" maxlength="6" id="postalCodeInput" oninput="this.value = this.value.replace(/\s/g, ''); validatePostalCode(this)" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Postal Code<span>*</span></label>
+                                            <span id="postalCodeError" style="color:red; font-size:12px;"></span>
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
-                                            <select name="AccountType" class="form-control fill">
+                                            <select name="AccountType" class="form-control fill" required>
                                                 <option value="opt2">Business</option>
                                                     <option value="opt3">Personal</option>
                                                 </select>
@@ -244,55 +241,46 @@
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="IntegrationRefNumber" oninput="this.value = this.value.replace(/\s/g, '')" class="form-control" required>
+                                            <input type="text" name="IntegrationRefNumber" id="integrationRefInput" maxlength="20" oninput="this.value = this.value.replace(/\s/g, ''); validateIntegrationRef(this)" class="form-control">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Integration Ref. Number</label>
+                                            <span id="integrationRefError" style="color: red; font-size: 12px;"></span>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <select name="CustomerBaseCurrency" class="select" data-placeholder="₹ INR">
-                                                <option value="AF">Afghanistan</option>
-                                                    <option value="AL">Albania</option>
-                                                    <option value="DZ">Algeria</option>
-                                                    <option value="AO">Angola</option>
-                                                    <option value="AR">Argentina</option>
-                                                    <option value="AM">Armenia</option>
-                                                    <option value="AW">Aruba</option>
-                                                    <option value="AU">Australia</option>
-                                                    <option value="AZ">Austria</option>
-                                                </select>
+                                            <select name="CustomerBaseCurrency" class="select" id="currencySelect"  onchange="updateCurrencyDisplay()" required>
+                                                @foreach (var country in countryData ?? new List<Country>())
+                                                {
+                                                    <option value="@country.CountryName">@country.CountryName</option>
+                                                }
+                                            </select>
                                                  <span class="form-bar"></span>
                                                  <label class="float-label">Customer Base Currency<span>*</span></label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <select name="CustomerBaseCountry" class="select">
-                                                <option value="AF">Afghanistan</option>
-                                                    <option value="AL">Albania</option>
-                                                    <option value="DZ">Algeria</option>
-                                                    <option value="AO">Angola</option>
-                                                    <option value="AR">Argentina</option>
-                                                    <option value="AM">Armenia</option>
-                                                    <option value="AW">Aruba</option>
-                                                    <option value="AU">Australia</option>
-                                                    <option value="AZ">Austria</option>
+                                            <select name="CustomerBaseCountry" class="select" required>
+                                                @foreach (var country in countryData ?? new List<Country>())
+                                                {
+                                                    <option value="@country.CountryName">@country.CountryName</option>
+                                                }
                                                 </select>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Customer Base Country<span>*</span></label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input name="TravelDeskEmail" id="travelDeskEmailInput" maxlength="30" class="form-control" type="text" oninput="validateDeskEmail(this)" required>
+                                            <input name="TravelDeskEmail" id="travelDeskEmailInput" maxlength="30" class="form-control" type="text" oninput="validateDeskEmail(this)"  required>
                                                 <span class="form-bar"></span>
                                             <label class="float-label">Travel Desk Email<span>*</span></label>
                                             <span id="emailDeskError" style="color: red; font-size: 12px;"></span>
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
-                                            <input name="AcountActivationDate"  class="form-control date-main" type="text">
+                                            <input name="AcountActivationDate" class="form-control date-main" id="activadate" type="text" placeholder="dd-mm-yyyy" onfocus="restrictActivationDate()" onchange="setMinDeactivationDate()" autocomplete="off">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Account Activation Date</label>
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
-                                            <input name="AccountDeactivationDate"  class="form-control date-main" type="text">
+                                            <input name="AccountDeactivationDate" class="form-control date-main" id="deactivatedate" type="text" placeholder="dd-mm-yyyy" onfocus="restrictDeactivationDate()" autocomplete="off">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Account De-activation Date</label>
                                             </div>
@@ -347,4 +335,44 @@
 </main>
 <footer>
     <script src="~/assets/js/custom/addlegalentity.js"></script>
+    <script src="~/assets/js/custom/datevalidation.js"></script>
+    <script src="~/assets/js/custom/countrycurrency.js"></script>
+    <script>
+        function loadStates() {
+            debugger;
+            var selectedCountryId = document.getElementById("CountryId").value;
+            if (selectedCountryId) {
+                fetch('/LegalEntity/LoadStates?countryId=' + selectedCountryId, {
+                    method: 'GET'
+                })
+                    .then(response => response.json())
+                    .then(states => {
+                        const stateSelect = document.getElementById("StateId");
+                        stateSelect.innerHTML = '<option value="">-- Select State --</option>';
+                        states.forEach(function (state) {
+                            const option = document.createElement("option");
+                            option.value = state.stateID;
+                            option.text = state.stateName;
+                            stateSelect.appendChild(option);
+                        });
+                    });
+            }
+        }
+        function loadCities() {
+            var stateId = document.getElementById("StateId").value;
+            fetch('/LegalEntity/LoadCities?stateId=' + stateId)
+                .then(response => response.json())
+                .then(cities => {
+                    var citySelect = document.getElementById("CityId");
+                    citySelect.innerHTML = '<option value="">-- Select City --</option>';
+
+                    cities.forEach(function (city) {
+                        var option = document.createElement("option");
+                        option.value = city.cityID;
+                        option.text = city.cityName;
+                        citySelect.appendChild(option);
+                    });
+                });
+        }
+    </script>
 </footer>

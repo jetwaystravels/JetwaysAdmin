@@ -19,6 +19,7 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
             List<IATAGroupView> iataGroups = new List<IATAGroupView>();
+            List<Country> countryList = new List<Country>();
             using (HttpClient client = new HttpClient())
             {
                 var iataResponse = await client.GetAsync(AppUrlConstant.GetIATAGroup);
@@ -27,12 +28,57 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await iataResponse.Content.ReadAsStringAsync();
                     iataGroups = JsonConvert.DeserializeObject<List<IATAGroupView>>(result);
                 }
+                var countryresponse = await client.GetAsync(AppUrlConstant.GetCountry);
+                if (countryresponse.IsSuccessStatusCode)
+                {
+                    var Result = await countryresponse.Content.ReadAsStringAsync();
+                    countryList = JsonConvert.DeserializeObject<List<Country>>(Result);
+                }
             }
             var viewModel = new MenuHeaddata
             {
                 IATAGruopName = iataGroups,
             };
+            ViewBag.CountryList = countryList;
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LoadStates(int CountryId)
+        {
+            List<State> states = new();
+
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetSate}/{CountryId}";
+                var response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    states = JsonConvert.DeserializeObject<List<State>>(json);
+                }
+            }
+
+            return Json(states);
+        }
+        [HttpGet]
+        public async Task<IActionResult> LoadCities(int stateId)
+        {
+            List<City> cities = new();
+
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetCity}/{stateId}";
+                var response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    cities = JsonConvert.DeserializeObject<List<City>>(json);
+                }
+            }
+            return Json(cities);
         }
 
         [HttpPost]

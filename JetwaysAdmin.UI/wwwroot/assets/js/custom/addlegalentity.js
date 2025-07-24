@@ -1,16 +1,11 @@
 ﻿function validateLegalEntityName(input) {
     const value = input.value.trim();
     const errorSpan = document.getElementById('legalEntityNameError');
-    const validPattern = /^[a-zA-Z0-9 ]+$/;
     if (value === '') {
         errorSpan.textContent = 'Legal Entity Name is required.';
         input.classList.add('is-invalid');
         return false;
-    } else if (!validPattern.test(value)) {
-        errorSpan.textContent = 'Only letters and numbers are allowed.';
-        input.classList.add('is-invalid');
-        return false;
-    } else {
+    }  else {
         errorSpan.textContent = '';
         input.classList.remove('is-invalid');
     }
@@ -141,8 +136,43 @@ function validateAddressLine2(input) {
         errorSpan.textContent = '';
     }
 }
-
-
+function validatePostalCode(input) {
+    let value = input.value;
+    const errorSpan = document.getElementById('postalCodeError');
+    if (/\D/.test(value)) {
+        errorSpan.textContent = 'Only numeric values are allowed.';
+        input.classList.add('is-invalid');
+        input.value = value.replace(/\D/g, '');
+        return;
+    }
+    if (value.length > 6) {
+        input.value = value.slice(0, 6);
+    }
+    if (input.value.length < 6) {
+        errorSpan.textContent = 'Postal code must be exactly 6 digits.';
+        input.classList.add('is-invalid');
+    } else {
+        errorSpan.textContent = '';
+        input.classList.remove('is-invalid');
+    }
+}
+function validateIntegrationRef(input) {
+    const value = input.value.trim();
+    const errorSpan = document.getElementById('integrationRefError');
+    const validPattern = /^[a-zA-Z0-9]*$/; 
+    if (value.length > 20) {
+        errorSpan.textContent = 'Maximum length is 20 characters.';
+        input.classList.add('is-invalid');
+        return;
+    }
+    if (!validPattern.test(value)) {
+        errorSpan.textContent = 'Only alphanumeric characters allowed.';
+        input.classList.add('is-invalid');
+    } else {
+        errorSpan.textContent = '';
+        input.classList.remove('is-invalid');
+    }
+}
 
 
 

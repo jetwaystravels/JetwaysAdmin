@@ -34,11 +34,14 @@
         //         changeYear: true
         //     });
         // });
-      
-    flatpickr(".date-main", {
-        dateFormat: "Y-m-d",
-        allowInput: true
-    });
+
+        flatpickr(".date-main", {
+            dateFormat: "Y-m-d",
+            minDate: "today",       
+            allowInput: true,       
+            changeMonth: true,      
+            changeYear: true   
+        });
     </script>
     <!-- datepicker End -->
 
