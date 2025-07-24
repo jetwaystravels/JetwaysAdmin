@@ -55,9 +55,10 @@ namespace JetwaysAdmin.UI.Controllers
                                     SupplierCode = s.SupplierCode,
                                     FrequentFlyerNumber = f.FrequentFlyerNumber,
                                     FrequentFlyerID =f.FrequentFlyerID
-                                }).ToList();
+                                }).OrderBy(x => x.EmployeeID) // Ensure grouped display
+                        .ToList();
 
-                            if (employeeId.HasValue)
+            if (employeeId.HasValue)
                             {
                                 flyerDisplayList = flyerDisplayList.Where(x => x.UserID == employeeId.Value).ToList();
                             }

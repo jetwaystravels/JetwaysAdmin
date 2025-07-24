@@ -84,20 +84,27 @@
                                     <strong></strong> @TempData["LegalAdd"]
                                 </div>
                             }
+                            @if (TempData["DuplicateError"] != null)
+                            {
+                                <div class="alert alert-danger" style="color:white;background-color:#e74c3c;padding:10px;width:80%;">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                    <strong>Warning:</strong> @TempData["DuplicateError"]
+                                </div>
+                            }
                                 <div class="card">
                                     <div class="card-block">
                                         <!--  suppeir info Start -->
                                     <form class="form-material form-row" asp-controller="LegalEntity" asp-action="AddLegalEntity">
                                             <div class="form-group form-primary col-md-3">
                                             <input type="hidden" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
-                                            <input type="text" name="LegalEntityName" class="form-control" oninput="validateLegalEntityName(this)" required>
+                                            <input type="text" name="LegalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Legal Entity Name<span>*</span></label>
                                             <span id="legalEntityNameError" style="color: red; font-size: 12px;"></span>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
                                             <input type="text" name="LegalEntityCode" value="" id="legalEntityCode" maxlength="10"
-                                                   oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode()" class="form-control" required>
+                                                   oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode(this)" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Legal Entity Code</label>
                                             <span id="legalEntityCodeError" style="color: red; font-size: 12px;"></span>
@@ -114,9 +121,10 @@
                                                 <label class="float-label">Assign IATA Group</label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="CorporateAccountsCode" oninput="this.value = this.value.replace(/\s/g, '')" class="form-control">
+                                            <input type="text" name="CorporateAccountsCode" maxlength="15" id="corporateCode" oninput="this.value = this.value.replace(/\s/g, ''); validateCorpCode(this)" class="form-control">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Corporate Accounts Code</label>
+                                            <span id="CorporateCodeError" style="color: red; font-size: 12px;"></span>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
                                             <input type="text" id="fName" name="FirstName" class="form-control" minlength="3" maxlength="15" oninput="nameValidate(this)">
@@ -131,13 +139,14 @@
                                             <span id="lastNameError" style="color: red; font-size: 12px;"></span>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="BussinesEmail" class="form-control" autocomplete="new-email">
+                                            <input type="text" name="BussinesEmail" id="businessEmailInput" maxlength="30" class="form-control" autocomplete="new-email" oninput="validateBusinessEmail(this)">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Business Email ID</label>
+                                            <span id="emailBusinesError" style="color: red; font-size: 12px;"></span>
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="password" name="Password" class="form-control" autocomplete="new-password">
+                                            <input type="password" name="Password" minlength="8" maxlength="25" class="form-control" autocomplete="new-password">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Password</label>
                                             </div>
@@ -160,9 +169,10 @@
                                             </div>
 
                                             <div class="form-group form-primary col-md-2">
-                                            <input type="number" name="MobileNumber" class="form-control">
+                                            <input type="text" name="MobileNumber" id="mobileInput" maxlength="10" class="form-control" oninput="validateMobile(this)">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label"></label>
+                                            <span id="mobileError" style="color:red; font-size:12px;"></span>
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
@@ -175,14 +185,16 @@
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="AddressLine1" class="form-control" required>
+                                            <input type="text" name="AddressLine1" maxlength="40" class="form-control" id="addressLine1" oninput="validateAddressLine1(this)" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Registered Address Line 1<span>*</span></label>
+                                            <span id="addressError1" style="color:red; font-size:12px;"></span>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="AddressLine2" class="form-control" required>
+                                            <input type="text" name="AddressLine2" maxlength="40" class="form-control" id="addressLine2" oninput="validateAddressLine2(this)" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Registered Address Line 2<span>*</span></label>
+                                            <span id="addressError2" style="color:red; font-size:12px;"></span>
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
@@ -267,9 +279,10 @@
                                                 <label class="float-label">Customer Base Country<span>*</span></label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input name="TravelDeskEmail" class="form-control" type="text">
+                                            <input name="TravelDeskEmail" id="travelDeskEmailInput" maxlength="30" class="form-control" type="text" oninput="validateDeskEmail(this)" required>
                                                 <span class="form-bar"></span>
                                             <label class="float-label">Travel Desk Email<span>*</span></label>
+                                            <span id="emailDeskError" style="color: red; font-size: 12px;"></span>
                                             </div>
 
                                             <div class="form-group form-primary col-md-3">
