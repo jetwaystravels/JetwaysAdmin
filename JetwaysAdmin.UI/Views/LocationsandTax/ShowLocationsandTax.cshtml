@@ -1,6 +1,4 @@
-﻿@using JetwaysAdmin.UI.ViewModel
-@model List<MenuHeaddata>
-
+﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
 @{
     Layout = "~/Views/Shared/_LegalEntities.cshtml";
     var Data = Model;
@@ -63,7 +61,83 @@
             <div class="pcoded-inner-content">
                 <div class="main-body">
                     <div class="page-wrapper">
-                        <div class="page-body">
+                        <div class="page-body" id="listlocation">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="d-flex justify-content-between m-b-10">
+                                        <form class="form-material">
+                                            <div class="form-group form-primary" style="width:280px;">
+                                                <input type="text" name="footer-email" class="form-control">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <div><a href=""><button class="btn sml-btn-danger addbtn">+ Add New</button></a></div>
+                                    </div>
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane active table-border-style" id="flights1" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><button class="srt-btn" type="button" aria-label="commercials-name">Location Name</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="commercials-name">Location Code</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="commercials-name">Address</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="commercials-name">GST / UIN Number</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="commercials-name">GST / UIN Name</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="commercials-name">Default Location</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="commercials-name">Status</button></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var location in Model.LocationandTax)
+                                                        {
+                                                            <tr style="cursor:pointer;">
+                                                                <td onclick="location.href='#';">@location.LocationName</td>
+                                                                <td onclick="location.href='#';">@location.LocationCode</td>
+                                                                <td onclick="location.href='#';">@location.AddressLine1</td>
+                                                                <td onclick="location.href='#';">@location.GSTNumber</td>
+                                                                <td onclick="location.href='#';">@location.AddressLine2</td>
+                                                                <td onclick="location.href='#';">@location.LocationManager2</td>
+                                                                <td>
+                                                                    <label class="switch m-l-5">
+                                                                        <input type="checkbox" disabled="">
+                                                                        <span class="slider round" style="background:#ddd;"></span>
+                                                                    </label>
+                                                                </td>
+                                                            
+                                                            </tr>
+                                                        }
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between pagination-section">
+                                <span class="pagination-info">
+                                    Showing 1 to 1
+                                </span>
+                                <div class="float-right pagination">
+                                    <span class="m-t-5 m-r-5">Items per page:</span>
+                                    <select class="form-select form-select-sm">
+                                        <option>5</option>
+                                        <option>10</option>
+                                        <option selected>25</option>
+                                        <option>100</option>
+                                    </select>
+                                    <ul class="pagination">
+                                        <li class="page-item page-pre"><a class="page-link" aria-label="previous page" href="javascript:void(0)">‹</a></li>
+                                        <li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">0</a></li>
+                                        <li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)">›</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-body" id="addLocation" style="display:none;">
                             @if (TempData["AddTax"] != null)
                             {
                                 <div class="alert alert-success">
@@ -196,7 +270,7 @@
 
                                         <!-- Buttons -->
                                         <div class="form-group form-primary col-md-12">
-                                            <button type="submit" formaction="/LocationsandTax/AddTaxLocation" class="btn btn-primary">Update</button>
+                                            <button type="submit" formaction="/LocationsandTax/AddTaxLocation" class="btn btn-primary">Add</button>
                                             <button type="button" onclick="window.location.href='locations.html'" class="btn btn-danger">Cancel</button>
                                         </div>
                                     </form>
@@ -211,6 +285,7 @@
 </main>
 
 <!-- JavaScript Validation -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     document.getElementById('locationForm').addEventListener('submit', function (e) {
         const form = this;
@@ -242,4 +317,12 @@
         }
     });
 </script>
-
+<script>
+    $(document).ready(function () {
+        $('.addbtn').click(function (e) {
+            e.preventDefault(); 
+            $('#listlocation').hide();
+            $('#addLocation').show();
+        });
+    });
+</script>

@@ -29,5 +29,24 @@ namespace JetwaysAdmin.WebAPI.Controllers
             await _locationsandtax.AddLocationTax(locationsandtax);
             return Ok(new { message = "LocationsandTax added successfully!" });
         }
+
+        [HttpGet]
+        [Route("GetLocationsandTax")]
+        public async Task<ActionResult<IEnumerable<LocationsandTax>>> GetLocationsandTax([FromQuery] string LegalEntityCode)
+        {
+            if (string.IsNullOrEmpty(LegalEntityCode))
+            {
+                return BadRequest("LegalEntityCode is required.");
+            }
+
+            var customerLocationsandTax = await _locationsandtax.GetLocationsandTaxByLegalEntity(LegalEntityCode);
+
+            if (!customerLocationsandTax.Any())
+            {
+                return NotFound("No employees found for the provided LegalEntityCode.");
+            }
+
+            return Ok(customerLocationsandTax);
+        }
     }
 }

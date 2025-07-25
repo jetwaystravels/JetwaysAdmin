@@ -201,9 +201,9 @@
 
                                             <div class="form-group form-primary col-md-3">
                                             <select id="CountryId" name="Country" class="form-control fill" onchange="loadStates()" required>
-                                                <option value="NULL">-- Select Country --</option>
+                                                <option value="">-- Select Country --</option>
                                                 @foreach (var country in countryData ?? new List<Country>())
-                                                {
+                                                {  
                                                     <option value="@country.CountryID">@country.CountryName</option>
                                                 }
                                             </select>
@@ -248,9 +248,10 @@
                                             </div>
                                             <div class="form-group form-primary col-md-3">
                                             <select name="CustomerBaseCurrency" class="select" id="currencySelect"  onchange="updateCurrencyDisplay()" required>
+                                                <option value="">--Please Select--</option>
                                                 @foreach (var country in countryData ?? new List<Country>())
                                                 {
-                                                    <option value="@country.CountryName">@country.CountryName</option>
+                                                     <option value="@country.CountryName">@country.CountryName</option>
                                                 }
                                             </select>
                                                  <span class="form-bar"></span>
@@ -258,6 +259,7 @@
                                             </div>
                                             <div class="form-group form-primary col-md-3">
                                             <select name="CustomerBaseCountry" class="select" required>
+                                                <option value="">--Please Select--</option>
                                                 @foreach (var country in countryData ?? new List<Country>())
                                                 {
                                                     <option value="@country.CountryName">@country.CountryName</option>

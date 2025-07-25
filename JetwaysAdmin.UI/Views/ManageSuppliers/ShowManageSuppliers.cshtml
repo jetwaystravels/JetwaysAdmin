@@ -113,44 +113,56 @@
                                             }
 
 
-                                        <div class="col-md-3">
-                                                <form class="card supplier-card" asp-controller="AddNewSupplier" asp-action="UpdateSupplier" method="post">
-                                                    <input type="hidden" name="SupplierId" value="@vny.SupplierId" class="form-control">
-                                                    <button type="submit" class="card-block sup-bx" style="@backgrnd; @cursor">
-                                                   
-                                                        <div class="d-flex bdr" >
-                                                        <img class="img-fluid img-h"
-                                                                 src="@(vny.Logo != null ? $"data:image/png;base64,{Convert.ToBase64String(vny.Logo)}" : "assets/images/default-logo.png")"
-                                                                 alt="logo">
-                                                     <h6 class="m-t-10 m-l-10">@vny.CarrierType @vny.SupplierName <p class="light-gray">Flights</p></h6>
-                                                    </div>
+                                            <div class="col-md-3">
+                                                <div class="card supplier-card">
+                                                    <div class="card-block">
+                                                        <form class="" asp-controller="AddNewSupplier" asp-action="UpdateSupplier" method="post">
+                                                            <input type="hidden" name="SupplierId" value="@vny.SupplierId" class="form-control">
+                                                            <button type="submit" class="d-flex bdr sup-bx" style="@backgrnd; @cursor">
+                                                                <img class="img-fluid img-h"
+                                                                     src="@(vny.Logo != null ? $"data:image/png;base64,{Convert.ToBase64String(vny.Logo)}" : "assets/images/default-logo.png")"
+                                                                     alt="logo">
+                                                                <h6 class="m-t-10 m-l-10">@vny.CarrierType @vny.SupplierName <p class="light-gray">Flights</p></h6>
+                                                            </button>
+                                                        </form>
 
-
-                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex justify-content-between">
                                                         <p class="m-b-0 light-gray">Last updated:@vny.ModifyDate</p>
-                                                            @if(vny.AppStatus == false)
+                                                            @if (vny.AppStatus == false)
                                                             {
-                                                                <label class="switch">
-                                                                    <input type="checkbox">
-                                                                    <span class="slider round"></span>
-                                                                </label>
+                                                                <form id="statusForm_@vny.SupplierId" asp-controller="AddNewSupplier" asp-action="UpdateSupplierAppCode" method="post">
+                                                                    <input type="hidden" name="SupplierId" value="@vny.SupplierId" />
+                                                                    <button type="button" class="appbtn" onclick="submitAppStatus('@vny.SupplierId')">
+                                                                        <label class="switch">
+                                                                            <input type="checkbox" id="AppStatusCheckbox_@vny.SupplierId" />
+                                                                            <span class="slider round"></span>
+                                                                        </label>
+                                                                    </button>
+                                                                </form>
                                                             }
                                                             else
                                                             {
-                                                                <label class="switch">
-                                                                    <input type="checkbox" checked>
-                                                                    <span class="slider round"></span>
-                                                                </label>
+                                                                <form id="statusForm_@vny.SupplierId" asp-controller="AddNewSupplier" asp-action="UpdateSupplierAppCode" method="post">
+                                                                    <input type="hidden" name="SupplierId" value="@vny.SupplierId" />
+                                                                    <button type="button" class="appbtn" onclick="submitAppStatus('@vny.SupplierId')">
+                                                                        <label class="switch">
+                                                                            <input type="checkbox" id="AppStatusCheckbox_@vny.SupplierId" checked />
+                                                                            <span class="slider round"></span>
+                                                                        </label>
+                                                                    </button>
+                                                                </form>
                                                             }
+
+
+                                                        </div>
                                                     </div>
-                                                </button>
-                                            </form>
-                                        </div>
+                                                </div>
+                                            </div>
                                         }
                                         <!-- flight card end -->
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="hotel1" role="tabpanel" ">
+                                <div class="tab-pane" id="hotel1" role="tabpanel">
                                     <div class="row">
                                         <!-- hotel start -->
                                         <div class="col-md-3">
@@ -243,21 +255,32 @@
 <footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        // $(document).ready(function () {
-        //     $(".supplier-card").click(function () {
-        //         let supplierId = $(this).data("supplier-id");
-        //         $.ajax({
-        //             type: "POST",
-        //             url: '@Url.Action("UpdateSupplier", "AddNewSupplier")',
-        //             data: { supplierId: supplierId },
-        //             success: function (response) {
-        //                 window.location.href = '/AddNewSupplier/UpdateSupplier';
-        //             },
-        //             error: function (xhr, status, error) {
-        //                 console.error("Error:", error);
-        //             }
-        //         });
-        //     });
-        // });
+        function submitAppStatus(supplierId) {
+            const form = document.getElementById(`statusForm_${supplierId}`);
+            const checkbox = document.getElementById(`AppStatusCheckbox_${supplierId}`);
+            const oldStatusInput = form.querySelector('input[name="AppStatus"]');
+            if (oldStatusInput) {
+                oldStatusInput.remove();
+            }
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'AppStatus';
+            hiddenInput.value = checkbox.checked ? "true" : "false";
+            form.appendChild(hiddenInput);
+            form.submit();
+        }
     </script>
+
+
+    <style>
+        .bdr {
+            border: none;
+            cursor: pointer;
+        }
+
+        .appbtn{
+            border:none;
+            background:none;
+        }
+    </style>
 </footer>

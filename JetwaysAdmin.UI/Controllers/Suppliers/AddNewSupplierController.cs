@@ -128,6 +128,33 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
             }
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdateSupplierAppCode(AddSupplier supplier)
+        {
+            var file = Request.Form.Files.FirstOrDefault(f => f.Name == "Logo");
+            if (file != null && file.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await file.CopyToAsync(ms);
+                    supplier.Logo = ms.ToArray();
+                }
+            }
+            using (HttpClient client = new HttpClient())
+            {
+                string Data = JsonConvert.SerializeObject(supplier);
+                StringContent content = new StringContent(Data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(AppUrlConstant.EditSupplierID + "/" + supplier.SupplierId, content);
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return RedirectToAction("ShowManageSuppliers", "ManageSuppliers");
+                }
+            }
+            return View();
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> Credentials(int supplierId)
         {

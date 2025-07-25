@@ -1,19 +1,38 @@
 ﻿using JetwaysAdmin.Entity;
+using JetwaysAdmin.Repositories.Interface;
 using JetwaysAdmin.Repositories.Migrations;
 using JetwaysAdmin.UI.ApplicationUrl;
+using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Text;
 
 namespace JetwaysAdmin.UI.Controllers
 {
     public class LocationsandTaxController : Controller
     {
-        public IActionResult ShowLocationsandTax(int Id, string LegalEntityCode, string LegalEntityName)
+        [HttpGet]
+        public async Task<IActionResult> ShowLocationsandTax(int Id, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
             ViewBag.Id = Id;
-            return View();
+            List<LocationsandTax> locationsandtax = new List<LocationsandTax>();
+            using (HttpClient client = new HttpClient())
+            {
+                string requestUrl = $"{AppUrlConstant.GetLoactionTax}?LegalEntityCode={LegalEntityCode}";
+                var userresponse = await client.GetAsync(requestUrl);
+                if (userresponse.IsSuccessStatusCode)
+                {
+                    var result = await userresponse.Content.ReadAsStringAsync();
+                    locationsandtax = JsonConvert.DeserializeObject<List<LocationsandTax>>(result);
+                }
+            }
+            var locationtax = new MenuHeaddata
+            {
+                LocationandTax = locationsandtax
+            };
+            return View(locationtax);
         }
 
         [HttpPost]

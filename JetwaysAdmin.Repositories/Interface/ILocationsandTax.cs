@@ -10,5 +10,6 @@ namespace JetwaysAdmin.Repositories.Interface
     public interface ILocationsandTax<T> where T : class
     {
         Task AddLocationTax(LocationsandTax locationTax);
+        Task<IEnumerable<LocationsandTax>> GetLocationsandTaxByLegalEntity(string legalEntityCode);
     }
 }
