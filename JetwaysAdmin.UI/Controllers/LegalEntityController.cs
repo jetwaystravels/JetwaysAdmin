@@ -158,11 +158,30 @@ namespace JetwaysAdmin.UI.Controllers
             }
             return View();
         }
-
-
-
-
-
-
+        [HttpPost]
+        public async Task<IActionResult> UpdateAppStatus(int SupplierId, int AppStatus, string LegalEntityCode, string LegalEntityName)
+        {
+          
+            var updateData = new
+            {
+                Id = SupplierId,
+                AppStatus = AppStatus
+            };
+            using (HttpClient client = new HttpClient())
+            {
+                string jsonData = JsonConvert.SerializeObject(updateData);
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync($"{AppUrlConstant.EditLegalEntityID}/{SupplierId}", content);
+               if (response.IsSuccessStatusCode)
+                {
+                    TempData["update_message"] = "App status updated successfully";
+                }
+                else
+                {
+                    TempData["update_message"] = "Failed to update App status";
+                }
+            }
+            return RedirectToAction("ShowCustomersDetail", "CustomersDetail");
+        }
     }
 }

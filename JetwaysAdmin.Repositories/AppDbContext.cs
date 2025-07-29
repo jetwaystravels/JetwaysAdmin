@@ -40,6 +40,8 @@ namespace JetwaysAdmin.Repositories
         public DbSet<SuppliersCredential> tb_SuppliersCredential { get; set; }
         public DbSet<DealCode> tb_DealCode { get; set; }
         public DbSet<BookingConsultantDto> BookingConsultants { get; set; }
+
+        public DbSet<CustomerDealCodes> tb_CustomerDealCodes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomerDetails>().HasNoKey(); // No primary key because it's a model
@@ -47,7 +49,9 @@ namespace JetwaysAdmin.Repositories
             modelBuilder.Entity<BillingEntity>().HasNoKey();
             modelBuilder.Entity<HierarchyLegalEntity>().HasNoKey();
             modelBuilder.Entity<BookingConsultantDto>().HasNoKey();
+            modelBuilder.Entity<CustomerDealCodes>().HasNoKey();
             modelBuilder.Entity<Menu>()
+
 
        .HasOne(m => m.MenuHead)                 // navigation property in Menu (submenu)
        .WithMany(h => h.SubMenus)               // navigation collection in MenuHead

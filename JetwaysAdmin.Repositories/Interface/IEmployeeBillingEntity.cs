@@ -11,5 +11,8 @@ namespace JetwaysAdmin.Repositories.Interface
     {
         Task AddEmplBillingEntity(EmployeeBillingEntity emplBillingEntity);
         Task<EmployeeBillingEntity> GetEmplBillingEntityById(int id);
+
+        Task<CustomerDealCodes> GetsupplierdealcodeById(string legalcode);
+        
     }
 }

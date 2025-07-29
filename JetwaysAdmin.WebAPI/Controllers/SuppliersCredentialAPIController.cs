@@ -64,6 +64,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             ssupplierupdate.TravelType = supplierscredential.TravelType ?? ssupplierupdate.TravelType;
             ssupplierupdate.ClientId = supplierscredential.ClientId ?? ssupplierupdate.ClientId;
             ssupplierupdate.OrganizationId = supplierscredential.OrganizationId ?? ssupplierupdate.OrganizationId;
+            ssupplierupdate.Status = supplierscredential.Status ?? ssupplierupdate.Status;
             await _suppliersCredentialService.UpdateSupplierCredentialById(ssupplierupdate);
             return Ok(new { message = "Customer updated successfully!" });
         }

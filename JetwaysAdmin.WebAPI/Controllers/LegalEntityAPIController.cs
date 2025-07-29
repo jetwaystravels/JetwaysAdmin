@@ -86,6 +86,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             legalEntityupdate.CustomerBaseCountry = legalEntity.CustomerBaseCountry ?? legalEntityupdate.CustomerBaseCountry;
             legalEntityupdate.AcountActivationDate = legalEntity.AcountActivationDate ?? legalEntityupdate.AcountActivationDate;
             legalEntityupdate.AccountDeactivationDate = legalEntity.AccountDeactivationDate ?? legalEntityupdate.AccountDeactivationDate;
+            legalEntityupdate.AppStatus = legalEntity.AppStatus ?? legalEntityupdate.AppStatus;
 
 
             await _legalEntity.UpdateLegalEntity(legalEntityupdate);

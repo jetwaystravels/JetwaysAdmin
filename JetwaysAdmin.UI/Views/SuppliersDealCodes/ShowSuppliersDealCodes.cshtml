@@ -88,8 +88,8 @@
                                              {
                                                 <div class="col-md-3">
                                                     <div class="card">
-                                                        <div class="card-block sup-bx">
-                                                            <div class="d-flex bdr" style="cursor:pointer;" onclick="navigateToCredential(this)" data-supplierid="@dealCode.SupplierId"
+                                                        <div class="card-block">
+                                                            <div class="d-flex bdr sup-bx" style="cursor:pointer;" onclick="navigateToCredential(this)" data-supplierid="@dealCode.SupplierId"
                                                                  data-legalcode="@ViewBag.LegalEntityCode"
                                                                  data-legalname="@ViewBag.LegalEntityName">
                                                                  @if(dealCode.Logo !=null)
@@ -98,7 +98,7 @@
                                                                 } 
                                                                 <h6 class="m-t-10 m-l-10">
                                                                         @dealCode.CarrierType
-                                                                        <p class="light-gray">@dealCode.SupplierName</p>
+                                                                <p class="light-gray">@dealCode.SupplierName</p>
                                                                     </h6>
                                                                     <input type="hidden" name="SupplierId" value="@dealCode.SupplierId" />
                                                                     <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" />
@@ -107,7 +107,7 @@
                                                             <div class="d-flex justify-content-between">
                                                                 <p class="m-b-0 light-gray">Last updated:@dealCode.ModifyDate.ToString("dd-MM-yyyy")</p>
                                                                 <label class="switch">
-                                                                    <input type="checkbox">
+                                                                    <input type="checkbox" checked>
                                                                     <span class="slider round"></span>
                                                                 </label>
                                                             </div>

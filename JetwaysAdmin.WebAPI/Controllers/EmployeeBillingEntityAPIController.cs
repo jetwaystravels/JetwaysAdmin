@@ -1,4 +1,5 @@
 ﻿using JetwaysAdmin.Entity;
+using JetwaysAdmin.Repositories.Implementations;
 using JetwaysAdmin.Repositories.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,5 +35,17 @@ namespace JetwaysAdmin.WebAPI.Controllers
             await _emplyebilling.AddEmplBillingEntity(empBillingl);
             return Ok(new { message = "User added successfully!" });
         }
+
+        [HttpGet("{dealcode}")]
+        public async Task<ActionResult<CustomerDealCodes>> Getsupplierdealcode(string legalcode)
+        {
+            var updatesupplier = await _emplyebilling.GetsupplierdealcodeById(legalcode);
+            if (updatesupplier == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatesupplier);
+        }
+
     }
 }

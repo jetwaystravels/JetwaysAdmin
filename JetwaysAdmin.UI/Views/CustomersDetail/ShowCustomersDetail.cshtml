@@ -26,10 +26,25 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
-            .closebtn:hover {
+        .closebtn:hover {
                 color: black;
             }
+
+        .btnbrdr{
+            border:none;
+        }
+
+        .sup-bx{
+            cursor: pointer;
+        }
+
+        .disabled-box {
+            pointer-events: none;
+            opacity: 0.5;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            user-select: none;
+        }
     </style>
 </head>
 
@@ -98,20 +113,42 @@
                                 {
                                     <div class="col-md-3">
                                         <div class="card" >
-                                            <div class="card-block sup-bx">
-                                                <div class="bdr  legalbox" style="padding-bottom:0;">
+                                            <div class="card-block">
+                                                @if(val.AppStatus==1){
+                                                <div class="bdr  legalbox sup-bx" style="padding-bottom:0;">
                                                     <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo">
                                                     <h6 class="m-t-10 m-l-10 gray-bg">@val.LegalEntityName<p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p></h6>
                                                     <input type="hidden" value="@val.Id" name="LegalEntityId" />
                                                     <input type="hidden" value="@val.LegalEntityName" name="LegalEntityName"/>
                                                     <input type="hidden" value="@val.LegalEntityCode" name="LegalEntityCode"/>
                                                 </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="bdr  legalbox disabled-box" style="padding-bottom:0;">
+                                                        <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo">
+                                                        <h6 class="m-t-10 m-l-10 gray-bg">@val.LegalEntityName<p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p></h6>
+                                                        <input type="hidden" value="@val.Id" name="LegalEntityId" />
+                                                        <input type="hidden" value="@val.LegalEntityName" name="LegalEntityName" />
+                                                        <input type="hidden" value="@val.LegalEntityCode" name="LegalEntityCode" />
+                                                    </div>
+                                                }
                                                 <div class="d-flex justify-content-between">
                                                     <p class="m-b-0 light-gray">Last updated : @val.ModifyDate</p>
-                                                    <label class="switch mrg-auto">
-                                                        <input type="checkbox">
-                                                        <span class="slider round"></span>
-                                                    </label>
+                                                    <form asp-controller="LegalEntity" asp-action="UpdateAppStatus" method="post" id="form-@val.Id">
+                                                        <input type="hidden" name="LegalEntityCode" value="@val.LegalEntityCode" />
+                                                        <input type="hidden" name="LegalEntityName" value="@val.LegalEntityName" />
+                                                        <input type="hidden" name="SupplierId" value="@val.Id" />
+                                                        <button type="button" class="btnbrdr">
+                                                            <label class="switch mrg-auto">
+                                                                <input type="checkbox"
+                                                                       id="appStatus-@val.Id"
+                                                                @(val.AppStatus == 1 ? "checked" : "")
+                                                                       onchange="submitLegalEntityForm('@val.Id')" />
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </button>
+                                                    </form>
                                                     <div class="dropdown-primary open">
                                                         <div class="dot-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
                                                         <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
@@ -213,14 +250,21 @@
                     }
                 });
             });
-
-          
-          
-
-
         });
+    </script>
+    <script>
+        function submitLegalEntityForm(id) {
+            const form = document.getElementById("form-" + id);
+            const checkbox = document.getElementById("appStatus-" + id);
+            const oldInputs = form.querySelectorAll('input[name="AppStatus"]');
+            oldInputs.forEach(e => e.remove());
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "AppStatus";
+            input.value = checkbox.checked ? "1" : "0";
+            form.appendChild(input);
+            form.submit();
+        }
+    </script>
 
-
-  
-    </script> 
 </footer>

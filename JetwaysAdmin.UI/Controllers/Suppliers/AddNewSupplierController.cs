@@ -64,6 +64,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
                 }
             }
             ViewBag.CountryList = countryList;
+            ViewBag.SupplierId = supplierId;
             return View(supplier);
         }
         [HttpGet]

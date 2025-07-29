@@ -30,5 +30,10 @@ namespace JetwaysAdmin.Repositories.Implementations
             return await _context.tb_EmployeeBillingEntity.FirstOrDefaultAsync(e => e.UserID == id);
         }
 
+        public async Task<CustomerDealCodes> GetsupplierdealcodeById(string legalcode)
+        {
+            return await _context.tb_CustomerDealCodes.FirstOrDefaultAsync(e => e.LegalEntityCode == legalcode  && e.Status == "1");
+        }
+
     }
 }

@@ -23,7 +23,10 @@ namespace JetwaysAdmin.Repositories.Implementations
         }
         public async Task<IEnumerable<SuppliersCredential>> GetSupplierCredential()
         {
-            return await _context.tb_SuppliersCredential.ToListAsync();
+            return await _context.tb_SuppliersCredential
+                         .Where(sc => sc.Status == 1)
+                         .AsNoTracking()
+                         .ToListAsync();
         }
         public async Task<SuppliersCredential> GetSupplierCredentialById(int Id)
         {

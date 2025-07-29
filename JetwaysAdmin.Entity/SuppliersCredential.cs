@@ -21,6 +21,10 @@ namespace JetwaysAdmin.Entity
         public string? TravelType { get; set; }
         public string? SupplierCode { get; set; }
         public string? CredentialsType { get; set; }
+
+        public string? Img_name { get; set; }
+        // Add Status (1 = Active, 0 = Inactive)
+        public int? Status { get; set; } = 1;
         public DateTime CreatedDate { get; set; }= DateTime.Now;
     }
 }

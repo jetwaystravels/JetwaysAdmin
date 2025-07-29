@@ -92,8 +92,6 @@
                                     <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode">
                                     <input type="hidden" name="LegalEntityName" value="@ViewBag.LegalEntityName" />
                                     @* <input type="hidden" name="Id" value="@ViewBag.Id" /> *@
-                                   @*  <input type="hidden" name="LegalEntityCodeStaf" value="@ViewBag.LegalEntityCode" />
-                                    <input type="hidden" name="LegalEntityNameStaf" value="@ViewBag.LegalEntityName" /> *@
                                     <div class="form-group form-primary col-md-3 U-select">
                                         <div class="dropdown" data-field="KeyAccountManager">
                                             <div class="m-b-15" style="font-size:13px;">Key Account Managers</div>
@@ -160,13 +158,24 @@
                                                         </div>
                                                     }
                                                 }
-                                               
                                             </div>
                                             <input type="hidden" name="BookingConsultant" id="BookingConsultant" />
                                         </div>
 
                                     </div>
-                                    <div>@Model.BookingConsultants.BookingConsultantNames</div>
+                                  @{
+                                var consultantList = Model.BookingConsultants.BookingConsultantNames.Split(',')
+                                .Select(x => x.Trim()).ToList();
+                                 }
+                                 <div id="consultant-tags">
+                                        @foreach (var consultant in consultantList)
+                                        {
+                                            <span class="tag">
+                                                <span>@consultant</span>
+                                                <button type="button" class="remove-btn">×</button>
+                                            </span>
+                                        }
+                                    </div>
                                     <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>                                    
                                     <div class="form-group form-primary col-md-3 U-select">
                                         <div class="dropdown" data-field="EmergencyContact">
@@ -228,9 +237,27 @@
 </main>
 
 
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- multiple selection Jquery start -->
+<style>
+    .tag {
+        display: inline-block;
+        background-color: #f0f0f0;
+        border-radius: 20px;
+        padding: 2px 8px;
+        margin: 4px;
+        font-size:12px;
+    }
+
+    .remove-btn {
+        background: none;
+        border: none;
+        color: #000;
+        margin-left: 8px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
 <script>
     $('#langOpt').multiselect({
         columns: 1,
@@ -367,5 +394,9 @@
         }
     });
 </script>
-
+<script>
+    $(document).on('click', '.remove-btn', function () {
+        $(this).closest('.tag').remove();
+    });
+</script>
 <!-- validation Users END  -->
