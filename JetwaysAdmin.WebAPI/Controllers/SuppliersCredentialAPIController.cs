@@ -54,7 +54,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             {
                 return NotFound();
             }
-            ssupplierupdate.SupplierCode = supplierscredential.SupplierCode ?? ssupplierupdate.SupplierCode;
+            ssupplierupdate.SupplierId = supplierscredential.SupplierId ?? ssupplierupdate.SupplierId;
             ssupplierupdate.AgentName = supplierscredential.AgentName ?? ssupplierupdate.AgentName;
             ssupplierupdate.UserName = supplierscredential.UserName ?? ssupplierupdate.UserName;
             ssupplierupdate.Password = supplierscredential.Password ?? ssupplierupdate.Password;

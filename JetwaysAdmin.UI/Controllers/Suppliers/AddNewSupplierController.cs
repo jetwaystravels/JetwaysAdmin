@@ -169,7 +169,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
                     var result = await userresponse.Content.ReadAsStringAsync();
                     var allCredentialsdata = JsonConvert.DeserializeObject<List<SuppliersCredential>>(result);
                      suppliersCredential = allCredentialsdata
-                        .Where(x => x.SupplierCode != null && x.SupplierCode.ToString() == supplierId.ToString())
+                        .Where(x => x.SupplierId != null && x.SupplierId.ToString() == supplierId.ToString())
                         .ToList();
                 }
             }

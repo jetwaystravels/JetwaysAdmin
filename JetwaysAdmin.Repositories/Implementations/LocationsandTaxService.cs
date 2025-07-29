@@ -30,5 +30,16 @@ namespace JetwaysAdmin.Repositories.Implementations
                 .Where(emp => emp.LegalEntityCode == legalEntityCode)
                 .ToListAsync();
         }
+        public async Task<LocationsandTax> GetLocationTaxById(int locationId)
+        {
+            return await _addtax.tb_CustomerLocationTaxDetails
+                .FirstOrDefaultAsync(emp => emp.LocationID == locationId);
+        }
+        public async Task UpdateLocationTax(LocationsandTax locationsandtax)
+        {
+            _addtax.tb_CustomerLocationTaxDetails.Update(locationsandtax);
+            await _addtax.SaveChangesAsync();
+        }
+
     }
 }

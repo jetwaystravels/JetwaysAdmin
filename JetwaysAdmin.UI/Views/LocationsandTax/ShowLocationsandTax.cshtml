@@ -94,12 +94,24 @@
                                                         @foreach (var location in Model.LocationandTax)
                                                         {
                                                             <tr style="cursor:pointer;">
-                                                                <td onclick="location.href='#';">@location.LocationName</td>
-                                                                <td onclick="location.href='#';">@location.LocationCode</td>
-                                                                <td onclick="location.href='#';">@location.AddressLine1</td>
-                                                                <td onclick="location.href='#';">@location.GSTNumber</td>
-                                                                <td onclick="location.href='#';">@location.AddressLine2</td>
-                                                                <td onclick="location.href='#';">@location.LocationManager2</td>
+                                                                <td onclick="location.href='@Url.Action("UpdateLocationTax", "LocationsandTax", new { LocationID = location.LocationID, Id=ViewBag.Id,  LegalEntityCode=ViewBag.LegalEntityCode, LegalEntityName=ViewBag.LegalEntityName })'">
+                                                                    @location.LocationName
+                                                                </td>
+                                                                <td onclick="location.href='@Url.Action("UpdateLocationTax", "LocationsandTax", new { LocationID = location.LocationID, Id=ViewBag.Id,  LegalEntityCode=ViewBag.LegalEntityCode, LegalEntityName=ViewBag.LegalEntityName })'">
+                                                                    @location.LocationCode
+                                                                </td>
+                                                                <td onclick="location.href='@Url.Action("UpdateLocationTax", "LocationsandTax", new { LocationID = location.LocationID, Id=ViewBag.Id,  LegalEntityCode=ViewBag.LegalEntityCode, LegalEntityName=ViewBag.LegalEntityName })'">
+                                                                    @location.AddressLine1
+                                                                </td>
+                                                                <td onclick="location.href='@Url.Action("UpdateLocationTax", "LocationsandTax", new { LocationID = location.LocationID, Id=ViewBag.Id,  LegalEntityCode=ViewBag.LegalEntityCode, LegalEntityName=ViewBag.LegalEntityName })'">
+                                                                    @location.GSTNumber
+                                                                </td>
+                                                                <td onclick="location.href='@Url.Action("UpdateLocationTax", "LocationsandTax", new { LocationID = location.LocationID, Id=ViewBag.Id,  LegalEntityCode=ViewBag.LegalEntityCode, LegalEntityName=ViewBag.LegalEntityName })'">
+                                                                    @location.AddressLine2
+                                                                </td>
+                                                                <td onclick="location.href='@Url.Action("UpdateLocationTax", "LocationsandTax", new { LocationID = location.LocationID, Id=ViewBag.Id,  LegalEntityCode=ViewBag.LegalEntityCode, LegalEntityName=ViewBag.LegalEntityName })'">
+                                                                    @location.LocationManager2
+                                                                </td>
                                                                 <td>
                                                                     <label class="switch m-l-5">
                                                                         <input type="checkbox" disabled="">
@@ -141,16 +153,16 @@
                             @if (TempData["AddTax"] != null)
                             {
                                 <div class="alert alert-success">
-                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                     @TempData["AddTax"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
 
                             @if (TempData["ErrorMessage"] != null)
                             {
                                 <div class="alert alert-error">
-                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                     @TempData["ErrorMessage"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
 
@@ -276,7 +288,7 @@
                                     </form>
                                 </div>
                             </div>
-                        </div><!-- page-body -->
+                        </div>
                     </div>
                 </div>
             </div>

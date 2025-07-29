@@ -35,49 +35,49 @@ namespace JetwaysAdmin.UI.Controllers
             return View(viewModel);
         }
         [HttpGet]
-        public async Task<IActionResult> GetSupplierCredential(int SupplierId,int Id, string LegalEntityCode, string LegalEntityName)
-        {
-            List<SuppliersCredential> allCredentials = new List<SuppliersCredential>();
-            List<SuppliersCredential> filteredCredentials = new List<SuppliersCredential>();
-            List<DealCode> dealcode = new List<DealCode>();
-            List<DealCode> filtereddealcode = new List<DealCode>();
-            using (HttpClient client = new HttpClient())
-            {
-                string url = $"{AppUrlConstant.GetSupplierCredential}";
-                var response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    allCredentials = JsonConvert.DeserializeObject<List<SuppliersCredential>>(result);
-                    filteredCredentials = allCredentials
-                   .Where(c => int.TryParse(c.SupplierCode, out int code) && code == SupplierId)
-                     .ToList();
-                }
+        //public async Task<IActionResult> GetSupplierCredential(int SupplierId,int Id, string LegalEntityCode, string LegalEntityName)
+        //{
+        //    List<SuppliersCredential> allCredentials = new List<SuppliersCredential>();
+        //    List<SuppliersCredential> filteredCredentials = new List<SuppliersCredential>();
+        //    List<DealCode> dealcode = new List<DealCode>();
+        //    List<DealCode> filtereddealcode = new List<DealCode>();
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        string url = $"{AppUrlConstant.GetSupplierCredential}";
+        //        var response = await client.GetAsync(url);
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            var result = await response.Content.ReadAsStringAsync();
+        //            allCredentials = JsonConvert.DeserializeObject<List<SuppliersCredential>>(result);
+        //            filteredCredentials = allCredentials
+        //           .Where(c => int.TryParse(c.SupplierCode, out int code) && code == SupplierId)
+        //             .ToList();
+        //        }
 
-                url = $"{AppUrlConstant.GetDealCodeSupplierId}/?SupplierId={SupplierId}";
+        //        url = $"{AppUrlConstant.GetDealCodeSupplierId}/?SupplierId={SupplierId}";
 
-                var dealresponse = await client.GetAsync(url);
-                if (dealresponse.IsSuccessStatusCode)
-                {
-                    var result = await dealresponse.Content.ReadAsStringAsync();
-                    dealcode = JsonConvert.DeserializeObject<List<DealCode>>(result);
-                    filtereddealcode = dealcode
-                    .Where(c => int.TryParse(c.SupplierCode, out int code) && code == SupplierId)
-                     .ToList();
-                }
-            }
-            var dealCode = new MenuHeaddata
-            {
-                supplierscredential = filteredCredentials,
-                DealCodeView = filtereddealcode
+        //        var dealresponse = await client.GetAsync(url);
+        //        if (dealresponse.IsSuccessStatusCode)
+        //        {
+        //            var result = await dealresponse.Content.ReadAsStringAsync();
+        //            dealcode = JsonConvert.DeserializeObject<List<DealCode>>(result);
+        //            filtereddealcode = dealcode
+        //            .Where(c => int.TryParse(c.SupplierCode, out int code) && code == SupplierId)
+        //             .ToList();
+        //        }
+        //    }
+        //    var dealCode = new MenuHeaddata
+        //    {
+        //        supplierscredential = filteredCredentials,
+        //        DealCodeView = filtereddealcode
 
-            };
-            ViewBag.SupplierCode = SupplierId;
-            ViewBag.LegalEntityCode = LegalEntityCode;
-            ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = Id;
-            return View(dealCode); 
-        }
+        //    };
+        //    ViewBag.SupplierCode = SupplierId;
+        //    ViewBag.LegalEntityCode = LegalEntityCode;
+        //    ViewBag.LegalEntityName = LegalEntityName;
+        //    ViewBag.Id = Id;
+        //    return View(dealCode); 
+        //}
         //public async Task<IActionResult> UpdateSupplierCredential(int Id, string Code, string Name)
         //{
         //    SuppliersCredential credentailupdate = null;
@@ -107,7 +107,7 @@ namespace JetwaysAdmin.UI.Controllers
                 {
                     return RedirectToAction("GetSupplierCredential", new
                     {
-                        SupplierId = supplierscredential.SupplierCode,
+                        SupplierId = supplierscredential.SupplierId,
                         LegalEntityCode = LegalEntityCode,
                         LegalEntityName = LegalEntityName,
                         Id=Id

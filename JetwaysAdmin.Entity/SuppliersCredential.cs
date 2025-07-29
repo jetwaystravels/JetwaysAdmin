@@ -19,7 +19,7 @@ namespace JetwaysAdmin.Entity
         public string? OrganizationId { get; set; }
         public string? AssociatedFareTypes { get; set; }
         public string? TravelType { get; set; }
-        public string? SupplierCode { get; set; }
+        public int? SupplierId { get; set; }
         public string? CredentialsType { get; set; }
 
         public string? Img_name { get; set; }

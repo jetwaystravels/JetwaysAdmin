@@ -6,6 +6,7 @@ using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
+using System.Xml.Linq;
 
 namespace JetwaysAdmin.UI.Controllers
 {
@@ -69,6 +70,53 @@ namespace JetwaysAdmin.UI.Controllers
                 }
             }
 
+        }
+        
+        public async Task<IActionResult> UpdateLocationTax(int LocationID, int Id, string LegalEntityCode, string LegalEntityName)
+        {
+           
+            LocationsandTax locationtax = null;
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetLoactionTaxID}/{LocationID}";
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    locationtax = JsonConvert.DeserializeObject<LocationsandTax>(result);
+                }
+            }
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = Id;
+            return View(locationtax);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditLocationTax(LocationsandTax locationsandtax, int IdParent, string LegalEntityCode, string LegalEntityName)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+
+                string Data = JsonConvert.SerializeObject(locationsandtax);
+                StringContent content = new StringContent(Data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PutAsync(AppUrlConstant.EditLoactionTaxID + "/" + locationsandtax.LocationID, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["updateLocation_message"] = "Location Tax Update";
+                    return RedirectToAction("UpdateLocationTax", new
+                    {
+                        LocationID = locationsandtax.LocationID,
+                        Id= IdParent,
+                        LegalEntityCode= LegalEntityCode,
+                        LegalEntityName= LegalEntityName
+                    });
+                }
+            }
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = IdParent;
+            return View();
         }
     }
 }
