@@ -19,14 +19,14 @@ namespace JetwaysAdmin.Repositories.Implementations
         }
         public async Task AddDealCode(DealCode dealCode)
         {
-            await _dealCodeRepository.tb_DealCode.AddAsync(dealCode);
+            await _dealCodeRepository.tb_SuppliersDealCode.AddAsync(dealCode);
             await _dealCodeRepository.SaveChangesAsync();
         }
         public async Task<IEnumerable<DealCode>> GetDealCode()
         {
-            return await _dealCodeRepository.tb_DealCode.ToListAsync();
-        }
+            return await _dealCodeRepository.tb_SuppliersDealCode.ToListAsync();
 
+        }
 
         public async Task<IEnumerable<DealCode>> GetDealCodeSupplierId(int SupplierId)
         {
@@ -42,11 +42,11 @@ namespace JetwaysAdmin.Repositories.Implementations
         }
         public async Task<DealCode> GetDealCodeById(int DealCodeId)
         {
-            return await _dealCodeRepository.tb_DealCode.FirstOrDefaultAsync(e => e.DealCodeId == DealCodeId);
+            return await _dealCodeRepository.tb_SuppliersDealCode.FirstOrDefaultAsync(e => e.DealCodeId == DealCodeId);
         }
         public async Task UpdateDealCodeById(DealCode dealCode)
         {
-            _dealCodeRepository.tb_DealCode.Update(dealCode);
+            _dealCodeRepository.tb_SuppliersDealCode.Update(dealCode);
             await _dealCodeRepository.SaveChangesAsync();
         }
     }

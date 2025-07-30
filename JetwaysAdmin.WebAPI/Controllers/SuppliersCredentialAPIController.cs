@@ -59,7 +59,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             ssupplierupdate.UserName = supplierscredential.UserName ?? ssupplierupdate.UserName;
             ssupplierupdate.Password = supplierscredential.Password ?? ssupplierupdate.Password;
             ssupplierupdate.CredentialsName = supplierscredential.CredentialsName ?? ssupplierupdate.CredentialsName;
-            ssupplierupdate.CredentialsType = supplierscredential.CredentialsType ?? ssupplierupdate.CredentialsType;
+            ssupplierupdate.IATAGroup = supplierscredential.IATAGroup ?? ssupplierupdate.IATAGroup;
             ssupplierupdate.AssociatedFareTypes = supplierscredential.AssociatedFareTypes ?? ssupplierupdate.AssociatedFareTypes;
             ssupplierupdate.TravelType = supplierscredential.TravelType ?? ssupplierupdate.TravelType;
             ssupplierupdate.ClientId = supplierscredential.ClientId ?? ssupplierupdate.ClientId;

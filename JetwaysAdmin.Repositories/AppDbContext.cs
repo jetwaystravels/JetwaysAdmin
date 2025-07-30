@@ -38,7 +38,7 @@ namespace JetwaysAdmin.Repositories
         public DbSet<State> tb_State { get; set; }
         public DbSet<City> tb_City { get; set; }
         public DbSet<SuppliersCredential> tb_SuppliersCredential { get; set; }
-        public DbSet<DealCode> tb_DealCode { get; set; }
+        public DbSet<DealCode> tb_SuppliersDealCode { get; set; }
         public DbSet<BookingConsultantDto> BookingConsultants { get; set; }
 
         public DbSet<CustomerDealCodes> tb_CustomerDealCodes { get; set; }

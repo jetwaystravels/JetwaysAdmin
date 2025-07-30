@@ -142,8 +142,7 @@ namespace JetwaysAdmin.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDealCodes(int supplierId, DealCode dealcode,int Id, string LegalEntityCode, string LegalEntityName)
         {
-             supplierId = int.Parse(dealcode.SupplierCode);
-            using (HttpClient client = new HttpClient())
+             using (HttpClient client = new HttpClient())
             {
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(dealcode);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");

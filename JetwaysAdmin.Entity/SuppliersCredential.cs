@@ -20,7 +20,7 @@ namespace JetwaysAdmin.Entity
         public string? AssociatedFareTypes { get; set; }
         public string? TravelType { get; set; }
         public int? SupplierId { get; set; }
-        public string? CredentialsType { get; set; }
+        public int? IATAGroup { get; set; }
 
         public string? Img_name { get; set; }
         // Add Status (1 = Active, 0 = Inactive)

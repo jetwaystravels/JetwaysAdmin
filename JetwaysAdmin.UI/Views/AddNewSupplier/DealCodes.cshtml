@@ -40,6 +40,7 @@
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                         <div class="page-body">
+                         
                             <!-- Main-body start -->
                             <div class="main-body">
                                 <div class="page-wrapper">
@@ -49,6 +50,7 @@
                                             <div class="card-block">
                                                 <!--  credential form Start -->
                                                 <form class="form-material form-row" method="post">
+                                                    <input type="hidden" name="SupplierId" class="form-control" value="@ViewBag.SupplierId">
                                                     <div class="form-group form-primary col-md-3">
                                                         <input type="text" name="PCC" class="form-control">
                                                         <span class="form-bar"></span>
@@ -61,14 +63,13 @@
                                                     </div>
                                                     <div class="form-group form-primary col-md-3">
                                                         <select name="SelectedCredentialId" class="form-control fill">
-                                                            <option value="opt1">Selected Credentials*</option>
-                                                            <option value="opt2">JW DEL SME</option>
-                                                            <option value="opt3"> JW DEL Corp </option>
-                                                            <option value="opt4">JW DEL Retail</option>
-                                                            <option value="opt4">JW PNQ</option>
-                                                            <option value="opt4">JW BOM</option>
+                                                            @foreach (var IATA in Model.IATAGruopName)
+                                                            {
+                                                             <option value="@IATA.GroupID">@IATA.GroupName</option>
+                                                            })
                                                         </select>
                                                         <span class="form-bar"></span>
+                                                        <label class="float-label">IATA Group*</label>
                                                     </div>
                                                     <div class="form-group form-primary col-md-3">
                                                         <select name="TravelMode" class="form-control fill">
@@ -101,11 +102,8 @@
                                                     <div class="form-group form-primary col-md-3">
                                                         <select name="AssociatedFareTypes" class="form-control fill">
                                                             <option value="opt1">Associated Fare Type(s)*</option>
-                                                            <option value="opt2">Corporate</option>
-                                                            <option value="opt3">promo fare</option>
-                                                            <option value="opt4">Published</option>
-                                                            <option value="opt5">Flexi Plus</option>
-                                                            <option value="opt6">SME</option>
+                                                            <option value="Corporate">Corporate</option>
+                                                            <option value="Retail">Retail</option>
                                                         </select>
                                                         <span class="form-bar"></span>
                                                     </div>
@@ -118,7 +116,7 @@
                                                         <span class="form-bar"></span>
                                                     </div>
                                                     <div class="form-group form-primary col-md-3">
-                                                        <input class="form-control" name="ExpiryDate" type="text" id="datepicker" placeholder="Expiry Date">
+                                                        <input class="form-control" name="ExpiryDate" type="text" id="datepicker" autocomplete="off" placeholder="Expiry Date">
                                                         <span class="form-bar"></span>
                                                     </div>
                                                     <div class="form-group form-primary col-md-3">
@@ -149,11 +147,11 @@
                                                         </label>
                                                     </div>
 
-                                                    <div class="form-group form-primary col-md-3">
+                                                   @*  <div class="form-group form-primary col-md-3">
                                                         <input type="text" name="SupplierCode" class="form-control">
                                                         <span class="form-bar"></span>
                                                         <label class="float-label">Supplier Code(optional)</label>
-                                                    </div>
+                                                    </div> *@
                                                     <div class="form-group form-primary col-md-3">
                                                         <select name="BookingType" class="form-control fill">
                                                             <option>Booking Type</option>
@@ -211,6 +209,13 @@
             <div class="pcoded-inner-content">
                 <!-- Main-body start -->
                 <div class="main-body">
+                    @if (TempData["Add_DealCode"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["Add_DealCode"]
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        </div>
+                    }
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                            <div class="d-flex justify-content-between m-b-10">
@@ -249,7 +254,7 @@
                                                     <td>@dealCode.BookingType </td>
                                                     <td>@dealCode.TravelMode</td>
                                                     <td>@dealCode.DealPricingCode </td>
-                                                    <td>@dealCode.CreatedAt.ToString("dd-MM-yyyy")</td>
+                                                    <td>@dealCode.StartDate.ToString("dd-MM-yyyy")</td>
                                                     <td>@dealCode.ExpiryDate?.ToString("dd-MM-yyyy")</td>
                                                     <td>
                                                         <label class="switch">

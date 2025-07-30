@@ -1,9 +1,11 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Interface;
+using JetwaysAdmin.Repositories.Migrations;
 using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Text;
 
 namespace JetwaysAdmin.UI.Controllers.Suppliers
@@ -161,6 +163,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
         {
    
             List<SuppliersCredential> suppliersCredential = new List<SuppliersCredential>();
+            List<IATAGroupView> iataGroups = new List<IATAGroupView>();
             using (HttpClient client = new HttpClient())
             {
                 var userresponse = await client.GetAsync(AppUrlConstant.GetSupplierCredential);
@@ -172,10 +175,17 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
                         .Where(x => x.SupplierId != null && x.SupplierId.ToString() == supplierId.ToString())
                         .ToList();
                 }
+                var iataResponse = await client.GetAsync(AppUrlConstant.GetIATAGroup);
+                if (iataResponse.IsSuccessStatusCode)
+                {
+                    var result = await iataResponse.Content.ReadAsStringAsync();
+                    iataGroups = JsonConvert.DeserializeObject<List<IATAGroupView>>(result);
+                }
             }
             var Supplierdata = new MenuHeaddata
             {
-                supplierscredential = suppliersCredential
+                supplierscredential = suppliersCredential,
+                IATAGruopName = iataGroups
             };
             ViewBag.SupplierId = supplierId;
             return View(Supplierdata);
@@ -211,6 +221,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
                 {
                     var result = await response.Content.ReadAsStringAsync();
                     supplierscredential = JsonConvert.DeserializeObject<SuppliersCredential>(result);
+                    
                 }
             }
 
@@ -227,6 +238,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
                 HttpResponseMessage response = await client.PutAsync(AppUrlConstant.GetSupplierCredentialID + "/" + supplierscredential.Id, content);
                 if (response.IsSuccessStatusCode)
                 {
+                    TempData["Update_Credentials"] = "Credentials update succefully";
                     return RedirectToAction("UpdateCredential", new { Id = supplierscredential.Id });
                 }
             }
@@ -236,7 +248,8 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
         public async Task<IActionResult> DealCodes(int supplierId)
         {
             List<DealCode> dealcode = new List<DealCode>();
-            using(HttpClient client=new HttpClient())
+            List<IATAGroupView> iataGroups = new List<IATAGroupView>();
+            using (HttpClient client=new HttpClient())
             {
                 var dealresponse = await client.GetAsync(AppUrlConstant.GetDealCode);
                 if (dealresponse.IsSuccessStatusCode)
@@ -244,10 +257,18 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
                     var result = await dealresponse.Content.ReadAsStringAsync();
                     dealcode = JsonConvert.DeserializeObject<List<DealCode>>(result);
                 }
+                var iataResponse = await client.GetAsync(AppUrlConstant.GetIATAGroup);
+                if (iataResponse.IsSuccessStatusCode)
+                {
+                    var result = await iataResponse.Content.ReadAsStringAsync();
+                    iataGroups = JsonConvert.DeserializeObject<List<IATAGroupView>>(result);
+                }
             }
             var dealCode = new MenuHeaddata
             {
-                  DealCodeView= dealcode
+                DealCodeView= dealcode,
+                IATAGruopName= iataGroups
+
             };
             ViewBag.SupplierId = supplierId;
             return View(dealCode);
@@ -256,6 +277,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
         [HttpPost]
         public async Task<IActionResult> AddDealCodes(int supplierId, DealCode dealcode)
         {
+           
             using (HttpClient client = new HttpClient())
             {
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(dealcode);
@@ -264,6 +286,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
+                    TempData["Add_DealCode"] = "DealCode add succefully";
                 }
             }
             ViewBag.SupplierId = supplierId;
