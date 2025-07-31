@@ -34,6 +34,30 @@ namespace JetwaysAdmin.UI.Controllers
 
             return View(viewModel);
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdateSupplierAppStatus(int supplierId, bool appStatus, string LegalEntityCode, string LegalEntityName)
+        {
+            var payload = new
+            {
+                SupplierId = supplierId,
+                AppStatus = appStatus
+            };
+
+            using (HttpClient client = new HttpClient())
+            {
+                string json = JsonConvert.SerializeObject(payload);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(AppUrlConstant.EditSupplierID + "/" + supplierId, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["supplier_message"] = "Status Updated";
+                    return RedirectToAction("ShowSuppliersDealCodes", new { LegalEntityCode = LegalEntityCode, LegalEntityName = LegalEntityName });
+                }
+            }
+            TempData["supplier_message"] = "Failed to update status";
+            return RedirectToAction("ShowSuppliersDealCodes", new { LegalEntityCode = LegalEntityCode, LegalEntityName = LegalEntityName });
+        }
+
         [HttpGet]
         //public async Task<IActionResult> GetSupplierCredential(int SupplierId,int Id, string LegalEntityCode, string LegalEntityName)
         //{

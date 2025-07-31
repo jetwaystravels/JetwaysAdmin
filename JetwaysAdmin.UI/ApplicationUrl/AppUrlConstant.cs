@@ -43,6 +43,7 @@
 
         public static string AddSupplier = BaseURL + "api/SupplierAPI/AddSupplier";
         public static string GetSupplier = BaseURL + "api/SupplierAPI/GetSupplier";
+        public static string GetSuppliersLegalEntity = BaseURL + "api/SupplierAPI/GetSuppliersLegalEntity";
 
         public static string GetSupplierID = BaseURL + "api/SupplierAPI";
 

@@ -11,10 +11,12 @@ namespace JetwaysAdmin.WebAPI.Controllers
     public class SupplierAPIController : ControllerBase
     {
         private readonly IAddNewSupplier<AddSupplier> _supplier;
+      //  private readonly IAddNewSupplier<legalentitySupplier> _supplierRepository;
 
         public SupplierAPIController(IAddNewSupplier<AddSupplier> supplier)
         {
             this._supplier = supplier;
+           
         }
 
         [HttpPost]
@@ -39,7 +41,17 @@ namespace JetwaysAdmin.WebAPI.Controllers
             var getManageUser = await _supplier.GetSupplier();
             return Ok(getManageUser);
         }
+        // GET api/suppliers/{legalEntityCode}
+        [HttpGet("legalentitysuppliers")]
+        public async Task<IActionResult> Getlegalentitysuppliers(string legalEntityCode)
+        {
+            if (string.IsNullOrEmpty(legalEntityCode))
+                return BadRequest("LegalEntityCode is required.");
 
+            var suppliers = await _supplier.GetSuppliersByLegalEntityAsync(legalEntityCode);
+
+            return Ok(suppliers);
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<AddSupplier>> GetSupplierById(int id)

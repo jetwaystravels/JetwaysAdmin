@@ -35,7 +35,14 @@ namespace JetwaysAdmin.Repositories.Implementations
             return await _appContext.tb_SuppliersDetail.FirstOrDefaultAsync(e => e.SupplierId == id);
         }
 
-       
+        public async Task<IEnumerable<SupplierDto>> GetSuppliersByLegalEntityAsync(string legalEntityCode)
+        {
+            return await _appContext.SupplierDtos
+                .FromSqlInterpolated($"EXEC sp_GetSuppliersByLegalEntity {legalEntityCode}")
+                .ToListAsync();
+        }
+
+
         public async Task UpdateSupplierById(AddSupplier supplier)
         {
             _appContext.tb_SuppliersDetail.Update(supplier);

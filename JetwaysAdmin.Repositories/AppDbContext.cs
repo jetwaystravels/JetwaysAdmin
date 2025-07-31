@@ -1,5 +1,6 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Interface;
+using JetwaysAdmin.Repositories.Migrations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,7 +18,7 @@ namespace JetwaysAdmin.Repositories
         public DbSet<MenuItem> tb_Menu { get; set; }
         public DbSet<MenuHead> Tb_Menuhead { get; set; }
         public DbSet<Customer> Admin_tb_Customers { get; set; }
-        public DbSet<LegalEntity> Admin_tb_LegalEntity { get; set; }
+        public DbSet<Entity.LegalEntity> Admin_tb_LegalEntity { get; set; }
         public DbSet<CustomerDetails> CustomerDetails { get; set; }
         public DbSet<IATAGroup> tb_IATAGroup { get; set; }
         public DbSet<AccountDetails> tb_CustomersAccountDetail { get; set; }
@@ -42,6 +43,10 @@ namespace JetwaysAdmin.Repositories
         public DbSet<BookingConsultantDto> BookingConsultants { get; set; }
 
         public DbSet<CustomerDealCodes> tb_CustomerDealCodes { get; set; }
+
+        public DbSet<AddSupplier> Suppliers { get; set; }
+        // Optional if mapping DTO directly:
+        public DbSet<SupplierDto> SupplierDtos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomerDetails>().HasNoKey(); // No primary key because it's a model
@@ -50,6 +55,7 @@ namespace JetwaysAdmin.Repositories
             modelBuilder.Entity<HierarchyLegalEntity>().HasNoKey();
             modelBuilder.Entity<BookingConsultantDto>().HasNoKey();
             modelBuilder.Entity<CustomerDealCodes>().HasNoKey();
+            modelBuilder.Entity<SupplierDto>().HasNoKey();
             modelBuilder.Entity<Menu>()
 
 
