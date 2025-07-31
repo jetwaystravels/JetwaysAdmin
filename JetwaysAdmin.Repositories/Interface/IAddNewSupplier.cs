@@ -12,6 +12,7 @@ namespace JetwaysAdmin.Repositories.Interface
       Task AddNewSupplier(AddSupplier addSupplier);
         Task<IEnumerable<AddSupplier>> GetSupplier();
         Task<IEnumerable<SupplierDto>>GetSuppliersByLegalEntityAsync(string legalEntityCode);
+        Task AddOrUpdateLegalEntitySupplierStatusAsync(string legalEntityCode, int supplierId, bool isActive);
         Task<AddSupplier> GetSupplierById(int id);
 
         Task UpdateSupplierById(AddSupplier supplier);

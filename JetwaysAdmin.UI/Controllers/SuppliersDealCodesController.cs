@@ -20,7 +20,10 @@ namespace JetwaysAdmin.UI.Controllers
             List<AddSupplier> supplier = new List<AddSupplier>();
             using (HttpClient client = new HttpClient())
             {
-                var suppresponse = await client.GetAsync(AppUrlConstant.GetSupplier);
+                //var suppresponse = await client.GetAsync(AppUrlConstant.GetSupplier);
+                var url = $"{AppUrlConstant.GetSuppliersLegalEntity}?legalEntityCode={LegalEntityCode}";
+                var suppresponse = await client.GetAsync(url);
+             //   var suppresponse = await client.GetAsync(AppUrlConstant.GetSuppliersLegalEntity);
                 if (suppresponse.IsSuccessStatusCode)
                 {
                     var result = await suppresponse.Content.ReadAsStringAsync();
@@ -35,28 +38,39 @@ namespace JetwaysAdmin.UI.Controllers
             return View(viewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateSupplierAppStatus(int supplierId, bool appStatus, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> UpdateSupplierAppStatus(string legalEntityCode, int supplierId, bool appStatus, string legalEntityName)
         {
-            var payload = new
-            {
-                SupplierId = supplierId,
-                AppStatus = appStatus
-            };
-
             using (HttpClient client = new HttpClient())
             {
+                // Prepare payload
+                var payload = new
+                {
+                    LegalEntityCode = legalEntityCode,
+                    SupplierID = supplierId,
+                    IsActive = appStatus
+                };
+
                 string json = JsonConvert.SerializeObject(payload);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync(AppUrlConstant.EditSupplierID + "/" + supplierId, content);
+
+                // Correct POST URL (no query params)
+                string url = $"{AppUrlConstant.Updatelegalentitysupplierstatus}";
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
                 if (response.IsSuccessStatusCode)
                 {
                     TempData["supplier_message"] = "Status Updated";
-                    return RedirectToAction("ShowSuppliersDealCodes", new { LegalEntityCode = LegalEntityCode, LegalEntityName = LegalEntityName });
+                    return RedirectToAction("ShowSuppliersDealCodes", new { LegalEntityCode = legalEntityCode, LegalEntityName = legalEntityName });
                 }
             }
+
             TempData["supplier_message"] = "Failed to update status";
-            return RedirectToAction("ShowSuppliersDealCodes", new { LegalEntityCode = LegalEntityCode, LegalEntityName = LegalEntityName });
+            return RedirectToAction("ShowSuppliersDealCodes", new { LegalEntityCode = legalEntityCode, LegalEntityName = legalEntityName });
         }
+
+
+
+
 
         [HttpGet]
         //public async Task<IActionResult> GetSupplierCredential(int SupplierId,int Id, string LegalEntityCode, string LegalEntityName)

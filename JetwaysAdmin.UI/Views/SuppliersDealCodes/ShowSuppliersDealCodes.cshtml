@@ -71,9 +71,9 @@
                                 <div class="tab-content">
                                     <!--  Suppliers manage start -->
                                     <div class="tab-pane active" id="flights1" role="tabpanel">
-                                        <div class="d-flex justify-content-end m-b-10 flex-btn">
+                                       @*  <div class="d-flex justify-content-end m-b-10 flex-btn">
                                             <div><button class="btn btn-danger add-btn">+ Add New</button></div>
-                                        </div>
+                                        </div> *@
                                         <div class="default-content">
                                             <div class="d-flex justify-content-between m-b-15" style="width:320px;">
                                                 <h5>Manage Flights Suppliers?</h5>
@@ -113,7 +113,7 @@
                                                                     <label class="switch">
                                                                         <input type="checkbox" name="AppStatus" value="true"
                                                                                id="appStatusCheckbox_@dealCode.SupplierId"
-                                                                        @(dealCode.AppStatus ?? false ? "checked" : "")
+                                                                        @(dealCode.IsActive ?? false ? "checked" : "")
                                                                                onchange="document.getElementById('appStatusForm_@dealCode.SupplierId').submit();" />
                                                                         <span class="slider round"></span>
                                                                     </label>

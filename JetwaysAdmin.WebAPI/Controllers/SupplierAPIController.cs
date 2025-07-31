@@ -43,6 +43,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
         }
         // GET api/suppliers/{legalEntityCode}
         [HttpGet("legalentitysuppliers")]
+        
         public async Task<IActionResult> Getlegalentitysuppliers(string legalEntityCode)
         {
             if (string.IsNullOrEmpty(legalEntityCode))
@@ -52,6 +53,18 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
             return Ok(suppliers);
         }
+
+        [HttpPost("Updatelegalentitysuppliers")]
+        public async Task<IActionResult> AddOrUpdate([FromBody] LegalEntitySupplierDto dto)
+        {
+            if (dto == null)
+                return BadRequest("Invalid data.");
+
+            await _supplier.AddOrUpdateLegalEntitySupplierStatusAsync(dto.LegalEntityCode, dto.SupplierID, dto.IsActive);
+
+            return Ok(new { message = "Record processed successfully." });
+        }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<AddSupplier>> GetSupplierById(int id)
