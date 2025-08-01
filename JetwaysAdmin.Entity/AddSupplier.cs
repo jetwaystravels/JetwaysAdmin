@@ -43,7 +43,7 @@ namespace JetwaysAdmin.Entity
 
     public class SupplierDto
     {
-        public int? SupplierID { get; set; }
+        public int SupplierID { get; set; }
         public string? SupplierName { get; set; }
         public string? SupplierCode { get; set; }
         public string? SupplierType { get; set; }
@@ -59,8 +59,9 @@ namespace JetwaysAdmin.Entity
 
         // Match the SQL alias exactly  
         public bool? IsActive { get; set; }
+        public bool? AppStatus { get; set; }
 
-       
+
 
     }
 

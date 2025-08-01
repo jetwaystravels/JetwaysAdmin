@@ -1,6 +1,6 @@
-﻿@model List<JetwaysAdmin.UI.ViewModel.HierarchyLegalEntityView>
+﻿@model List<JetwaysAdmin.Entity.LegalEntity>
 @{
-    Layout = "~/Views/Shared/Admin.cshtml";
+    Layout = "~/Views/Shared/OfficeLegalentity.cshtml";
     var Data = Model;
 }
 <main id="main" class="main">
@@ -12,111 +12,128 @@
                     <div class="row align-items-center">
                         <div class="col-md-8">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Manage Customers</h5>
+                                <h5 class="m-b-10">Offices</h5>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="index.html">Settings</a>
+                                    <a href="#">Setting</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="#!">Manage Suppliers</a>
+                                    <a href="#">Manage Customers</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Manage Staff
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Page-header end -->
             <div class="pcoded-inner-content">
                 <!-- Main-body start -->
                 <div class="main-body">
                     <div class="page-wrapper">
                         <div class="page-body">
+                            @if (TempData["LegalAdd"] != null)
+                            {
+                                <div class="alert alert-success">
+                                    <strong></strong> @TempData["LegalAdd"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            }
+                            @if (TempData["DuplicateError"] != null)
+                            {
+                                <div class="alert alert-danger" style="color:white;background-color:#e74c3c;padding:10px;width:80%;">
+                                    <strong>Warning:</strong> @TempData["DuplicateError"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            }
                             <div class="card">
-                                <div class="card-block table-border-style">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Company Name</th>
-                                                    <th>Sub Entities</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                        @foreach (var parent in Model)
-                                        {
-                                            <div class="d-flex justify-content-between organization-structure-ac">
-                                                <!-- Parent Row -->
-                                                <div class="d-flex first">
-                                                    <div style="width:110px;">
-                                                        @if (parent.SubEntities.Any())
-                                                        {
-                                                            <a href="#" class="toggle-btn" data-toggle="collapse" data-target="#collapse-@parent.LegalEntityCode">
-                                                                <i class="fa fa-chevron-right m-r-10"></i>
-                                                            </a>
-                                                        }
-                                                        <img src="../assets/images/default-logo-smal.png" class="img-70 m-r-5" />
-                                                    </div>
-                                                    <div>
-                                                        <form method="post" action="/LegalEntity/UpdateLegalEntities/?LegalEntityName=@parent.LegalEntityName & LegalEntityCode=@parent.LegalEntityCode">
-                                                            <button class="entity-link"><span class="m-r-5">[@parent.LegalEntityCode]</span>@parent.LegalEntityName</button>
-                                                            <input type="hidden" name="Id" value="@parent.Id" />
-                                                            <input type="hidden" name="Code" value="@parent.LegalEntityCode" />
-                                                            <input type="hidden" name="Name" value="@parent.LegalEntityName" />
-                                                        </form>
-                                                        <form class="d-block" method="post" action="/LegalEntity/ShowLegalEntities">
-                                                            <input type="hidden" name="LegalEntityCode" value="@parent.LegalEntityCode" />
-                                                            0<span class="sub-text">Subs</span>
-                                                            <button type="submit" class="btn btn-link p-0 add-sub-entity" style="border: none; background: none;">
-                                                                <i class="fa fa-plus-circle sub-icon" aria-hidden="true"></i>
-                                                            </button>
-                                                        </form>
-                                                        
-                                                    </div>
+                                <div class="card-block">
+                                    <div class="d-flex justify-content-between m-b-10 top-lable">
+                                        <div class="col-lg-4" style="padding-left:0;">
+                                            <form class="form-material">
+                                                <div class="form-group form-primary" style="width:280px;">
+                                                    <input type="text" name="footer-email" class="form-control">
+                                                    <span class="form-bar"></span>
+                                                    <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
                                                 </div>
-                                                <div class="second">@parent.SubEntities.Count</div>
-                                                <div class="third">
-                                                    <label class="lavel-text" style="color:red">
-                                                        <i class="fa fa-circle m-r-10" style="font-size: 9px;"></i>Deactivated
-                                                    </label>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-8 text-right" style="right:0;">
+                                            <button type="button" class="btn btn-primary btn-lg modl"
+                                                    data-legal-entity-code="@ViewBag.LegalEntityCode"
+                                                    data-legal-entity-name="@ViewBag.LegalEntityName"
+                                                    data-legal-entity-id="@ViewBag.Id"
+                                                    data-toggle="modal" data-target="#addOfficeModal"
+                                                    style="font-size: 16px; font-weight:600;">
+                                                + Add office
+                                            </button>
+
+                                            <div class="dropdown-primary open">
+                                                <div class="dot-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+                                                <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                    <a class="dropdown-item" href="#">Update default office</a>
+                                                    <a class="dropdown-item" href="#">Upload offices</a>
+                                                    <a class="dropdown-item" href="#">Download office list</a>
+                                                    <a class="dropdown-item" href="#">Assign users</a>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div id="officeList">
+                                        <!-- Default office entry (open by default) -->
+                                        <div class="office-card">
+                                            <div class="d-flex justify-content-between align-items-center" style="border-bottom: #ddd 1px solid; padding-bottom: 10px;">
+                                                <div class="col-lg-9" style="padding-left:0;">
+                                                    <strong>Default office</strong>
+                                                    <span class="tag">New Leaf (US)</span>
+                                                    <span class="tag tag-default">Default office</span>
+                                                </div>
+                                                <div class="text-primary col-lg-3 text-right"><strong>2 users assigned</strong></div>
+                                                <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+                                            </div>
+                                             @foreach (var office in Model)
+                                             {
+                                            <div class="details row mt-3" style="display:flex;">
+                                                <div class="col-md-3">
+                                                    <div class="map-bx"><img class="img-fluid" src="../assets/images/map-1.png" alt="map"></div>
+                                                </div>
+                                                <div class="col-md-9 address-section">
+                                                    <div class="row">
+                                                       
+                                                            <div class="col-md-6">
+                                                                <p><strong>Address:</strong></p>
+                                                                <p>@office.AddressLine1</p>
+                                                                <p>@office.AddressLine2</p>
+                                                                <p>@office.PostalCode</p>
+                                                                <p><strong>Legal entity:</strong><br>@office.LegalEntityName</p>
+                                                            </div>
+                                                      
+                                                       
 
-                                            <!-- Child Rows -->
-                                            @foreach (var child in parent.SubEntities)
-                                            {
-                                                <div class="justify-content-between organization-structure-ac sub-branch collapse" id="collapse-@parent.LegalEntityCode" style="display: none;">
-                                                    <div class="d-flex first">
-                                                        <button disabled class="bdr"></button>
-                                                        <div><img class="img-70 m-r-5" src="../assets/images/default-logo-smal.png" /></div>
-                                                        <div>
-                                                            <form method="post" action="/LegalEntity/UpdateLegalEntities">
-                                                                <button type="submit" class="entity-link"><span class="m-r-5">[@child.LegalEntityCode]</span>@child.LegalEntityName</button>
-                                                                <input type="hidden" name="Id" value="@child.Id" />
-                                                                <input type="hidden" name="Code" value="@child.LegalEntityCode" />
-                                                                <input type="hidden" name="Name" value="@child.LegalEntityName" />
-                                                            </form>
-                                                            <form class="d-block" method="post" action="/LegalEntity/ShowLegalEntities">
-                                                                <input type="hidden" name="LegalEntityCode" value="@child.LegalEntityCode" />
-                                                                0<span class="sub-text">Subs</span>
-                                                                <button type="submit" class="btn btn-link p-0 add-sub-entity" style="border: none; background: none;">
-                                                                    <i class="fa fa-plus-circle sub-icon" aria-hidden="true"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
+                                                            <div class="col-md-6">
+                                                                <p><strong>Office contact:</strong></p>
+                                                                <p>@office.FirstName</p>
+                                                                <p>@office.BussinesEmail</p>
+                                                                <p>
+                                                                    <strong>Point of sale country:</strong><br>
+                                                                    @office.Country
+                                                                </p>
+                                                            </div>
+                                                        
                                                     </div>
-                                                    <div class="second">0</div>
-                                                    <div class="third">
-                                                        <label class="lavel-text" style="color:#00b809">
-                                                            <i class="fa fa-circle m-r-10" style="font-size: 9px;"></i>Active
-                                                        </label>
+                                                    <div class="form-group form-primary col-md-12 m-t-5 text-right">
+                                                        <button class="btn btn-danger waves-effect waves-light">Delete</button>
+                                                        <button class="btn btn-primary waves-effect waves-light">Edit</button>
                                                     </div>
                                                 </div>
-                                            }
-                                        }
-
+                                            </div>
+                                             }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -127,82 +144,110 @@
           
           </div>
        </div>
+    <!-- Add Office Modal -->
+    <div class="modal fade" id="addOfficeModal" tabindex="-1" role="dialog" aria-labelledby="addOfficeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content rounded-4 border-0 shadow-sm">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title font-weight-bold">Add a new office</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-content" id="addOfficeModalContent">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="~/assets/js/custom/addlegalentity.js"></script>
+    <script src="~/assets/js/custom/datevalidation.js"></script>
+    <script src="~/assets/js/custom/countrycurrency.js"></script>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const toggleBtn = document.querySelector(".toggle-btn");
-            const subBranches = document.querySelectorAll(".sub-branch");
-            const icon = toggleBtn.querySelector("i");
-            subBranches.forEach(branch => branch.style.display = "none");
-            toggleBtn.addEventListener("click", function (event) {
-                event.preventDefault();
-                let isAnyOpen = Array.from(subBranches).some(branch => branch.style.display === "flex");
-                if (isAnyOpen) {
-                    subBranches.forEach(branch => branch.style.display = "none");
-                    icon.classList.replace("fa-chevron-down", "fa-chevron-right");
-                } else {
-                    subBranches.forEach(branch => branch.style.display = "flex");
-                    icon.classList.replace("fa-chevron-right", "fa-chevron-down");
-                }
+        $('.langOpt').each(function () {
+            var placeholderText = $(this).data('placeholder') || 'Select option';
+            $(this).multiselect({
+                placeholder: placeholderText,
+                // other config if needed
             });
         });
+    </script>
+    <script>
+        $(function () {
+            $(".select").select2();
+        });
+    </script>
 
+    <script>
+        $(document).ready(function () {
+            $('.langOpt').multiselect(); 
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#addOfficeModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); 
+                var legalEntityCode = button.data('legal-entity-code');
+                var legalEntityName = button.data('legal-entity-name');
+                var Id = button.data('legal-entity-id');
 
-        // $(document).ready(function () {
-        //     $('.add-sub-entity').on('click', function (e) {
-        //         e.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("ShowOffice", "OrganizationStructure")',
+                    type: 'GET',
+                    data: {
+                        LegalEntityCode: legalEntityCode,
+                        LegalEntityName: legalEntityName,
+                        Id:Id
+                    },
+                    success: function (response) {
+                        $('#addOfficeModalContent').html(response);
+                    },
+                    error: function () {
+                        $('#addOfficeModalContent').html('<div class="p-3 text-danger">Failed to load office form.</div>');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        function loadStates() {
+            var selectedCountryId = document.getElementById("CountryId").value;
+            if (selectedCountryId) {
+                fetch('/OrganizationStructure/LoadStates?countryId=' + selectedCountryId, {
+                    method: 'GET'
+                })
+                    .then(response => response.json())
+                    .then(states => {
+                        const stateSelect = document.getElementById("StateId");
+                        stateSelect.innerHTML = '<option value="">-- Select State --</option>';
+                        states.forEach(function (state) {
+                            const option = document.createElement("option");
+                            option.value = state.stateID;
+                            option.text = state.stateName;
+                            stateSelect.appendChild(option);
+                        });
+                    });
+            }
+        }
+        function loadCities() {
+            var stateId = document.getElementById("StateId").value;
+            fetch('/OrganizationStructure/LoadCities?stateId=' + stateId)
+                .then(response => response.json())
+                .then(cities => {
+                    var citySelect = document.getElementById("CityId");
+                    citySelect.innerHTML = '<option value="">-- Select City --</option>';
 
-        //         var legalEntityCode = $(this).data('code');
-
-        //         $.ajax({
-        //             url: '/LegalEntity/ShowLegalEntities', 
-        //             type: 'POST',
-        //             data: { LegalEntityCode: legalEntityCode },
-        //             success: function (response) {
-        //                 console.log("Success:", response);
-        //                 window.location.href = '/LegalEntity/ShowLegalEntities';  
-        //             },
-        //             error: function (xhr, status, error) {
-        //                 console.error("AJAX Error:", error);
-        //                 alert("Something went wrong. Please try again.");
-        //             }
-        //         });
-        //     });
-        // });
-
-        // $(document).ready(function () {
-        //     $(".entity-link").click(function (e) {
-        //         e.preventDefault();
-        //         var id = $('#entityId').val();
-        //         var code = $('#entityCode').val();
-        //         var name = $('#entityName').val();
-        //         if (!id || !code || !name) {
-        //             alert("Please fill in all fields.");
-        //             return;
-        //         }
-
-        //         $.ajax({
-        //             type: "POST",
-        //             url: '@Url.Action("UpdateLegalEntities", "LegalEntity")',
-        //             data: {
-        //                 Id: id,
-        //                 Code: code,
-        //                 Name: name
-        //             },
-        //             success: function (response) {
-        //                 console.log("Posted successfully!");
-        //                 window.location.href = '@Url.Action("UpdateLegalEntities", "LegalEntity")';   
-        //             },
-        //             error: function (xhr, status, error) {
-        //                 console.error("Error: " + error);
-        //             }
-        //         });
-        //     });
-        // });
-
-
+                    cities.forEach(function (city) {
+                        var option = document.createElement("option");
+                        option.value = city.cityID;
+                        option.text = city.cityName;
+                        citySelect.appendChild(option);
+                    });
+                });
+        }
     </script>
 </footer>

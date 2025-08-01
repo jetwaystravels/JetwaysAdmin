@@ -4,6 +4,9 @@ using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System.Text;
+using System.Xml.Linq;
 
 namespace JetwaysAdmin.UI.Controllers
 {
@@ -11,33 +14,149 @@ namespace JetwaysAdmin.UI.Controllers
     {
         public async Task<IActionResult> ShowOrganization(int Id, string legalEntityName, string legalEntityCode)
         {
-           
+            List<LegalEntity> rootEntity = new List<LegalEntity>();
+
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"{AppUrlConstant.LegalHeirachy}?LegalEntityCode={legalEntityCode}";
-                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                string apiLegalEntityUrl = $"{AppUrlConstant.GetLegalEntity}";
+                HttpResponseMessage response = await client.GetAsync(apiLegalEntityUrl);
+
                 if (response.IsSuccessStatusCode)
                 {
-                    string jsonData = await response.Content.ReadAsStringAsync();
-                    var flatList = JsonConvert.DeserializeObject<List<HierarchyLegalEntityView>>(jsonData);
-                    var hierarchy = flatList
-                        .Where(e => string.IsNullOrEmpty(e.ParentLegalEntityCode))
-                        .Select(parent =>
-                        {
-                            parent.SubEntities = flatList
-                                .Where(child => child.ParentLegalEntityCode == parent.LegalEntityCode)
-                                .ToList();
-                            return parent;
-                        })
+                    try
+                    {
+                        var result = await response.Content.ReadAsStringAsync();
+                        var responseObject = JsonConvert.DeserializeObject<LegalEntityResponse>(result);
+                        rootEntity = responseObject?.Data;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error during deserialization: " + ex.Message);
+                    }
+                    var parent = rootEntity.FirstOrDefault(e => e.LegalEntityCode == legalEntityCode);
+                    if (parent == null)
+                        return View(new List<LegalEntity>());
+                    var children = rootEntity
+                        .Where(e => e.ParentLegalEntityCode == legalEntityCode)
                         .ToList();
-                    ViewBag.LegalEntityId = Id;
-                    ViewBag.LegalEntityName = legalEntityName;
+                    var combined = new List<LegalEntity> { parent };
+                    combined.AddRange(children);
                     ViewBag.LegalEntityCode = legalEntityCode;
-                    return View(hierarchy);
+                    ViewBag.LegalEntityName = legalEntityName;
+                    ViewBag.Id = Id;
+                    return View(combined);
+                }
+            }
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> ShowOffice(int Id,string LegalEntityCode, string LegalEntityName)
+        {
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = Id;
+            var iataGroups = new List<IATAGroupView>();
+            var countryList = new List<Country>();
+
+            using (HttpClient client = new HttpClient())
+            {
+                var iataResponse = await client.GetAsync(AppUrlConstant.GetIATAGroup);
+                if (iataResponse.IsSuccessStatusCode)
+                {
+                    var result = await iataResponse.Content.ReadAsStringAsync();
+                    iataGroups = JsonConvert.DeserializeObject<List<IATAGroupView>>(result);
                 }
 
-                TempData["ErrorMessage"] = "Failed to retrieve data.";
-                return View(new List<HierarchyLegalEntityView>());
+                var countryResponse = await client.GetAsync(AppUrlConstant.GetCountry);
+                if (countryResponse.IsSuccessStatusCode)
+                {
+                    var result = await countryResponse.Content.ReadAsStringAsync();
+                    countryList = JsonConvert.DeserializeObject<List<Country>>(result);
+                }
+            }
+
+            var viewModel = new MenuHeaddata
+            {
+                IATAGruopName = iataGroups,
+            };
+            ViewBag.CountryList = countryList;
+            return PartialView("_OfficeModel", viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LoadStates(int CountryId)
+        {
+            List<State> states = new();
+
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetSate}/{CountryId}";
+                var response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    states = JsonConvert.DeserializeObject<List<State>>(json);
+                }
+            }
+
+            return Json(states);
+        }
+        [HttpGet]
+        public async Task<IActionResult> LoadCities(int stateId)
+        {
+            List<City> cities = new();
+
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetCity}/{stateId}";
+                var response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    cities = JsonConvert.DeserializeObject<List<City>>(json);
+                }
+            }
+            return Json(cities);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddOffice([FromForm] LegalEntity legalEntity,int IdLegal, string ParentLegalEntityCode, string ParentLegalEntityName)
+        {
+            ViewBag.LegalEntityCode = ParentLegalEntityCode;
+            ViewBag.LegalEntityName = ParentLegalEntityName;
+            ViewBag.Id = IdLegal;
+            using (HttpClient client = new HttpClient())
+            {
+                //var legalentityalldata = await client.GetAsync(AppUrlConstant.GetLegalEntity);
+                //if (legalentityalldata.IsSuccessStatusCode)
+                //{
+                //    var existingJson = await legalentityalldata.Content.ReadAsStringAsync();
+                //    var parsedResult = JsonConvert.DeserializeObject<LegalEntityResponse>(existingJson);
+                //    var existingData = parsedResult?.Data ?? new List<LegalEntity>();
+                //    bool isDuplicate = existingData.Any(e =>
+                //        e.LegalEntityName.Equals(legalEntity.LegalEntityName, StringComparison.OrdinalIgnoreCase) ||
+                //        e.LegalEntityCode.Equals(legalEntity.LegalEntityCode, StringComparison.OrdinalIgnoreCase) ||
+                //        (!string.IsNullOrEmpty(e.CorporateAccountsCode) &&
+                //         e.CorporateAccountsCode.Equals(legalEntity.CorporateAccountsCode, StringComparison.OrdinalIgnoreCase))
+                //    );
+                //    if (isDuplicate)
+                //    {
+                //        TempData["DuplicateError"] = "Duplicate entry found! Please enter unique Legal Entity Name, Code, or Corporate Account Code.";
+                //        return RedirectToAction("ShowOrganization", new { LegalEntityCode = ParentLegalEntityCode, LegalEntityName = ParentLegalEntityName });
+                //    }
+                //}
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(legalEntity);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddLegalEntity, legalEntity);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    TempData["LegalAdd"] = "Office Add Successfully";
+                }
+                ViewBag.ErrorMessage = "Data not  insert";
+                return RedirectToAction("ShowOrganization", new { LegalEntityCode = ParentLegalEntityCode, LegalEntityName = ParentLegalEntityName });
             }
         }
 

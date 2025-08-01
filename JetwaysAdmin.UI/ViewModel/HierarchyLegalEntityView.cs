@@ -13,9 +13,6 @@ namespace JetwaysAdmin.UI.ViewModel
         public int Level { get; set; }
         public string Status { get; set; }
         public List<HierarchyLegalEntityView> SubEntities { get; set; } = new();
-       
-  
-        //public string Status { get; set; } // "Active" or "Deactivated"
-        //public List<LegalEntity> SubEntities { get; set; } = new();
+        public List<LegalEntity> legalEntityDetail { get; set; } = new();
     }
 }

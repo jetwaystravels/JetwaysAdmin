@@ -113,7 +113,7 @@
                                                                     <label class="switch">
                                                                         <input type="checkbox" name="AppStatus" value="true"
                                                                                id="appStatusCheckbox_@dealCode.SupplierId"
-                                                                        @(dealCode.IsActive ?? false ? "checked" : "")
+                                                                        @(((dealCode.IsActive ?? false) && (dealCode.AppStatus ?? false)) ? "checked" : "")
                                                                                onchange="document.getElementById('appStatusForm_@dealCode.SupplierId').submit();" />
                                                                         <span class="slider round"></span>
                                                                     </label>

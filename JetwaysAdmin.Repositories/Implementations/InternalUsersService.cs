@@ -25,7 +25,9 @@ namespace JetwaysAdmin.Repositories.Implementations
 
         public async Task<IEnumerable<InternalUsers>> GetInternalUsers()
         {
-            return await _internaluser.tb_InternalUsers.ToListAsync();
+            return await _internaluser.tb_InternalUsers
+                               .Where(u => u.WorkLocation == 1)
+                               .ToListAsync();
         }
 
 

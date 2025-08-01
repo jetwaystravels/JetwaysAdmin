@@ -20,7 +20,7 @@ namespace JetwaysAdmin.Entity
         public string? Password { get; set; }
         public string? MobileNumber { get; set; }
         public string? Nationality { get; set; }
-        public string? WorkLocation { get; set; }
+        public int? WorkLocation { get; set; }
         public string? UserType { get; set; }
         public string? SystemIntegrationRef { get; set; }
         public bool? ApprovalDeviationBooking { get; set; } = true;

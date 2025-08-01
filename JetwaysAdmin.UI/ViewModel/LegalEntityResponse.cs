@@ -1,4 +1,5 @@
 ﻿using JetwaysAdmin.Entity;
+using Newtonsoft.Json;
 
 namespace JetwaysAdmin.UI.ViewModel
 {
