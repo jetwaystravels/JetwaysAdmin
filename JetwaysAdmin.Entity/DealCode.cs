@@ -13,7 +13,7 @@ namespace JetwaysAdmin.Entity
         public int DealCodeId { get; set; }
         public string? PCC { get; set; }
         public string? DealCodeName { get; set; }
-        public int? SelectedCredentialId { get; set; }
+        //public int? SelectedCredentialId { get; set; }
         public string? TravelMode { get; set; }
         public string? DealPricingCode { get; set; }
         public string? TourCode { get; set; }

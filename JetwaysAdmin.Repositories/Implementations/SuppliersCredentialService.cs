@@ -1,5 +1,6 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Interface;
+using JetwaysAdmin.Repositories.Migrations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,39 @@ namespace JetwaysAdmin.Repositories.Implementations
         }
         public async Task<IEnumerable<SuppliersCredential>> GetSupplierCredential()
         {
-            return await _context.tb_SuppliersCredential
+            //charan start
+            List<SuppliersCredential> suppliersCredentials = new List<SuppliersCredential>();
+            List<SuppliersCredential> suppliersCredentials1 = new List<SuppliersCredential>();
+            suppliersCredentials1 = await _context.tb_SuppliersCredential
                          .Where(sc => sc.Status == 1)
                          .AsNoTracking()
-                         .ToListAsync();
+            .ToListAsync();
+
+           // var dc = _context.tb_SuppliersDealCode.Where(d => d.AssociatedFareTypes == "Corporate" && d.SupplierId == 1).ToList();
+
+            foreach (var supplier in suppliersCredentials1)
+            {
+                if (supplier.Status == 1)
+                {
+                    string dcodename = string.Empty;
+                    if (_context.tb_SuppliersDealCode.Where(d => d.AssociatedFareTypes == "Corporate" && d.SupplierId == supplier.SupplierId) != null)
+                    {
+                        // Get the deal code name for the supplier
+                         dcodename = _context.tb_SuppliersDealCode.Where(d => d.AssociatedFareTypes == "Corporate" && d.SupplierId == supplier.SupplierId).FirstOrDefault().DealCodeName;
+                       // supplier.DealCodeName = dcodename;
+                    }
+
+                    supplier.DealCodeName = dcodename;
+                    suppliersCredentials.Add(supplier);
+                }
+            }
+            //charan end
+            return suppliersCredentials;
+
+            //return await _context.tb_SuppliersCredential
+            //             .Where(sc => sc.Status == 1)
+            //             .AsNoTracking()
+            //             .ToListAsync();
         }
         public async Task<SuppliersCredential> GetSupplierCredentialById(int Id)
         {

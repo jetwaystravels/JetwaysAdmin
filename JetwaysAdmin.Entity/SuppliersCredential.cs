@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,5 +27,8 @@ namespace JetwaysAdmin.Entity
         // Add Status (1 = Active, 0 = Inactive)
         public int? Status { get; set; } = 1;
         public DateTime CreatedDate { get; set; }= DateTime.Now;
+
+        [NotMapped]
+        public string? DealCodeName { get; set; }
     }
 }

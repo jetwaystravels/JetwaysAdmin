@@ -73,7 +73,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             dealcodeupdate.CabinClass = dealcode.CabinClass ?? dealcodeupdate.CabinClass;
             dealcodeupdate.PCC = dealcode.PCC ?? dealcodeupdate.PCC;
             dealcodeupdate.DealCodeName = dealcode.DealCodeName ?? dealcodeupdate.DealCodeName;
-            dealcodeupdate.SelectedCredentialId = dealcode.SelectedCredentialId ?? dealcodeupdate.SelectedCredentialId;
+           // dealcodeupdate.SelectedCredentialId = dealcode.SelectedCredentialId ?? dealcodeupdate.SelectedCredentialId;
             dealcodeupdate.TravelMode = dealcode.TravelMode ?? dealcodeupdate.TravelMode;
             dealcodeupdate.CabinClass = dealcode.CabinClass ?? dealcodeupdate.CabinClass;
             dealcodeupdate.DealPricingCode = dealcode.DealPricingCode ?? dealcodeupdate.DealPricingCode;
