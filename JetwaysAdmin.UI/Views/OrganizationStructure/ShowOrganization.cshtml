@@ -93,12 +93,19 @@
                                     </div>
                                     <div id="officeList">
                                         <!-- Default office entry (open by default) -->
+                                        @{
+                                            bool isFirst = true;
+                                        }
                                           @foreach (var office in Model)
                                              {
                                         <div class="office-card">
                                             <div class="d-flex justify-content-between align-items-center" style="border-bottom: #ddd 1px solid; padding-bottom: 10px;">
                                                 <div class="col-lg-9" style="padding-left:0;">
-                                                    <strong>Default office</strong>
+                                                        @if (isFirst)
+                                                        {
+                                                            <strong>Head office</strong>
+                                                            isFirst = false;
+                                                        }
                                                         <span class="tag">@office.LegalEntityName</span>
                                                         <span class="tag tag-default">@office.AssignIATAGroup</span>
                                                 </div>
