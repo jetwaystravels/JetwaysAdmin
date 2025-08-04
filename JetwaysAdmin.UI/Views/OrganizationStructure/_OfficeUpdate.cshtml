@@ -4,20 +4,21 @@
     var Data = Model;
     var countryData = ViewBag.CountryList;
 }
-<form class="form-material" asp-controller="OrganizationStructure" asp-action="AddOffice" method="post">
+<form class="form-material" asp-controller="OrganizationStructure" asp-action="EditOffice" method="post">
     <input type="hidden" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
+    <input type="hidden" name="Id" class="form-control" value="@Data.LegalEntitydata[0].Id">
     <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
     <div class="box-ht">
         <div class="form-row">
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="LegalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)" required>
+                <input type="text" name="LegalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)" value="@Data.LegalEntitydata[0].LegalEntityName" readonly>
                 <span class="form-bar"></span>
                 <label class="float-label">Office Entity Name<span>*</span></label>
                 <span id="legalEntityNameError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="LegalEntityCode" value="" id="legalEntityCode" maxlength="10"
-                       oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode(this)" class="form-control" required>
+                <input type="text" name="LegalEntityCode" value="@Data.LegalEntitydata[0].LegalEntityCode" id="legalEntityCode" maxlength="10"
+                       oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode(this)" class="form-control" readonly>
                 <span class="form-bar"></span>
                 <label class="float-label">Office Entity Code</label>
                 <span id="legalEntityCodeError" style="color: red; font-size: 12px;"></span>
@@ -29,7 +30,7 @@
             </div>
             <div class="form-group form-primary col-md-6">
                 <select name="AssignIATAGroup" class="form-control fill" required>
-                    <option value="">Assign IATA Group</option>
+                    <option value="opt1">Assign IATA Group</option>
                     @foreach (var group in Model.IATAGruopName)
                     {
                         <option value="@group.GroupName">@group.GroupName</option>
@@ -39,31 +40,32 @@
                 <label class="float-label">Assign IATA Group</label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="CorporateAccountsCode" maxlength="15" id="corporateCode" oninput="this.value = this.value.replace(/\s/g, ''); validateCorpCode(this)" class="form-control">
+                <input type="text" name="CorporateAccountsCode" maxlength="15" value="@Data.LegalEntitydata[0].CorporateAccountsCode" id="corporateCode" oninput="this.value = this.value.replace(/\s/g, ''); validateCorpCode(this)" class="form-control">
                 <span class="form-bar"></span>
                 <label class="float-label">Corporate Accounts Code</label>
                 <span id="CorporateCodeError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" id="fName" name="FirstName" class="form-control" minlength="3" maxlength="15" oninput="nameValidate(this)">
+                <input type="text"  name="FirstName" value="@Data.LegalEntitydata[0].FirstName" class="form-control">
                 <span class="form-bar"></span>
                 <label class="float-label">First Name</label>
                 <span id="firstNameError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="LastName" id="lName" minlength="3" maxlength="15" oninput="nameValidate(this)" class="form-control">
+
+                <input type="text" name="LastName" id="lName" minlength="3" value="@Data.LegalEntitydata[0].LastName" maxlength="15" oninput="nameValidate(this)" class="form-control">
                 <span class="form-bar"></span>
                 <label class="float-label">Last Name</label>
                 <span id="lastNameError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="BussinesEmail" id="businessEmailInput" maxlength="30" class="form-control" autocomplete="new-email" oninput="validateBusinessEmail(this)">
+                <input type="text" name="BussinesEmail" id="businessEmailInput" maxlength="30" value="@Model.LegalEntitydata.FirstOrDefault()?.BussinesEmail" class="form-control" autocomplete="new-email" oninput="validateBusinessEmail(this)">
                 <span class="form-bar"></span>
                 <label class="float-label">Business Email ID</label>
                 <span id="emailBusinesError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="password" name="Password" minlength="8" maxlength="25" class="form-control" autocomplete="new-password">
+                <input type="password" name="Password" minlength="8" maxlength="25" value="@Model.LegalEntitydata.FirstOrDefault()?.Password" class="form-control" autocomplete="new-password">
                 <span class="form-bar"></span>
                 <label class="float-label">Password</label>
             </div>
@@ -84,13 +86,13 @@
                 <label class="float-label">Country Code</label>
             </div>
             <div class="form-group form-primary col-md-4">
-                <input type="text" name="MobileNumber" id="mobileInput" maxlength="10" class="form-control" oninput="validateMobile(this)">
+                <input type="text" name="MobileNumber" id="mobileInput" maxlength="10" value="@Model.LegalEntitydata.FirstOrDefault()?.MobileNumber" class="form-control" oninput="validateMobile(this)">
                 <span class="form-bar"></span>
                 <label class="float-label">Mobile Number</label>
                 <span id="mobileError" style="color:red; font-size:12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select name="Gender" class="form-control fill">
+                <select name="Gender" class="form-control fill" value="@Model.LegalEntitydata.FirstOrDefault()?.Gender">
                     <option value="opt2">Male</option>
                     <option value="opt3">Female</option>
                 </select>
@@ -98,19 +100,19 @@
                 <label class="float-label">Gender</label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="AddressLine1" maxlength="40" class="form-control" id="addressLine1" oninput="validateAddressLine1(this)" required>
+                <input type="text" name="AddressLine1" maxlength="40" value="@Model.LegalEntitydata.FirstOrDefault()?.AddressLine1" class="form-control" id="addressLine1" oninput="validateAddressLine1(this)">
                 <span class="form-bar"></span>
                 <label class="float-label">Address Line 1<span>*</span></label>
                 <span id="addressError1" style="color:red; font-size:12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="AddressLine2" maxlength="40" class="form-control" id="addressLine2" oninput="validateAddressLine2(this)" required>
+                <input type="text" name="AddressLine2" maxlength="40" value="@Model.LegalEntitydata.FirstOrDefault()?.AddressLine2" class="form-control" id="addressLine2" oninput="validateAddressLine2(this)">
                 <span class="form-bar"></span>
                 <label class="float-label">Address Line 2<span>*</span></label>
                 <span id="addressError2" style="color:red; font-size:12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select id="CountryId" name="Country" class="form-control fill" onchange="loadStates()" required>
+                <select id="CountryId" name="Country" class="form-control fill" value="@Model.LegalEntitydata.FirstOrDefault()?.Country" onchange="loadStates()">
                     <option value="">-- Select Country --</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {
@@ -121,27 +123,27 @@
                 <label class="float-label">Country<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select id="StateId" name="State" class="form-control fill" onchange="loadCities()" required>
+                <select id="StateId" name="State" class="form-control fill" value="@Model.LegalEntitydata.FirstOrDefault()?.State" onchange="loadCities()">
                     <option value="">-- Select State --</option>
                 </select>
                 <span class="form-bar"></span>
                 <label class="float-label">State<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select id="CityId" name="City" class="form-control fill" required>
+                <select id="CityId" name="City" class="form-control fill" value="@Model.LegalEntitydata.FirstOrDefault()?.City">
                     <option value="">-- Select City --</option>
                 </select>
                 <span class="form-bar"></span>
                 <label class="float-label">City<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="PostalCode" maxlength="6" id="postalCodeInput" oninput="this.value = this.value.replace(/\s/g, ''); validatePostalCode(this)" class="form-control" required>
+                <input type="text" name="PostalCode" maxlength="6" id="postalCodeInput" value="@Model.LegalEntitydata.FirstOrDefault()?.PostalCode" oninput="this.value = this.value.replace(/\s/g, ''); validatePostalCode(this)" class="form-control">
                 <span class="form-bar"></span>
                 <label class="float-label">Postal Code<span>*</span></label>
                 <span id="postalCodeError" style="color:red; font-size:12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select name="AccountType" class="form-control fill" required>
+                <select name="AccountType" class="form-control fill" value="@Model.LegalEntitydata.FirstOrDefault()?.AccountType">
                     <option value="opt2">Business</option>
                     <option value="opt3">Personal</option>
                 </select>
@@ -149,25 +151,25 @@
                 <label class="float-label">Account Type<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="IntegrationRefNumber" id="integrationRefInput" maxlength="20" oninput="this.value = this.value.replace(/\s/g, ''); validateIntegrationRef(this)" class="form-control">
+                <input type="text" name="IntegrationRefNumber" id="integrationRefInput" value="@Model.LegalEntitydata.FirstOrDefault()?.IntegrationRefNumber" maxlength="20" oninput="this.value = this.value.replace(/\s/g, ''); validateIntegrationRef(this)" class="form-control">
                 <span class="form-bar"></span>
                 <label class="float-label">Integration Ref. Number</label>
                 <span id="integrationRefError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select name="CustomerBaseCurrency" class="select" id="currencySelect" onchange="updateCurrencyDisplay()" required>
+                <select name="CustomerBaseCurrency" class="select" value="@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCurrency" id="currencySelect" onchange="updateCurrencyDisplay()">
                     <option value="">--Please Select--</option>
-                @foreach (var country in countryData ?? new List<Country>())
-                {
+                    @foreach (var country in countryData ?? new List<Country>())
+                    {
                         <option value="@country.CountryName">@country.CountryName</option>
-                }
+                    }
                 </select>
                 <span class="form-bar"></span>
                 <label class="float-label">Customer Base Currency<span>*</span></label>
             </div>
 
             <div class="form-group form-primary col-md-6">
-                <select name="CustomerBaseCountry" class="select" required>
+                <select name="CustomerBaseCountry" value="@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCountry" class="select">
                     <option value="">--Please Select--</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {
@@ -178,32 +180,32 @@
                 <label class="float-label">Customer Base Country<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input name="TravelDeskEmail" id="travelDeskEmailInput" maxlength="30" class="form-control" type="text" oninput="validateDeskEmail(this)" required>
+                <input name="TravelDeskEmail" id="travelDeskEmailInput" maxlength="30" value="@Model.LegalEntitydata.FirstOrDefault()?.TravelDeskEmail" class="form-control" type="text" oninput="validateDeskEmail(this)">
                 <span class="form-bar"></span>
                 <label class="float-label">Travel Desk Email<span>*</span></label>
                 <span id="emailDeskError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input name="AcountActivationDate" class="form-control date-main" id="activadate" type="text" placeholder="dd-mm-yyyy" onfocus="restrictActivationDate()" onchange="setMinDeactivationDate()" autocomplete="off">
+                <input name="AcountActivationDate" class="form-control date-main" id="activadate"  type="text" placeholder="dd-mm-yyyy" onfocus="restrictActivationDate()" onchange="setMinDeactivationDate()" autocomplete="off">
                 <span class="form-bar"></span>
                 <label class="float-label">Account Activation Date</label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input name="AccountDeactivationDate" class="form-control date-main" id="deactivatedate" type="text" placeholder="dd-mm-yyyy" onfocus="restrictDeactivationDate()" autocomplete="off">
+                <input name="AccountDeactivationDate" class="form-control date-main" id="deactivatedate" value="@Model.LegalEntitydata.FirstOrDefault()?.AccountDeactivationDate?.ToString("dd-MM-yyyy")" type="text" placeholder="dd-mm-yyyy" onfocus="restrictDeactivationDate()" autocomplete="off">
                 <span class="form-bar"></span>
                 <label class="float-label">Account De-activation Date</label>
             </div>
             <div class="form-group form-primary col-md-6">
                 <strong>GST Applicable on Management Fee</strong>
                 <label class="switch m-l-5">
-                    <input type="checkbox" name="GSTApplicableManagementFee">
+                    <input type="checkbox" name="GSTApplicableManagementFee" value="@Model.LegalEntitydata.FirstOrDefault()?.GSTApplicableManagementFee">
                     <span class="slider round"></span>
                 </label>
             </div>
             <div class="form-group form-primary col-md-6">
                 <strong>Pass GST Details to the Airline</strong>
                 <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
-                    <input type="checkbox" name="PassGSTDetailsAirline">
+                    <input type="checkbox" name="PassGSTDetailsAirline" value="@Model.LegalEntitydata.FirstOrDefault()?.PassGSTDetailsAirline">
                     <span class="slider round"></span>
                 </label>
             </div>
@@ -229,10 +231,11 @@
     <div class="form-group form-primary col-md-12 text-right mt-4" style="border-top: #ddd 1px solid; padding-top: 20px;">
         <button type="button"
                 class="btn btn-close btn-danger waves-effect waves-light btn-lg"
-                onclick="event.preventDefault(); $('#addOfficeModal').modal('hide');">
+                onclick="event.preventDefault(); $('#updateOfficeModal').modal('hide');">
             Cancel
         </button>
-        <button id="addUser" class="btn btn-primary waves-effect waves-light  btn-lg">Add Office</button>
+
+        <button id="updateUser" class="btn btn-primary waves-effect waves-light  btn-lg">Update Office</button>
     </div>
 </form>
 <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">

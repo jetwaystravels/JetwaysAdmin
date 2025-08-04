@@ -238,12 +238,12 @@
                                  
                         legalEntityName: legalEntityName,
                         legalEntityCode: legalEntityCode,
-                        Id: legalEntityId
+                        IdLegal: legalEntityId
                     },
                     success: function (response) {
 
                         console.log("Success:", response);
-                        window.location.href = '@Url.Action("ShowOrganization", "OrganizationStructure")' + '?legalEntityName=' + encodeURIComponent(legalEntityName) + '&legalEntityCode=' + encodeURIComponent(legalEntityCode) + '&Id=' + encodeURIComponent(legalEntityId);
+                        window.location.href = '@Url.Action("ShowOrganization", "OrganizationStructure")' + '?legalEntityName=' + encodeURIComponent(legalEntityName) + '&legalEntityCode=' + encodeURIComponent(legalEntityCode) + '&IdLegal=' + encodeURIComponent(legalEntityId);
                     },
                     error: function (xhr, status, error) {
                         console.error("Error:", error);

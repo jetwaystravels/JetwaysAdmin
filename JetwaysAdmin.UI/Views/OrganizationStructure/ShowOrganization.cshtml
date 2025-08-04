@@ -44,10 +44,17 @@
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
-                            @if (TempData["DuplicateError"] != null)
+                           @*  @if (TempData["DuplicateError"] != null)
                             {
                                 <div class="alert alert-danger" style="color:white;background-color:#e74c3c;padding:10px;width:80%;">
                                     <strong>Warning:</strong> @TempData["DuplicateError"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            } *@
+                            @if (TempData["officeupdate_message"] != null)
+                            {
+                                <div class="alert alert-success">
+                                    <strong></strong> @TempData["officeupdate_message"]
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
@@ -67,7 +74,7 @@
                                             <button type="button" class="btn btn-primary btn-lg modl"
                                                     data-legal-entity-code="@ViewBag.LegalEntityCode"
                                                     data-legal-entity-name="@ViewBag.LegalEntityName"
-                                                    data-legal-entity-id="@ViewBag.Id"
+                                                    data-legal-entity-idLegal="@ViewBag.Id"
                                                     data-toggle="modal" data-target="#addOfficeModal"
                                                     style="font-size: 16px; font-weight:600;">
                                                 + Add office
@@ -86,18 +93,19 @@
                                     </div>
                                     <div id="officeList">
                                         <!-- Default office entry (open by default) -->
+                                          @foreach (var office in Model)
+                                             {
                                         <div class="office-card">
                                             <div class="d-flex justify-content-between align-items-center" style="border-bottom: #ddd 1px solid; padding-bottom: 10px;">
                                                 <div class="col-lg-9" style="padding-left:0;">
                                                     <strong>Default office</strong>
-                                                    <span class="tag">New Leaf (US)</span>
-                                                    <span class="tag tag-default">Default office</span>
+                                                        <span class="tag">@office.LegalEntityName</span>
+                                                        <span class="tag tag-default">@office.AssignIATAGroup</span>
                                                 </div>
                                                 <div class="text-primary col-lg-3 text-right"><strong>2 users assigned</strong></div>
                                                 <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
                                             </div>
-                                             @foreach (var office in Model)
-                                             {
+                                           
                                             <div class="details row mt-3" style="display:flex;">
                                                 <div class="col-md-3">
                                                     <div class="map-bx"><img class="img-fluid" src="../assets/images/map-1.png" alt="map"></div>
@@ -110,7 +118,7 @@
                                                                 <p>@office.AddressLine1</p>
                                                                 <p>@office.AddressLine2</p>
                                                                 <p>@office.PostalCode</p>
-                                                                <p><strong>Legal entity:</strong><br>@office.LegalEntityName</p>
+                                                                <p><strong>Office entity name:</strong><br>@office.LegalEntityName</p>
                                                             </div>
                                                       
                                                        
@@ -127,13 +135,22 @@
                                                         
                                                     </div>
                                                     <div class="form-group form-primary col-md-12 m-t-5 text-right">
-                                                        <button class="btn btn-danger waves-effect waves-light">Delete</button>
-                                                        <button class="btn btn-primary waves-effect waves-light">Edit</button>
+                                                            <button class="btn btn-danger waves-effect waves-light">Delete</button>
+                                                            <button class="btn btn-primary waves-effect waves-light"
+                                                                    data-id="@office.Id"
+                                                                    data-idlegal="@ViewBag.Id"
+                                                                    data-legalentitycode="@ViewBag.LegalEntityCode"
+                                                                    data-legalentityname="@ViewBag.LegalEntityName"
+                                                                    data-toggle="modal"
+                                                                    data-target="#updateOfficeModal">
+                                                                Edit
+                                                            </button>
                                                     </div>
                                                 </div>
                                             </div>
-                                             }
+                                            
                                         </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -154,6 +171,20 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-content" id="addOfficeModalContent">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="updateOfficeModal" tabindex="-1" role="dialog" aria-labelledby="updateOfficeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content rounded-4 border-0 shadow-sm">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title font-weight-bold">Update office</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-content" id="updateOfficeModalContent" style="padding:16px;">
                     </div>
                 </div>
             </div>
@@ -193,7 +224,7 @@
                 var button = $(event.relatedTarget); 
                 var legalEntityCode = button.data('legal-entity-code');
                 var legalEntityName = button.data('legal-entity-name');
-                var Id = button.data('legal-entity-id');
+                var IdLegal = button.data('legal-entity-idLegal');
 
                 $.ajax({
                     url: '@Url.Action("ShowOffice", "OrganizationStructure")',
@@ -201,7 +232,7 @@
                     data: {
                         LegalEntityCode: legalEntityCode,
                         LegalEntityName: legalEntityName,
-                        Id:Id
+                        IdLegal: IdLegal
                     },
                     success: function (response) {
                         $('#addOfficeModalContent').html(response);
@@ -213,6 +244,35 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#updateOfficeModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var idLegal = button.data('idlegal');
+                var legalEntityCode = button.data('legalentitycode');
+                var legalEntityName = button.data('legalentityname');
+
+                $.ajax({
+                    url: '@Url.Action("UpdateOffice", "OrganizationStructure")',
+                    type: 'GET',
+                    data: {
+                        Id: id,
+                        IdLegal: idLegal,
+                        LegalEntityCode: legalEntityCode,
+                        LegalEntityName: legalEntityName
+                    },
+                    success: function (response) {
+                        $('#updateOfficeModalContent').html(response);
+                    },
+                    error: function () {
+                        $('#updateOfficeModalContent').html('<div class="p-3 text-danger">Failed to load update form.</div>');
+                    }
+                });
+            });
+        });
+    </script>
+
     <script>
         function loadStates() {
             var selectedCountryId = document.getElementById("CountryId").value;

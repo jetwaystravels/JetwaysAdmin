@@ -75,17 +75,28 @@ namespace JetwaysAdmin.WebAPI.Controllers
             //legalEntityupdate.LegalEntityCode = legalEntity.LegalEntityCode;
             legalEntityupdate.LegalEntityName = legalEntity.LegalEntityName ?? legalEntityupdate.LegalEntityName;
             legalEntityupdate.LegalEntityCode = legalEntity.LegalEntityCode ?? legalEntityupdate.LegalEntityCode;
+            legalEntityupdate.FirstName = legalEntity.FirstName ?? legalEntityupdate.FirstName;
+            legalEntityupdate.LastName = legalEntity.LastName ?? legalEntityupdate.LastName;
+            legalEntityupdate.BussinesEmail = legalEntity.BussinesEmail ?? legalEntityupdate.BussinesEmail;
+            legalEntityupdate.Password = legalEntity.Password ?? legalEntityupdate.Password;
+            legalEntityupdate.MobileNumber = legalEntity.MobileNumber ?? legalEntityupdate.MobileNumber;
+            legalEntityupdate.Gender = legalEntity.Gender ?? legalEntityupdate.Gender;
             legalEntityupdate.AddressLine1 = legalEntity.AddressLine1 ?? legalEntityupdate.AddressLine1;
             legalEntityupdate.AddressLine2 = legalEntity.AddressLine2 ?? legalEntityupdate.AddressLine2;
             legalEntityupdate.City = legalEntity.City ?? legalEntityupdate.City;
             legalEntityupdate.State = legalEntity.State ?? legalEntityupdate.State;
             legalEntityupdate.Country = legalEntity.Country ?? legalEntityupdate.Country;
             legalEntityupdate.PostalCode = legalEntity.PostalCode ?? legalEntityupdate.PostalCode;
+            legalEntityupdate.AccountType = legalEntity.AccountType ?? legalEntityupdate.AccountType;
             legalEntityupdate.IntegrationRefNumber = legalEntity.IntegrationRefNumber ?? legalEntityupdate.IntegrationRefNumber;
             legalEntityupdate.CustomerBaseCurrency = legalEntity.CustomerBaseCurrency ?? legalEntityupdate.CustomerBaseCurrency;
             legalEntityupdate.CustomerBaseCountry = legalEntity.CustomerBaseCountry ?? legalEntityupdate.CustomerBaseCountry;
+            legalEntityupdate.TravelDeskEmail = legalEntity.TravelDeskEmail ?? legalEntityupdate.TravelDeskEmail;
             legalEntityupdate.AcountActivationDate = legalEntity.AcountActivationDate ?? legalEntityupdate.AcountActivationDate;
             legalEntityupdate.AccountDeactivationDate = legalEntity.AccountDeactivationDate ?? legalEntityupdate.AccountDeactivationDate;
+            legalEntityupdate.GSTApplicableManagementFee = legalEntity.GSTApplicableManagementFee ?? legalEntityupdate.GSTApplicableManagementFee;
+            legalEntityupdate.PassGSTDetailsAirline = legalEntity.PassGSTDetailsAirline ?? legalEntityupdate.PassGSTDetailsAirline;
+            legalEntityupdate.AssignIATAGroup = legalEntity.AssignIATAGroup ?? legalEntityupdate.AssignIATAGroup;
             legalEntityupdate.AppStatus = legalEntity.AppStatus ?? legalEntityupdate.AppStatus;
 
 
