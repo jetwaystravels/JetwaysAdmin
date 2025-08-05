@@ -178,7 +178,7 @@ namespace JetwaysAdmin.UI.Controllers
             });
         }
         [HttpPost]
-        public async Task<IActionResult> AddcustomerDealCodes(int supplierId, DealCode dealcode,int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> AddcustomerDealCodes(CustomerDealCode dealcode ,int supplierId,int Id, string LegalEntityCode,string LegalEntityName)
         {
              using (HttpClient client = new HttpClient())
             {

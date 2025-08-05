@@ -49,5 +49,32 @@ namespace JetwaysAdmin.Repositories.Implementations
             _dealCodeRepository.tb_SuppliersDealCode.Update(dealCode);
             await _dealCodeRepository.SaveChangesAsync();
         }
+
+        public async Task AddCustomerDealCode(CustomerDealCode entity)
+        {
+            var customerDealCodes = new CustomerDealCodes
+            {
+                DealCodeID = entity.DealCodeID,
+                LegalEntityCode = entity.LegalEntityCode,
+                SupplierId = entity.SupplierId?.ToString(),
+                DealCodeName = entity.DealCodeName,
+                IATAGroup = entity.IATAGroup.ToString(),
+                TravelType = entity.TravelType,
+                AssociatedFareTypes = entity.AssociatedFareTypes,
+                ExpiryDate = entity.ExpiryDate,
+                DealPricingCode = entity.DealPricingCode,
+                TourCode = entity.TourCode,
+                DealCodeType = entity.DealCodeType,
+                ClassOfSeats = entity.ClassOfSeats,
+                GstMandatory = entity.GstMandatory,
+                StartDate = entity.StartDate ?? DateTime.MinValue,
+                EndDate = entity.EndDate ?? DateTime.MaxValue,
+                BookingType = entity.BookingType,
+                Status = entity.Status?.ToString()
+            };
+
+            await _dealCodeRepository.tb_CustomerDealCodes.AddAsync(customerDealCodes);
+            await _dealCodeRepository.SaveChangesAsync();
+        }
     }
 }

@@ -89,5 +89,16 @@ namespace JetwaysAdmin.WebAPI.Controllers
             await _dealCodeService.UpdateDealCodeById(dealcodeupdate);
             return Ok(new { message = "DealCode updated successfully!" });
         }
+
+        [HttpPost("AddcustomerDealCode")]
+        public async Task<IActionResult> AddCustomerDealCode([FromBody] CustomerDealCode dealCode)
+        {
+            if (dealCode == null)
+                return BadRequest("Invalid data");
+
+            await _dealCodeService.AddCustomerDealCode(dealCode);
+
+            return Ok(new { message = "Customer Deal Code added successfully", id = dealCode.DealCodeID });
+        }
     }
 }

@@ -15,7 +15,8 @@ namespace JetwaysAdmin.Repositories.Interface
         Task<IEnumerable<DealCode>> GetDealCodeSupplierId(int Supplierid);
         Task<DealCode> GetDealCodeById(int DealCodeId);
         Task UpdateDealCodeById(DealCode dealCode);
+        Task AddCustomerDealCode(CustomerDealCode entity);
 
-      
+
     }
 }
