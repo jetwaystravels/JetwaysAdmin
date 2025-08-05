@@ -37,7 +37,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             return View(userAlldetail);
         }
 
-        public async  Task<IActionResult> updateUser(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID, string empId)
+        public async  Task<IActionResult> updateUser(string legalEntityCode, string legalEntityName, string IdLegal, int UserID, string empId)
         {
             CustomersEmployee users = null;
             using (HttpClient client = new HttpClient())
@@ -64,7 +64,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 }
                 TempData["EmplID"] = users.UserID;
                 TempData["EmplName"] = $"{users.FirstName} {users.LastName}";
-                ViewBag.LegalEntityId = legalEntityId;
+                ViewBag.LegalEntityId = IdLegal;
                 ViewBag.LegalEntityName = legalEntityName;
                 ViewBag.LegalEntityCode = legalEntityCode;
                 ViewBag.EUserid = users.UserID;
@@ -95,7 +95,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     return RedirectToAction("updateUser", new
                     {
                         UserID = users.UserID,
-                        legalEntityId = Request.Form["legalEntityId"],
+                        IdLegal = Request.Form["IdLegal"],
                         legalEntityName = Request.Form["legalEntityName"],
                         legalEntityCode = Request.Form["legalEntityCode"]
                     });
@@ -105,7 +105,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
         }
 
         [HttpGet]
-        public async Task<IActionResult> OrganizationUsersProfile(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID, string empId)
+        public async Task<IActionResult> OrganizationUsersProfile(string legalEntityCode, string legalEntityName, string IdLegal, int UserID, string empId)
         {
             List<LegalEntity> legalEntities = new List<LegalEntity>();
             MenuHeaddata legaldata = new MenuHeaddata();
@@ -125,7 +125,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     legaldata.LegalEntitydata = filteredEntities;
                 }
             }
-            ViewBag.LegalEntityId = legalEntityId;
+            ViewBag.LegalEntityId = IdLegal;
             ViewBag.LegalEntityName = legalEntityName;
             ViewBag.LegalEntityCode = legalEntityCode;
             ViewBag.EUserid = UserID;
@@ -162,7 +162,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 return RedirectToAction("ShowUsers", new
                 {
                     UserID = Request.Form["UserID"],
-                    legalEntityId = Request.Form["legalEntityId"],
+                    IdLegal = Request.Form["IdLegal"],
                     legalEntityName = Request.Form["legalEntityName"],
                     legalEntityCode = Request.Form["legalEntityCode"],
                     empId = Request.Form["empId"]
@@ -171,7 +171,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBillingEntity(EmployeeBillingEntity billingentity, int UserID, string legalEntityCode, string legalEntityName, string legalEntityId)
+        public async Task<IActionResult> AddBillingEntity(EmployeeBillingEntity billingentity, int UserID, string legalEntityCode, string legalEntityName, string IdLegal)
         {
           using (HttpClient client = new HttpClient())
             {
@@ -192,7 +192,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 return RedirectToAction("ShowUsers", new
                 {
                     UserID = UserID,
-                    legalEntityId = Request.Form["legalEntityId"],
+                    IdLegal = Request.Form["IdLegal"],
                     legalEntityName = Request.Form["legalEntityName"],
                     legalEntityCode = Request.Form["legalEntityCode"]
                 });

@@ -12,11 +12,11 @@ namespace JetwaysAdmin.UI.Controllers
     {
 
         [ServiceFilter(typeof(LogActionFilter))]
-        public async Task<IActionResult> ShowManageStaff(int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowManageStaff(int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = Id;
+            ViewBag.Id = IdLegal;
             List<InternalUsers> customeremployee = new List<InternalUsers>();
             BookingConsultantDto bookingConsultant = null;
             // List<BookingConsultantDto> bookingConsultants = new();
@@ -69,24 +69,23 @@ namespace JetwaysAdmin.UI.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(LogActionFilter))]
-        public async Task<IActionResult> ManageStaff([FromForm] CustomerManageStaff customermanagestaff, int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ManageStaff([FromForm] CustomerManageStaff customermanagestaff, int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = IdLegal;
             string employeeData = customermanagestaff.BookingConsultant;
-
             var employeeID = employeeData
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(emp => emp.Split('-')[0].Trim())
                 .ToList();
 
             customermanagestaff.BookingConsultant = string.Join(",", employeeID);
-
             using (HttpClient client = new HttpClient())
             {
                 var json = JsonConvert.SerializeObject(customermanagestaff);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-
                 HttpResponseMessage response = await client.PostAsync(AppUrlConstant.ManageStaff, content);
-
                 if (response.IsSuccessStatusCode)
                 {
                     TempData["DataUpdate"] = "User assign successfully";
@@ -95,12 +94,8 @@ namespace JetwaysAdmin.UI.Controllers
                 {
                     TempData["ErrorMessage"] = "User not assign";
                 }
-
-                return RedirectToAction("ShowManageStaff", new { Id = Id, LegalEntityCode = LegalEntityCode, LegalEntityName = LegalEntityName });
+                return RedirectToAction("ShowManageStaff", new { IdLegal = IdLegal, LegalEntityCode = LegalEntityCode, LegalEntityName = LegalEntityName });
             }
         }
-
-
-
     }
 }

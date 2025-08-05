@@ -1,6 +1,6 @@
 ﻿@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
 @{
-    Layout = "~/Views/Shared/_LegalEntities.cshtml";
+    Layout = "~/Views/Shared/OfficeLegalentity.cshtml";
     var Data = Model;
 }
 <style>
@@ -10,7 +10,6 @@
         color: white;
         width:25%;
     }
-
     .closebtn {
         margin-left: 15px;
         color: white;
@@ -21,19 +20,15 @@
         cursor: pointer;
         transition: 0.3s;
     }
-
   .closebtn:hover {
             color: black;
         }
-
     .alert {
         padding: 5px;
         width: 25%;
         margin-bottom: 10px;
         color: white;
-    }
-
-        .alert.success {
+    }  .alert.success {
             background-color: #11c15b;
         }
 

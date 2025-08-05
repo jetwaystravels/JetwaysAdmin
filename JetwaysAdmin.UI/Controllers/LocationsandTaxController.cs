@@ -13,11 +13,11 @@ namespace JetwaysAdmin.UI.Controllers
     public class LocationsandTaxController : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> ShowLocationsandTax(int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowLocationsandTax(int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = Id;
+            ViewBag.Id = IdLegal;
             List<LocationsandTax> locationsandtax = new List<LocationsandTax>();
             using (HttpClient client = new HttpClient())
             {

@@ -16,7 +16,7 @@
                             <div class="pcoded-inner-navbar main-menu">
                                 <div class="">
                                     <div class="main-menu-header">
-                                        <a asp-controller="OrganizationStructure" asp-action="ShowOrganization" asp-route-id="@ViewBag.LegalEntityId" asp-route-legalentitycode="@ViewBag.LegalEntityCode" asp-route-legalentityname="@ViewBag.LegalEntityName" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
+                                        <a asp-controller="OrganizationStructure" asp-action="ShowOrganization" asp-route-IdLegal="@ViewBag.LegalEntityId" asp-route-legalentitycode="@ViewBag.LegalEntityCode" asp-route-legalentityname="@ViewBag.LegalEntityName" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>
                                         <img class="img-80" title="logo" src="../assets/images/customer-logo/default-logo.png" alt="logo">
                                         <h6 style="font-weight:700;">
                                             @if (ViewBag.LegalEntityName != null)
@@ -33,6 +33,7 @@
                                     </div>
                                 </div>
                                 <ul class="pcoded-item pcoded-left-item">
+                                    <!-- ORGANIZATION -->
                                     <li class="pcoded-hasmenu active pcoded-trigger">
                                         <a href="javascript:void(0)" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="fa fa-building" aria-hidden="true"></i></span>
@@ -42,33 +43,233 @@
 
                                         <ul class="pcoded-submenu">
                                             <li class="active">
-                                                <a asp-controller="OrganizationStructure" asp-action="ShowOrganization" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                <a asp-controller="OrganizationStructure" asp-action="ShowOrganization" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                    <span class="pcoded-mtext">Offices</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="LocationsandTax" asp-action="ShowLocationsandTax" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-map-marker"></i></span>
+                                                    <span class="pcoded-mtext">Legal Tax &amp; Payment</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="Departments" asp-action="ShowDepartments" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-percent"></i></span>
+                                                    <span class="pcoded-mtext">Department</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="Designations" asp-action="ShowDesignations" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-percent"></i></span>
+                                                    <span class="pcoded-mtext">Designations</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="Bands" asp-action="ShowBands" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-tags"></i></span>
+                                                    <span class="pcoded-mtext">Bands</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="ProjectCodes" asp-action="ShowProjectCodes" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-code"></i></span>
+                                                    <span class="pcoded-mtext">Project Codes</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="CostCenter" asp-action="ShowCostCenter" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-percent"></i></span>
+                                                    <span class="pcoded-mtext">Cost Center</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="EmploymentTypes" asp-action="ShowEmploymentTypes" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-file-zip-o"></i></span>
+                                                    <span class="pcoded-mtext">Employment Types</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="Budgets" asp-action="ShowBudgets" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-database"></i></span>
+                                                    <span class="pcoded-mtext">Budgets</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="CreditCards" asp-action="ShowCreditCards" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-credit-card-alt"></i></span>
+                                                    <span class="pcoded-mtext">Credit Cards</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- POLICIES & WORKFLOW -->
+                                    <li class="pcoded-hasmenu">
+                                        <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-file-text"></i></span>
+                                            <span class="pcoded-mtext">Policies &amp; Workflow</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+
+                                        <ul class="pcoded-submenu">
+                                            <li>
+                                                <a asp-controller="ApprovalWorkflows" asp-action="ShowApprovalWorkflows" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-percent"></i></span>
+                                                    <span class="pcoded-mtext">Approval Workflows</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="TravelPolicies" asp-action="ShowTravelPolicies" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-envelope"></i></span>
+                                                    <span class="pcoded-mtext">Travel Policies</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="ApprovalPolicies" asp-action="ShowApprovalPolicies" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-cc-jcb"></i></span>
+                                                    <span class="pcoded-mtext">Approval Policies</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- USER -->
+                                    <li class="pcoded-hasmenu">
+                                        <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-user"></i></span>
+                                            <span class="pcoded-mtext">User</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+
+                                        <ul class="pcoded-submenu">
+                                            <li>
+                                                <a asp-controller="Users" asp-action="ShowUsers" asp-route-UserID="@ViewBag.EUserid"
+                                                   asp-route-IdLegal="@ViewBag.LegalEntityId"
+                                                   asp-route-legalEntityName="@ViewBag.LegalEntityName"
+                                                   asp-route-empId="@ViewBag.empId"
+                                                   asp-route-legalEntityCode="@ViewBag.LegalEntityCode"><span class="pcoded-micon"><i class="fa fa-user"></i></span><span class="pcoded-mtext">Manager Users</span></a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="Users" asp-action="OrganizationUsersProfile" asp-route-UserID="@ViewBag.EUserid"
+                                                   asp-route-IdLegal="@ViewBag.LegalEntityId" asp-route-empId="@ViewBag.empId"
+                                                   asp-route-legalEntityName="@ViewBag.LegalEntityName"
+                                                   asp-route-legalEntityCode="@ViewBag.LegalEntityCode"><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Organization Profile</span></a>
+                                            </li>
+                                            <li><a href="#"><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">User Groups</span></a></li>
+                                            <li><a href="#"><span class="pcoded-micon"><i class="fa fa-envelope-o"></i></span><span class="pcoded-mtext">User Invitations</span></a></li>
+                                            <li><a href="#"><span class="pcoded-micon"><i class="fa fa-envelope-o"></i></span><span class="pcoded-mtext">Guest Users</span></a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- JETWAYS CORPORATE MGMT -->
+                                    <li class="pcoded-hasmenu">
+                                        <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-briefcase"></i></span>
+                                            <span class="pcoded-mtext">Jetways Corporate MGMT</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+
+                                        <ul class="pcoded-submenu">
+                                            <li>
+                                                <a asp-controller="Commercials" asp-action="ShowCommercials" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode">
+                                                    <span class="pcoded-micon"><i class="fa fa-code"></i></span>
+                                                    <span class="pcoded-mtext">Commercials</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="IATACommissions" asp-action="ShowIATACommissions" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode">
+                                                    <span class="pcoded-micon"><i class="fa fa-file-text-o"></i></span>
+                                                    <span class="pcoded-mtext">IATA Commissions</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="EmailConfigurations" asp-action="ShowEmailConfigurations" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode">
+                                                    <span class="pcoded-micon"><i class="fa fa-envelope-o"></i></span>
+                                                    <span class="pcoded-mtext">Email Configurations</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="GDSProfile" asp-action="ShowGDSProfile" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode">
+                                                    <span class="pcoded-micon"><i class="fa fa-cc-jcb"></i></span>
+                                                    <span class="pcoded-mtext">GDS Profile</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="SuppliersDealCodes" asp-action="ShowSuppliersDealCodes" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode">
+                                                    <span class="pcoded-micon"><i class="fa fa-handshake-o"></i></span>
+                                                    <span class="pcoded-mtext">Suppliers &amp; Deal Codes</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="AccountConfiguration" asp-action="ShowAccountConfiguration" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode">
+                                                    <span class="pcoded-micon"><i class="fa fa-cogs"></i></span>
+                                                    <span class="pcoded-mtext">Account Configuration</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><span class="pcoded-micon"><i class="fa fa-cogs"></i></span><span class="pcoded-mtext">Payment Settings</span></a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="AccountDetails" asp-action="ShowAccountDetails" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode">
+                                                    <span class="pcoded-micon"><i class="fa fa-vcard"></i></span>
+                                                    <span class="pcoded-mtext">Account Details</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="ManageStaff" asp-action="ShowManageStaff" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode">
+                                                    <span class="pcoded-micon"><i class="fa fa-users"></i></span>
+                                                    <span class="pcoded-mtext">Manage Staff</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                               @*  <ul class="pcoded-item pcoded-left-item">
+                                    <li class="pcoded-hasmenu active pcoded-trigger">
+                                        <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-building" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">Organization</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+
+                                        <ul class="pcoded-submenu">
+                                            <li class="active">
+                                                <a asp-controller="OrganizationStructure" asp-action="ShowOrganization" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                                     <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                     <span class="pcoded-mtext">Offices</span>
                                                     <span class="pcoded-mcaret"></span>
                                                 </a>
                                             </li>
                                             <li class="">
-                                                <a asp-controller="LocationsandTax" asp-action="ShowLocationsandTax" asp-route-Id="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                <a asp-controller="LocationsandTax" asp-action="ShowLocationsandTax" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                                     <span class="pcoded-micon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
                                                     <span class="pcoded-mtext">Legal Tax &amp; Payment</span>
                                                     <span class="pcoded-mcaret"></span>
                                                 </a>
                                             </li>
                                             <li class="">
-                                                <a href="designations.html" class="waves-effect waves-dark">
+                                                <a asp-controller="Departments" asp-action="ShowDepartments" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-percent" aria-hidden="true"></i></span>
+                                                    <span class="pcoded-mtext">Department</span>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                <a asp-controller="Designations" asp-action="ShowDesignations" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                                     <span class="pcoded-micon"><i class="fa fa-percent" aria-hidden="true"></i></span>
                                                     <span class="pcoded-mtext">Designations</span>
                                                 </a>
                                             </li>
                                             <li class=" ">
-                                                <a href="bands.html" class="waves-effect waves-dark">
+                                                <a asp-controller="Bands" asp-action="ShowBands" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                                     <span class="pcoded-micon"><i class="fa fa-tags" aria-hidden="true"></i></span>
                                                     <span class="pcoded-mtext">Bands</span>
                                                 </a>
                                             </li>
                                             <li class="#">
-                                                <a href="project-codes.html" class="waves-effect waves-dark">
+                                                <a asp-controller="ProjectCodes" asp-action="ShowProjectCodes" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                                     <span class="pcoded-micon"><i class="fa fa-code" aria-hidden="true" style="font-weight: 800;"></i></span>
                                                     <span class="pcoded-mtext">Project Codes</span>
                                                 </a>
@@ -196,7 +397,7 @@
                                                 </a>
                                             </li>
                                             <li class="">
-                                                <a href="supplieranddealcodes.html" class="waves-effect waves-dark">
+                                                <a asp-controller="SuppliersDealCodes" asp-action="ShowSuppliersDealCodes" asp-route-IdLegal="@ViewBag.Id" asp-route-LegalEntityName="@ViewBag.LegalEntityName" asp-route-LegalEntityCode="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">
                                                     <span class="pcoded-micon"><i class="fa fa-handshake-o" aria-hidden="true"></i></span>
                                                     <span class="pcoded-mtext">Suppliers &amp; Deal Codes</span>
                                                 </a>
@@ -227,7 +428,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                </ul>
+                                </ul> *@
                                @*  <ul class="pcoded-item pcoded-left-item">
                                     <li class="active">
                                         <a asp-controller="LegalEntity" asp-action="UpdateLegalEntities" asp-route-Id="@ViewBag.Id" asp-route-Name="@ViewBag.LegalEntityName" asp-route-Code="@ViewBag.LegalEntityCode" class="waves-effect waves-dark">

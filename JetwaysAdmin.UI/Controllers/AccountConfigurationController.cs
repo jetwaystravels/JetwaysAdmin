@@ -8,11 +8,11 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class AccountConfigurationController : Controller
     {
-        public async Task<IActionResult> ShowAccountConfiguration(int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowAccountConfiguration(int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = Id;
+            ViewBag.Id = IdLegal;
             return View();
         }
     }

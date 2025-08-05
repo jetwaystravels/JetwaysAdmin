@@ -7,11 +7,11 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class ApprovalWorkflowsController : Controller
     {
-        public async Task<IActionResult> ShowApprovalWorkflows(int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowApprovalWorkflows(int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = Id;
+            ViewBag.Id = IdLegal;
             return View();
         }
     }

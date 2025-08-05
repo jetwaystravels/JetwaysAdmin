@@ -7,11 +7,11 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class EmailConfigurationsController : Controller
     {
-        public async Task<IActionResult> ShowEmailConfigurations(int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowEmailConfigurations(int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = Id;
+            ViewBag.Id = IdLegal;
             return View();
         }
     }

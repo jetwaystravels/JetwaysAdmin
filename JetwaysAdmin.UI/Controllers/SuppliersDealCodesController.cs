@@ -12,11 +12,11 @@ namespace JetwaysAdmin.UI.Controllers
     public class SuppliersDealCodesController : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> ShowSuppliersDealCodes(int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowSuppliersDealCodes(int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = Id;
+            ViewBag.Id = IdLegal;
             List<AddSupplier> supplier = new List<AddSupplier>();
             using (HttpClient client = new HttpClient())
             {
@@ -73,66 +73,66 @@ namespace JetwaysAdmin.UI.Controllers
 
 
         [HttpGet]
-        //public async Task<IActionResult> GetSupplierCredential(int SupplierId,int Id, string LegalEntityCode, string LegalEntityName)
-        //{
-        //    List<SuppliersCredential> allCredentials = new List<SuppliersCredential>();
-        //    List<SuppliersCredential> filteredCredentials = new List<SuppliersCredential>();
-        //    List<DealCode> dealcode = new List<DealCode>();
-        //    List<DealCode> filtereddealcode = new List<DealCode>();
-        //    using (HttpClient client = new HttpClient())
-        //    {
-        //        string url = $"{AppUrlConstant.GetSupplierCredential}";
-        //        var response = await client.GetAsync(url);
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            var result = await response.Content.ReadAsStringAsync();
-        //            allCredentials = JsonConvert.DeserializeObject<List<SuppliersCredential>>(result);
-        //            filteredCredentials = allCredentials
-        //           .Where(c => int.TryParse(c.SupplierCode, out int code) && code == SupplierId)
-        //             .ToList();
-        //        }
+        public async Task<IActionResult> GetSupplierCredential(int SupplierId, int Id, string LegalEntityCode, string LegalEntityName)
+        {
+            List<SuppliersCredential> allCredentials = new List<SuppliersCredential>();
+            List<SuppliersCredential> filteredCredentials = new List<SuppliersCredential>();
+            List<DealCode> dealcode = new List<DealCode>();
+            List<DealCode> filtereddealcode = new List<DealCode>();
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetSupplierCredential}";
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    allCredentials = JsonConvert.DeserializeObject<List<SuppliersCredential>>(result);
+                    filteredCredentials = allCredentials
+                   .Where(c => c.SupplierId.HasValue && c.SupplierId.Value == SupplierId)
+        .ToList();
+                }
 
-        //        url = $"{AppUrlConstant.GetDealCodeSupplierId}/?SupplierId={SupplierId}";
+                url = $"{AppUrlConstant.GetDealCodeSupplierId}/?SupplierId={SupplierId}";
 
-        //        var dealresponse = await client.GetAsync(url);
-        //        if (dealresponse.IsSuccessStatusCode)
-        //        {
-        //            var result = await dealresponse.Content.ReadAsStringAsync();
-        //            dealcode = JsonConvert.DeserializeObject<List<DealCode>>(result);
-        //            filtereddealcode = dealcode
-        //            .Where(c => int.TryParse(c.SupplierCode, out int code) && code == SupplierId)
-        //             .ToList();
-        //        }
-        //    }
-        //    var dealCode = new MenuHeaddata
-        //    {
-        //        supplierscredential = filteredCredentials,
-        //        DealCodeView = filtereddealcode
+                var dealresponse = await client.GetAsync(url);
+                if (dealresponse.IsSuccessStatusCode)
+                {
+                    var result = await dealresponse.Content.ReadAsStringAsync();
+                    dealcode = JsonConvert.DeserializeObject<List<DealCode>>(result);
+                    filtereddealcode = dealcode
+                    .Where(c => c.SupplierId.HasValue && c.SupplierId.Value == SupplierId)
+        .ToList();
+                }
+            }
+            var dealCode = new MenuHeaddata
+            {
+                supplierscredential = filteredCredentials,
+                DealCodeView = filtereddealcode
 
-        //    };
-        //    ViewBag.SupplierCode = SupplierId;
-        //    ViewBag.LegalEntityCode = LegalEntityCode;
-        //    ViewBag.LegalEntityName = LegalEntityName;
-        //    ViewBag.Id = Id;
-        //    return View(dealCode); 
-        //}
-        //public async Task<IActionResult> UpdateSupplierCredential(int Id, string Code, string Name)
-        //{
-        //    SuppliersCredential credentailupdate = null;
-        //    using (HttpClient client = new HttpClient())
-        //    {
-        //        string url = $"{AppUrlConstant.GetSupplierCredentialID}/{Id}";
-        //        var response = await client.GetAsync(url);
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            var result = await response.Content.ReadAsStringAsync();
-        //            credentailupdate = JsonConvert.DeserializeObject<SuppliersCredential>(result);
-        //        }
-        //    }
-        //    ViewBag.LegalEntityCode = Code;
-        //    ViewBag.LegalEntityName = Name;
-        //    return View(credentailupdate);
-        //}
+            };
+            ViewBag.SupplierId = SupplierId;
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = Id;
+            return View(dealCode);
+        }
+        public async Task<IActionResult> UpdateSupplierCredential(int Id, string Code, string Name)
+        {
+            SuppliersCredential credentailupdate = null;
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetSupplierCredentialID}/{Id}";
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    credentailupdate = JsonConvert.DeserializeObject<SuppliersCredential>(result);
+                }
+            }
+            ViewBag.LegalEntityCode = Code;
+            ViewBag.LegalEntityName = Name;
+            return View(credentailupdate);
+        }
         [HttpPost]
         public async Task<IActionResult> EditSupplierCredential(SuppliersCredential supplierscredential,int Id, string LegalEntityCode, string LegalEntityName)
         {
@@ -178,13 +178,13 @@ namespace JetwaysAdmin.UI.Controllers
             });
         }
         [HttpPost]
-        public async Task<IActionResult> AddDealCodes(int supplierId, DealCode dealcode,int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> AddcustomerDealCodes(int supplierId, DealCode dealcode,int Id, string LegalEntityCode, string LegalEntityName)
         {
              using (HttpClient client = new HttpClient())
             {
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(dealcode);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddDealCode, dealcode);
+                HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddcustomerDealCode, dealcode);
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();

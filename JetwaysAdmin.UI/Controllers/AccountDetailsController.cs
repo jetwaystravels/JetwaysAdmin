@@ -9,13 +9,12 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class AccountDetailsController : Controller
     {
-        public async Task<IActionResult> ShowAccountDetails(int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowAccountDetails(int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = Id;
+            ViewBag.Id = IdLegal;
             List<IATAGroupView> iataGroups = new List<IATAGroupView>();
-
             using (HttpClient client = new HttpClient())
             {
                 var iataResponse = await client.GetAsync(AppUrlConstant.GetIATAGroup);
