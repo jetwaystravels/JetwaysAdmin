@@ -41,6 +41,14 @@ namespace JetwaysAdmin.Repositories.Implementations
 				Cities = cities
 			};
 		}
-	}
+
+        public AddressCountryState GetAllStates()
+        {
+            return new AddressCountryState
+            {
+                States = _context.tb_State.ToList()
+            };
+        }
+    }
 
 }

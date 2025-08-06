@@ -1,7 +1,9 @@
-﻿@model JetwaysAdmin.Entity.LocationsandTax
+﻿@using JetwaysAdmin.Entity
+@model JetwaysAdmin.Entity.LocationsandTax
 @{
-    Layout = "~/Views/Shared/_LegalEntities.cshtml";
+    Layout = "~/Views/Shared/OfficeLegalentity.cshtml";
     var Data = Model;
+    var countryData = ViewBag.CountryList;
 }
 <main id="main" class="main">
     <div class="pcoded-main-container">
@@ -49,7 +51,7 @@
                                     <form asp-controller="LocationsandTax" asp-action="EditLocationTax" method="post" class="form-material form-row">
                                          <input type="hidden" id="LegalEntityCode" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" />
                                         <input type="hidden" id="LegalEntityName" name="LegalEntityName" value="@ViewBag.LegalEntityName" />
-                                        <input type="hidden" id="Id" name="IdParent" value="@ViewBag.Id" />
+                                        <input type="hidden" id="Id" name="IdLegal" value="@ViewBag.Id" />
                                         <input type="hidden" name="LocationID" value="@Data.LocationID" />
                                         <div class="form-group form-primary col-md-6">
                                             <input type="text" name="LocationName" value="@Data.LocationName" class="form-control" required>
@@ -72,29 +74,22 @@
                                             <label class="float-label">Address Line 2</label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <select class="select" name="Country">
-                                                <option value="">Country*</option>
-                                                <option value="India">India</option>
-                                                <option value="AL">Afghanistan</option>
-                                                <option value="DZ">Akrotiri and Dhekelia</option>
-                                                <option value="AO">Aland Island</option>
-                                                <option value="AR">Albania</option>
-                                                <option value="AM">Algeria</option>
-                                                <option value="AW">American Samoa</option>
-                                                <option value="AU">Andorra</option>
-                                                <option value="AZ">Angola</option>
+                                            <select id="CountryId" name="Country" class="form-control fill" onchange="loadStates()" required>
+                                                <option value="">-- Select Country --</option>
+                                                @foreach (var country in countryData ?? new List<Country>())
+                                                {
+                                                    <option value="@country.CountryID">@country.CountryName</option>
+                                                }
                                             </select>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <select class="select" name="State">
-                                                <option value="">State*</option>
-                                                <option value="Delhi">Delhi</option>
+                                            <select id="StateId" name="State" class="form-control fill" onchange="loadCities()" required>
+                                                <option value="">-- Select State --</option>
                                             </select>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <select class="select" name="City">
-                                                <option value="">City*</option>
-                                                <option value="Delhi">Delhi</option>
+                                            <select id="CityId" name="City" class="form-control fill" required>
+                                                <option value="">-- Select City --</option>
                                             </select>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
@@ -178,15 +173,6 @@
                                             <label class="float-label"></label>
                                         </div>
                                         <div class="form-group form-primary col-md-12 m-t-10" style="border-top:1px solid #dee2e6;"></div>
-                                        <div class="form-group form-primary col-md-3">
-                                         <input type="text" name="LocationHead" class="form-control" value="@Data.LocationHead" placeholder="Assign Location Head">
-                                        </div>
-                                        <div class="form-group form-primary col-md-3">
-                                         <input type="text" name="LocationManager1" class="form-control" value="@Data.LocationManager1" placeholder="Assign Location Manager1">
-                                        </div>
-                                        <div class="form-group form-primary col-md-3">
-                                        <input type="text" name="LocationManager2" class="form-control" value="@Data.LocationManager2" placeholder="Assign Location Manager2">
-                                        </div>
                                         <div class="form-group form-primary col-md-12">
                                             <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
                                             <button class="btn btn-danger waves-effect waves-light">Cancel</button>
@@ -203,3 +189,40 @@
     </div>
 </main>
 
+<script>
+    function loadStates() {
+        var selectedCountryId = document.getElementById("CountryId").value;
+        if (selectedCountryId) {
+            fetch('/LocationsandTax/LoadStates?countryId=' + selectedCountryId, {
+                method: 'GET'
+            })
+                .then(response => response.json())
+                .then(states => {
+                    const stateSelect = document.getElementById("StateId");
+                    stateSelect.innerHTML = '<option value="">-- Select State --</option>';
+                    states.forEach(function (state) {
+                        const option = document.createElement("option");
+                        option.value = state.stateID;
+                        option.text = state.stateName;
+                        stateSelect.appendChild(option);
+                    });
+                });
+        }
+    }
+    function loadCities() {
+        var stateId = document.getElementById("StateId").value;
+        fetch('/LocationsandTax/LoadCities?stateId=' + stateId)
+            .then(response => response.json())
+            .then(cities => {
+                var citySelect = document.getElementById("CityId");
+                citySelect.innerHTML = '<option value="">-- Select City --</option>';
+
+                cities.forEach(function (city) {
+                    var option = document.createElement("option");
+                    option.value = city.cityID;
+                    option.text = city.cityName;
+                    citySelect.appendChild(option);
+                });
+            });
+    }
+</script>

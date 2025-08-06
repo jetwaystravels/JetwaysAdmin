@@ -92,13 +92,40 @@ namespace JetwaysAdmin.UI.Controllers
         .ToList();
                 }
 
-                url = $"{AppUrlConstant.GetDealCodeSupplierId}/?SupplierId={SupplierId}";
+                //url = $"{AppUrlConstant.GetDealCodeSupplierId}/?SupplierId={SupplierId}";
+                url = $"{AppUrlConstant.GetcustomerDealCode}/?SupplierId={SupplierId}&LegalEntityCode={LegalEntityCode}";
+
 
                 var dealresponse = await client.GetAsync(url);
                 if (dealresponse.IsSuccessStatusCode)
                 {
                     var result = await dealresponse.Content.ReadAsStringAsync();
-                    dealcode = JsonConvert.DeserializeObject<List<DealCode>>(result);
+
+                    // Fix for CS0029 and CS8600  
+                    dealcode = JsonConvert.DeserializeObject<List<CustomerDealCode>>(result)
+                       ?.Select(c => new DealCode
+                       {
+                           DealCodeId = c.DealCodeID,
+                           PCC = null, // Map appropriately if needed  
+                           DealCodeName = c.DealCodeName,
+                           TravelMode = null, // Map appropriately if needed  
+                           DealPricingCode = c.DealPricingCode,
+                           TourCode = c.TourCode,
+                           AssociatedFareTypes = c.AssociatedFareTypes,
+                           CabinClass = c.ClassOfSeats,
+                           DefaultValue = null, // Map appropriately if needed  
+                           ClassOfSeats = c.ClassOfSeats,
+                           SupplierId = c.SupplierId,
+                           AutoEnableDealCode = null, // Map appropriately if needed  
+                           GSTMandatory = c.GstMandatory,
+                           OverrideCustomerGST = null, // Map appropriately if needed  
+                           BookingType = c.BookingType,
+                           StartDate = c.StartDate ?? DateTime.MinValue, // Handle nullability  
+                           ExpiryDate = c.EndDate
+                       }).ToList() ?? new List<DealCode>();
+
+                    // Fix for CS0029 and CS8600  
+                  
                     filtereddealcode = dealcode
                     .Where(c => c.SupplierId.HasValue && c.SupplierId.Value == SupplierId)
         .ToList();
@@ -187,7 +214,11 @@ namespace JetwaysAdmin.UI.Controllers
                 HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddcustomerDealCode, dealcode);
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadAsStringAsync();
+                    TempData["SuccessMessage"] = "Deal code saved successfully!";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Failed to save deal code. Please try again.";
                 }
             }
             return RedirectToAction("GetSupplierCredential", new

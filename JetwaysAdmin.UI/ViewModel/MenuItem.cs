@@ -38,6 +38,7 @@ namespace JetwaysAdmin.UI.ViewModel
         public List<DealCode> DealCodeView { get; set; }
         public BookingConsultantDto BookingConsultants { get; set; }
         public List<LocationsandTax> LocationandTax { get; set; }
+        public List<State> Statedata { get; set;}
 
     }
 

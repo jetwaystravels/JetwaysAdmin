@@ -47,6 +47,15 @@ namespace JetwaysAdmin.WebAPI.Controllers
             }
             return Ok(customerLocationsandTax);
         }
+
+
+        [HttpGet]
+        [Route("GetLocationsandTaxALL")]
+        public async Task<ActionResult<IEnumerable<LocationsandTax>>> GetLocationsandTaxALL()
+        {
+            var legalEntities = await _locationsandtax.GetLocationsandTaxALL();
+            return Ok(legalEntities);
+        }
         [HttpGet("{LocationID}")]
         public async Task<ActionResult<LocationsandTax>> GetLocationTaxById(int LocationID)
         {

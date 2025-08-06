@@ -302,5 +302,27 @@
             }
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentUrl = window.location.pathname.toLowerCase();
+            const sidebarLinks = document.querySelectorAll(".pcoded-item a");
+
+            sidebarLinks.forEach(function (link) {
+                const linkPath = link.pathname.toLowerCase();
+                if (currentUrl === linkPath || currentUrl.startsWith(linkPath)) {
+                    link.classList.add("active");
+                    const parentLi = link.closest("li.pcoded-hasmenu");
+                    if (parentLi) {
+                        parentLi.classList.add("pcoded-trigger", "active");
+                    }
+                    const subLi = link.closest("li");
+                    if (subLi) {
+                        subLi.classList.add("active");
+                    }
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>

@@ -40,6 +40,19 @@ namespace JetwaysAdmin.Repositories.Implementations
 
             // return await _dealCodeRepository.tb_DealCode.ToListAsync();
         }
+
+        public async Task<IEnumerable<DealCode>> GetcoustomerDealCode(int SupplierId)
+        {
+
+            var empParam = new SqlParameter("@supplierid", SupplierId);
+
+            return await _dealCodeRepository
+                .Set<DealCode>()
+                .FromSqlRaw("EXEC sp_GetDealsBySupplierId @supplierid", empParam)
+                .ToListAsync();
+
+            // return await _dealCodeRepository.tb_DealCode.ToListAsync();
+        }
         public async Task<DealCode> GetDealCodeById(int DealCodeId)
         {
             return await _dealCodeRepository.tb_SuppliersDealCode.FirstOrDefaultAsync(e => e.DealCodeId == DealCodeId);
@@ -56,9 +69,9 @@ namespace JetwaysAdmin.Repositories.Implementations
             {
                 DealCodeID = entity.DealCodeID,
                 LegalEntityCode = entity.LegalEntityCode,
-                SupplierId = entity.SupplierId?.ToString(),
+                SupplierId = entity.SupplierId.Value,
                 DealCodeName = entity.DealCodeName,
-                IATAGroup = entity.IATAGroup.ToString(),
+                IATAGroup = entity.IATAGroup,
                 TravelType = entity.TravelType,
                 AssociatedFareTypes = entity.AssociatedFareTypes,
                 ExpiryDate = entity.ExpiryDate,
@@ -70,11 +83,22 @@ namespace JetwaysAdmin.Repositories.Implementations
                 StartDate = entity.StartDate ?? DateTime.MinValue,
                 EndDate = entity.EndDate ?? DateTime.MaxValue,
                 BookingType = entity.BookingType,
-                Status = entity.Status?.ToString()
+                Status = entity.Status.Value
             };
 
             await _dealCodeRepository.tb_CustomerDealCodes.AddAsync(customerDealCodes);
             await _dealCodeRepository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<CustomerDealCodes>> GetcustomerDealCode(int Supplierid, string legalentity)
+        {
+            var supplierIdParam = new SqlParameter("@supplierid", Supplierid);
+            var legalEntityParam = new SqlParameter("@legalentity", legalentity);
+
+            return await _dealCodeRepository
+                .Set<CustomerDealCodes>()
+                .FromSqlRaw("EXEC sp_GetCustomerDealCodes @supplierid, @legalentity", supplierIdParam, legalEntityParam)
+                .ToListAsync();
         }
     }
 }

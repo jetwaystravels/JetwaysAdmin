@@ -19,6 +19,8 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.LegalEntityName = LegalEntityName;
             ViewBag.Id = IdLegal;
             List<LocationsandTax> locationsandtax = new List<LocationsandTax>();
+            List<State> state = new List<State>();
+            var countryList = new List<Country>();
             using (HttpClient client = new HttpClient())
             {
                 string requestUrl = $"{AppUrlConstant.GetLoactionTax}?LegalEntityCode={LegalEntityCode}";
@@ -28,16 +30,70 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await userresponse.Content.ReadAsStringAsync();
                     locationsandtax = JsonConvert.DeserializeObject<List<LocationsandTax>>(result);
                 }
+                string stateurl = $"{AppUrlConstant.GetSate}";
+                var stateresponse = await client.GetAsync(stateurl);
+                if (stateresponse.IsSuccessStatusCode)
+                {
+                    var stateresult = await stateresponse.Content.ReadAsStringAsync();
+                    state = JsonConvert.DeserializeObject<List<State>>(stateresult);
+                }
+                var countryResponse = await client.GetAsync(AppUrlConstant.GetCountry);
+                if (countryResponse.IsSuccessStatusCode)
+                {
+                    var result = await countryResponse.Content.ReadAsStringAsync();
+                    countryList = JsonConvert.DeserializeObject<List<Country>>(result);
+                }
             }
             var locationtax = new MenuHeaddata
             {
-                LocationandTax = locationsandtax
+                LocationandTax = locationsandtax,
+                Statedata=state
+
             };
+            ViewBag.CountryList = countryList;
             return View(locationtax);
         }
+        [HttpGet]
+        public async Task<IActionResult> LoadStates(int CountryId)
+        {
+            List<State> states = new();
+
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetSate}/{CountryId}";
+                var response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    states = JsonConvert.DeserializeObject<List<State>>(json);
+                }
+            }
+
+            return Json(states);
+        }
+        [HttpGet]
+        public async Task<IActionResult> LoadCities(int stateId)
+        {
+            List<City> cities = new();
+
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetCity}/{stateId}";
+                var response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    cities = JsonConvert.DeserializeObject<List<City>>(json);
+                }
+            }
+            return Json(cities);
+        }
+
 
         [HttpPost]
-        public async Task<IActionResult> AddTaxLocation(LocationsandTax locationsandaax,int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> AddTaxLocation(LocationsandTax locationsandaax,int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
 
             using (HttpClient client = new HttpClient())
@@ -55,7 +111,7 @@ namespace JetwaysAdmin.UI.Controllers
                     {
                         LegalEntityName = LegalEntityName,
                         LegalEntityCode = LegalEntityCode,
-                        Id = Id
+                        IdLegal = IdLegal
                     });
                 }
                 else
@@ -65,17 +121,18 @@ namespace JetwaysAdmin.UI.Controllers
                     {
                         LegalEntityName = LegalEntityName,
                         LegalEntityCode = LegalEntityCode,
-                        Id = Id
+                        IdLegal = IdLegal
                     });
                 }
             }
 
         }
         
-        public async Task<IActionResult> UpdateLocationTax(int LocationID, int Id, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> UpdateLocationTax(int LocationID, int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
            
             LocationsandTax locationtax = null;
+            var countryList = new List<Country>();
             using (HttpClient client = new HttpClient())
             {
                 string url = $"{AppUrlConstant.GetLoactionTaxID}/{LocationID}";
@@ -85,15 +142,22 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await response.Content.ReadAsStringAsync();
                     locationtax = JsonConvert.DeserializeObject<LocationsandTax>(result);
                 }
+                var countryResponse = await client.GetAsync(AppUrlConstant.GetCountry);
+                if (countryResponse.IsSuccessStatusCode)
+                {
+                    var result = await countryResponse.Content.ReadAsStringAsync();
+                    countryList = JsonConvert.DeserializeObject<List<Country>>(result);
+                }
             }
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = Id;
+            ViewBag.Id = IdLegal;
+            ViewBag.CountryList = countryList;
             return View(locationtax);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditLocationTax(LocationsandTax locationsandtax, int IdParent, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> EditLocationTax(LocationsandTax locationsandtax, int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -107,7 +171,7 @@ namespace JetwaysAdmin.UI.Controllers
                     return RedirectToAction("UpdateLocationTax", new
                     {
                         LocationID = locationsandtax.LocationID,
-                        Id= IdParent,
+                        IdLegal = IdLegal,
                         LegalEntityCode= LegalEntityCode,
                         LegalEntityName= LegalEntityName
                     });
@@ -115,7 +179,7 @@ namespace JetwaysAdmin.UI.Controllers
             }
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = IdParent;
+            ViewBag.Id = IdLegal;
             return View();
         }
     }

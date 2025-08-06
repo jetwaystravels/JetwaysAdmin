@@ -20,7 +20,7 @@ namespace JetwaysAdmin.Entity
         public int IATAGroup { get; set; }
         public string TravelType { get; set; }
         public string AssociatedFareTypes { get; set; }
-        public DateTime ExpiryDate { get; set; }
+        public DateTime? ExpiryDate { get; set; }
         public string DealPricingCode { get; set; }
         public string TourCode { get; set; }
         public string DealCodeType { get; set; }

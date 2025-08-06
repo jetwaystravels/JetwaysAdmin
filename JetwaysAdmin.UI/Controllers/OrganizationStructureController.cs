@@ -57,7 +57,7 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.Id = IdLegal;
             var iataGroups = new List<IATAGroupView>();
             var countryList = new List<Country>();
-
+            List<LocationsandTax> locationsandtax = new List<LocationsandTax>();
             using (HttpClient client = new HttpClient())
             {
                 var iataResponse = await client.GetAsync(AppUrlConstant.GetIATAGroup);
@@ -73,11 +73,19 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await countryResponse.Content.ReadAsStringAsync();
                     countryList = JsonConvert.DeserializeObject<List<Country>>(result);
                 }
+                string requestUrl = $"{AppUrlConstant.GetLoactionTaxAll}";
+                var userresponse = await client.GetAsync(requestUrl);
+                if (userresponse.IsSuccessStatusCode)
+                  {
+                  var result = await userresponse.Content.ReadAsStringAsync();
+                  locationsandtax = JsonConvert.DeserializeObject<List<LocationsandTax>>(result);
+                 } 
             }
 
             var viewModel = new MenuHeaddata
             {
                 IATAGruopName = iataGroups,
+                LocationandTax = locationsandtax
             };
             ViewBag.CountryList = countryList;
             return PartialView("_OfficeModel", viewModel);

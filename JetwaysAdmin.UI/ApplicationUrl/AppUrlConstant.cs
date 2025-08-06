@@ -70,6 +70,7 @@
         public static string AddBillingEntity = BaseURL + "api/EmployeeBillingEntityAPI/AddBillingEntity";
         public static string AddLoactionTax = BaseURL + "api/LocationsandTaxAPI/AddLocationsandTax";
         public static string GetLoactionTax = BaseURL + "api/LocationsandTaxAPI/GetLocationsandTax";
+        public static string GetLoactionTaxAll = BaseURL + "api/LocationsandTaxAPI/GetLocationsandTaxALL";
         public static string GetLoactionTaxID = BaseURL + "api/LocationsandTaxAPI";
         public static string EditLoactionTaxID = BaseURL + "api/LocationsandTaxAPI";
         public static string GetCountry = BaseURL + "api/LocationAPI/countries";
@@ -83,6 +84,7 @@
         public static string GetDealCode = BaseURL + "api/DealCodeAPI/GetDealCode";
         public static string GetDealCodeID = BaseURL + "api/DealCodeAPI";
         public static string GetDealCodeSupplierId = BaseURL + "api/DealCodeAPI/GetDealCodeSupplierId";
+        public static string GetcustomerDealCode = BaseURL + "api/DealCodeAPI/GetcustomerDealCode";
 
         #endregion
 

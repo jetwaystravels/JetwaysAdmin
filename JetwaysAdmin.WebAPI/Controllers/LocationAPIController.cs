@@ -36,5 +36,12 @@ namespace JetwaysAdmin.WebAPI.Controllers
 			var data = _locationService.GetByStateId(stateId);
 			return Ok(data.Cities); 
 		}
-	}
+        [HttpGet]
+        [Route("states")]
+        public IActionResult GetAllStates()
+        {
+            var data = _locationService.GetAllStates();
+            return Ok(data.States);
+        }
+    }
 }

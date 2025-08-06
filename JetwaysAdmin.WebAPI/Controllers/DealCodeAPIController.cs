@@ -90,6 +90,25 @@ namespace JetwaysAdmin.WebAPI.Controllers
             return Ok(new { message = "DealCode updated successfully!" });
         }
 
+        [HttpGet("GetcustomerDealCode")]
+        public async Task<IActionResult> GetcustomerDealCode([FromQuery] int supplierId, [FromQuery] string legalEntityCode)
+        {
+            if (supplierId <= 0 || string.IsNullOrEmpty(legalEntityCode))
+            {
+                return BadRequest("SupplierId and LegalEntityCode are required.");
+            }
+
+            var dealCodes = await _dealCodeService.GetcustomerDealCode(supplierId, legalEntityCode);
+
+            if (dealCodes == null || !dealCodes.Any())
+            {
+                return NotFound("No deal codes found for the given parameters.");
+            }
+
+            return Ok(dealCodes);
+        }
+
+
         [HttpPost("AddcustomerDealCode")]
         public async Task<IActionResult> AddCustomerDealCode([FromBody] CustomerDealCode dealCode)
         {

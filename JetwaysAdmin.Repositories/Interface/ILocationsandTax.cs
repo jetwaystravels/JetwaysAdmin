@@ -11,6 +11,7 @@ namespace JetwaysAdmin.Repositories.Interface
     {
         Task AddLocationTax(LocationsandTax locationTax);
         Task<IEnumerable<LocationsandTax>> GetLocationsandTaxByLegalEntity(string legalEntityCode);
+        Task<IEnumerable<LocationsandTax>> GetLocationsandTaxALL();
         Task<LocationsandTax> GetLocationTaxById(int locationId);
         Task UpdateLocationTax(LocationsandTax locationsandtax);
     }

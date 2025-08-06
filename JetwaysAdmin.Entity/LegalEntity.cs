@@ -10,15 +10,12 @@ namespace JetwaysAdmin.Entity
         [Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         public string? LegalEntityName { get; set; }
-
         public string? LegalEntityCode { get; set; }
-
         public string? ParentLegalEntityCode { get; set; }
-
+        public int? GSTLocationID { get; set; }
+        public string? FinancialPersonalCode { get; set; } 
         public string? AssignIATAGroup { get; set; }
-
         public string? CorporateAccountsCode { get; set; }
 
         [MaxLength(50)]

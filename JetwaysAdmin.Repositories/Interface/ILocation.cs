@@ -10,7 +10,8 @@ namespace JetwaysAdmin.Repositories.Interface
 	public interface ILocation<T>
 	{
 		T GetAll();
-		T GetByCountryId(int countryId);
+        T GetAllStates();
+        T GetByCountryId(int countryId);
 		T GetByStateId(int stateId);
 	}
 }

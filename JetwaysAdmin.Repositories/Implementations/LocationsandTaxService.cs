@@ -35,6 +35,12 @@ namespace JetwaysAdmin.Repositories.Implementations
             return await _addtax.tb_CustomerLocationTaxDetails
                 .FirstOrDefaultAsync(emp => emp.LocationID == locationId);
         }
+
+        public async Task<IEnumerable<LocationsandTax>> GetLocationsandTaxALL()
+        {
+            return await _addtax.tb_CustomerLocationTaxDetails.ToListAsync();
+
+        }
         public async Task UpdateLocationTax(LocationsandTax locationsandtax)
         {
             _addtax.tb_CustomerLocationTaxDetails.Update(locationsandtax);

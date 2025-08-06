@@ -23,13 +23,17 @@
                 <span id="legalEntityCodeError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="financialPersonalCode" class="form-control">
+                <input type="text" name="FinancialPersonalCode" oninput="this.value = this.value.replace(/\s/g, '');" class="form-control">
                 <span class="form-bar"></span>
                 <label class="float-label">Financial personal code</label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select name="SelectGSTTax" class="form-control fill">
+                <select name="GSTLocationID" class="form-control fill">
                     <option value="">Select GST Tax</option>
+                    @foreach (var location in Model.LocationandTax)
+                    {
+                        <option value="@location.LocationID">@location.LocationName</option>
+                    }
                 </select>
                 <span class="form-bar"></span>
             </div>
