@@ -25,8 +25,8 @@ namespace JetwaysAdmin.Entity
         public decimal? Latitude { get; set; }
         [Column(TypeName = "decimal(18,10)")]
         public decimal? Longitude { get; set; }
-        public bool? GSTRegistered { get; set; }
-        public bool? UINRegistered { get; set; }
+        public string? GSTRegistered { get; set; }
+        public string? UINRegistered { get; set; }
         public string? GSTNumber { get; set; }
         public string? GSTName { get; set; }
         [EmailAddress]

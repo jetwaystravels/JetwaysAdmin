@@ -73,7 +73,8 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await countryResponse.Content.ReadAsStringAsync();
                     countryList = JsonConvert.DeserializeObject<List<Country>>(result);
                 }
-                string requestUrl = $"{AppUrlConstant.GetLoactionTaxAll}";
+                //string requestUrl = $"{AppUrlConstant.GetLoactionTaxAll}";
+                string requestUrl = $"{AppUrlConstant.GetLoactionTax}?LegalEntityCode={LegalEntityCode}";
                 var userresponse = await client.GetAsync(requestUrl);
                 if (userresponse.IsSuccessStatusCode)
                   {

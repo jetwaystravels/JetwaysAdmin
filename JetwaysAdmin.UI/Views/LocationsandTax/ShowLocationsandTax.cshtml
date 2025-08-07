@@ -221,6 +221,8 @@
                                                     UIN Registered
                                                 </label>
                                             </div>
+                                            <input type="hidden" name="GSTValue" id="GSTValue">
+                                            <input type="hidden" name="UINValue" id="UINValue">
                                         </div>
                                         <div class="form-group form-primary col-md-3">
                                             <input type="text" name="GSTNumber" class="form-control">
@@ -276,37 +278,6 @@
 <!-- JavaScript Validation -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    document.getElementById('locationForm').addEventListener('submit', function (e) {
-        const form = this;
-        const requiredFields = form.querySelectorAll('[required]');
-        let isValid = true;
-        let missingFields = [];
-
-        requiredFields.forEach(field => {
-            field.classList.remove('error-border');
-
-            if (!field.value.trim()) {
-                isValid = false;
-                field.classList.add('error-border');
-
-                // Try to get the associated label text
-                const label = field.closest('.form-group')?.querySelector('label');
-                if (label) {
-                    missingFields.push(label.textContent.replace('*', '').trim());
-                } else {
-                    // Fallback to name attribute
-                    missingFields.push(field.name);
-                }
-            }
-        });
-
-        if (!isValid) {
-            e.preventDefault();
-            alert("Please fill out the following required fields:\n\n- " + missingFields.join("\n- "));
-        }
-    });
-</script>
-<script>
     $(document).ready(function () {
         $('.addbtn').click(function (e) {
             e.preventDefault(); 
@@ -352,3 +323,33 @@
                 });
         }
     </script>
+<script>
+    function updateGSTValue() {
+        const gstChecked = document.querySelector('input[name="GSTRegistered"]:checked');
+        if (gstChecked && gstChecked.value === "true") {
+            const uinRadio = document.querySelector('input[name="UINRegistered"]:checked');
+            if (uinRadio) uinRadio.checked = false;
+        }
+        document.getElementById('GSTValue').value = gstChecked && gstChecked.value === "true" ? "G" : "";
+        updateUINValue(); 
+    }
+    function updateUINValue() {
+        const uinChecked = document.querySelector('input[name="UINRegistered"]:checked');
+        if (uinChecked && uinChecked.value === "true") {
+            const gstRadio = document.querySelector('input[name="GSTRegistered"]:checked');
+            if (gstRadio) gstRadio.checked = false;
+        }
+        document.getElementById('UINValue').value = uinChecked && uinChecked.value === "true" ? "U" : "";
+        updateGSTValue(); 
+       }
+        document.querySelectorAll('input[name="GSTRegistered"]').forEach(radio => {
+            radio.addEventListener('change', updateGSTValue);
+        });
+        document.querySelectorAll('input[name="UINRegistered"]').forEach(radio => {
+            radio.addEventListener('change', updateUINValue);
+        });
+        updateGSTValue();
+        updateUINValue();
+</script>
+
+

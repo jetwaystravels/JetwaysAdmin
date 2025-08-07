@@ -4,6 +4,7 @@ using JetwaysAdmin.Repositories.Migrations;
 using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Elfie.Extensions;
 using Newtonsoft.Json;
 using System.Text;
 using System.Xml.Linq;
@@ -93,9 +94,11 @@ namespace JetwaysAdmin.UI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddTaxLocation(LocationsandTax locationsandaax,int IdLegal, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> AddTaxLocation(LocationsandTax locationsandaax,int IdLegal, string LegalEntityCode, string LegalEntityName, string GSTValue, string UINValue)
         {
 
+            locationsandaax.GSTRegistered = GSTValue == "G" ? "G" : null;
+            locationsandaax.UINRegistered = UINValue == "U" ? "U" : null;
             using (HttpClient client = new HttpClient())
             {
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(locationsandaax);

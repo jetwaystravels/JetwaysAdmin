@@ -14,8 +14,6 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.Id = IdLegal;
             return View();
         }
-
-
         [HttpPost]
         public async Task<IActionResult> AddDepartment()
         {
