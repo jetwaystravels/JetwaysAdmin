@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JetwaysAdmin.Repositories.Implementations
 {
-    public class CustomerDetailsByEmailService:ICustomerDetailsByEmail<CustomerDetails>
+    public class CustomerDetailsByEmailService
+     : ICustomerDetailsByEmail<CustomerDetails, CustomerDealCodes>
     {
-
         private readonly AppDbContext _context;
+
         public CustomerDetailsByEmailService(AppDbContext context)
         {
             _context = context;
@@ -28,5 +30,17 @@ namespace JetwaysAdmin.Repositories.Implementations
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<CustomerDealCodes>> GetCustomerdealCodeAsync(string legalEntityCode, string iata)
+        {
+
+            //var legalEntityParam = new SqlParameter("@LegalEntityCode", legalEntityCode);
+            //var iataParam = new SqlParameter("@IATAGroup", Convert.ToInt32(iata));
+
+            var result = await _context.CustomerDealCodes
+                .Where(x => x.LegalEntityCode == legalEntityCode && x.IATAGroup == Convert.ToInt32(iata))
+                .ToListAsync();
+
+            return result;
+        }
     }
 }

@@ -15,11 +15,14 @@ namespace JetwaysAdmin.WebAPI.Controllers
     {
 
         private readonly ICustomer<Customer> _Customer;
-        private readonly ICustomerDetailsByEmail<CustomerDetails> _CustomerDetailsByEmail;
+        private readonly ICustomerDetailsByEmail<CustomerDetails, CustomerDealCodes> _CustomerDetailsByEmail;
         private readonly IBillingEntity<BillingEntity> _BillingEntity;
         private readonly ICompanyEmployeeGST<CompanyEmployeeGSTDetails> _CompanyEmployeeGST;
         private readonly IHierarchyLegalEntity<HierarchyLegalEntity> _hierarchyLegalEntity;
-        public CustomerController(ICustomer<Customer> Customer, ICustomerDetailsByEmail<CustomerDetails> customerDetailsByEmail, ICompanyEmployeeGST<CompanyEmployeeGSTDetails> companyEmployeeGST, IHierarchyLegalEntity<HierarchyLegalEntity> hierarchyLegalEntity, IBillingEntity<BillingEntity> billingEntity)
+
+       // private readonly ICustomerDetailsByEmail<CustomerDealCode> _CustomerDetailsDealCodeByIata;
+
+        public CustomerController(ICustomer<Customer> Customer, ICustomerDetailsByEmail<CustomerDetails, CustomerDealCodes> customerDetailsByEmail, ICompanyEmployeeGST<CompanyEmployeeGSTDetails> companyEmployeeGST, IHierarchyLegalEntity<HierarchyLegalEntity> hierarchyLegalEntity, IBillingEntity<BillingEntity> billingEntity)
         {
             this._Customer = Customer;
             _CustomerDetailsByEmail = customerDetailsByEmail;
@@ -80,6 +83,21 @@ namespace JetwaysAdmin.WebAPI.Controllers
             }
 
             var result = await _BillingEntity.GetBillingEntityAsync(legalEntityCode,employeeCode);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("GetCustomerDealCode")]
+        public async Task<ActionResult<CustomerDealCodes>> GetCustomerDealCode(string legalEntityCode, string Iata)
+        {
+            if (string.IsNullOrEmpty(legalEntityCode) || string.IsNullOrEmpty(Iata))
+            {
+                return BadRequest("Iata and LegalEntityCode are required.");
+            }
+
+            //  var result = await _BillingEntity.GetBillingEntityAsync(legalEntityCode, Iata);
+
+            var result = await _CustomerDetailsByEmail.GetCustomerdealCodeAsync(legalEntityCode, Iata);
             return Ok(result);
         }
 

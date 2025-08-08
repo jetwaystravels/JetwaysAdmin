@@ -72,7 +72,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th><button class="srt-btn" type="button" aria-label="commercials-name">Location Name</button></th>
-                                                            <th><button class="srt-btn" type="button" aria-label="commercials-name">Location Code</button></th>
+                                                            <th><button class="srt-btn" type="button" aria-label="commercials-name">GSTEmail</button></th>
                                                             <th><button class="srt-btn" type="button" aria-label="commercials-name">Address</button></th>
                                                             <th><button class="srt-btn" type="button" aria-label="commercials-name">GST / UIN Number</button></th>
                                                             <th><button class="srt-btn" type="button" aria-label="commercials-name">GST / UIN Name</button></th>
@@ -88,7 +88,7 @@
                                                                     @location.LocationName
                                                                 </td>
                                                                 <td onclick="location.href='@Url.Action("UpdateLocationTax", "LocationsandTax", new { LocationID = location.LocationID, IdLegal=ViewBag.Id,  LegalEntityCode=ViewBag.LegalEntityCode, LegalEntityName=ViewBag.LegalEntityName })'">
-                                                                    @location.LocationCode
+                                                                    @location.GSTEmail
                                                                 </td>
                                                                 <td onclick="location.href='@Url.Action("UpdateLocationTax", "LocationsandTax", new { LocationID = location.LocationID, IdLegal=ViewBag.Id,  LegalEntityCode=ViewBag.LegalEntityCode, LegalEntityName=ViewBag.LegalEntityName })'">
                                                                     @location.AddressLine1
@@ -97,7 +97,7 @@
                                                                     @location.GSTNumber
                                                                 </td>
                                                                 <td onclick="location.href='@Url.Action("UpdateLocationTax", "LocationsandTax", new { LocationID = location.LocationID, IdLegal=ViewBag.Id,  LegalEntityCode=ViewBag.LegalEntityCode, LegalEntityName=ViewBag.LegalEntityName })'">
-                                                                    @location.AddressLine2
+                                                                    @location.GSTName
                                                                 </td>
                                                                 <td onclick="location.href='@Url.Action("UpdateLocationTax", "LocationsandTax", new { LocationID = location.LocationID, IdLegal=ViewBag.Id,  LegalEntityCode=ViewBag.LegalEntityCode, LegalEntityName=ViewBag.LegalEntityName })'">
                                                                     @location.LocationManager2
@@ -108,7 +108,6 @@
                                                                         <span class="slider round" style="background:#ddd;"></span>
                                                                     </label>
                                                                 </td>
-                                                            
                                                             </tr>
                                                         }
                                                     </tbody>

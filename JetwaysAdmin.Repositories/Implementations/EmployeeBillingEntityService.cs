@@ -32,7 +32,7 @@ namespace JetwaysAdmin.Repositories.Implementations
 
         public async Task<CustomerDealCodes> GetsupplierdealcodeById(string legalcode)
         {
-            return await _context.tb_CustomerDealCodes.FirstOrDefaultAsync(e => e.LegalEntityCode == legalcode  && e.Status == 1);
+            return await _context.CustomerDealCodes.FirstOrDefaultAsync(e => e.LegalEntityCode == legalcode  && e.Status == 1);
         }
 
     }

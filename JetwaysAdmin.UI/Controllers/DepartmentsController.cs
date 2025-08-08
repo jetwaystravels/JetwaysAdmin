@@ -1,4 +1,5 @@
-﻿using JetwaysAdmin.UI.ApplicationUrl;
+﻿using JetwaysAdmin.Entity;
+using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -15,7 +16,7 @@ namespace JetwaysAdmin.UI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddDepartment()
+        public async Task<IActionResult> AddDepartment(CustomerDepartment customerdepartment)
         {
             return View();
         }

@@ -16,6 +16,8 @@ namespace JetwaysAdmin.Entity
        
         public string ? EmployeeNames { get; set; }
 
+        public string? AssignIATAGroup { get; set; }
+
         //public string? BillingEntities { get; set; }
 
         //public decimal? PresentBalance { get; set; }

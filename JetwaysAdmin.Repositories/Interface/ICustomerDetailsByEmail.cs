@@ -7,9 +7,11 @@ using JetwaysAdmin.Entity;
 
 namespace JetwaysAdmin.Repositories.Interface
 {
-    public interface ICustomerDetailsByEmail<T> where T : class
+    public interface ICustomerDetailsByEmail<CustomerDetails, CustomerDealCodes>
+    where CustomerDetails : class
+    where CustomerDealCodes : class
     {
         Task<IEnumerable<CustomerDetails>> GetCustomerDetailsByEmailAsync(string email);
-
+        Task<IEnumerable<CustomerDealCodes>> GetCustomerdealCodeAsync(string legalEntityCode, string Iata);
     }
 }

@@ -42,7 +42,7 @@ namespace JetwaysAdmin.Repositories
         public DbSet<DealCode> tb_SuppliersDealCode { get; set; }
         public DbSet<BookingConsultantDto> BookingConsultants { get; set; }
 
-        public DbSet<CustomerDealCodes> tb_CustomerDealCodes { get; set; }
+        //public DbSet<CustomerDealCodes> tb_CustomerDealCodes { get; set; }
 
         public DbSet<AddSupplier> Suppliers { get; set; }
         // Optional if mapping DTO directly:
@@ -69,5 +69,9 @@ namespace JetwaysAdmin.Repositories
        .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
         }
+
+
+
+
     }
 }

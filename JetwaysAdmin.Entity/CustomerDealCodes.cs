@@ -16,7 +16,7 @@ namespace JetwaysAdmin.Entity
         public string LegalEntityCode { get; set; }
         public int SupplierId { get; set; }
         public string DealCodeName { get; set; }
-        public int IATAGroup { get; set; }
+        public int? IATAGroup { get; set; }
         public string TravelType { get; set; }
         public string AssociatedFareTypes { get; set; }
         public DateTime? ExpiryDate { get; set; }      // nullable

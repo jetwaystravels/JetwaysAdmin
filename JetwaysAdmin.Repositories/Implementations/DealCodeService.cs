@@ -86,7 +86,7 @@ namespace JetwaysAdmin.Repositories.Implementations
                 Status = entity.Status.Value
             };
 
-            await _dealCodeRepository.tb_CustomerDealCodes.AddAsync(customerDealCodes);
+            await _dealCodeRepository.CustomerDealCodes.AddAsync(customerDealCodes);
             await _dealCodeRepository.SaveChangesAsync();
         }
 

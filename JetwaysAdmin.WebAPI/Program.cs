@@ -26,7 +26,7 @@ builder.Services.AddScoped<AdminService>();
 builder.Services.AddScoped<IMenu<MenuItem>, MenuService>();
 builder.Services.AddScoped<ICustomer<Customer>, CustomerService>();
 builder.Services.AddScoped<ILegalEntity<LegalEntity>, LegalEntityService>();
-builder.Services.AddScoped<ICustomerDetailsByEmail<CustomerDetails>, CustomerDetailsByEmailService>();
+builder.Services.AddScoped<ICustomerDetailsByEmail<CustomerDetails,CustomerDealCodes>, CustomerDetailsByEmailService>();
 builder.Services.AddScoped<ICompanyEmployeeGST<CompanyEmployeeGSTDetails>, CompanyEmployeeGSTService>();
 builder.Services.AddScoped<IBillingEntity<BillingEntity>, BillingEntityService>();
 builder.Services.AddScoped<IHierarchyLegalEntity<HierarchyLegalEntity>, HierarchicallegalentityService>();
