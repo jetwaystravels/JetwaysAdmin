@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 
 namespace JetwaysAdmin.Entity
 {
-    public class CustomerDepartmentData
+    public class CustomerDesignation
     {
         [Key]
-        public int DepartmentID { get; set; }
+        public int DesignationID { get; set; }
         public string? LegalEntityCode { get; set; }
-        public string? DepartmentCode { get; set; }
-        public string? DepartmentName { get; set; }
+        public string? DesignationCode { get; set; }
+        public string? DesignationName { get; set; }
         public DateTime? CreatedDate { get; set; } = DateTime.Today;
         public string? CreatedBy { get; set; } = "Admin";
-        public DateTime? UpdatedDate { get; set; }
-        public string? UpdatedBy { get; set; } = "Admin";
         public bool IsActive { get; set; } = true;
     }
 }

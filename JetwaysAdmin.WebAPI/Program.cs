@@ -47,6 +47,8 @@ builder.Services.AddScoped<ILocationsandTax<LocationsandTax>, LocationsandTaxSer
 builder.Services.AddScoped<ILocation<AddressCountryState>, LocationService>();
 builder.Services.AddScoped<ISuppliersCredential<SuppliersCredential>, SuppliersCredentialService>();
 builder.Services.AddScoped<IDealCode<DealCode>, DealCodeService>();
+builder.Services.AddScoped<ICustomerDepartment<CustomerDepartmentData>, CustomerDepartmentService>();
+builder.Services.AddScoped<ICustomerDesignation<CustomerDesignation>, CustomerDesignationService>();
 
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()

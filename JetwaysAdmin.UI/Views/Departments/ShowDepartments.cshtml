@@ -1,12 +1,10 @@
-﻿@using JetwaysAdmin.UI.ViewModel
-@model List<MenuHeaddata>
+﻿@using JetwaysAdmin.Entity
+@model JetwaysAdmin.UI.ViewModel.MenuHeaddata
 
 @{
     Layout = "~/Views/Shared/OfficeLegalentity.cshtml";
+    var Data = Model;
 }
-
-
-
 <main id="main" class="main">
     <div class="pcoded-main-container" id="ShowDepartment">
         <div class="pcoded-wrapper">
@@ -41,6 +39,13 @@
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                         <div class="page-body">
+                            @if (TempData["DepartmentAdd"] != null)
+                            {
+                                <div class="alert alert-success">
+                                    <strong></strong> @TempData["DepartmentAdd"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            }
                             <div class="card">
                                 <div class="card-block">
                                     <div class="d-flex justify-content-between m-b-10">
@@ -72,9 +77,16 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach (var item in Model.Customerdepartment)
+                                                        {
                                                         <tr>
-                                                            <td class="text-center" colspan="5">No Data Found</td>
+                                                            <td>@item.DepartmentName</td>
+                                                            <td>@item.DepartmentCode</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
                                                         </tr>
+                                                        }
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -167,13 +179,15 @@
                                     <div class="card-block">
                                     <form asp-controller="Departments" asp-action="AddDepartment" class="form-material form-row" method="post">
                                         <input type="hidden" name="LegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
+                                        <input type="hidden" name="LegalEntityName" class="form-control" value="@ViewBag.LegalEntityName">
+                                        <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
                                             <div class="form-group form-primary col-md-3">
                                             <input type="text" name="DepartmentName" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Department Name<span>*</span></label>
                                             </div>
                                             <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="DepartmentCode" class="form-control">
+                                            <input type="text" name="DepartmentCode" class="form-control" required>
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Department Code</label>
                                             </div>
@@ -274,20 +288,6 @@
             $('#adddepartment').on('click', function () {
                 $('#ShowDepartment').hide();
                 $('#AddDepartment').show();
-            });
-
-            $('#AddNewDepartment').on('click', function () {
-                $.ajax({
-                    url: '/departments/adddepartment',
-                    type: 'post',
-                    success: function (response) {
-                        console.log("done:", response);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("failed:", error);
-                    }
-                });
-
             });
         });
     </script>

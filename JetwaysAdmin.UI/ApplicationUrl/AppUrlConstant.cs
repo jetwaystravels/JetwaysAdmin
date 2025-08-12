@@ -85,6 +85,10 @@
         public static string GetDealCodeID = BaseURL + "api/DealCodeAPI";
         public static string GetDealCodeSupplierId = BaseURL + "api/DealCodeAPI/GetDealCodeSupplierId";
         public static string GetcustomerDealCode = BaseURL + "api/DealCodeAPI/GetcustomerDealCode";
+        public static string GetCustomerDepartment = BaseURL + "api/CustomerDepartmentAPI/GetAllCustomerDepartment";
+        public static string AddCustomerDepartment = BaseURL + "api/CustomerDepartmentAPI/AddCustomerDepartment";
+        public static string GetCustomerDesignation = BaseURL + "api/CustomerDesignationAPI/GetAllCustomerDesignation";
+        public static string AddCustomerDesignation = BaseURL + "api/CustomerDesignationAPI/AddCustomerDesignation";
 
         #endregion
 

@@ -1,25 +1,56 @@
 ﻿using JetwaysAdmin.Entity;
+using JetwaysAdmin.Repositories.Interface;
 using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace JetwaysAdmin.UI.Controllers
 {
     public class DepartmentsController : Controller
     {
-        public IActionResult ShowDepartments(int IdLegal, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowDepartments(int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
             ViewBag.Id = IdLegal;
-            return View();
+            List<CustomerDepartmentData> customerdepartment = new List<CustomerDepartmentData>();
+            using (HttpClient client = new HttpClient())
+            {
+                string requestUrl = $"{AppUrlConstant.GetCustomerDepartment}?LegalEntityCode={LegalEntityCode}";
+                var deaprtmentresponse = await client.GetAsync(requestUrl);
+                if (deaprtmentresponse.IsSuccessStatusCode)
+                {
+                    var result = await deaprtmentresponse.Content.ReadAsStringAsync();
+                     customerdepartment = JsonConvert.DeserializeObject<List<CustomerDepartmentData>>(result);
+                }
+            }
+            var viewModel = new MenuHeaddata
+            {
+                Customerdepartment = customerdepartment,
+            };
+            return View(viewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> AddDepartment(CustomerDepartment customerdepartment)
+        public async Task<IActionResult> AddDepartment(CustomerDepartmentData customerdepartment, int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
-            return View();
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = IdLegal;
+            using (HttpClient client = new HttpClient())
+            {
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(customerdepartment);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddCustomerDepartment, customerdepartment);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    TempData["DepartmentAdd"] = "Department Add Successfully";
+                }
+            }
+            ViewBag.ErrorMessage = "Data not  insert";
+            return RedirectToAction("ShowDepartments", new { IdLegal= IdLegal, LegalEntityCode = LegalEntityCode , LegalEntityName = LegalEntityName });
         }
-
     }
 }
