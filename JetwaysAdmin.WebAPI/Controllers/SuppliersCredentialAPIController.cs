@@ -27,9 +27,9 @@ namespace JetwaysAdmin.WebAPI.Controllers
             return Ok("Supplier credential added successfully.");
         }
         [HttpGet("getsuppliercred")]
-        public async Task<IActionResult> GetSupplierCredentials()
+        public async Task<IActionResult> GetSupplierCredentials(string flightclass)
         {
-            var credentials = await _suppliersCredentialService.GetSupplierCredential();
+            var credentials = await _suppliersCredentialService.GetSupplierCredential(flightclass);
             return Ok(credentials);
         }
         [HttpGet("{id}")]

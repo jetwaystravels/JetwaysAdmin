@@ -58,6 +58,7 @@ namespace JetwaysAdmin.UI.Controllers
             var iataGroups = new List<IATAGroupView>();
             var countryList = new List<Country>();
             List<LocationsandTax> locationsandtax = new List<LocationsandTax>();
+            List<AddSupplier> supplier = new List<AddSupplier>();
             using (HttpClient client = new HttpClient())
             {
                 var iataResponse = await client.GetAsync(AppUrlConstant.GetIATAGroup);
@@ -80,13 +81,22 @@ namespace JetwaysAdmin.UI.Controllers
                   {
                   var result = await userresponse.Content.ReadAsStringAsync();
                   locationsandtax = JsonConvert.DeserializeObject<List<LocationsandTax>>(result);
-                 } 
+                 }
+                var url = $"{AppUrlConstant.GetSuppliersLegalEntity}?legalEntityCode={LegalEntityCode}";
+                var suppresponse = await client.GetAsync(url);
+                if (suppresponse.IsSuccessStatusCode)
+                {
+                    var result = await suppresponse.Content.ReadAsStringAsync();
+                    supplier = JsonConvert.DeserializeObject<List<AddSupplier>>(result);
+                }
+
             }
 
             var viewModel = new MenuHeaddata
             {
                 IATAGruopName = iataGroups,
-                LocationandTax = locationsandtax
+                LocationandTax = locationsandtax,
+                getsupplier = supplier
             };
             ViewBag.CountryList = countryList;
             return PartialView("_OfficeModel", viewModel);
@@ -234,6 +244,105 @@ namespace JetwaysAdmin.UI.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetSupplierCredential(int SupplierId, int IdLegal, string LegalEntityCode, string LegalEntityName)
+        {
+            List<SuppliersCredential> allCredentials = new List<SuppliersCredential>();
+            List<SuppliersCredential> filteredCredentials = new List<SuppliersCredential>();
+            List<DealCode> dealcode = new List<DealCode>();
+            List<DealCode> filtereddealcode = new List<DealCode>();
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetSupplierCredential}";
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    allCredentials = JsonConvert.DeserializeObject<List<SuppliersCredential>>(result);
+                    filteredCredentials = allCredentials
+                   .Where(c => c.SupplierId.HasValue && c.SupplierId.Value == SupplierId)
+        .ToList();
+                }
+
+                //url = $"{AppUrlConstant.GetDealCodeSupplierId}/?SupplierId={SupplierId}";
+                url = $"{AppUrlConstant.GetcustomerDealCode}/?SupplierId={SupplierId}&LegalEntityCode={LegalEntityCode}";
+               var dealresponse = await client.GetAsync(url);
+                if (dealresponse.IsSuccessStatusCode)
+                {
+                    var result = await dealresponse.Content.ReadAsStringAsync();
+
+                    // Fix for CS0029 and CS8600  
+                    dealcode = JsonConvert.DeserializeObject<List<CustomerDealCode>>(result)
+                       ?.Select(c => new DealCode
+                       {
+                           DealCodeId = c.DealCodeID,
+                           PCC = null, // Map appropriately if needed  
+                           DealCodeName = c.DealCodeName,
+                           TravelMode = null, // Map appropriately if needed  
+                           DealPricingCode = c.DealPricingCode,
+                           TourCode = c.TourCode,
+                           AssociatedFareTypes = c.AssociatedFareTypes,
+                           CabinClass = c.ClassOfSeats,
+                           DefaultValue = null, //Map appropriately if needed  
+                           ClassOfSeats = c.ClassOfSeats,
+                           SupplierId = c.SupplierId,
+                           AutoEnableDealCode = null, //Map appropriately if needed  
+                           GSTMandatory = c.GstMandatory,
+                           OverrideCustomerGST = null, //Map appropriately if needed  
+                           BookingType = c.BookingType,
+                           StartDate = c.StartDate ?? DateTime.MinValue, //Handle nullability  
+                           ExpiryDate = c.EndDate
+                       }).ToList() ?? new List<DealCode>();
+
+                    // Fix for CS0029 and CS8600  
+
+                    filtereddealcode = dealcode
+                    .Where(c => c.SupplierId.HasValue && c.SupplierId.Value == SupplierId).ToList();
+                }
+            }
+            var dealCode = new MenuHeaddata
+            {
+                supplierscredential = filteredCredentials,
+                DealCodeView = filtereddealcode
+
+            };
+            ViewBag.SupplierId = SupplierId;
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = IdLegal;
+            return PartialView("_CredentialPartial", dealCode);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddcustomerDealCodes(CustomerDealCode dealcode, int supplierId, int IdLegal, string LegalEntityCode, string LegalEntityName)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(dealcode);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddcustomerDealCode, dealcode);
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = "Deal code saved successfully!";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Failed to save deal code. Please try again.";
+                }
+            }
+            ViewBag.SupplierId = supplierId;
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = IdLegal;
+            return RedirectToAction("GetSupplierCredential", new
+            {
+                SupplierId = supplierId,
+                LegalEntityCode = LegalEntityCode,
+                LegalEntityName = LegalEntityName,
+                Id = IdLegal
+            });
         }
 
     }

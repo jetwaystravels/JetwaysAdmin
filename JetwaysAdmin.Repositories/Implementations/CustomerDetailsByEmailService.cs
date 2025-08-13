@@ -33,11 +33,22 @@ namespace JetwaysAdmin.Repositories.Implementations
         public async Task<IEnumerable<CustomerDealCodes>> GetCustomerdealCodeAsync(string legalEntityCode, string iata)
         {
 
-            //var legalEntityParam = new SqlParameter("@LegalEntityCode", legalEntityCode);
-            //var iataParam = new SqlParameter("@IATAGroup", Convert.ToInt32(iata));
+            ////var legalEntityParam = new SqlParameter("@LegalEntityCode", legalEntityCode);
+            ////var iataParam = new SqlParameter("@IATAGroup", Convert.ToInt32(iata));
+
+            //var result = await _context.CustomerDealCodes
+            //    .Where(x => x.LegalEntityCode == legalEntityCode && x.IATAGroup == Convert.ToInt32(iata))
+            //    .ToListAsync();
+
+            //return result;
+
+
+            var legalEntityParam = new SqlParameter("@LegalEntityCode", legalEntityCode);
+            var iataParam = new SqlParameter("@IATAGroup", Convert.ToInt32(iata));
 
             var result = await _context.CustomerDealCodes
-                .Where(x => x.LegalEntityCode == legalEntityCode && x.IATAGroup == Convert.ToInt32(iata))
+                .FromSqlRaw("EXEC GetCustomerDealCodes @LegalEntityCode, @IATAGroup",
+                            legalEntityParam, iataParam)
                 .ToListAsync();
 
             return result;

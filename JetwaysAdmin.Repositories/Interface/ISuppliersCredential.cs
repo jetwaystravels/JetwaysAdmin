@@ -10,7 +10,7 @@ namespace JetwaysAdmin.Repositories.Interface
     public interface ISuppliersCredential<T> where T : class
     {
         Task AddSupplierCredential(SuppliersCredential supplierscredential);
-        Task<IEnumerable<SuppliersCredential>> GetSupplierCredential();
+        Task<IEnumerable<SuppliersCredential>> GetSupplierCredential(string flightclass);
         Task<SuppliersCredential> GetSupplierCredentialById(int Id);
         Task UpdateSupplierCredentialById(SuppliersCredential supplierscredential);
     }
