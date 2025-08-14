@@ -253,10 +253,13 @@ namespace JetwaysAdmin.UI.Controllers
             List<SuppliersCredential> filteredCredentials = new List<SuppliersCredential>();
             List<DealCode> dealcode = new List<DealCode>();
             List<DealCode> filtereddealcode = new List<DealCode>();
+            
+            string flightclass = "Corporate"; // Set the flight class as needed
             using (HttpClient client = new HttpClient())
             {
-                string url = $"{AppUrlConstant.GetSupplierCredential}";
-                var response = await client.GetAsync(url);
+                var url = $"{AppUrlConstant.GetSupplierCredential}?flightclass={Uri.EscapeDataString(flightclass)}";
+                HttpResponseMessage response = await client.GetAsync(url);
+               
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
