@@ -1,6 +1,7 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Migrations;
 using JetwaysAdmin.UI.ApplicationUrl;
+using JetwaysAdmin.UI.Controllers.CustomeFilter;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -15,6 +16,7 @@ namespace JetwaysAdmin.UI.Controllers
         public async Task<IActionResult> ShowOrganization(int IdLegal, string legalEntityName, string legalEntityCode)
         {
             List<LegalEntity> rootEntity = new List<LegalEntity>();
+            List<CustomersEmployee> employees = new List<CustomersEmployee>();
 
             using (HttpClient client = new HttpClient())
             {
@@ -41,6 +43,41 @@ namespace JetwaysAdmin.UI.Controllers
                         .ToList();
                     var combined = new List<LegalEntity> { parent };
                     combined.AddRange(children);
+                    // 2) Fetch employees by legalEntityCode via your API
+                    try
+                    {
+                        // If you have a constant, prefer that:
+                         string apiEmployeeUrl = $"{AppUrlConstant.GetCustomerEmployee}?LegalEntityCode={Uri.EscapeDataString(legalEntityCode)}";
+                         var empResponse = await client.GetAsync(apiEmployeeUrl);
+                        if (empResponse.IsSuccessStatusCode)
+                        {
+                            var empJson = await empResponse.Content.ReadAsStringAsync();
+
+                            // If your API returns a plain array:  [ {...}, {...} ]
+                            employees = JsonConvert.DeserializeObject<List<CustomersEmployee>>(empJson) ?? new List<CustomersEmployee>();
+
+                            // If your API wraps data like { "data": [...] }, use this instead:
+                            // var empObj = JsonConvert.DeserializeObject<CustomersEmployeeResponse>(empJson);
+                            // employees = empObj?.Data ?? new List<CustomersEmployee>();
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Employee API failed: {(int)empResponse.StatusCode} {empResponse.ReasonPhrase}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error calling Employee API: " + ex.Message);
+                    }
+
+                    // 3) Sort and count (optional)
+                    employees = employees
+                        .Where(x => x.AppStatus == 0)                 // keep your filter if needed
+                        .OrderBy(x => x.UserID)                       // same as your EF query
+                        .ToList();
+
+                    ViewBag.EmployeeCount = employees.Count;
+                    ViewBag.Employees = employees;                    // if you want to render the list
                     ViewBag.LegalEntityCode = legalEntityCode;
                     ViewBag.LegalEntityName = legalEntityName;
                     ViewBag.Id = IdLegal;
@@ -59,6 +96,8 @@ namespace JetwaysAdmin.UI.Controllers
             var countryList = new List<Country>();
             List<LocationsandTax> locationsandtax = new List<LocationsandTax>();
             List<AddSupplier> supplier = new List<AddSupplier>();
+            List<InternalUsers> customeremployee = new List<InternalUsers>();
+            BookingConsultantDto bookingConsultant = null;
             using (HttpClient client = new HttpClient())
             {
                 var iataResponse = await client.GetAsync(AppUrlConstant.GetIATAGroup);
@@ -89,6 +128,38 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await suppresponse.Content.ReadAsStringAsync();
                     supplier = JsonConvert.DeserializeObject<List<AddSupplier>>(result);
                 }
+                //Manage Staff
+                var RequestUrl = $"{AppUrlConstant.GetBookingConsultants}?legalEntityCode={Uri.EscapeDataString(LegalEntityCode)}";
+                var response1 = await client.GetAsync(RequestUrl);
+
+                if (response1.IsSuccessStatusCode)
+                {
+                    var result1 = await response1.Content.ReadAsStringAsync();
+                    bookingConsultant = JsonConvert.DeserializeObject<BookingConsultantDto>(result1);
+                }
+
+                var response = await client.GetAsync(AppUrlConstant.GetInternalusers);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    customeremployee = JsonConvert.DeserializeObject<List<InternalUsers>>(result);
+                }
+                if (bookingConsultant != null && !string.IsNullOrEmpty(bookingConsultant.BookingConsultantNames))
+                {
+                    var consultantNames = bookingConsultant.BookingConsultantNames
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(name => name.Trim())
+                        .ToHashSet(StringComparer.OrdinalIgnoreCase); // Case-insensitive
+
+                    customeremployee = customeremployee
+                        .Where(emp =>
+                        {
+                            var fullName = $"{emp.FirstName?.Trim()} {emp.LastName?.Trim()}".Trim();
+                            return !consultantNames.Contains(fullName);
+                        })
+                        .ToList();
+                }
 
             }
 
@@ -96,7 +167,9 @@ namespace JetwaysAdmin.UI.Controllers
             {
                 IATAGruopName = iataGroups,
                 LocationandTax = locationsandtax,
-                getsupplier = supplier
+                getsupplier = supplier,
+                InternalUsers = customeremployee,
+                BookingConsultants = bookingConsultant ?? new BookingConsultantDto()
             };
             ViewBag.CountryList = countryList;
             return PartialView("_OfficeModel", viewModel);
@@ -318,6 +391,40 @@ namespace JetwaysAdmin.UI.Controllers
             return PartialView("_CredentialPartial", dealCode);
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateSupplierAppStatus(bool appStatus, int supplierId, string legalEntityCode,  string legalEntityName)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                // Prepare payload
+                var payload = new
+                {
+                    LegalEntityCode = legalEntityCode,
+                    SupplierID = supplierId,
+                    IsActive = appStatus
+                };
+
+                string json = JsonConvert.SerializeObject(payload);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Correct POST URL (no query params)
+                string url = $"{AppUrlConstant.Updatelegalentitysupplierstatus}";
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["supplier_message"] = "Status Updated";
+                    return RedirectToAction("ShowOrganization", new { LegalEntityCode = legalEntityCode, LegalEntityName = legalEntityName });
+                }
+            }
+
+            TempData["supplier_message"] = "Failed to update status";
+            return RedirectToAction("ShowOrganization", new { LegalEntityCode = legalEntityCode, LegalEntityName = legalEntityName });
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> AddcustomerDealCodes(CustomerDealCode dealcode, int supplierId, int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
@@ -328,7 +435,7 @@ namespace JetwaysAdmin.UI.Controllers
                 HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddcustomerDealCode, dealcode);
                 if (response.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = "Deal code saved successfully!";
+                    TempData["SuccessMessagedealcode"] = "Deal code saved successfully!";
                 }
                 else
                 {
@@ -339,13 +446,42 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
             ViewBag.Id = IdLegal;
-            return RedirectToAction("GetSupplierCredential", new
+            return RedirectToAction("ShowOrganization", new
             {
-                SupplierId = supplierId,
+                Id = IdLegal,
                 LegalEntityCode = LegalEntityCode,
-                LegalEntityName = LegalEntityName,
-                Id = IdLegal
+                LegalEntityName = LegalEntityName
             });
+        }
+        
+        [HttpPost]
+        [ServiceFilter(typeof(LogActionFilter))]
+        public async Task<IActionResult> ManageStaff([FromForm] CustomerManageStaff customermanagestaff, int IdLegal, string LegalEntityCode, string LegalEntityName)
+        {
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = IdLegal;
+            string employeeData = customermanagestaff.BookingConsultant;
+            var employeeID = employeeData
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(emp => emp.Split('-')[0].Trim())
+                .ToList();
+            customermanagestaff.BookingConsultant = string.Join(",", employeeID);
+            using (HttpClient client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(customermanagestaff);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(AppUrlConstant.ManageStaff, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["ManageDataUpdate"] = "User assign successfully";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "User not assign";
+                }
+                return RedirectToAction("ShowOrganization", new { IdLegal = IdLegal, LegalEntityCode = LegalEntityCode, LegalEntityName = LegalEntityName });
+            }
         }
 
     }

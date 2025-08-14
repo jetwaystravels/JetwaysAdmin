@@ -1,4 +1,5 @@
-﻿@model List<JetwaysAdmin.Entity.LegalEntity>
+﻿@using JetwaysAdmin.Entity
+@model List<JetwaysAdmin.Entity.LegalEntity>
 @{
     Layout = "~/Views/Shared/OfficeLegalentity.cshtml";
     var Data = Model;
@@ -37,10 +38,24 @@
                 <div class="main-body">
                     <div class="page-wrapper">
                         <div class="page-body">
-                            @if (TempData["LegalAdd"] != null)
+                            @if(TempData["LegalAdd"] != null)
                             {
                                 <div class="alert alert-success">
                                     <strong></strong> @TempData["LegalAdd"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            }
+                            @if(TempData["SuccessMessagedealcode"] != null)
+                            {
+                                <div class="alert alert-success">
+                                    <strong></strong> @TempData["SuccessMessagedealcode"] 
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            }
+                            @if(TempData["ManageDataUpdate"] != null)
+                            {
+                                <div class="alert alert-success">
+                                    <strong></strong> @TempData["ManageDataUpdate"]
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
@@ -109,8 +124,14 @@
                                                         <span class="tag">@office.LegalEntityName</span>
                                                         <span class="tag tag-default">@office.AssignIATAGroup</span>
                                                 </div>
-                                                <div class="text-primary col-lg-3 text-right"><strong>2 users assigned</strong></div>
-                                                <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+                                                    <div class="text-primary col-lg-3 text-right">
+                                                        <strong data-toggle="tooltip"
+                                                                data-html="true"
+                                                                title="@Html.Raw(string.Join("<br/>", ((List<CustomersEmployee>)ViewBag.Employees).Select(e => e.FirstName + " " + e.LastName)))">
+                                                            @ViewBag.EmployeeCount users assigned
+                                                        </strong>
+                                                    </div>
+                                                    <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
                                             </div>
                                            
                                             <div class="details row mt-3" style="display:flex;">
@@ -330,5 +351,10 @@
                     });
                 });
         }
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
 </footer>

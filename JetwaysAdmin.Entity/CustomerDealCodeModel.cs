@@ -26,9 +26,9 @@ namespace JetwaysAdmin.Entity
         public string DealCodeType { get; set; }
         public string ClassOfSeats { get; set; }
         public bool GstMandatory { get; set; }
-        public DateTime? StartDate { get; set; }
+        public DateTime? StartDate { get; set; } = DateTime.Today;
         public DateTime? EndDate { get; set; }
         public string BookingType { get; set; }
-        public int? Status { get; set; }
+        public int? Status { get; set; } = 1;
     }
 }
