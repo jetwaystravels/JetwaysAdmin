@@ -107,10 +107,11 @@
                                         </div>
                                     </div>
                                     <div id="officeList">
-                                        <!-- Default office entry (open by default) -->
                                         @{
                                             bool isFirst = true;
+                                            var isFirstRow = true;
                                         }
+                                       
                                           @foreach (var office in Model)
                                              {
                                         <div class="office-card">
@@ -124,13 +125,18 @@
                                                         <span class="tag">@office.LegalEntityName</span>
                                                         <span class="tag tag-default">@office.AssignIATAGroup</span>
                                                 </div>
+                                                    @if (isFirstRow)
+                                                    {
                                                     <div class="text-primary col-lg-3 text-right">
                                                         <strong data-toggle="tooltip"
                                                                 data-html="true"
                                                                 title="@Html.Raw(string.Join("<br/>", ((List<CustomersEmployee>)ViewBag.Employees).Select(e => e.FirstName + " " + e.LastName)))">
                                                             @ViewBag.EmployeeCount users assigned
+                                                                
                                                         </strong>
                                                     </div>
+                                                        isFirstRow= false;
+                                                    }
                                                     <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
                                             </div>
                                            
@@ -237,7 +243,7 @@
     <script src="~/assets/js/custom/addlegalentity.js"></script>
     <script src="~/assets/js/custom/datevalidation.js"></script>
     <script src="~/assets/js/custom/countrycurrency.js"></script>
-   
+    <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     
     <script>
