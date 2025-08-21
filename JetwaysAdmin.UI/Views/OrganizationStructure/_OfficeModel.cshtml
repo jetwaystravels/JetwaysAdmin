@@ -4,14 +4,19 @@
     var Data = Model;
     var countryData = ViewBag.CountryList;
 }
-<form class="form-material" asp-controller="OrganizationStructure" asp-action="AddOffice" method="post">
-    <input type="hidden" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
-    <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
+
+  
     <div class="box-ht">
         <div class="tab-content">
             <div class="tab-pane active" id="Organization" role="tabpanel">
                 <h6 class="mb-4">Organization</h6>
-           <div class="form-row">
+            @* <form class="form-row form-material" asp-controller="OrganizationStructure" asp-action="AddOffice" method="post"> *@
+            <form id="addOfficeForm"
+                  class="form-row form-material"
+                  method="post">
+              
+                <input type="hidden" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
+                <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
             <div class="form-group form-primary col-md-6">
                 <input type="text" name="LegalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)" required>
                 <span class="form-bar"></span>
@@ -272,7 +277,9 @@
             </div>
             <div><button id="addUser" class="btn btn-primary waves-effect waves-light">Add Office</button>
                 </div>
-        </div>
+             
+             </form>
+        
             </div>
             <div class="tab-pane" id="suppliersdealcode" role="tabpanel">
                 <div class="pcoded-inner-content">
@@ -775,7 +782,7 @@
             Cancel
         </button>
     </div>
-</form>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">

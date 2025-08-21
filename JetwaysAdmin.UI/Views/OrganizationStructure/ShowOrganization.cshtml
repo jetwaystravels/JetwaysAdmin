@@ -86,7 +86,7 @@
                                             </form>
                                         </div>
                                         <div class="col-lg-8 text-right" style="right:0;">
-                                            <button type="button" class="btn btn-primary btn-lg modl"
+                                            <button type="button" id="officepopup" class="btn btn-primary btn-lg modl"
                                                     data-legal-entity-code="@ViewBag.LegalEntityCode"
                                                     data-legal-entity-name="@ViewBag.LegalEntityName"
                                                     data-legal-entity-idLegal="@ViewBag.Id"
@@ -377,6 +377,43 @@
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <script>
+        // $(document).on('click', '#officepopup', function () {
+        //     $('.nav-tabs .nav-link').not(':first').addClass('disabled');
+        //     $('.nav-tabs .nav-link.disabled').on('click', function (e) {
+        //         e.preventDefault();
+        //         return false;
+        //     });
+        // });
+    </script>
+    <script>
+        $(document).on('click', '#addUser', function () {
+            var form = $('#addOfficeForm')[0];
+            var fd = new FormData(form);
+            $.ajax({
+                url: '/OrganizationStructure/AddOffice',
+                type: 'POST',
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    if (res && res.success) {
+                        $('#addOfficeModalContent').load(res.url, function () {
+                            $('#addOfficeModal').modal('show');
+                            var tab2 = $('a[href="#suppliersdealcode"]');
+                            tab2.tab('show');
+
+                        });
+                    } else {
+                        alert((res && res.message) || 'Failed to add office.');
+                    }
+                },
+                error: function () {
+                    alert('Something went wrong while saving.');
+                }
+            });
         });
     </script>
 </footer>

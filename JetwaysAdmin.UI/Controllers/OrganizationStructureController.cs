@@ -246,8 +246,20 @@ namespace JetwaysAdmin.UI.Controllers
                 {
                     var result = await response.Content.ReadAsStringAsync();
                     TempData["LegalAdd"] = "Office Add Successfully";
+                    TempData["OpenOfficeModal"] = true;
+                    return Json(new
+                    {
+                        success = true,
+                        url = Url.Action(nameof(ShowOffice), new
+                        {
+                            IdLegal,
+                            LegalEntityCode = ParentLegalEntityCode,
+                            LegalEntityName = ParentLegalEntityName
+                        })
+                    });
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
+              
                 return RedirectToAction("ShowOrganization", new { LegalEntityCode = ParentLegalEntityCode, LegalEntityName = ParentLegalEntityName });
             }
         }
