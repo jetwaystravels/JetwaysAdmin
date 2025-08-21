@@ -257,6 +257,9 @@ namespace JetwaysAdmin.UI.Controllers
             List<IATAGroupView> iataGroups = new();
             List<Country> countryList = new();
             LegalEntity entity = null;
+            List<AddSupplier> supplier = new List<AddSupplier>();
+            List<InternalUsers> customeremployee = new List<InternalUsers>();
+            BookingConsultantDto bookingConsultant = null;
             using (HttpClient client = new HttpClient())
             {
                 string url = $"{AppUrlConstant.GetLegalEntityID}/{Id}";
@@ -280,6 +283,45 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await countryResponse.Content.ReadAsStringAsync();
                     countryList = JsonConvert.DeserializeObject<List<Country>>(result);
                 }
+                var Url = $"{AppUrlConstant.GetSuppliersLegalEntity}?legalEntityCode={LegalEntityCode}";
+                var suppresponse = await client.GetAsync(Url);
+                if (suppresponse.IsSuccessStatusCode)
+                {
+                    var result = await suppresponse.Content.ReadAsStringAsync();
+                    supplier = JsonConvert.DeserializeObject<List<AddSupplier>>(result);
+                } 
+            
+                //Manage Staff
+                var RequestUrl = $"{AppUrlConstant.GetBookingConsultants}?legalEntityCode={Uri.EscapeDataString(LegalEntityCode)}";
+                var response1 = await client.GetAsync(RequestUrl);
+                if (response1.IsSuccessStatusCode)
+                {
+                    var result1 = await response1.Content.ReadAsStringAsync();
+                    bookingConsultant = JsonConvert.DeserializeObject<BookingConsultantDto>(result1);
+                }
+
+                var ResponseI = await client.GetAsync(AppUrlConstant.GetInternalusers);
+
+                if (ResponseI.IsSuccessStatusCode)
+                {
+                    var result = await ResponseI.Content.ReadAsStringAsync();
+                    customeremployee = JsonConvert.DeserializeObject<List<InternalUsers>>(result);
+                }
+                if (bookingConsultant != null && !string.IsNullOrEmpty(bookingConsultant.BookingConsultantNames))
+                {
+                    var consultantNames = bookingConsultant.BookingConsultantNames
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(name => name.Trim())
+                        .ToHashSet(StringComparer.OrdinalIgnoreCase); // Case-insensitive
+
+                    customeremployee = customeremployee
+                        .Where(emp =>
+                        {
+                            var fullName = $"{emp.FirstName?.Trim()} {emp.LastName?.Trim()}".Trim();
+                            return !consultantNames.Contains(fullName);
+                        })
+                        .ToList();
+                }
             }
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
@@ -288,7 +330,10 @@ namespace JetwaysAdmin.UI.Controllers
             var viewModel = new MenuHeaddata
             {
                 LegalEntitydata = entity != null ? new List<LegalEntity> { entity } : new List<LegalEntity>(),
-                IATAGruopName = iataGroups
+                IATAGruopName = iataGroups,
+                getsupplier = supplier,
+                InternalUsers = customeremployee,
+                BookingConsultants = bookingConsultant ?? new BookingConsultantDto()
             };
             return PartialView("_OfficeUpdate", viewModel);
         }
@@ -393,34 +438,31 @@ namespace JetwaysAdmin.UI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> UpdateSupplierAppStatus(bool appStatus, int supplierId, string legalEntityCode,  string legalEntityName)
+        public async Task<IActionResult> UpdateSupplierAppStatus(bool appStatus, int supplierId, string legalEntityCode, string legalEntityCodeparent,  string legalEntityName)
         {
             using (HttpClient client = new HttpClient())
             {
-                // Prepare payload
+                //Prepare payload
                 var payload = new
                 {
                     LegalEntityCode = legalEntityCode,
                     SupplierID = supplierId,
                     IsActive = appStatus
                 };
-
                 string json = JsonConvert.SerializeObject(payload);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                // Correct POST URL (no query params)
+                //Correct POST URL (no query params)
                 string url = $"{AppUrlConstant.Updatelegalentitysupplierstatus}";
                 HttpResponseMessage response = await client.PostAsync(url, content);
-
                 if (response.IsSuccessStatusCode)
                 {
                     TempData["supplier_message"] = "Status Updated";
-                    return RedirectToAction("ShowOrganization", new { LegalEntityCode = legalEntityCode, LegalEntityName = legalEntityName });
+                    return RedirectToAction("ShowOrganization", new { LegalEntityCode = legalEntityCodeparent, LegalEntityName = legalEntityName });
                 }
             }
 
             TempData["supplier_message"] = "Failed to update status";
-            return RedirectToAction("ShowOrganization", new { LegalEntityCode = legalEntityCode, LegalEntityName = legalEntityName });
+            return RedirectToAction("ShowOrganization", new { LegalEntityCode = legalEntityCodeparent, LegalEntityName = legalEntityName });
         }
 
 

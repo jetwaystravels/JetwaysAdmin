@@ -49,6 +49,7 @@ namespace JetwaysAdmin.Repositories
         // Optional if mapping DTO directly:
         public DbSet<SupplierDto> SupplierDtos { get; set; }
         public DbSet<CustomerDealCodes> CustomerDealCodes { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomerDetails>().HasNoKey(); // No primary key because it's a model

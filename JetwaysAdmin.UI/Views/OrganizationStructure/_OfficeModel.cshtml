@@ -270,7 +270,7 @@
                 <span class="form-bar"></span>
                 <span style="font-size:11px;font-weight:500;">Upload logo Allowed formats: .JPG / .PNG, Maximum file size: 1mb, Resolution 200px x 90px</span>
             </div>
-            <div><button id="addUser" class="btn btn-primary waves-effect waves-light  btn-lg">Add Office</button>
+            <div><button id="addUser" class="btn btn-primary waves-effect waves-light">Add Office</button>
                 </div>
         </div>
             </div>
@@ -368,7 +368,6 @@
                                             </div>
                                         </div>
                                         <div class="new-spplier" style="display:none;">
-                                          @* @Html.Partial("_CredentialPartial") *@
                                             <div class="modal-body" id="credentialModalBody">
                                                 <div class="p-4 text-center" id="credentialModalLoading">Loading…</div>
                                             </div>
@@ -771,10 +770,8 @@
             </div>
         </div>
     </div>
-    <div class="form-group form-primary col-md-12 text-right mt-2" style="border-top: #ddd 1px solid; padding-top: 20px;">
-        <button type="button"
-                class="btn btn-close btn-danger waves-effect waves-light btn-lg"
-                onclick="event.preventDefault(); $('#addOfficeModal').modal('hide');">
+    <div class="col-md-12 text-right mt-2" style="border-top: #ddd 1px solid; padding-top: 20px;">
+        <button type="button" class="btn btn-close btn-danger waves-effect waves-light btn-lg" data-dismiss="modal">
             Cancel
         </button>
     </div>
@@ -784,24 +781,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <style>
-    .tag {
-        display: inline-block;
-        background-color: #f0f0f0;
-        border-radius: 20px;
-        padding: 2px 8px;
-        margin: 4px;
-        font-size: 12px;
-    }
-
-    .remove-btn {
-        background: none;
-        border: none;
-        color: #000;
-        margin-left: 8px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
+.tag {display: inline-block;background-color: #f0f0f0;border-radius: 20px; padding: 2px 8px;margin: 4px;font-size: 12px;}
+.remove-btn {background: none;border: none;color: #000; margin-left: 8px;font-weight: bold;cursor: pointer;}
 </style>
 
 <script>
