@@ -252,7 +252,7 @@ namespace JetwaysAdmin.UI.Controllers
             }
         }
 
-        public async Task<IActionResult> UpdateOffice(int Id, int IdLegal, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> UpdateOffice(int Id, int IdLegal, string LegalEntityCode,string LegalEntityCodeParent, string LegalEntityName)
         {
             List<IATAGroupView> iataGroups = new();
             List<Country> countryList = new();
@@ -323,7 +323,7 @@ namespace JetwaysAdmin.UI.Controllers
                         .ToList();
                 }
             }
-            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityCode = LegalEntityCodeParent;
             ViewBag.LegalEntityName = LegalEntityName;
             ViewBag.Id = IdLegal;
             ViewBag.CountryList = countryList;
