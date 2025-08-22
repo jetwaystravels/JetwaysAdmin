@@ -534,7 +534,17 @@ namespace JetwaysAdmin.UI.Controllers
                 {
                     TempData["ErrorMessage"] = "User not assign";
                 }
-                return RedirectToAction("ShowOrganization", new { IdLegal = IdLegal, LegalEntityCode = LegalEntityCode, LegalEntityName = LegalEntityName });
+                return Json(new
+                {
+                    success = true,
+                    url = Url.Action(nameof(ShowOffice), new
+                    {
+                        IdLegal,
+                        LegalEntityCode,
+                        LegalEntityName
+                    })
+                });
+                
             }
         }
 

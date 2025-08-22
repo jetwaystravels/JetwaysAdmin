@@ -8,13 +8,11 @@
   
     <div class="box-ht">
         <div class="tab-content">
-            <div class="tab-pane active" id="Organization" role="tabpanel">
+        <div id="Organization">
                 <h6 class="mb-4">Organization</h6>
-            @* <form class="form-row form-material" asp-controller="OrganizationStructure" asp-action="AddOffice" method="post"> *@
             <form id="addOfficeForm"
                   class="form-row form-material"
                   method="post">
-              
                 <input type="hidden" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
                 <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
             <div class="form-group form-primary col-md-6">
@@ -277,11 +275,9 @@
             </div>
             <div><button id="addUser" class="btn btn-primary waves-effect waves-light">Add Office</button>
                 </div>
-             
              </form>
-        
             </div>
-            <div class="tab-pane" id="suppliersdealcode" role="tabpanel">
+        <div id="suppliersdealcode" style="display:none;">
                 <div class="pcoded-inner-content">
                     <!-- Main-body start -->
                     <div class="main-body">
@@ -354,18 +350,15 @@
                                                                 </div>
                                                                 <div class="d-flex justify-content-between">
                                                                     <p class="m-b-0 light-gray">Last updated:@dealCode.ModifyDate.ToString("dd-MM-yyyy")</p>
-                                                                    <form method="post" action="/OrganizationStructure/UpdateSupplierAppStatus" id="appStatusForm_@dealCode.SupplierId">
-                                                                        <input type="hidden" name="SupplierId" value="@dealCode.SupplierId" />
-                                                                        <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" />
-                                                                        <input type="hidden" name="LegalEntityName" value="@ViewBag.LegalEntityName" />
-                                                                        <label class="switch">
-                                                                            <input type="checkbox" name="AppStatus" value="true"
-                                                                                   id="appStatusCheckbox_@dealCode.SupplierId"
-                                                                            @(((dealCode.IsActive ?? false) && (dealCode.AppStatus ?? false)) ? "checked" : "")
-                                                                                   onchange="document.getElementById('appStatusForm_@dealCode.SupplierId').submit();" />
-                                                                            <span class="slider round"></span>
-                                                                        </label>
-                                                                    </form>
+                                                                <label class="switch">
+                                                                    <input type="checkbox"
+                                                                           id="appStatusCheckbox_@dealCode.SupplierId"
+                                                                           data-supplier-id="@dealCode.SupplierId"
+                                                                           data-legal-entity-code="@ViewBag.LegalEntityCode"
+                                                                           data-legal-entity-name="@ViewBag.LegalEntityName"
+                                                                    @(((dealCode.IsActive ?? false) && (dealCode.AppStatus ?? false)) ? "checked" : "") />
+                                                                    <span class="slider round"></span>
+                                                                </label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -464,7 +457,7 @@
                                         </div>
                                         <div class="supplier-content" style="display:none;">
                                             <h6 class="m-b-20">
-                                                <a href="#" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Add New Supplier for Hotel
+                                            <a href="javascript:void(0);" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Add New Supplier for Hotel
                                             </h6>
                                             <div class="col-md-3 p-l-0">
                                                 <div class="card">
@@ -487,7 +480,7 @@
 
                                         <div class="new-spplier" style="display:none;">
                                             <h5 class="m-b-20">
-                                                <a href="supplieranddealcodes.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Supplier : Travel Boutique Hotels
+                                                <a href="" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Supplier : Travel Boutique Hotels
                                             </h5>
                                             <div class="row">
                                                 <div class="col-lg-12 mx-auto">
@@ -629,10 +622,10 @@
                         </div>
                     </div>
                 </div>
-            </div>                  
-            <div class="tab-pane" id="assignstaff" role="tabpanel">
+            </div>    
+        <div id="assignstaff" style="display:none;">
                 <div class="pcoded-inner-content">
-                    <form class="card-block" asp-controller="OrganizationStructure" asp-action="ManageStaff">
+                <form id="manageStaffForm" class="card-block form-material" method="post">
                         <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode">
                         <input type="hidden" name="LegalEntityName" value="@ViewBag.LegalEntityName" />
                         <input type="hidden" name="IdLegal" value="@ViewBag.Id" />
@@ -770,7 +763,9 @@
                             </div>
                         </div>
                         <div class="form-group form-primary col-md-12 m-l-5">
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
+                            <button type="button" id="saveManageStaff" class="btn btn-primary waves-effect waves-light">
+                                Update
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -1072,8 +1067,66 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function () {
+        $("input[type='checkbox'][id^='appStatusCheckbox_']").change(function () {
+            var supplierId = $(this).data("supplier-id");
+            var legalEntityCode = $(this).data("legal-entity-code");
+            var legalEntityName = $(this).data("legal-entity-name");
+            var appStatus = $(this).is(":checked");
+
+            $.ajax({
+                url: '/OrganizationStructure/UpdateSupplierAppStatus',
+                type: 'POST',
+                data: {
+                    SupplierId: supplierId,
+                    LegalEntityCode: legalEntityCode,
+                    LegalEntityName: legalEntityName,
+                    AppStatus: appStatus
+                },
+                success: function (response) {
+                    console.log("Status updated successfully", response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error updating status:", error);
+                    alert("Failed to update status. Please try again.");
+                }
+            });
+        });
+    });
+</script>
 
 
+<script>
+    $(document).on('click', '#saveManageStaff', function () {
+        var form = $('#manageStaffForm')[0];
+        var fd = new FormData(form);
+        alert(fd);
+        $.ajax({
+            url: '/OrganizationStructure/ManageStaff',
+            type: 'POST',
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                if (res && res.success) {
+                    $('#addOfficeModalContent').load(res.url, function () {
+                        $('#addOfficeModal').modal('show');
+                        var tab2 = $('a[href="#suppliersdealcode"]');
+                        if (tab2.length) {
+                            tab2.tab('show');
+                        }
+                    });
+                } else {
+                    alert((res && res.message) || 'Failed to save staff.');
+                }
+            },
+            error: function () {
+                alert('Something went wrong while saving staff.');
+            }
+        });
+    });
+</script>
 
 
 

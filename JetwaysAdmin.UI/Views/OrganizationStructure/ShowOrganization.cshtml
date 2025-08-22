@@ -123,7 +123,7 @@
                                                             isFirst = false;
                                                         }
                                                         <span class="tag">@office.LegalEntityName</span>
-                                                        <span class="tag tag-default">@office.AssignIATAGroup</span>
+                                                        <span class="tag tag-default">@office.State -->@office.City</span>
                                                 </div>
                                                     @if (isFirstRow)
                                                     {
@@ -206,17 +206,25 @@
                 </div>
                 <div class="modal-body">
                     <div class="m-b-25">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#Organization" role="tab">Organization</a>
-                            </li>                           
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#suppliersdealcode" role="tab">Suppliers & Deal Code</a>
-                            </li>                            
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#assignstaff" role="tab">Assign Staff</a>
-                            </li>                            
+                        <ul class="nav nav-tabs">
+                            <li class="p-10">
+                                <a href="#" onclick="showOrganization(); return false;">Organization</a>
+                            </li>
+                            <li class="p-10">
+                                <a id="suppliersTab"
+                                   href="#"
+                                   data-idlegal="@ViewBag.Id"
+                                   data-legal-code="@ViewBag.LegalEntityCode"
+                                   data-legal-name="@ViewBag.LegalEntityName"
+                                   onclick="showSuppliers(); return false;">
+                                    Suppliers &amp; Deal Code
+                                </a>
+                            </li>
+                            <li class="p-10">
+                                <a href="#" onclick="showAssignStaff(); return false;">Assign Staff</a>
+                            </li>
                         </ul>
+
                     </div>
 
                     <div class="modal-content" id="addOfficeModalContent" style="border:none;">
@@ -416,4 +424,102 @@
             });
         });
     </script>
+  
+    <script>
+        $(document).on('click', '#backToSuppliers', function (e) {
+            e.preventDefault();
+
+            var idLegal = $(this).data("idlegal");
+            var legalEntityCode = $(this).data("legal-code");
+            var legalEntityName = $(this).data("legal-name");
+
+            $.ajax({
+                url: '/OrganizationStructure/ShowOffice',
+                type: 'GET',   // explicitly a GET request
+                data: {
+                    IdLegal: idLegal,
+                    LegalEntityCode: legalEntityCode,
+                    LegalEntityName: legalEntityName
+                },
+                success: function (html) {
+                    $('#addOfficeModalContent').html(html);
+                    $('#addOfficeModal').modal('show');
+
+                    var tab2 = $('a[href="#suppliersdealcode"]');
+                    if (tab2.length) {
+                        tab2.tab('show');
+                    }
+                },
+                error: function () {
+                    alert('Failed to load suppliers.');
+                }
+            });
+        });
+    </script>
+     <script>
+        $(document).on('click', '#suppliersTab', function (e) {
+            e.preventDefault();
+            var idLegal = $(this).data("idlegal");
+            var legalEntityCode = $(this).data("legal-code");
+            var legalEntityName = $(this).data("legal-name");
+            $.ajax({
+                url: '/OrganizationStructure/ShowOffice',
+                type: 'GET',   
+                data: {
+                    IdLegal: idLegal,
+                    LegalEntityCode: legalEntityCode,
+                    LegalEntityName: legalEntityName
+                },
+                success: function (html) {
+                    $('#addOfficeModalContent').html(html);
+                    //$('#addOfficeModal').modal('show');
+
+                    //var tab2 = $('a[href="#suppliersdealcode"]');
+                    //if (tab2.length) {
+                        //tab2.tab('show');
+                        // activate suppliers tab pane
+                      
+                    //}
+                    var org = document.getElementById('Organization');
+                    if (org) { org.style.display = 'none'; org.classList.remove('active', 'show'); }
+                    var asn = document.getElementById('assignstaff');
+                    if (asn) { asn.style.display = 'none'; asn.classList.remove('active', 'show'); }
+                    var sup = document.getElementById('suppliersdealcode');
+                    if (sup) { sup.style.display = 'block'; sup.classList.add('active', 'show'); }
+                    $('#addOfficeModal').one('shown.bs.modal', function () {
+                        var org2 = document.getElementById('Organization');
+                        if (org2) { org2.style.display = 'none'; org2.classList.remove('active', 'show'); }
+                        var asn2 = document.getElementById('assignstaff');
+                        if (asn2) { asn2.style.display = 'none'; asn2.classList.remove('active', 'show'); }
+                        var sup2 = document.getElementById('suppliersdealcode');
+                        if (sup2) { sup2.style.display = 'block'; sup2.classList.add('active', 'show'); }
+                    });
+
+                    $('#addOfficeModal').modal('show');
+                 
+                },
+                error: function () {
+                    alert('Failed to load suppliers.');
+                }
+            });
+        });
+    </script> 
+    <script>
+        function showSuppliers() {
+            document.getElementById('Organization').style.display = 'none';
+            document.getElementById('assignstaff').style.display = 'none';
+            document.getElementById('suppliersdealcode').style.display = 'block';
+        }
+        function showOrganization() {
+            document.getElementById('Organization').style.display = 'block';
+            document.getElementById('assignstaff').style.display = 'none';
+            document.getElementById('suppliersdealcode').style.display = 'none';
+        }
+        function showAssignStaff() {
+            document.getElementById('Organization').style.display = 'none';
+            document.getElementById('assignstaff').style.display = 'block';
+            document.getElementById('suppliersdealcode').style.display = 'none';
+        }
+    </script>
+
 </footer>
