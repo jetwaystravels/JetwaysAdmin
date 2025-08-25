@@ -89,7 +89,7 @@
                 <label class="float-label">Password</label>
             </div>
             <div class="form-group form-primary col-md-2">
-                <select class="select">
+                    <select class="select form-control fill">
                     <option value="">IN(+91)</option>
                     <option value="AF">AF (+93)</option>
                     <option value="AL">AL (+355)</option>
@@ -176,7 +176,7 @@
                 <span id="integrationRefError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select name="CustomerBaseCurrency" class="select" id="currencySelect" onchange="updateCurrencyDisplay()" required>
+                    <select name="CustomerBaseCurrency" class="select form-control fill" id="currencySelect" onchange="updateCurrencyDisplay()" required>
                     <option value="">--Please Select--</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {
@@ -188,7 +188,7 @@
             </div>
 
             <div class="form-group form-primary col-md-6">
-                <select name="CustomerBaseCountry" class="select" required>
+                    <select name="CustomerBaseCountry" class="select form-control fill" required>
                     <option value="">--Please Select--</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {

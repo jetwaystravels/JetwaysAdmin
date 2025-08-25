@@ -2,7 +2,7 @@
 
 
 @{
-    Layout = "~/Views/Shared/_LegalEntities.cshtml";
+    Layout = "~/Views/Shared/OfficeLegalentity.cshtml";
     var Data = Model;
 }
 <head>
@@ -331,7 +331,7 @@
                         employeeId: empId,
                         LegalEntityCode: legalEntityCode,
                         LegalEntityName: legalEntityName,
-                        Id: viewId
+                        IdLegal: viewId
                     },
                     headers: { 'X-Requested-With': 'XMLHttpRequest' },
                            success: function (data) {

@@ -7,7 +7,7 @@
 
     <div class="box-ht">
         <div class="tab-content">
-        <div class="tab-pane active" id="Organization" role="tabpanel">
+        <div class="tab-pane active" id="OrganizationUpdate" role="tabpanel">
          <form class="form-row  form-material" asp-controller="OrganizationStructure" asp-action="EditOffice" method="post">
             <input type="hidden" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
             <input type="hidden" name="Id" class="form-control" value="@Data.LegalEntitydata[0].Id">
@@ -72,7 +72,7 @@
                 <label class="float-label">Password</label>
             </div>
             <div class="form-group form-primary col-md-2">
-                <select class="select">
+                    <select class="select form-control fill">
                     <option value="">IN(+91)</option>
                     <option value="AF">AF (+93)</option>
                     <option value="AL">AL (+355)</option>
@@ -159,7 +159,7 @@
                 <span id="integrationRefError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select name="CustomerBaseCurrency" class="select" value="@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCurrency" id="currencySelect" onchange="updateCurrencyDisplay()">
+                    <select name="CustomerBaseCurrency" class="select form-control fill" value="@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCurrency" id="currencySelect" onchange="updateCurrencyDisplay()">
                     <option value="">--Please Select--</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {
@@ -171,7 +171,7 @@
             </div>
 
             <div class="form-group form-primary col-md-6">
-                <select name="CustomerBaseCountry" value="@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCountry" class="select">
+                    <select name="CustomerBaseCountry" value="@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCountry" class="select form-control fill">
                     <option value="">--Please Select--</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {
@@ -259,7 +259,7 @@
           <button id="updateUser" class="btn btn-primary waves-effect waves-light">Update Office</button>
 </form>
         </div>
-            <div class="tab-pane" id="suppliersdealcode" role="tabpanel">
+        <div class="tab-pane" id="suppliersdealcodeUpdate" role="tabpanel">
                 <div class="pcoded-inner-content">
                     <!-- Main-body start -->
                     <div class="main-body">
@@ -613,7 +613,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="assignstaff" role="tabpanel">
+        <div class="tab-pane" id="assignstaffUpdate" role="tabpanel">
                 <div class="pcoded-inner-content">
                     <form class="card-block" asp-controller="OrganizationStructure" asp-action="ManageStaff">
                         <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode">
