@@ -45,26 +45,26 @@
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
-                            @if(TempData["SuccessMessagedealcode"] != null)
+                            @if (TempData["SuccessMessagedealcode"] != null)
                             {
                                 <div class="alert alert-success">
-                                    <strong></strong> @TempData["SuccessMessagedealcode"] 
+                                    <strong></strong> @TempData["SuccessMessagedealcode"]
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
-                            @if(TempData["ManageDataUpdate"] != null)
+                            @if (TempData["ManageDataUpdate"] != null)
                             {
                                 <div class="alert alert-success">
                                     <strong></strong> @TempData["ManageDataUpdate"]
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
-                           @*  @if (TempData["DuplicateError"] != null)
+                            @*  @if (TempData["DuplicateError"] != null)
                             {
-                                <div class="alert alert-danger" style="color:white;background-color:#e74c3c;padding:10px;width:80%;">
-                                    <strong>Warning:</strong> @TempData["DuplicateError"]
-                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                                </div>
+                            <div class="alert alert-danger" style="color:white;background-color:#e74c3c;padding:10px;width:80%;">
+                            <strong>Warning:</strong> @TempData["DuplicateError"]
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                            </div>
                             } *@
                             @if (TempData["officeupdate_message"] != null)
                             {
@@ -85,7 +85,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="col-lg-8 text-right" style="right:0;">
+                                        <div class="col-lg-8 text-right" style="padding-right: 0;">
                                             <button type="button" id="officepopup" class="btn btn-primary btn-lg modl"
                                                     data-legal-entity-code="@ViewBag.LegalEntityCode"
                                                     data-legal-entity-name="@ViewBag.LegalEntityName"
@@ -111,80 +111,99 @@
                                             bool isFirst = true;
                                             var isFirstRow = true;
                                         }
-                                       
-                                          @foreach (var office in Model)
-                                             {
-                                        <div class="office-card">
-                                            <div class="d-flex justify-content-between align-items-center" style="border-bottom: #ddd 1px solid; padding-bottom: 10px;">
-                                                <div class="col-lg-9" style="padding-left:0;">
+
+                                        @foreach (var office in Model)
+                                        {
+                                            <div class="office-card">
+                                                <div class="d-flex justify-content-between align-items-center office-header" style="border-bottom: #ddd 1px solid; padding-bottom: 10px;">
+                                                    <div class="col-lg-9" style="padding-left:0;">
                                                         @if (isFirst)
                                                         {
                                                             <strong>Head office</strong>
                                                             isFirst = false;
                                                         }
-                                                        <span class="tag">@office.LegalEntityName</span>
+                                                        <span class="tag captext" style="text-transform: capitalize;">@office.LegalEntityName</span>
                                                         <span class="tag tag-default">@office.State -->@office.City</span>
-                                                </div>
+                                                    </div>
                                                     @if (isFirstRow)
                                                     {
-                                                    <div class="text-primary col-lg-3 text-right">
-                                                        <strong data-toggle="tooltip"
-                                                                data-html="true"
-                                                                title="@Html.Raw(string.Join("<br/>", ((List<CustomersEmployee>)ViewBag.Employees).Select(e => e.FirstName + " " + e.LastName)))">
-                                                            @ViewBag.EmployeeCount users assigned
-                                                                
-                                                        </strong>
-                                                    </div>
-                                                        isFirstRow= false;
+                                                        <div class="text-primary col-lg-3 text-right">
+                                                            <strong data-toggle="tooltip"
+                                                                    data-html="true"
+                                                                    title="@Html.Raw(string.Join("<br/>", ((List<CustomersEmployee>)ViewBag.Employees).Select(e => e.FirstName + " " + e.LastName)))">
+                                                                @ViewBag.EmployeeCount users assigned
+
+                                                            </strong>
+                                                        </div>
+                                                        isFirstRow = false;
                                                     }
                                                     <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
-                                            </div>
-                                           
-                                            <div class="details row mt-3" style="display:flex;">
-                                                <div class="col-md-3">
-                                                    <div class="map-bx"><img class="img-fluid" src="../assets/images/map-1.png" alt="map"></div>
                                                 </div>
-                                                <div class="col-md-9 address-section">
-                                                    <div class="row">
-                                                       
-                                                            <div class="col-md-6">
-                                                                <p><strong>Address:</strong></p>
-                                                                <p>@office.AddressLine1</p>
-                                                                <p>@office.AddressLine2</p>
-                                                                <p>@office.PostalCode</p>
-                                                                <p><strong>Office entity name:</strong><br>@office.LegalEntityName</p>
-                                                            </div>
-                                                      
-                                                       
+
+                                                <div class="details row mt-3" style="display:flex;">
+                                                    <div class="col-md-3">
+                                                        <div class="map-bx"><img class="img-fluid" src="../assets/images/map-1.png" alt="map"></div>
+                                                    </div>
+                                                    <div class="col-md-9 address-section">
+                                                        <div class="row">
 
                                                             <div class="col-md-6">
-                                                                <p><strong>Office contact:</strong></p>
-                                                                <p>@office.FirstName</p>
-                                                                <p>@office.BussinesEmail</p>
-                                                                <p>
-                                                                    <strong>Point of sale country:</strong><br>
-                                                                    @office.Country
-                                                                </p>
+                                                                <div class="office-info">
+                                                                    <i class="fa fa-map-marker"></i>
+                                                                    <div>
+                                                                        <p><strong>Address:</strong></p>
+                                                                        <p>@office.AddressLine1 @office.AddressLine2 @office.PostalCode</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="office-info">
+                                                                    <i class="fa fa-building" aria-hidden="true"></i>
+                                                                    <div>
+                                                                        <p><strong>Office entity name:</strong></p>
+                                                                        <p class="captext" style="text-transform: capitalize;">@office.LegalEntityName</p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        
+
+
+
+                                                            <div class="col-md-6">
+                                                                <div class="office-info">
+                                                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                                                    <div>
+                                                                        <p><strong>Office contact:</strong></p>
+                                                                        <p class="captext" style="text-transform: capitalize;">@office.FirstName</p>
+                                                                        <p class="captext" style="text-transform: capitalize;">@office.BussinesEmail</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="office-info">
+                                                                    <i class="fa fa-globe" aria-hidden="true"></i>
+                                                                    <div>
+                                                                        <p>
+                                                                            <strong>Point of sale country:</strong><br>
+                                                                            @office.Country
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group form-primary col-md-12 m-t-5 text-right">
-                                                            <button class="btn btn-danger waves-effect waves-light">Delete</button>
-                                                            <button class="btn btn-primary waves-effect waves-light"
-                                                                    data-id="@office.Id"
-                                                                    data-idlegal="@ViewBag.Id"
-                                                                    data-legalentitycode="@office.LegalEntityCode"
-                                                                    data-legalentitycodeparent="@ViewBag.LegalEntityCode"
-                                                                    data-legalentityname="@ViewBag.LegalEntityName"
-                                                                    data-toggle="modal"
-                                                                    data-target="#updateOfficeModal">
-                                                                Edit
-                                                            </button>
+                                                    <div class="form-primary col-md-12 m-t-5 text-right office-footer">
+                                                        <button class="btn btn-danger waves-effect waves-light">Delete</button>
+                                                        <button class="btn btn-primary waves-effect waves-light"
+                                                                data-id="@office.Id"
+                                                                data-idlegal="@ViewBag.Id"
+                                                                data-legalentitycode="@office.LegalEntityCode"
+                                                                data-legalentitycodeparent="@ViewBag.LegalEntityCode"
+                                                                data-legalentityname="@ViewBag.LegalEntityName"
+                                                                data-toggle="modal"
+                                                                data-target="#updateOfficeModal">
+                                                            Edit
+                                                        </button>
                                                     </div>
                                                 </div>
+
                                             </div>
-                                            
-                                        </div>
                                         }
                                     </div>
                                 </div>
@@ -193,11 +212,11 @@
                     </div>
                 </div>
             </div>
-          
-          </div>
-       </div>
+
+        </div>
+    </div>
     <!-- Add Office Modal -->
-    <div class="modal fade office-modal"  id="addOfficeModal" tabindex="-1" role="dialog" aria-labelledby="addOfficeModalLabel" aria-hidden="true">
+    <div class="modal fade office-modal" id="addOfficeModal" tabindex="-1" role="dialog" aria-labelledby="addOfficeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content rounded-4 border-0 shadow-sm">
                 <div class="modal-header border-0 pb-0">
@@ -267,7 +286,7 @@
     <script src="~/assets/js/custom/countrycurrency.js"></script>
     <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    
+
     <script>
         $('.langOpt').each(function () {
             var placeholderText = $(this).data('placeholder') || 'Select option';
@@ -285,13 +304,13 @@
 
     <script>
         $(document).ready(function () {
-            $('.langOpt').multiselect(); 
+            $('.langOpt').multiselect();
         });
     </script>
     <script>
         $(document).ready(function () {
             $('#addOfficeModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); 
+                var button = $(event.relatedTarget);
                 var legalEntityCode = button.data('legal-entity-code');
                 var legalEntityName = button.data('legal-entity-name');
                 var IdLegal = button.data('legal-entity-idLegal');
@@ -424,7 +443,7 @@
             });
         });
     </script>
-  
+
     <script>
         $(document).on('click', '#backToSuppliers', function (e) {
             e.preventDefault();
@@ -456,7 +475,7 @@
             });
         });
     </script>
-     <script>
+    <script>
         $(document).on('click', '#suppliersTab', function (e) {
             e.preventDefault();
             var idLegal = $(this).data("idlegal");
@@ -464,7 +483,7 @@
             var legalEntityName = $(this).data("legal-name");
             $.ajax({
                 url: '/OrganizationStructure/ShowOffice',
-                type: 'GET',   
+                type: 'GET',
                 data: {
                     IdLegal: idLegal,
                     LegalEntityCode: legalEntityCode,
@@ -476,9 +495,9 @@
 
                     //var tab2 = $('a[href="#suppliersdealcode"]');
                     //if (tab2.length) {
-                        //tab2.tab('show');
-                        // activate suppliers tab pane
-                      
+                    //tab2.tab('show');
+                    // activate suppliers tab pane
+
                     //}
                     var org = document.getElementById('Organization');
                     if (org) { org.style.display = 'none'; org.classList.remove('active', 'show'); }
@@ -496,14 +515,14 @@
                     });
 
                     $('#addOfficeModal').modal('show');
-                 
+
                 },
                 error: function () {
                     alert('Failed to load suppliers.');
                 }
             });
         });
-    </script> 
+    </script>
     <script>
         function showSuppliers() {
             document.getElementById('Organization').style.display = 'none';
@@ -521,5 +540,14 @@
             document.getElementById('suppliersdealcode').style.display = 'none';
         }
     </script>
-
+    <script>
+        function smartCapitalize(text) {
+            return text
+                .toLowerCase() 
+                .replace(/\b\w/g, c => c.toUpperCase()); 
+        }
+        document.querySelectorAll(".captext").forEach(el => {
+            el.textContent = smartCapitalize(el.textContent);
+        });
+    </script>
 </footer>
