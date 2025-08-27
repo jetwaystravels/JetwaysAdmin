@@ -133,7 +133,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             return View(legaldata);
         }
         [HttpPost]
-        public async Task<IActionResult> AddUsers([FromForm] CustomersEmployee adduser)
+        public async Task<IActionResult> AddUsers([FromForm] CustomersEmployee adduser, string legalEntityCode, string legalEntityName)
         {
             var file = Request.Form.Files.FirstOrDefault(f => f.Name == "Logo");
             if (file != null && file.Length > 0)
@@ -163,8 +163,8 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 {
                     UserID = Request.Form["UserID"],
                     IdLegal = Request.Form["IdLegal"],
-                    legalEntityName = Request.Form["legalEntityName"],
-                    legalEntityCode = Request.Form["legalEntityCode"],
+                    legalEntityName = legalEntityName,
+                    legalEntityCode = legalEntityCode,
                     empId = Request.Form["empId"]
                 });
             }

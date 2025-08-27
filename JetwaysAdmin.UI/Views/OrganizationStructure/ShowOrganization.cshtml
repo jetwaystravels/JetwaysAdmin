@@ -38,7 +38,7 @@
                 <div class="main-body">
                     <div class="page-wrapper">
                         <div class="page-body">
-                            @if(TempData["LegalAdd"] != null)
+                            @if (TempData["LegalAdd"] != null)
                             {
                                 <div class="alert alert-success">
                                     <strong></strong> @TempData["LegalAdd"]
@@ -543,8 +543,8 @@
     <script>
         function smartCapitalize(text) {
             return text
-                .toLowerCase() 
-                .replace(/\b\w/g, c => c.toUpperCase()); 
+                .toLowerCase()
+                .replace(/\b\w/g, c => c.toUpperCase());
         }
         document.querySelectorAll(".captext").forEach(el => {
             el.textContent = smartCapitalize(el.textContent);
