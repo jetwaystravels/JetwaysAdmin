@@ -80,6 +80,11 @@ namespace JetwaysAdmin.WebAPI.Controllers
             suserupdate.LastName = internalusers.LastName ?? suserupdate.LastName;
             suserupdate.MobileNumber = internalusers.MobileNumber ?? suserupdate.MobileNumber;
             suserupdate.BusinessEmail = internalusers.BusinessEmail ?? suserupdate.BusinessEmail;
+            suserupdate.DateOfBirth = internalusers.DateOfBirth ?? suserupdate.DateOfBirth;
+            suserupdate.Designation = internalusers.Designation ?? suserupdate.Designation;
+            suserupdate.Department = internalusers.Department ?? suserupdate.Department;
+            suserupdate.Bands = internalusers.Bands ?? suserupdate.Bands;
+            suserupdate.ReportingManager = internalusers.ReportingManager ?? suserupdate.ReportingManager;
             suserupdate.Logo = internalusers.Logo ?? suserupdate.Logo;
             await _cutomerempl.UpdateUsersById(suserupdate);
             return Ok(new { message = "Customer updated successfully!" });

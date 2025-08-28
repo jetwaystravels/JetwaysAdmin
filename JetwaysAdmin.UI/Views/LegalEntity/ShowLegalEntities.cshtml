@@ -108,9 +108,16 @@
                                             <input type="text" name="LegalEntityCode" value="" id="legalEntityCode" maxlength="10"
                                                    oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode(this)" class="form-control" required>
                                                 <span class="form-bar"></span>
-                                                <label class="float-label">Legal Entity Code</label>
+                                            <label class="float-label">Financial Entity Code</label>
                                             <span id="legalEntityCodeError" style="color: red; font-size: 12px;"></span>
                                             </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="FinancialPersonalCode" value="" id="financialpersonalcode" maxlength="10"
+                                                   oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode(this)" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Financial Personal Code</label>
+                                            <span id="FinancialpersonalcodeError" style="color: red; font-size: 12px;"></span>
+                                        </div>
                                             <div class="form-group form-primary col-md-3">
                                             <select name="AssignIATAGroup" class="form-control fill" required>
                                                  <option value="opt1">Assign IATA Group</option>
@@ -301,7 +308,7 @@
                                                     <span class="slider round"></span>
                                                 </label>
                                             </div>
-                                            <div class="form-check form-check-inline col-md-3 m-b-50">
+                                            <div class="form-check form-check-inline col-md-2 m-b-50">
                                                 <label class="radio_lb">
                                                 <input class="form-check-input" type="radio" name="CreateNewGDSProfile" value="option1" checked>
                                                     Create new GDS profile
