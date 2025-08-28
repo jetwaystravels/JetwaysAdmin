@@ -109,6 +109,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
         {
             List<LegalEntity> legalEntities = new List<LegalEntity>();
             MenuHeaddata legaldata = new MenuHeaddata();
+            List<CustomersEmployee> customerdetail = new List<CustomersEmployee>();
             using (HttpClient client = new HttpClient())
             {
                 var response = await client.GetAsync(AppUrlConstant.GetLegalEntity);
@@ -124,13 +125,28 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     .ToList();
                     legaldata.LegalEntitydata = filteredEntities;
                 }
+                var userdetail = await client.GetAsync($"{AppUrlConstant.GetCustomerEmployee}?LegalEntityCode={legalEntityCode}");
+                if (userdetail.IsSuccessStatusCode)
+                {
+                    var result = await userdetail.Content.ReadAsStringAsync();
+                    customerdetail = JsonConvert.DeserializeObject<List<CustomersEmployee>>(result);
+                }
+                var filteredUsers = customerdetail
+           .Where(u => u.LegalEntityCode != null && u.LegalEntityCode.Equals(legalEntityCode, StringComparison.OrdinalIgnoreCase))
+           .ToList();
+
             }
             ViewBag.LegalEntityId = IdLegal;
             ViewBag.LegalEntityName = legalEntityName;
             ViewBag.LegalEntityCode = legalEntityCode;
             ViewBag.EUserid = UserID;
             ViewBag.empId = empId;
-            return View(legaldata);
+            var viewModel = new UserProfileMenuHeaddata
+            {
+                LegalData = legaldata,
+                CustomerDetail = customerdetail
+            };
+            return View(viewModel);
         }
         [HttpPost]
         public async Task<IActionResult> AddUsers([FromForm] CustomersEmployee adduser, string legalEntityCode, string legalEntityName)

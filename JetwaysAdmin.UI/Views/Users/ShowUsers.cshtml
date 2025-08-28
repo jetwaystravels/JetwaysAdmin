@@ -185,6 +185,32 @@
                                             <span class="form-bar"></span>
                                             <label class="float-label">Employee ID</label>
                                         </div>
+                                        <div class="form-group form-primary col-md-4">
+                                            <input type="text" name="DateOfBirth" class="form-control date-main" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Date Of Birth</label> 
+                                        </div>
+                                        <div class="form-group form-primary col-md-4">
+                                            <input type="text" name="Department" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Department</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-4">
+                                            <input type="text" name="Designation" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Designation</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-4">
+                                            <input type="text" name="Bands" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Bands</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-4">
+                                            <input type="text" name="ReportingManager" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Reporting Manager
+                                            </label>
+                                        </div>
                                         <div class="form-group form-primary col-md-3">
                                             <select name="GDSProfileType" class="select">
                                                 <option value="">Select Profile Type</option>
@@ -312,7 +338,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th><button class="srt-btn" type="button" aria-label="employee-id">Employee Id</button></th>
-                                                                <th><button class="srt-btn" type="button" aria-label="user-name">User Name</button></th>
+                                                                <th><button class="srt-btn" type="button" aria-label="user-name">Employee Name</button></th>
                                                                 <th><button class="srt-btn" type="button" aria-label="email-id">Email Id</button></th>
                                                                 <th><button class="srt-btn" type="button" aria-label="designation">Designation</button></th>
                                                                 <th><button class="srt-btn" type="button" aria-label="approver-status">Approver Status</button></th>
@@ -328,9 +354,9 @@
                                                                     data-legalentityname="@ViewBag.LegalEntityName"
                                                                     data-legalentitycode="@ViewBag.LegalEntityCode" data-empid="@user.EmployeeID" style="cursor:pointer;">
                                                                     <td class="clickable">@user.EmployeeID</td>
-                                                                    <td class="clickable">@user.FirstName</td>
+                                                                    <td class="clickable">@user.FirstName @user.LastName</td>
                                                                     <td class="clickable">@user.BusinessEmail</td>
-                                                                    <td onclick="location.href='user-information.html';"></td>
+                                                                    <td class="clickable">@user.Designation</td>
                                                                     <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Approved</label></td>
                                                                     <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label></td>
                                                                     <td>
@@ -363,6 +389,22 @@
 <footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        $(function () {
+            $(".select").select2();
+        });
+    </script>
+    <!-- datepicker start -->
+    <script>
+        $(function () {
+            flatpickr(".date-main", {
+                dateFormat: "Y-m-d",
+                allowInput: true
+            });
+        });
+    </script>
     <script>
         $(document).ready(function () {
             var duplicateMsg = '@TempData["DuplicateBillingEntity"]';

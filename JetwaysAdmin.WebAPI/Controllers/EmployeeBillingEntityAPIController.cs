@@ -27,11 +27,11 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
                 return BadRequest("Invalid data.");
             }
-            var existingEntity = await _emplyebilling.GetEmplBillingEntityById(empBillingl.UserID);
-            if (existingEntity != null)
-            {
-                return Conflict(new { message = "A billing entity for this user already exists." });
-            }
+            //var existingEntity = await _emplyebilling.GetEmplBillingEntityById(empBillingl.UserID);
+            //if (existingEntity != null)
+            //{
+            //    return Conflict(new { message = "A billing entity for this user already exists." });
+            //}
             await _emplyebilling.AddEmplBillingEntity(empBillingl);
             return Ok(new { message = "User added successfully!" });
         }

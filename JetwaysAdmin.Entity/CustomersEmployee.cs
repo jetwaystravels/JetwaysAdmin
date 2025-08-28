@@ -35,5 +35,10 @@ namespace JetwaysAdmin.Entity
         public string? ModifyBy { get; set; } = "Admin";
         public DateTime? ModifyDate { get; set; } = DateTime.Now;
         public int? AppStatus { get; set; } = 0;
+        public DateTime? DateOfBirth { get; set; }
+        public string? Department { get; set; }
+        public string? Designation { get; set; }
+        public string? Bands { get; set; }
+        public string? ReportingManager { get; set; }
     }
 }
