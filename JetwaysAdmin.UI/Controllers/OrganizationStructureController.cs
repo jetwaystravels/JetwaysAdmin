@@ -271,6 +271,7 @@ namespace JetwaysAdmin.UI.Controllers
             LegalEntity entity = null;
             List<AddSupplier> supplier = new List<AddSupplier>();
             List<InternalUsers> customeremployee = new List<InternalUsers>();
+            List<LocationsandTax> locationsandtax = new List<LocationsandTax>();
             BookingConsultantDto bookingConsultant = null;
             using (HttpClient client = new HttpClient())
             {
@@ -311,7 +312,13 @@ namespace JetwaysAdmin.UI.Controllers
                     var result1 = await response1.Content.ReadAsStringAsync();
                     bookingConsultant = JsonConvert.DeserializeObject<BookingConsultantDto>(result1);
                 }
-
+                string requestUrl = $"{AppUrlConstant.GetLoactionTax}?LegalEntityCode={LegalEntityCode}";
+                var userresponse = await client.GetAsync(requestUrl);
+                if (userresponse.IsSuccessStatusCode)
+                {
+                    var result = await userresponse.Content.ReadAsStringAsync();
+                    locationsandtax = JsonConvert.DeserializeObject<List<LocationsandTax>>(result);
+                }
                 var ResponseI = await client.GetAsync(AppUrlConstant.GetInternalusers);
 
                 if (ResponseI.IsSuccessStatusCode)
@@ -334,6 +341,7 @@ namespace JetwaysAdmin.UI.Controllers
                         })
                         .ToList();
                 }
+              
             }
             ViewBag.LegalEntityCode = LegalEntityCodeParent;
             ViewBag.LegalEntityName = LegalEntityName;
@@ -345,6 +353,7 @@ namespace JetwaysAdmin.UI.Controllers
                 IATAGruopName = iataGroups,
                 getsupplier = supplier,
                 InternalUsers = customeremployee,
+                LocationandTax = locationsandtax,
                 BookingConsultants = bookingConsultant ?? new BookingConsultantDto()
             };
             return PartialView("_OfficeUpdate", viewModel);
