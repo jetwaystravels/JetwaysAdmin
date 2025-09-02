@@ -79,7 +79,7 @@
                                         <div class="col-lg-4" style="padding-left:0;">
                                             <form class="form-material">
                                                 <div class="form-group form-primary" style="width:280px;">
-                                                    <input type="text" name="footer-email" class="form-control">
+                                                    <input type="text" name="search" class="form-control" id="searchInput" placeholder="Search by company name">
                                                     <span class="form-bar"></span>
                                                     <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
                                                 </div>
@@ -122,7 +122,7 @@
                                                             <strong>Head office</strong>
                                                             isFirst = false;
                                                         }
-                                                        <span class="tag captext" style="text-transform: capitalize;">@office.LegalEntityName</span>
+                                                        <span class="tag captext company-name" style="text-transform: capitalize;">@office.LegalEntityName</span>
                                                         <span class="tag tag-default">@office.State -->@office.City</span>
                                                     </div>
                                                     @if (isFirstRow)
@@ -549,5 +549,22 @@
         document.querySelectorAll(".captext").forEach(el => {
             el.textContent = smartCapitalize(el.textContent);
         });
+    </script>
+
+    <script>
+        $("#searchInput").on("keyup", function () {
+              let value = $(this).val().toLowerCase().trim();
+
+              if (value === "") {
+                  // show everything if input is empty
+                  $("#officeList .office-card").show();
+                  return;
+              }
+
+              $("#officeList .office-card").each(function () {
+                  let company = $(this).find(".company-name").text().toLowerCase();
+                  $(this).toggle(company.indexOf(value) > -1);
+              });
+          });
     </script>
 </footer>

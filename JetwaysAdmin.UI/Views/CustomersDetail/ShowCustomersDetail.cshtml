@@ -7,8 +7,11 @@
 }
 <head>
     <style>
-       .boxuser { margin-left:-8px; cursor:pointer;}
-  
+        .boxuser {
+            margin-left: -8px;
+            cursor: pointer;
+        }
+
         .alert {
             padding: 5px;
             background-color: #11c15b;
@@ -26,15 +29,16 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        .closebtn:hover {
+
+            .closebtn:hover {
                 color: black;
             }
 
-        .btnbrdr{
-            border:none;
+        .btnbrdr {
+            border: none;
         }
 
-        .sup-bx{
+        .sup-bx {
             cursor: pointer;
         }
 
@@ -80,7 +84,7 @@
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                         <div class="page-body">
-                         @*    @if (TempData["CustomerAdd"] != null)
+                            @*    @if (TempData["CustomerAdd"] != null)
                             {
                                 <div class="alert">
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -90,7 +94,7 @@
                             <div class="d-flex justify-content-between m-b-10">
                                 <form class="form-material">
                                     <div class="form-group form-primary" style="width:280px;">
-                                        <input type="text" name="footer-email" class="form-control">
+                                        <input type="text" name="search" class="form-control" id="searchInput" placeholder="Search by company name">
                                         <span class="form-bar"></span>
                                         <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
                                     </div>
@@ -107,27 +111,28 @@
                                 </div>
                             </div>
                             <!--  customer manage start -->
-                         <div class="row">
+                            <div class="row" id="CustomersDtl">
                                 <!-- flight start -->
-                                @foreach(var val in Model)
+                                @foreach (var val in Model)
                                 {
                                     <div class="col-md-3">
-                                        <div class="card" >
+                                        <div class="card">
                                             <div class="card-block">
-                                                @if(val.AppStatus==1){
-                                                <div class="bdr  legalbox sup-bx" style="padding-bottom:0;">
-                                                    <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo">
-                                                    <h6 class="m-t-10 m-l-10 gray-bg">@val.LegalEntityName<p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p></h6>
-                                                    <input type="hidden" value="@val.Id" name="LegalEntityId" />
-                                                    <input type="hidden" value="@val.LegalEntityName" name="LegalEntityName"/>
-                                                    <input type="hidden" value="@val.LegalEntityCode" name="LegalEntityCode"/>
-                                                </div>
+                                                @if (val.AppStatus == 1)
+                                                {
+                                                    <div class="bdr  legalbox sup-bx" style="padding-bottom:0;">
+                                                        <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo">
+                                                        <h6 class="m-t-10 m-l-10 gray-bg company-name">@val.LegalEntityName<p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p></h6>
+                                                        <input type="hidden" value="@val.Id" name="LegalEntityId" />
+                                                        <input type="hidden" value="@val.LegalEntityName" name="LegalEntityName" />
+                                                        <input type="hidden" value="@val.LegalEntityCode" name="LegalEntityCode" />
+                                                    </div>
                                                 }
                                                 else
                                                 {
                                                     <div class="bdr  legalbox disabled-box" style="padding-bottom:0;">
                                                         <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo">
-                                                        <h6 class="m-t-10 m-l-10 gray-bg">@val.LegalEntityName<p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p></h6>
+                                                        <h6 class="m-t-10 m-l-10 gray-bg company-name">@val.LegalEntityName<p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p></h6>
                                                         <input type="hidden" value="@val.Id" name="LegalEntityId" />
                                                         <input type="hidden" value="@val.LegalEntityName" name="LegalEntityName" />
                                                         <input type="hidden" value="@val.LegalEntityCode" name="LegalEntityCode" />
@@ -153,13 +158,13 @@
                                                         <div class="dot-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
                                                         <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                                             <a class="dropdown-item" href="#">Settings</a>
-                                                          @*   <a asp-controller="Users" asp-action="ShowUsers" class="dropdown-item">User Management</a> *@
-                                                            <form  asp-controller="Users" asp-action="ShowUsers" method="get">
+                                                            @*   <a asp-controller="Users" asp-action="ShowUsers" class="dropdown-item">User Management</a> *@
+                                                            <form asp-controller="Users" asp-action="ShowUsers" method="get">
                                                                 <input type="hidden" value="@val.Id" name="LegalEntityId" />
                                                                 <input type="hidden" value="@val.LegalEntityName" name="LegalEntityName" />
                                                                 <input type="hidden" value="@val.LegalEntityCode" name="LegalEntityCode" />
                                                                 <button type="submit" class="dropdown-item boxuser">User Management</button>
-                                                           </form>
+                                                            </form>
                                                             <a class="dropdown-item" href="#">Deactivate </a>
                                                         </div>
                                                     </div>
@@ -168,18 +173,18 @@
                                         </div>
                                     </div>
                                 }
-                                
-                                <!-- flight card end -->
-                            </div> 
 
-                            
+                                <!-- flight card end -->
+                            </div>
+
+
                         </div>
                     </div>
                     <!-- Page-body end -->
                 </div>
             </div>
 
-         </div>
+        </div>
     </div>
 
     <div class="modal fade" id="bulkUpload" tabindex="-1" role="dialog" aria-labelledby="bulkUploadTitle">
@@ -221,7 +226,7 @@
 <!-----------Footer Start------------------>
 <footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <script>
+    <script>
         $(document).ready(function () {
             $(".legalbox").click(function (e) {
                 e.preventDefault();
@@ -229,13 +234,13 @@
                 var legalEntityName = $(this).find("input[name='LegalEntityName']").val();
                 var legalEntityCode = $(this).find("input[name='LegalEntityCode']").val();
                 var legalEntityId = $(this).find("input[name='LegalEntityId']").val();
-                
+
 
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("ShowOrganization", "OrganizationStructure")',
                     data: {
-                                 
+
                         legalEntityName: legalEntityName,
                         legalEntityCode: legalEntityCode,
                         IdLegal: legalEntityId
@@ -266,5 +271,25 @@
             form.submit();
         }
     </script>
+
+
+    <!-----------Search by complay name start------------------>
+    <script>
+        $("#searchInput").on("keyup", function () {
+            let value = $(this).val().toLowerCase().trim();
+
+            if (value === "") {
+                // Show all cards if search is empty
+                $("#CustomersDtl .col-md-3").show();
+                return;
+            }
+
+            $("#CustomersDtl .col-md-3").each(function () {
+                let company = $(this).find(".company-name").text().toLowerCase();
+                $(this).toggle(company.indexOf(value) > -1);
+            });
+        });
+    </script>
+    <!-----------Search by complay name end------------------>
 
 </footer>

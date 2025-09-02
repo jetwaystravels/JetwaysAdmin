@@ -16,8 +16,8 @@
         }
 
         .container {
-            width: 300px;
-            padding: 20px;
+            width: 400px;
+            padding: 30px;
             background-color: white;
             box-shadow: 0 0 15px rgba(0,0,0,0.1);
             border-radius: 8px;
@@ -69,7 +69,7 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="">
         <h2>Login</h2>
         <form asp-controller="Login" asp-action="UserLogin" id="login-form" method="post">
             <input type="text" name="username" id="login-username" placeholder="Username" required>
@@ -78,11 +78,11 @@
             <p style="color:red;font-weight:600">@ViewBag.ErrorMessage</p>
         </form>
         <p>Don't have an account? <a asp-action="Registraion" asp-controller="UserRegistraion">Register here</a></p>
-       @*  <div class="form-switch">
+        @*  <div class="form-switch">
             <p>Don't have an account? <a id="signup-link">Sign Up</a></p>
         </div> *@
     </div>
-@* 
+    @* 
     <div class="container" style="display:none;" id="signup-container">
         <h2>Sign Up</h2>
 

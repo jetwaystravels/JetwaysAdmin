@@ -50,6 +50,7 @@ namespace JetwaysAdmin.UI.ViewModel
         public MenuHeaddata LegalData { get; set; }
         public List<LegalEntity> LegalEntitydata { get; set; }
         public List<CustomersEmployee> CustomerDetail { get; set; }
+        public CustomersEmployee CustomerDetailID { get; set; }
     }
 
     public class FrequentFlyerDisplay

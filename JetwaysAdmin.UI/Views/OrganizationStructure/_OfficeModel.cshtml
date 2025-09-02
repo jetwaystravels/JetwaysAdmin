@@ -13,7 +13,7 @@
             <form id="addOfficeForm"
                   class="form-row form-material"
                   method="post">
-                <input type="hidden" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
+                <input type="hidden" id="parentLegalEntityCode" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
                 <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
             <div class="form-group form-primary col-md-6">
                 <input type="text" name="LegalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)" required>
@@ -21,7 +21,17 @@
                 <label class="float-label">Office Entity Name<span>*</span></label>
                 <span id="legalEntityNameError" style="color: red; font-size: 12px;"></span>
             </div>
-            <div class="form-group form-primary col-md-6">
+                <div class="form-group form-primary col-md-3">
+                    <select name="FinancialType" id="financialType" class="form-control fill" required>
+                        <option value="">Please Select</option>
+                        <option value="SE">Use Office’s Own Financial Code</option>
+                        <option value="SO">Use Office’s Own Code (Linked to Head Office)</option>
+                        <option value="HO">Use Head Office Financial Code</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Financial Type</label>
+                </div>
+            <div class="form-group form-primary col-md-3">
                 <input type="text" name="LegalEntityCode" value="" id="legalEntityCode" maxlength="10"
                        oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode(this)" class="form-control" required>
                 <span class="form-bar"></span>
@@ -33,6 +43,7 @@
                 <span class="form-bar"></span>
                 <label class="float-label">Financial personal code</label>
             </div>
+               
             <div class="form-group form-primary col-md-6">
                 <select name="GSTLocationID" class="form-control fill" required>
                     <option value="">Select GST Tax</option>
@@ -48,17 +59,18 @@
                 <span class="form-bar"></span>
                 <label class="float-label">Parent Legal Entity Name</label>
             </div>
-            <div class="form-group form-primary col-md-6">
-                <select name="AssignIATAGroup" class="form-control fill" required>
-                    <option value="">Assign IATA Group</option>
-                    @foreach (var group in Model.IATAGruopName)
-                    {
-                        <option value="@group.GroupID">@group.GroupName</option>
-                    }
-                </select>
-                <span class="form-bar"></span>
-                <label class="float-label">Assign IATA Group</label>
-            </div>
+      
+                <div class="form-group form-primary col-md-6">
+                    <select name="AssignIATAGroup" class="form-control fill" required>
+                        <option value="">Assign IATA Group</option>
+                        @foreach (var group in Model.IATAGruopName)
+                        {
+                            <option value="@group.GroupID">@group.GroupName</option>
+                        }
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Assign IATA Group</label>
+                </div>
             <div class="form-group form-primary col-md-6">
                 <input type="text" name="CorporateAccountsCode" maxlength="15" id="corporateCode" oninput="this.value = this.value.replace(/\s/g, ''); validateCorpCode(this)" class="form-control">
                 <span class="form-bar"></span>
@@ -786,7 +798,7 @@
 .tag {display: inline-block;background-color: #f0f0f0;border-radius: 20px; padding: 2px 8px;margin: 4px;font-size: 12px;}
 .remove-btn {background: none;border: none;color: #000; margin-left: 8px;font-weight: bold;cursor: pointer;}
 </style>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     $(function () {
       $(".select").select2();
@@ -1126,6 +1138,21 @@
             }
         });
     });
+    //New JS 
+    document.getElementById("financialType").addEventListener("change", function () {
+        const selectedValue = this.value;
+        const parentCode = document.getElementById("parentLegalEntityCode").value;
+        const legalEntityInput = document.getElementById("legalEntityCode");
+
+        if (selectedValue === "HO") {
+            legalEntityInput.value = parentCode;
+            legalEntityInput.readOnly = true;
+        } else {
+            legalEntityInput.value = "";
+            legalEntityInput.readOnly = false;
+        }
+    });
+
 </script>
 
 

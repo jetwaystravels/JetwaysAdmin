@@ -12,6 +12,7 @@ namespace JetwaysAdmin.Entity
         public int Id { get; set; }
         public string? LegalEntityName { get; set; }
         public string? LegalEntityCode { get; set; }
+        public string? FinancialType { get; set; }
         public string? ParentLegalEntityCode { get; set; }
         public int? GSTLocationID { get; set; }
         public string? FinancialPersonalCode { get; set; } 

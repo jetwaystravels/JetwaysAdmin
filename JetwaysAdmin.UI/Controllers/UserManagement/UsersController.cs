@@ -73,7 +73,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             return View(users);
         }
         [HttpPost]
-        public async Task<IActionResult> EditUsers(CustomersEmployee users)
+        public async Task<IActionResult> EditUsers(CustomersEmployee users, string legalEntityCode, string legalEntityName, string IdLegal, int UserID, string empId)
         {
             var file = Request.Form.Files.FirstOrDefault(f => f.Name == "Logo");
             if (file != null && file.Length > 0)
@@ -92,15 +92,26 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 HttpResponseMessage response = await client.PutAsync(AppUrlConstant.GetCustomerEmployeeID + "/" + users.UserID, content);
                 if (response.IsSuccessStatusCode)
                 {
+                    ViewBag.LegalEntityId =IdLegal;
+                    ViewBag.LegalEntityName = legalEntityName;
+                    ViewBag.LegalEntityCode = legalEntityCode;
+                    ViewBag.EUserid = users.UserID;
+                    ViewBag.empId = users.EmployeeID;
+                    TempData["UpdateUSers"] = "User Update Successfully";
                     return RedirectToAction("updateUser", new
                     {
                         UserID = users.UserID,
-                        IdLegal = Request.Form["IdLegal"],
-                        legalEntityName = Request.Form["legalEntityName"],
-                        legalEntityCode = Request.Form["legalEntityCode"]
+                        IdLegal = IdLegal,
+                        legalEntityName = legalEntityName,
+                        legalEntityCode = legalEntityCode
                     });
                 }
             }
+            ViewBag.LegalEntityId = IdLegal;
+            ViewBag.LegalEntityName = legalEntityName;
+            ViewBag.LegalEntityCode = legalEntityCode;
+            ViewBag.EUserid = users.UserID;
+            ViewBag.empId = users.EmployeeID;
             return View();
         }
 
@@ -110,6 +121,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             List<LegalEntity> legalEntities = new List<LegalEntity>();
             MenuHeaddata legaldata = new MenuHeaddata();
             List<CustomersEmployee> customerdetail = new List<CustomersEmployee>();
+            CustomersEmployee users = null;
             using (HttpClient client = new HttpClient())
             {
                 var response = await client.GetAsync(AppUrlConstant.GetLegalEntity);
@@ -135,6 +147,14 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
            .Where(u => u.LegalEntityCode != null && u.LegalEntityCode.Equals(legalEntityCode, StringComparison.OrdinalIgnoreCase))
            .ToList();
 
+                string url = $"{AppUrlConstant.GetCustomerEmployeeID}/{UserID}";
+                var Response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await Response.Content.ReadAsStringAsync();
+                    users = JsonConvert.DeserializeObject<CustomersEmployee>(result);
+                }
+
             }
             ViewBag.LegalEntityId = IdLegal;
             ViewBag.LegalEntityName = legalEntityName;
@@ -144,7 +164,8 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             var viewModel = new UserProfileMenuHeaddata
             {
                 LegalData = legaldata,
-                CustomerDetail = customerdetail
+                CustomerDetail = customerdetail,
+                CustomerDetailID = users
             };
             return View(viewModel);
         }
@@ -187,7 +208,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBillingEntity(EmployeeBillingEntity billingentity, int UserID, string legalEntityCode, string legalEntityName, string IdLegal)
+        public async Task<IActionResult> AddBillingEntity(EmployeeBillingEntity billingentity, int UserID, string LegalEntityCodeParent, string legalEntityName, string IdLegal)
         {
           using (HttpClient client = new HttpClient())
             {
@@ -197,7 +218,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    TempData["Addbillingentity"] = "User Add Successfully";
+                    TempData["Addbillingentity"] = "Billing entity add successfully";
                     ViewBag.EUserid = UserID;
                 }
                 else
@@ -205,12 +226,15 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     TempData["DuplicateBillingEntity"] = "A billing entity for this user already exists!";
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
+                ViewBag.LegalEntityName = legalEntityName;
+                ViewBag.LegalEntityCode = LegalEntityCodeParent;
+                ViewBag.EUserid = UserID;
                 return RedirectToAction("ShowUsers", new
                 {
                     UserID = UserID,
                     IdLegal = Request.Form["IdLegal"],
-                    legalEntityName = Request.Form["legalEntityName"],
-                    legalEntityCode = Request.Form["legalEntityCode"]
+                    legalEntityName = legalEntityName,
+                    legalEntityCode = LegalEntityCodeParent
                 });
             }
         }
