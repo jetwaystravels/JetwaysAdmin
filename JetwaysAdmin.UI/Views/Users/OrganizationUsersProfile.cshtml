@@ -64,35 +64,35 @@
                         }
                         <form method="post" asp-controller="Users" asp-action="AddBillingEntity">
                             <input type="hidden" name="LegalEntityCodeParent" value="@ViewBag.LegalEntityCode" class="form-control">
-                            <input type="hidden" name="legalEntityName" value="@ViewBag.legalEntityName" class="form-control">          
-                        <div class="card">
-                            <div class="card-block">
-                                <div class="form-material form-row">
-                                 <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" class="form-control">
-                                  <div class="form-group form-primary col-md-3">
+                            <input type="hidden" name="legalEntityName" value="@ViewBag.legalEntityName" class="form-control">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="form-material form-row">
+                                        <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" class="form-control">
+                                        <div class="form-group form-primary col-md-3">
                                             <select name="BillingEntityCode" class="select" required>
-                                            @foreach (var legal in Data.LegalData.LegalEntitydata)
-                                            {
-                                             <option value="@legal.LegalEntityCode">@legal.LegalEntityName</option>
-                                            }
-                                        </select>
-                                       <label class="float-label">Billing Entity Code*</label>
-                                    </div>
-                                    <div class="form-group form-primary col-md-3">
-                                          <input type="text" name="UserID" value="@Data.CustomerDetailID.UserID" class="form-control" readonly>
+                                                @foreach (var legal in Data.LegalData.LegalEntitydata)
+                                                {
+                                                    <option value="@legal.LegalEntityCode">@legal.LegalEntityName</option>
+                                                }
+                                            </select>
+                                            <label class="float-label">Billing Entity Code*</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="UserID" value="@Data.CustomerDetailID.EmployeeID" class="form-control" readonly>
                                             <span class="form-bar"></span>
-                                            <label class="float-label">Employee ID / Name</label>
-                                    </div>
+                                            <label class="float-label">Employee ID</label>
+                                        </div>
                                         <div class="form-group form-primary col-md-3">
                                             <select name="WorkLocation" class="select" required>
-                                                <option value="">Work Location*</option>
+                                                <option value="@Data.CustomerDetailID.WorkLocation">@Data.CustomerDetailID.WorkLocation</option>
                                                 @foreach (var employee in Data.CustomerDetail)
                                                 {
                                                     <option value="@employee.WorkLocation">@employee.WorkLocation</option>
                                                 }
                                             </select>
-                                                <span class="form-bar"></span>
-                                        <label class="float-label">Work Location*</label>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Work Location*</label>
                                         </div>
 
                                         <div class="form-group form-primary col-md-3">
@@ -101,19 +101,19 @@
                                                 <option value="Pune">Pune</option>
                                                 <option value="Mumbai">Mumbai</option>
                                             </select>
-                                         <span class="form-bar"></span>
-                                        <label class="float-label">Cost Center</label>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Cost Center</label>
                                         </div>
-                                  
-                                    
-                                    <div class="form-group form-primary col-md-3">
-                                       <input type="text" name="DateOfJoining" class="form-control date-main" autocomplete="off">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Date of Joining</label>
-                                    </div>
+
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="DateOfJoining" class="form-control date-main" autocomplete="off">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Date of Joining</label>
+                                        </div>
                                         <div class="form-group form-primary col-md-3">
                                             <select name="Designation" class="select" required>
-                                                <option value="">Designation</option>
+                                                <option value="@Data.CustomerDetailID.Designation">@Data.CustomerDetailID.Designation</option>
                                                 @foreach (var employee in Data.CustomerDetail)
                                                 {
                                                     <option value="@employee.Designation">@employee.Designation</option>
@@ -121,19 +121,19 @@
                                             </select>
                                             <label class="float-label">Designation</label>
                                         </div>
-                                    <div class="form-group form-primary col-md-3">
+                                        <div class="form-group form-primary col-md-3">
                                             <select name="Department" class="select" required>
-                                            <option value="">Select Department</option>
+                                                <option value="@Data.CustomerDetailID.Department">@Data.CustomerDetailID.Department</option>
                                                 @foreach (var employee in Data.CustomerDetail)
                                                 {
                                                     <option value="@employee.Department">@employee.Department</option>
                                                 }
-                                        </select>
-                                        <label class="float-label">Deaprtment</label>
-                                    </div>
+                                            </select>
+                                            <label class="float-label">Deaprtment</label>
+                                        </div>
                                         <div class="form-group form-primary col-md-3">
                                             <select name="Band" class="select" required>
-                                                <option value="">Band</option>
+                                                <option value="@Data.CustomerDetailID.Bands">@Data.CustomerDetailID.Bands</option>
                                                 @foreach (var employee in Data.CustomerDetail)
                                                 {
                                                     <option value="@employee.Bands">@employee.Bands</option>
@@ -142,268 +142,268 @@
                                             <label class="float-label">Band</label>
                                         </div>
 
-                                    <div class="form-group form-primary col-md-3">
-                                        <input class="form-control date-main" type="text" autocomplete="off" value=@Data.CustomerDetailID.DateOfBirth name="DateOfBirth" placeholder="Date of Birth" required>
-                                       <span class="form-bar"></span>
-                                        <label class="float-label">Date of Birth</label>
-                                    </div>
-                                    <div class="form-group form-primary col-md-3">
+                                        <div class="form-group form-primary col-md-3">
+                                            <input class="form-control date-main" type="text" autocomplete="off" value=@Data.CustomerDetailID.DateOfBirth name="DateOfBirth" placeholder="Date of Birth" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Date of Birth</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
                                             <select name="ReportingManager" class="select" required>
-                                            <option value="">Reporting Manager</option>
+                                                <option value="@Data.CustomerDetailID.ReportingManager">@Data.CustomerDetailID.ReportingManager</option>
                                                 @foreach (var employee in Data.CustomerDetail)
                                                 {
                                                     <option value="@employee.ReportingManager">@employee.ReportingManager</option>
                                                 }
-                                        </select>
-                                             <span class="form-bar"></span>
-                                        <label class="float-label">Reporting Manager</label>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Reporting Manager</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="UserRole" class="select">
+                                                <option value="">User Role</option>
+                                                <option value="AF">TMC User</option>
+                                                <option value="AL">TMC Super Admin</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">User Role</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="EmploymentType" class="select">
+                                                <option value="">Employment Type</option>
+                                                <option value="Onroll">Onroll</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Employment Type</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input class="form-control" type="text" name="SystemIntegrationRef" placeholder="System IntegrationRef">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">System IntegrationRef</label>
+                                        </div>
+
                                     </div>
-                                    <div class="form-group form-primary col-md-3">
-                                        <select name="UserRole" class="select">
-                                            <option value="">User Role</option>
-                                            <option value="AF">TMC User</option>
-                                            <option value="AL">TMC Super Admin</option>
-                                        </select>
-                                         <span class="form-bar"></span>
-                                        <label class="float-label">User Role</label>
-                                    </div>
-                                    <div class="form-group form-primary col-md-3">
-                                        <select name="EmploymentType" class="select">
-                                            <option value="">Employment Type</option>
-                                            <option value="Onroll">Onroll</option>
-                                        </select>
-                                         <span class="form-bar"></span>
-                                        <label class="float-label">Employment Type</label>
-                                    </div>
-                                    <div class="form-group form-primary col-md-3">
-                                        <input class="form-control" type="text" name="SystemIntegrationRef" placeholder="System IntegrationRef">
-                                          <span class="form-bar"></span>
-                                        <label class="float-label">System IntegrationRef</label>
-                                    </div>
-                                  
-                                </div>
                                     <div>
                                         <button type="submit" class="btn btn-primary">
-                                            Add Now
+                                            Update
                                         </button>
                                     </div>
-                                <div class="page-body d-none">
-                                    <!-- Nav tabs -->
-                                    <div class="m-b-25">
-                                        <ul class="nav nav-tabs" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#flights1" role="tab">Flights</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#hotel1" role="tab">Hotel</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#visas2" role="tab">Visa</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#forex1" role="tab">Forex</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#callingC2" role="tab">Calling Card</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#Cabs2" role="tab">Cabs</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#insurances1" role="tab">Insurance</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#bus1" role="tab">Bus</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#rail1" role="tab">Rail</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- Tab panes -->
-                                    <div class="tab-content">
-                                        <!--  flight section Start -->
-                                        <div class="tab-pane active" id="flights1" role="tabpanel">
-                                            <div class="row form-material">
-                                                <div class="col-md-6 approver-domestic-bx">
-                                                    <div class="text-right m-b-10"><input class="m-r-5" type="checkbox" value="" style="vertical-align:text-top;">Same as Domestic</div>
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Add Approver for Domestic</th>
-                                                                <th>Approver Level</th>
-                                                                <th>Add Approver for International</th>
-                                                                <th>Approver Level</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td colspan="2">
-                                                                    <table class="table">
-                                                                        <tr class="add-row">
-                                                                            <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
-                                                                <td colspan="2">
-                                                                    <table class="table">
-                                                                        <tr class="add-row">
-                                                                            <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="col-md-6 approver-domestic-bx">
-                                                    <div class="text-right m-b-10"><input class="m-r-5" type="checkbox" value="" style="vertical-align:text-top;">Same as Domestic</div>
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Add Approver for Domestic</th>
-                                                                <th>Approver Level</th>
-                                                                <th>Add Approver for International</th>
-                                                                <th>Approver Level</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td colspan="2">
-                                                                    <table class="table">
-                                                                        <tr class="add-row">
-                                                                            <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
-                                                                <td colspan="2">
-                                                                    <table class="table">
-                                                                        <tr class="add-row">
-                                                                            <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="form-group form-primary col-md-3">
-                                                    <input type="text" name="approver-limit" class="form-control">
-                                                    <span class="form-bar"></span>
-                                                    <label class="float-label" style="padding-left: 19px;">Approver Limit</label>
-                                                </div>
-                                            </div>
-                                            <div class="row form-material" style="border-top:#dee2e6 1px solid;">
-                                                <div class="form-group form-primary col-md-4 m-t-15">
-                                                    Is Billable?
-                                                    <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
-                                                        <input type="checkbox">
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-group form-primary col-md-4 m-t-15">
-                                                    Is User VIP / WIP?
-                                                    <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
-                                                        <input type="checkbox">
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="row form-material" style="border-top:#dee2e6 1px solid;">
-                                                <div class="m-t-15 col-md-4">
-                                                    <div class="m-b-15" style="font-size:13px;">Department Head</div>
-                                                    <div class="m-b-10" style="position:relative;">
-                                                        <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8; position: absolute; left: 7px; top: 5px;"></i><input type="text" name="assign-supervisor" placeholder="Assign Department Head" style="border: #eff1f4 1px solid; border-radius: 3px; padding-left: 27px; width: 217px; cursor:pointer;">
+                                    <div class="page-body d-none">
+                                        <!-- Nav tabs -->
+                                        <div class="m-b-25">
+                                            <ul class="nav nav-tabs" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-toggle="tab" href="#flights1" role="tab">Flights</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#hotel1" role="tab">Hotel</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#visas2" role="tab">Visa</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#forex1" role="tab">Forex</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#callingC2" role="tab">Calling Card</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#Cabs2" role="tab">Cabs</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#insurances1" role="tab">Insurance</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#bus1" role="tab">Bus</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#rail1" role="tab">Rail</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <!--  flight section Start -->
+                                            <div class="tab-pane active" id="flights1" role="tabpanel">
+                                                <div class="row form-material">
+                                                    <div class="col-md-6 approver-domestic-bx">
+                                                        <div class="text-right m-b-10"><input class="m-r-5" type="checkbox" value="" style="vertical-align:text-top;">Same as Domestic</div>
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Add Approver for Domestic</th>
+                                                                    <th>Approver Level</th>
+                                                                    <th>Add Approver for International</th>
+                                                                    <th>Approver Level</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td colspan="2">
+                                                                        <table class="table">
+                                                                            <tr class="add-row">
+                                                                                <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                    <td colspan="2">
+                                                                        <table class="table">
+                                                                            <tr class="add-row">
+                                                                                <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
-                                                    <div class="selected-items"></div>
+                                                    <div class="col-md-6 approver-domestic-bx">
+                                                        <div class="text-right m-b-10"><input class="m-r-5" type="checkbox" value="" style="vertical-align:text-top;">Same as Domestic</div>
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Add Approver for Domestic</th>
+                                                                    <th>Approver Level</th>
+                                                                    <th>Add Approver for International</th>
+                                                                    <th>Approver Level</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td colspan="2">
+                                                                        <table class="table">
+                                                                            <tr class="add-row">
+                                                                                <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                    <td colspan="2">
+                                                                        <table class="table">
+                                                                            <tr class="add-row">
+                                                                                <td colspan="2"><button class="add btn waves-effect waves-light btn-primary btn-outline-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add New</button></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-3">
+                                                        <input type="text" name="approver-limit" class="form-control">
+                                                        <span class="form-bar"></span>
+                                                        <label class="float-label" style="padding-left: 19px;">Approver Limit</label>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group form-primary col-md-4 m-t-15">
-                                                    Restrict Booking
-                                                    <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
-                                                        <input type="checkbox">
-                                                        <span class="slider round"></span>
-                                                    </label>
+                                                <div class="row form-material" style="border-top:#dee2e6 1px solid;">
+                                                    <div class="form-group form-primary col-md-4 m-t-15">
+                                                        Is Billable?
+                                                        <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
+                                                            <input type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-4 m-t-15">
+                                                        Is User VIP / WIP?
+                                                        <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
+                                                            <input type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group form-primary col-md-4 m-t-15">
-                                                    Can Approve & Reject
-                                                    <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
-                                                        <input type="checkbox" checked>
-                                                        <span class="slider round"></span>
-                                                    </label>
+                                                <div class="row form-material" style="border-top:#dee2e6 1px solid;">
+                                                    <div class="m-t-15 col-md-4">
+                                                        <div class="m-b-15" style="font-size:13px;">Department Head</div>
+                                                        <div class="m-b-10" style="position:relative;">
+                                                            <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8; position: absolute; left: 7px; top: 5px;"></i><input type="text" name="assign-supervisor" placeholder="Assign Department Head" style="border: #eff1f4 1px solid; border-radius: 3px; padding-left: 27px; width: 217px; cursor:pointer;">
+                                                        </div>
+                                                        <div class="selected-items"></div>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-4 m-t-15">
+                                                        Restrict Booking
+                                                        <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
+                                                            <input type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group form-primary col-md-4 m-t-15">
+                                                        Can Approve & Reject
+                                                        <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle; display: block; margin-top: 15px;">
+                                                            <input type="checkbox" checked>
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row form-material" style="border-top:#dee2e6 1px solid;">
-                                                <div class="form-group form-primary col-md-6 m-t-15">
-                                                    <div class="ng-content-hd">Legal Entities allowed for Cross Billing</div>
-                                                    <table class="table legal-entities hidden">
-                                                        <tr>
-                                                            <td>
-                                                                <div class="autocomplete-container">
-                                                                    <div class="autocomplete-input-wrapper">
-                                                                        <input type="text" class="autocomplete-input" placeholder="Select Legal Entity" />
-                                                                        <span class="dropdown-icon"><i class="fa fa-caret-down"></i></span>
+                                                <div class="row form-material" style="border-top:#dee2e6 1px solid;">
+                                                    <div class="form-group form-primary col-md-6 m-t-15">
+                                                        <div class="ng-content-hd">Legal Entities allowed for Cross Billing</div>
+                                                        <table class="table legal-entities hidden">
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="autocomplete-container">
+                                                                        <div class="autocomplete-input-wrapper">
+                                                                            <input type="text" class="autocomplete-input" placeholder="Select Legal Entity" />
+                                                                            <span class="dropdown-icon"><i class="fa fa-caret-down"></i></span>
+                                                                        </div>
+                                                                        <ul class="suggestions"></ul>
                                                                     </div>
-                                                                    <ul class="suggestions"></ul>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group form-primary" style="position: relative;">
-                                                                    <input type="text" name="legal-entity-code" class="form-control legal-code-input" style="padding-left:30px;">
-                                                                    <span class="form-bar"></span>
-                                                                    <label class="float-label" style="padding-left:30px;">Reference Number</label>
-                                                                    <span class="close-icon" style="margin-left: 8px; cursor: pointer; display: inline-block; position: absolute; right: 0; top: 10px; color: red; font-size: 18px;">×</span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    <div>
-                                                        <button class="add-legal-entity-row btn btn-primary">
-                                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add New
-                                                        </button>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group form-primary" style="position: relative;">
+                                                                        <input type="text" name="legal-entity-code" class="form-control legal-code-input" style="padding-left:30px;">
+                                                                        <span class="form-bar"></span>
+                                                                        <label class="float-label" style="padding-left:30px;">Reference Number</label>
+                                                                        <span class="close-icon" style="margin-left: 8px; cursor: pointer; display: inline-block; position: absolute; right: 0; top: 10px; color: red; font-size: 18px;">×</span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <div>
+                                                            <button class="add-legal-entity-row btn btn-primary">
+                                                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Add New
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row form-material" style="border-top:#dee2e6 1px solid;">
-                                                <div class="form-group form-primary col-md-6 m-t-15">
-                                                    <div class="ng-content-hd">TMC Multiple URLs linking</div>
-                                                    <table class="table legal-entities hidden">
-                                                        <tr>
-                                                            <td>
-                                                                <div class="autocomplete-container">
-                                                                    <div class="autocomplete-input-wrapper">
-                                                                        <input type="text" class="autocomplete-input" placeholder="TMC URLs" />
-                                                                        <span class="dropdown-icon"><i class="fa fa-caret-down"></i></span>
+                                                <div class="row form-material" style="border-top:#dee2e6 1px solid;">
+                                                    <div class="form-group form-primary col-md-6 m-t-15">
+                                                        <div class="ng-content-hd">TMC Multiple URLs linking</div>
+                                                        <table class="table legal-entities hidden">
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="autocomplete-container">
+                                                                        <div class="autocomplete-input-wrapper">
+                                                                            <input type="text" class="autocomplete-input" placeholder="TMC URLs" />
+                                                                            <span class="dropdown-icon"><i class="fa fa-caret-down"></i></span>
+                                                                        </div>
+                                                                        <ul class="suggestions"></ul>
                                                                     </div>
-                                                                    <ul class="suggestions"></ul>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group form-primary" style="position: relative;">
-                                                                    <input type="text" name="legal-entity-code" class="form-control legal-code-input" style="padding-left:30px;">
-                                                                    <span class="form-bar"></span>
-                                                                    <label class="float-label" style="padding-left:30px;"></label>
-                                                                    <span class="close-icon" style="margin-left: 8px; cursor: pointer; display: inline-block; position: absolute; right: 0; top: 10px; color: red; font-size: 18px;">×</span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    <div>
-                                                        <button class="add-legal-entity-row btn btn-primary">
-                                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add New
-                                                        </button>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group form-primary" style="position: relative;">
+                                                                        <input type="text" name="legal-entity-code" class="form-control legal-code-input" style="padding-left:30px;">
+                                                                        <span class="form-bar"></span>
+                                                                        <label class="float-label" style="padding-left:30px;"></label>
+                                                                        <span class="close-icon" style="margin-left: 8px; cursor: pointer; display: inline-block; position: absolute; right: 0; top: 10px; color: red; font-size: 18px;">×</span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <div>
+                                                            <button class="add-legal-entity-row btn btn-primary">
+                                                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Add New
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
+
                                             </div>
-                                          
                                         </div>
                                     </div>
+
+
                                 </div>
-                               
-                              
-                           </div>
-                        </div>
-                       </form>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -606,8 +606,8 @@
                 input.readOnly = false;
                 toggleBtn.style.display = 'inline-block';
                 closeBtn.style.display = 'none';
-                wrapper.remove(); 
-                addRow.style.display = ''; 
+                wrapper.remove();
+                addRow.style.display = '';
             });
 
             document.addEventListener('click', (e) => {
