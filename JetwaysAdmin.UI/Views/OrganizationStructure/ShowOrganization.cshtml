@@ -4,6 +4,123 @@
     Layout = "~/Views/Shared/OfficeLegalentity.cshtml";
     var Data = Model;
 }
+
+
+<style>
+
+    /* Trigger button */
+    .open-btn {
+        cursor: pointer;
+    }
+
+    /* Popup */
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 253px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        z-index: 1000;
+        overflow: hidden;
+        /* ✅ Make background transparent */
+        background: rgba(255, 255, 255, 0.8); /* semi-transparent white */
+        /* or fully transparent if needed */
+        /* background: transparent; */
+    }
+
+
+
+    #popupOverlay {
+        display: none; /* hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.5); /* semi-transparent black */
+        z-index: 999; /* below popup but above page content */
+    }
+
+    /* Header fixed inside popup */
+    .popup-header {
+        padding: 8px 15px;
+        background: #0e93d8;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+
+    /* Search box */
+    .search-box {
+        padding: 0 12px 0;
+        border-bottom: none;
+        background: #fff;
+        position: sticky;
+        top: 36px;
+        z-index: 2;
+    }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 30px;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+            margin-right: 8%;
+            border-right: 0;
+            border-top: 0;
+            border-left: 0;
+            background: #fff;
+        }
+
+    /* Scrollable list */
+    .user-list {
+        max-height: 240px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 12px;
+        list-style: none;
+        background: #fff;
+    }
+
+        /* User items */
+        .user-list li {
+            padding: 4px 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size:12px;
+        }
+
+            .user-list li:last-child {
+                margin-bottom: 0;
+            }
+
+            .user-list li:hover {
+                background: #eef3ff;
+                border-radius: 8px;
+            }
+
+    /* Close button */
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        font-size: 18px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+    }
+</style>
+
 <main id="main" class="main">
     <div class="pcoded-main-container">
         <div class="pcoded-wrapper">
@@ -59,13 +176,13 @@
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
-                            @*  @if (TempData["DuplicateError"] != null)
+                           @if (TempData["DuplicateError"] != null)
                             {
                             <div class="alert alert-danger" style="color:white;background-color:#e74c3c;padding:10px;width:80%;">
                             <strong>Warning:</strong> @TempData["DuplicateError"]
                             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                             </div>
-                            } *@
+                            } 
                             @if (TempData["officeupdate_message"] != null)
                             {
                                 <div class="alert alert-success">
@@ -127,13 +244,18 @@
                                                     </div>
                                                     @if (isFirstRow)
                                                     {
-                                                        <div class="text-primary col-lg-3 text-right">
+                                                        @* <div class="text-primary col-lg-3 text-right">
                                                             <strong data-toggle="tooltip"
                                                                     data-html="true"
                                                                     title="@Html.Raw(string.Join("<br/>", ((List<CustomersEmployee>)ViewBag.Employees).Select(e => e.FirstName + " " + e.LastName)))">
                                                                 @ViewBag.EmployeeCount users assigned
 
                                                             </strong>
+                                                        </div> *@
+
+
+                                                        <div class="text-primary col-lg-3 text-right open-btn">
+                                                            @ViewBag.EmployeeCount users assigned
                                                         </div>
                                                         isFirstRow = false;
                                                     }
@@ -207,6 +329,31 @@
                                         }
                                     </div>
                                 </div>
+
+                                <!-- users assigned start -->
+
+                                <div id="popupOverlay"></div>
+                                <!-- Popup -->
+                                <div class="popup" id="popupBox">
+                                    <div class="popup-header">
+                                        Users Assigned
+                                        <button class="close-btn" id="closeBtn">×</button>
+                                    </div>
+                                    <div class="search-box">
+                                        <input type="text" placeholder="Search user" class="searchInput">
+                                        <i class="fa fa-search m-r-10" style="position: absolute;top: 12px; left: 18px;"></i>
+                                    </div>
+                                    <ul class="user-list" id="userList">
+                                        @foreach (var e in (List<CustomersEmployee>)ViewBag.Employees)
+                                        {
+                                            <li>@e.FirstName @e.LastName</li>
+                                        }
+                                    </ul>
+
+                                </div>
+
+                                <!-- users assigned end -->
+
                             </div>
                         </div>
                     </div>
@@ -567,4 +714,81 @@
               });
           });
     </script>
+
+
+
+
+
+
+    <script>
+        const openBtn = document.querySelector('.open-btn');
+        const popup = document.getElementById('popupBox');
+        const overlay = document.getElementById('popupOverlay'); // ✅ overlay
+        const closeBtn = document.getElementById('closeBtn');
+        const searchInput = document.querySelector('.searchInput');
+        const userList = document.getElementById('userList');
+        const users = userList.querySelectorAll('li');
+
+        // Function to open popup
+        function openPopup() {
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        // Function to close popup
+        function closePopup() {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+            resetSearch(); // reset search on close
+        }
+
+        // Function to reset search
+        function resetSearch() {
+            searchInput.value = '';
+            users.forEach(user => {
+                user.innerHTML = user.textContent; // remove <mark>
+                user.style.display = 'block';
+            });
+        }
+
+        // Open popup on hover
+        openBtn.addEventListener('mouseenter', openPopup);
+
+        // Close popup with close button
+        closeBtn.addEventListener('click', closePopup);
+
+        // Close popup when clicking outside (including overlay)
+        overlay.addEventListener('click', closePopup);
+        document.addEventListener('click', (e) => {
+            if (!popup.contains(e.target) && !openBtn.contains(e.target) && e.target !== overlay) {
+                closePopup();
+            }
+        });
+
+        // Close with button
+        closeBtn.addEventListener('click', () => {
+            popup.style.display = 'none';
+            resetSearch(); // ✅ reset search when popup closes
+        });
+
+        // Search filter with highlight
+        searchInput.addEventListener('keyup', () => {
+            const filter = searchInput.value.toLowerCase();
+            users.forEach(user => {
+                const text = user.textContent;
+                if (text.toLowerCase().includes(filter) && filter !== '') {
+                    const regex = new RegExp(`(${filter})`, 'gi');
+                    user.innerHTML = text.replace(regex, '<mark>$1</mark>');
+                    user.style.display = 'block';
+                } else if (text.toLowerCase().includes(filter)) {
+                    user.innerHTML = text;
+                    user.style.display = 'block';
+                } else {
+                    user.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+
 </footer>

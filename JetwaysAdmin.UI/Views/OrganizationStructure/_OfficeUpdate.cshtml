@@ -9,7 +9,7 @@
         <div class="tab-content">
         <div class="tab-pane active" id="OrganizationUpdate" role="tabpanel">
          <form class="form-row  form-material" asp-controller="OrganizationStructure" asp-action="EditOffice" method="post">
-            <input type="hidden" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
+                <input type="hidden" id="parentLegalEntityCode" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
             <input type="hidden" name="Id" class="form-control" value="@Data.LegalEntitydata[0].Id">
             <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
             <div class="form-group form-primary col-md-6">
@@ -18,7 +18,17 @@
                 <label class="float-label">Office Entity Name<span>*</span></label>
                 <span id="legalEntityNameError" style="color: red; font-size: 12px;"></span>
             </div>
-            <div class="form-group form-primary col-md-6">
+                <div class="form-group form-primary col-md-3">
+                    <select name="FinancialType" id="financialType" class="form-control fill" required>
+                        <option value="">Please Select</option>
+                        <option value="SE">Use Office’s Own Financial Code</option>
+                        <option value="SO">Use Office’s Own Code (Linked to Head Office)</option>
+                        <option value="HO">Use Head Office Financial Code</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Financial Type</label>
+                </div>
+            <div class="form-group form-primary col-md-3">
                 <input type="text" name="LegalEntityCode" value="@Data.LegalEntitydata[0].LegalEntityCode" id="legalEntityCode" maxlength="10"
                        oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode(this)" class="form-control" readonly>
                 <span class="form-bar"></span>
@@ -1025,7 +1035,35 @@
             $('.selected-items').text(name);
         });
     });
+
 </script>
+<script>
+let nonHOValue = document.getElementById("legalEntityCode")?.value || "";
+document.getElementById("legalEntityCode")?.addEventListener("input", function () {
+    if (document.getElementById("financialType")?.value !== "HO") {
+        nonHOValue = this.value;
+    }
+});
+document.getElementById("financialType").addEventListener("change", function () {
+    const selectedValue = this.value;
+    const parentCode = document.getElementById("parentLegalEntityCode")?.value || "";
+    const legalEntityInput = document.getElementById("legalEntityCode");
+    if (!legalEntityInput) return;
+    if (selectedValue === "HO") {
+        if (!nonHOValue) nonHOValue = legalEntityInput.value;
+        legalEntityInput.value = parentCode;
+        legalEntityInput.readOnly = true;
+    } else {
+        legalEntityInput.readOnly = false;
+        legalEntityInput.value = nonHOValue;
+    }
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const ft = document.getElementById("financialType");
+    if (ft) ft.dispatchEvent(new Event("change"));
+});
+</script>
+
 <style>
     .tag {
         display: inline-block;

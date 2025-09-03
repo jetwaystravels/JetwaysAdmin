@@ -221,24 +221,29 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.Id = IdLegal;
             using (HttpClient client = new HttpClient())
             {
-                //var legalentityalldata = await client.GetAsync(AppUrlConstant.GetLegalEntity);
-                //if (legalentityalldata.IsSuccessStatusCode)
-                //{
-                //    var existingJson = await legalentityalldata.Content.ReadAsStringAsync();
-                //    var parsedResult = JsonConvert.DeserializeObject<LegalEntityResponse>(existingJson);
-                //    var existingData = parsedResult?.Data ?? new List<LegalEntity>();
-                //    bool isDuplicate = existingData.Any(e =>
-                //        e.LegalEntityName.Equals(legalEntity.LegalEntityName, StringComparison.OrdinalIgnoreCase) ||
-                //        e.LegalEntityCode.Equals(legalEntity.LegalEntityCode, StringComparison.OrdinalIgnoreCase) ||
-                //        (!string.IsNullOrEmpty(e.CorporateAccountsCode) &&
-                //         e.CorporateAccountsCode.Equals(legalEntity.CorporateAccountsCode, StringComparison.OrdinalIgnoreCase))
-                //    );
-                //    if (isDuplicate)
-                //    {
-                //        TempData["DuplicateError"] = "Duplicate entry found! Please enter unique Legal Entity Name, Code, or Corporate Account Code.";
-                //        return RedirectToAction("ShowOrganization", new { LegalEntityCode = ParentLegalEntityCode, LegalEntityName = ParentLegalEntityName });
-                //    }
-                //}
+                var legalentityalldata = await client.GetAsync(AppUrlConstant.GetLegalEntity);
+                if (legalentityalldata.IsSuccessStatusCode)
+                {
+                    var existingJson = await legalentityalldata.Content.ReadAsStringAsync();
+                    var parsedResult = JsonConvert.DeserializeObject<LegalEntityResponse>(existingJson);
+                    var existingData = parsedResult?.Data ?? new List<LegalEntity>();
+                    bool nameDup = existingData.Any(e =>
+                    string.Equals(e.LegalEntityName?.Trim(), legalEntity.LegalEntityName?.Trim(), StringComparison.OrdinalIgnoreCase));
+                    bool codeDup = existingData.Any(e =>
+                    string.Equals(e.LegalEntityCode?.Trim(), legalEntity.LegalEntityCode?.Trim(), StringComparison.OrdinalIgnoreCase));
+                    bool corpDup = !string.IsNullOrWhiteSpace(legalEntity.CorporateAccountsCode) &&
+                         existingData.Any(e =>
+                             string.Equals(e.CorporateAccountsCode?.Trim(),
+                                           legalEntity.CorporateAccountsCode?.Trim(),
+                                           StringComparison.OrdinalIgnoreCase));
+
+                    bool isDuplicate = nameDup || codeDup || corpDup;
+                    if (isDuplicate)
+                    {
+                        TempData["DuplicateError"] = "Duplicate entry found! Please enter unique Legal Entity Name, Code, or Corporate Account Code.";
+                        return RedirectToAction("ShowOrganization", new { LegalEntityCode = ParentLegalEntityCode, LegalEntityName = ParentLegalEntityName });
+                    }
+                }
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(legalEntity);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddLegalEntity, legalEntity);

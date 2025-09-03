@@ -75,6 +75,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             //legalEntityupdate.LegalEntityCode = legalEntity.LegalEntityCode;
             legalEntityupdate.LegalEntityName = legalEntity.LegalEntityName ?? legalEntityupdate.LegalEntityName;
             legalEntityupdate.LegalEntityCode = legalEntity.LegalEntityCode ?? legalEntityupdate.LegalEntityCode;
+            legalEntityupdate.FinancialType = legalEntity.FinancialType ?? legalEntityupdate.FinancialType;
             legalEntityupdate.FirstName = legalEntity.FirstName ?? legalEntityupdate.FirstName;
             legalEntityupdate.LastName = legalEntity.LastName ?? legalEntityupdate.LastName;
             legalEntityupdate.BussinesEmail = legalEntity.BussinesEmail ?? legalEntityupdate.BussinesEmail;

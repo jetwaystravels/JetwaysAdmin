@@ -16,7 +16,7 @@
                 <input type="hidden" id="parentLegalEntityCode" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
                 <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="LegalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)" required>
+                <input type="text" name="LegalEntityName" id="legalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)" required>
                 <span class="form-bar"></span>
                 <label class="float-label">Office Entity Name<span>*</span></label>
                 <span id="legalEntityNameError" style="color: red; font-size: 12px;"></span>
@@ -1113,7 +1113,6 @@
     $(document).on('click', '#saveManageStaff', function () {
         var form = $('#manageStaffForm')[0];
         var fd = new FormData(form);
-        alert(fd);
         $.ajax({
             url: '/OrganizationStructure/ManageStaff',
             type: 'POST',
