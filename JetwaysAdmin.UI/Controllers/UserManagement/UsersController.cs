@@ -13,6 +13,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
         public async Task<IActionResult> ShowUsers(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID)
         {
             List<CustomersEmployee> customerdetail = new List<CustomersEmployee>();
+            List<State> state = new List<State>();
             using (HttpClient client = new HttpClient())
             {
                 var userdetail = await client.GetAsync($"{AppUrlConstant.GetCustomerEmployee}?LegalEntityCode={legalEntityCode}");
@@ -20,6 +21,13 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 {
                     var result = await userdetail.Content.ReadAsStringAsync();
                     customerdetail = JsonConvert.DeserializeObject<List<CustomersEmployee>>(result);
+                }
+                string stateurl = $"{AppUrlConstant.GetSate}";
+                var stateresponse = await client.GetAsync(stateurl);
+                if (stateresponse.IsSuccessStatusCode)
+                {
+                    var stateresult = await stateresponse.Content.ReadAsStringAsync();
+                    state = JsonConvert.DeserializeObject<List<State>>(stateresult);
                 }
             }
             var filteredUsers = customerdetail
@@ -29,6 +37,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             var userAlldetail = new MenuHeaddata
             {
                 customersemployee = filteredUsers,
+                Statedata = state
             };
             ViewBag.LegalEntityId = legalEntityId;
             ViewBag.LegalEntityName = legalEntityName;
@@ -122,6 +131,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             MenuHeaddata legaldata = new MenuHeaddata();
             List<CustomersEmployee> customerdetail = new List<CustomersEmployee>();
             CustomersEmployee users = null;
+            List<State> state = new List<State>();
             using (HttpClient client = new HttpClient())
             {
                 var response = await client.GetAsync(AppUrlConstant.GetLegalEntity);
@@ -154,6 +164,13 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     var result = await Response.Content.ReadAsStringAsync();
                     users = JsonConvert.DeserializeObject<CustomersEmployee>(result);
                 }
+                string stateurl = $"{AppUrlConstant.GetSate}";
+                var stateresponse = await client.GetAsync(stateurl);
+                if (stateresponse.IsSuccessStatusCode)
+                {
+                    var stateresult = await stateresponse.Content.ReadAsStringAsync();
+                    state = JsonConvert.DeserializeObject<List<State>>(stateresult);
+                }
 
             }
             ViewBag.LegalEntityId = IdLegal;
@@ -165,7 +182,8 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             {
                 LegalData = legaldata,
                 CustomerDetail = customerdetail,
-                CustomerDetailID = users
+                CustomerDetailID = users,
+                Statedata = state
             };
             return View(viewModel);
         }

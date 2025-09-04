@@ -241,7 +241,13 @@ namespace JetwaysAdmin.UI.Controllers
                     if (isDuplicate)
                     {
                         TempData["DuplicateError"] = "Duplicate entry found! Please enter unique Legal Entity Name, Code, or Corporate Account Code.";
-                        return RedirectToAction("ShowOrganization", new { LegalEntityCode = ParentLegalEntityCode, LegalEntityName = ParentLegalEntityName });
+                        return Json(new
+                        {
+                            success = false,
+                            duplicate = true,
+                            message = TempData["DuplicateError"] as string
+                        });
+                        //return RedirectToAction("ShowOrganization", new { LegalEntityCode = ParentLegalEntityCode, LegalEntityName = ParentLegalEntityName });
                     }
                 }
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(legalEntity);

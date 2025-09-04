@@ -143,37 +143,11 @@
                                         </div>
                                         <div class="form-group form-primary col-md-2">
                                             <select name="WorkLocation" class="select" required>
-                                                   <option value="">No data found</option>
-                                                   <option value="DEL">Delhi</option>
-                                                   <option value="PNQ">Pune</option>
-                                                   <option value="BOM">Mumbai</option>
-                                                   <option value="GURG">Gurgaon</option>
-                                                   <option value="Jaipur">Jaipur</option>
-                                                   <option value="HYD">Hyderabad</option>
-                                                   <option value="BLR">Bangalore</option>
-                                                   <option value="CHN">Chennai</option>
-                                                   <option value="KOL">Kolkata</option>
-                                                   <option value="AHM">Ahmedabad</option>
-                                                   <option value="LKO">Lucknow</option>
-                                                   <option value="CCU">Kolkata</option>
-                                                   <option value="TRV">Thiruvananthapuram</option>
-                                                   <option value="GOI">Goa</option>
-                                                   <option value="COK">Kochi</option>
-                                                   <option value="IXC">Chandigarh</option>
-                                                   <option value="PAT">Patna</option>
-                                                   <option value="VNS">Varanasi</option>
-                                                   <option value="DEL">Delhi</option>
-                                                   <option value="NOIDA">Noida</option>
-                                                   <option value="GreaterNoida">Greater Noida</option>
-                                                   <option value="PNQ">Pune</option>
-                                                   <option value="BOM">Mumbai</option>
-                                                   <option value="GURG">Gurgaon</option>
-                                                   <option value="Jaipur">Jaipur</option>
-                                                   <option value="Hooghly">Hooghly</option>
-                                                   <option value="HYD">Hyderabad</option>
-                                                   <option value="BLR">Bangalore</option>
-                                                   <option value="CHN">Chennai</option>
-                                                   <option value="KOL">Kolkata</option>
+                                                <option value="">Select Work Location</option>
+                                                @foreach (var state in Model.Statedata)
+                                                {
+                                                 <option value="@state.StateID">@state.StateName</option>
+                                                }
                                             </select>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Work Location<span>*</span></label>

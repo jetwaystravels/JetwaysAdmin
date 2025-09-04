@@ -580,7 +580,22 @@
                             tab2.tab('show');
 
                         });
-                    } else {
+                    }
+                    else if (res && res.duplicate) {
+                        var html = ''
+                            + '<div class="alert alert-danger" '
+                            + '     style="color:white;background-color:#e74c3c;padding:10px;width:80%;">'
+                            + '  <strong>Warning:</strong> ' + (res.message || 'Duplicate entry found.')
+                            + '  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>'
+                            + '</div>';
+                        var $target = $('#addOfficeModal').hasClass('show')
+                            ? $('#addOfficeModalContent')
+                            : $('#duplicateAlertContainer');
+
+                        $target.find('.alert.alert-danger').remove();
+                        $target.prepend(html);
+                    }
+                    else {
                         alert((res && res.message) || 'Failed to add office.');
                     }
                 },

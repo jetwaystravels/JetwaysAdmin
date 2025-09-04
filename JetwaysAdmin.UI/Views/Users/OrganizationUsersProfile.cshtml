@@ -85,10 +85,30 @@
                                         </div>
                                         <div class="form-group form-primary col-md-3">
                                             <select name="WorkLocation" class="select" required>
-                                                <option value="@Data.CustomerDetailID.WorkLocation">@Data.CustomerDetailID.WorkLocation</option>
-                                                @foreach (var employee in Data.CustomerDetail)
+                                                @{
+                                                    
+                                                    var stateLookup = Data.Statedata.ToDictionary(s => s.StateID.ToString(), s => s.StateName);
+                                                    var selectedKey = Data.CustomerDetailID.WorkLocation?.ToString();
+                                                    var selectedText = (!string.IsNullOrEmpty(selectedKey) && stateLookup.ContainsKey(selectedKey))
+                                                    ? stateLookup[selectedKey]
+                                                    : Data.CustomerDetailID.WorkLocation;
+                                                }
+                                                <option value="@Data.CustomerDetailID.WorkLocation">@selectedText</option>
+
+                                              @foreach (var state in Data.Statedata)
                                                 {
-                                                    <option value="@employee.WorkLocation">@employee.WorkLocation</option>
+                                                    var key = state.StateID.ToString();
+                                                    var display = state.StateName;
+
+                                                    @if (key == selectedKey)
+                                                    {
+                                                        <option value="@key" selected="selected">@display</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@key">@display</option>
+                                                    }
+
                                                 }
                                             </select>
                                             <span class="form-bar"></span>
