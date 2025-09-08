@@ -374,7 +374,7 @@
                     <div class="m-b-25">
                         <ul class="nav nav-tabs">
                             <li class="p-10">
-                                <a href="#" onclick="showOrganization(); return false;">Organization</a>
+                                <a href="#"  onclick="showOrganization(); return false;">Organization</a>
                             </li>
                             <li class="p-10">
                                 <a id="suppliersTab"
@@ -387,7 +387,7 @@
                                 </a>
                             </li>
                             <li class="p-10">
-                                <a href="#" onclick="showAssignStaff(); return false;">Assign Staff</a>
+                                <a href="#" id="OfficeAdd2" onclick="showAssignStaff(); return false;">Assign Staff</a>
                             </li>
                         </ul>
 
@@ -554,15 +554,6 @@
         });
     </script>
     <script>
-        // $(document).on('click', '#officepopup', function () {
-        //     $('.nav-tabs .nav-link').not(':first').addClass('disabled');
-        //     $('.nav-tabs .nav-link.disabled').on('click', function (e) {
-        //         e.preventDefault();
-        //         return false;
-        //     });
-        // });
-    </script>
-    <script>
         $(document).on('click', '#addUser', function () {
             var form = $('#addOfficeForm')[0];
             var fd = new FormData(form);
@@ -702,6 +693,21 @@
             document.getElementById('suppliersdealcode').style.display = 'none';
         }
     </script>
+    <script>
+        function disable(id) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            el.onclick = null;              
+            el.removeAttribute('href');     
+            el.tabIndex = -1;              
+            el.style.pointerEvents = 'none';
+            el.style.opacity = '0.5';       
+            el.style.cursor = 'not-allowed';
+        }
+        disable('suppliersTab');
+        disable('OfficeAdd2');
+    </script>
+
     <script>
         function smartCapitalize(text) {
             return text

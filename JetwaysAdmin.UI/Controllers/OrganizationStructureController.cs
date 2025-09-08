@@ -530,7 +530,7 @@ namespace JetwaysAdmin.UI.Controllers
         
         [HttpPost]
         [ServiceFilter(typeof(LogActionFilter))]
-        public async Task<IActionResult> ManageStaff([FromForm] CustomerManageStaff customermanagestaff, int IdLegal, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ManageStaff([FromForm] CustomerManageStaff customermanagestaff, int IdLegal, string LegalEntityCode, string LegalEntityName, string UpdateManageStaff)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
@@ -554,16 +554,28 @@ namespace JetwaysAdmin.UI.Controllers
                 {
                     TempData["ErrorMessage"] = "User not assign";
                 }
-                return Json(new
+                if (UpdateManageStaff == "UpdateStaff")
                 {
-                    success = true,
-                    url = Url.Action(nameof(ShowOffice), new
+                    return RedirectToAction("ShowOrganization", new
                     {
                         IdLegal,
                         LegalEntityCode,
                         LegalEntityName
-                    })
-                });
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        url = Url.Action(nameof(ShowOffice), new
+                        {
+                            IdLegal,
+                            LegalEntityCode,
+                            LegalEntityName
+                        })
+                    });
+                }
                 
             }
         }

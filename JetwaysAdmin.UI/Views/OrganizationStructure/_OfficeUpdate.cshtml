@@ -59,7 +59,7 @@
             </div>
             <div class="form-group form-primary col-md-6">
                 <select name="AssignIATAGroup" class="form-control fill" required>
-                    <option value="">Assign IATA Group</option>
+                        <option value="@Data.LegalEntitydata[0].AssignIATAGroup">@Data.LegalEntitydata[0].AssignIATAGroup</option>
                     @foreach (var group in Model.IATAGruopName)
                     {
                         <option value="@group.GroupName">@group.GroupName</option>
@@ -215,7 +215,8 @@
                 <span id="emailDeskError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input name="AcountActivationDate" class="form-control date-main" id="activadate"  type="text" placeholder="dd-mm-yyyy" onfocus="restrictActivationDate()" onchange="setMinDeactivationDate()" autocomplete="off">
+                    <input name="AcountActivationDate" class="form-control date-main" value="@(Data?.LegalEntitydata?.ElementAtOrDefault(0)?.AcountActivationDate?.ToString("yyyy-MM-dd") ?? "")"
+                           id="activadate" type="text" placeholder="dd-mm-yyyy" onfocus="restrictActivationDate()" onchange="setMinDeactivationDate()" autocomplete="off">
                 <span class="form-bar"></span>
                 <label class="float-label">Account Activation Date</label>
             </div>
@@ -643,6 +644,7 @@
         <div class="tab-pane" id="assignstaffUpdate" role="tabpanel">
                 <div class="pcoded-inner-content">
                     <form class="card-block" asp-controller="OrganizationStructure" asp-action="ManageStaff">
+                    <input type="hidden" name="UpdateManageStaff" value="UpdateStaff">
                         <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode">
                         <input type="hidden" name="LegalEntityName" value="@ViewBag.LegalEntityName" />
                         <input type="hidden" name="IdLegal" value="@ViewBag.Id" />
