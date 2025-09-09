@@ -257,7 +257,49 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             }
         }
 
+        public async Task<IActionResult> GetLegalEntityById(int Id, int UserID)
+        {
+            LegalEntity entity = null;
+            List<State> state = new List<State>();
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetLegalEntityID}/{Id}";
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    entity = JsonConvert.DeserializeObject<LegalEntity>(result);
+                }
+                string stateurl = $"{AppUrlConstant.GetSate}";
+                var stateresponse = await client.GetAsync(stateurl);
+                if (stateresponse.IsSuccessStatusCode)
+                {
+                    var stateresult = await stateresponse.Content.ReadAsStringAsync();
+                    state = JsonConvert.DeserializeObject<List<State>>(stateresult);
+                }
 
+            }
+           
+            if (entity == null)
+                return Json(new { success = false });
+            string stateName = null;
+            if (state != null && state.Count > 0)
+            {
+                var match = state.FirstOrDefault(s => s.StateID.ToString() == entity.State);
+                stateName = match?.StateName;
+            }
+            //ViewBag.LegalEntityCode = Code;
+            //ViewBag.LegalEntityName = Name;
+            //ViewBag.Id = Id;
+            return Json(new
+            {  
+                success = true,
+                id = entity.Id,
+                state = entity.State,
+                stateName = stateName ?? entity.State?.ToString(),
+                UserID = UserID
+            });
+        }
 
     }
 }

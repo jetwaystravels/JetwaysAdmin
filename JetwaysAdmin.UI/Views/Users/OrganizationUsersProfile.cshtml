@@ -70,13 +70,14 @@
                                     <div class="form-material form-row">
                                         <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" class="form-control">
                                         <div class="form-group form-primary col-md-3">
-                                            <select name="BillingEntityCode" class="select" required>
+                                            <select name="BillingEntityCode" id="BillingEntityCodeID" class="select" required>
                                                 @foreach (var legal in Data.LegalData.LegalEntitydata)
                                                 {
-                                                    <option value="@legal.LegalEntityCode">@legal.LegalEntityName</option>
+                                                    <option value="@legal.LegalEntityCode" data-id="@legal.Id" data-userid="@Data.CustomerDetailID.EmployeeID">@legal.LegalEntityName</option>
                                                 }
                                             </select>
                                             <label class="float-label">Billing Entity Code*</label>
+                                            <input type="hidden" id="BillingEntityId" name="BillingEntityId" />
                                         </div>
                                         <div class="form-group form-primary col-md-3">
                                             <input type="text" name="UserID" value="@Data.CustomerDetailID.EmployeeID" class="form-control" readonly>
@@ -84,33 +85,9 @@
                                             <label class="float-label">Employee ID</label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <select name="WorkLocation" class="select" required>
-                                                @{
-                                                    
-                                                    var stateLookup = Data.Statedata.ToDictionary(s => s.StateID.ToString(), s => s.StateName);
-                                                    var selectedKey = Data.CustomerDetailID.WorkLocation?.ToString();
-                                                    var selectedText = (!string.IsNullOrEmpty(selectedKey) && stateLookup.ContainsKey(selectedKey))
-                                                    ? stateLookup[selectedKey]
-                                                    : Data.CustomerDetailID.WorkLocation;
-                                                }
-                                                <option value="@Data.CustomerDetailID.WorkLocation">@selectedText</option>
-
-                                              @foreach (var state in Data.Statedata)
-                                                {
-                                                    var key = state.StateID.ToString();
-                                                    var display = state.StateName;
-
-                                                    @if (key == selectedKey)
-                                                    {
-                                                        <option value="@key" selected="selected">@display</option>
-                                                    }
-                                                    else
-                                                    {
-                                                        <option value="@key">@display</option>
-                                                    }
-
-                                                }
-                                            </select>
+                                            <input type="text" id="stateName" name="stateName" class="form-control" readonly>
+                                            <input type="hidden" id="WorkLocationId" name="WorkLocationInput" class="form-control" readonly>
+                                            <input type="hidden" id="WorkLocationInput" name="WorkLocation" />
                                             <span class="form-bar"></span>
                                             <label class="float-label">Work Location*</label>
                                         </div>
@@ -461,10 +438,6 @@
     <!-- datepicker start -->
     <script>
             $(function () {
-                // $(".date-main").datepicker({
-                //     changeMonth: true,
-                //     changeYear: true
-                // });
              flatpickr(".date-main", {
             dateFormat: "Y-m-d",
             allowInput: true
@@ -472,4 +445,34 @@
             });
     </script>
     <!-- datepicker End -->
+    <script>
+        $(document).ready(function () {
+            $('#BillingEntityCodeID').on('change', function () {
+                var id = $(this).find('option:selected').data('id');
+                var userid = $(this).find('option:selected').data('userid');
+                if (!id) return;
+                $.ajax({
+                    url: '@Url.Action("GetLegalEntityById", "Users")',
+                    type: 'GET',
+                    data: { Id: id,
+                        UserID: userid
+                    },
+                    success: function (data) {
+                        if (data && data.success) {
+                            $('#WorkLocationInput').val(data.state);
+                            $('#WorkLocationId').val(data.id);
+                            $('#UserID').val(data.UserID);
+                            $('#stateName').val(data.stateName);
+                        } else {
+                            alert('No data found for the selected legal entity.');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to load legal entity data.');
+                    }
+                });
+            });
+        });
+    </script>
+
 </footer>
