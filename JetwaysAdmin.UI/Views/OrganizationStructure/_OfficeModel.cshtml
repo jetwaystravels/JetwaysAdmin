@@ -96,7 +96,8 @@
                 <span id="emailBusinesError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="password" name="Password" minlength="8" maxlength="25" class="form-control" autocomplete="new-password">
+                    <input type="password" name="Password" minlength="8" maxlength="25" class="form-control pw-eye" autocomplete="new-password" aria-label="Password (click eye to show/hide)"
+                           data-eye="true" data-eye-size="20" data-eye-pad="10">
                 <span class="form-bar"></span>
                 <label class="float-label">Password</label>
             </div>
@@ -797,6 +798,14 @@
 <style>
 .tag {display: inline-block;background-color: #f0f0f0;border-radius: 20px; padding: 2px 8px;margin: 4px;font-size: 12px;}
 .remove-btn {background: none;border: none;color: #000; margin-left: 8px;font-weight: bold;cursor: pointer;}
+.pw-eye {
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 20px 20px;
+        padding-right: 2.6rem;
+        cursor: text;
+    }
+
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
@@ -1070,11 +1079,7 @@
         $('.employee-item').on('click', function () {
             var userId = $(this).data('user-id');
             var name = $(this).text().trim();
-
-            // Set the hidden input value
             $('#BookingConsultant').val(userId);
-
-            // Optional: show selected item
             $('.selected-items').text(name);
         });
     });
@@ -1086,7 +1091,6 @@
             var legalEntityCode = $(this).data("legal-entity-code");
             var legalEntityName = $(this).data("legal-entity-name");
             var appStatus = $(this).is(":checked");
-
             $.ajax({
                 url: '/OrganizationStructure/UpdateSupplierAppStatus',
                 type: 'POST',
@@ -1107,8 +1111,6 @@
         });
     });
 </script>
-
-
 <script>
     $(document).on('click', '#saveManageStaff', function () {
         var form = $('#manageStaffForm')[0];
@@ -1151,11 +1153,81 @@
             legalEntityInput.readOnly = false;
         }
     });
-
 </script>
 
+<script>
+    (function () {
+        const svgOpen = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                <path d='M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/>
+                <circle cx='12' cy='12' r='3.2' fill='none' stroke='currentColor' stroke-width='1.8'/>
+              </svg>`;
 
+        const svgClosed = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                <path d='M1 12s4-7 11-7c2.8 0 5.4 1.2 7.4 3' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round'/>
+                <path d='M23 12s-4 7-11 7c-2.8 0-5.4-1.2-7.4-3' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round'/>
+                <path d='M3 3L21 21' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round'/>
+              </svg>`;
 
+        function svgToUrl(svg) {
+            const encoded = encodeURIComponent(svg)
+                .replace(/'/g, "%27").replace(/"/g, "%22");
+            return `url("data:image/svg+xml;utf8,${encoded}")`;
+        }
+        function setIcon(input, visible) {
+            const sz = +input.dataset.eyeSize || 20;
+            const pad = +input.dataset.eyePad || 10;
+            input.style.backgroundImage = visible ? svgToUrl(svgOpen) : svgToUrl(svgClosed);
+            input.style.backgroundPosition = `right ${pad}px center`;
+            input.style.backgroundSize = `${sz}px ${sz}px`;
+            input.dataset.visible = visible ? "1" : "0";
+            input.setAttribute("title", visible ? "Hide password" : "Show password");
+            input.setAttribute("aria-label", visible ? "Password (visible)" : "Password (hidden)");
+        }
+        function toggleVisibility(input) {
+            const wasText = input.type === "text";
+            const start = input.selectionStart, end = input.selectionEnd, scroll = input.scrollLeft;
 
+            input.type = wasText ? "password" : "text";
+            setIcon(input, !wasText);
+            try { input.setSelectionRange(start, end); } catch { }
+            input.scrollLeft = scroll;
+            input.focus();
+        }
+        function clickedEye(input, evt) {
+            const rect = input.getBoundingClientRect();
+            const sz = (+input.dataset.eyeSize || 20);
+            const pad = (+input.dataset.eyePad || 10);
+            const iconWidth = sz;
+            const x = (evt.touches ? evt.touches[0].clientX : evt.clientX);
+            return x >= rect.right - (iconWidth + pad * 2) && x <= rect.right;
+        }
+        function init(input) {
+            setIcon(input, input.type === "text");
+            const handler = (evt) => {
+                if (clickedEye(input, evt)) {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                    toggleVisibility(input);
+                }
+            };
+            input.addEventListener("mousedown", handler);
+            input.addEventListener("touchstart", handler, { passive: false });
+            input.addEventListener("keydown", (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "P" || e.key === "p")) {
+                    e.preventDefault();
+                    toggleVisibility(input);
+                }
+            });
+        }
+        function boot() {
+            document.querySelectorAll('input[data-eye="true"]').forEach(init);
+        }
 
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", boot);
+        } else {
+            boot();
+        }
+    })();
+</script>
 
