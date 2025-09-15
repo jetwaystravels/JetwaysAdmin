@@ -11,5 +11,8 @@ namespace JetwaysAdmin.Entity
 		public List<Country>? Countries { get; set; }
 		public List<State>? States { get; set; }
 		public List<City>? Cities { get; set; }
-	}
+
+        public string? Stateid { get; set; }
+        public string? StateName { get; set; }
+    }
 }

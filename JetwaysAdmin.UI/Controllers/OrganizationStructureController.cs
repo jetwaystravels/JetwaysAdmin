@@ -213,6 +213,18 @@ namespace JetwaysAdmin.UI.Controllers
             return Json(cities);
         }
 
+
+        [HttpGet]
+       // public IActionResult GetWorkLocations(int legalEntityId)
+       // {
+       //// TODO: replace with your real data lookup
+       //    ///  Example shape: new { stateID = 7, stateName = "Delhi" }
+       //     var states = _yourRepo.GetStatesByLegalEntity(legalEntityId)
+       //         .Select(s => new { stateID = s.StateID, stateName = s.StateName });
+
+       //     return Json(states);
+       // }
+
         [HttpPost]
         public async Task<IActionResult> AddOffice([FromForm] LegalEntity legalEntity,int IdLegal, string ParentLegalEntityCode, string ParentLegalEntityName)
         {

@@ -76,11 +76,11 @@
                             <div class="card">
                                 <div class="card-block">
                                     <form class="form-material form-row" id="addinternaluser" enctype="multipart/form-data" method="post" asp-controller="Users" asp-action="AddUsers" style="display:none;">
-                                        <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" class="form-control">
-                                        <input type="hidden" name="legalEntityName" value="@ViewBag.legalEntityName" class="form-control">
+                                        <input type="hidden" id="txtLegalEntityCode" name="LegalEntityCode" class="form-control">
+                                        <input type="hidden" id="txtLegalEntityName" name="LegalEntityName" class="form-control">
                                         <div class="form-group form-primary col-md-4">
-                                            <select class="form-control langOpt" name="LegalEntityCode">
-                                                <option value="@ViewBag.LegalEntityCode">[@ViewBag.LegalEntityCode] @ViewBag.LegalEntityName</option>
+                                            <select asp-items="ViewBag.LegalEntities" class="form-control langOpt" id="ddlLegalEntity">
+                                                <option value="">-- Select Legal Entity --</option>
                                             </select>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Select Legal Entity<span>*</span></label>
@@ -283,7 +283,12 @@
                                                             </select>
                                                         </div>
                                                         <div class="form-group form-primary col-md-6">
-                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Work location">
+                                                            <select id="workLocationSelect"
+                                                                    name="WorkLocationStateId"
+                                                                    class="form-control langOpt"
+                                                                    name="fareType1"
+                                                                    data-placeholder="Work Location">
+                                                                <option value="">Select Work Location</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-6 p-t-10">
@@ -440,4 +445,71 @@
 
         });
     </script>
+    @* <script>
+        function syncFromSelect() {
+          var sel = document.getElementById('ddlLegalEntity');
+          var opt = sel.options[sel.selectedIndex];
+          document.getElementById('txtLegalEntityCode').value = opt && opt.value ? opt.value : '';
+          document.getElementById('txtLegalEntityName').value =  opt && opt.value ? opt.text : '';
+        }
+        document.getElementById('ddlLegalEntity').addEventListener('change', syncFromSelect);
+        // If a value is preselected, initialize the textboxes on load:
+        window.addEventListener('DOMContentLoaded', syncFromSelect);
+    </script> *@
+
+    <script>
+        function syncFromSelect() {
+          var sel = document.getElementById('ddlLegalEntity');
+          var opt = sel.options[sel.selectedIndex];
+          document.getElementById('txtLegalEntityCode').value = opt?.value || '';
+          document.getElementById('txtLegalEntityName').value = opt?.text || '';
+        }
+
+        document.getElementById('ddlLegalEntity').addEventListener('change', function () {
+          syncFromSelect();
+
+          var legalEntityCode = this.value?.trim();
+          var $workSel = $('#workLocationSelect');
+
+          // Clear and show loading
+          $workSel.empty().append($('<option>', { value: '', text: legalEntityCode ? 'Loading…' : 'Select Work Location' }));
+
+          if (!legalEntityCode) return;
+
+          $.ajax({
+            url: '/Users/GetWorkLocations',
+            type: 'GET',
+            data: { legalEntityCode: legalEntityCode },
+            success: function (data) {
+              $workSel.empty().append($('<option>', { value: '', text: 'Select Work Location' }));
+
+              // Ensure it's always an array
+              var items = Array.isArray(data) ? data : (data ? [data] : []);
+
+              items.forEach(function (item) {
+                var id = item.stateid ?? item.stateID ?? '';
+                var name = item.stateName ?? '';
+                if (id && name) {
+                  $workSel.append($('<option>', { value: id, text: name }));
+                }
+              });
+
+              $workSel.trigger('change.select2'); // refresh if using Select2
+            },
+            error: function () {
+              $workSel.empty().append($('<option>', { value: '', text: 'Error loading locations' }));
+            }
+          });
+        });
+
+        // Load immediately if entity is preselected
+        window.addEventListener('DOMContentLoaded', function () {
+          syncFromSelect();
+          $('#ddlLegalEntity').trigger('change');
+        });
+    </script>
+
+
+
+
 </footer>

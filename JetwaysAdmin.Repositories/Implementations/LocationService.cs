@@ -1,5 +1,6 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,36 @@ namespace JetwaysAdmin.Repositories.Implementations
                 States = _context.tb_State.ToList()
             };
         }
+
+        //public async Task<AddressCountryState?> GetStatebylegalentityAsync(string legalentitycode)
+        //{
+        //    return await _context.Admin_tb_LegalEntity
+        //        .AsNoTracking()
+        //        .Where(x => x.LegalEntityCode == legalentitycode)
+        //        .Select(x => new AddressCountryState
+        //        {
+        //            // Map your columns appropriately
+        //            // StateCode = x.StateCode,   // if you have StateCode column
+        //            Stateid = x.State        // if you want the name/value
+        //        })
+        //        .FirstOrDefaultAsync();
+        //}
+
+        public async Task<AddressCountryState?> GetStatebylegalentityAsync(string legalentitycode)
+        {
+            return await (
+                from le in _context.Admin_tb_LegalEntity.AsNoTracking()
+                join s in _context.tb_State.AsNoTracking()
+                    on le.State equals s.StateID.ToString() // Ensure both sides of the join are of the same type
+                where le.LegalEntityCode == legalentitycode
+                select new AddressCountryState
+                {
+                    Stateid = le.State,                 // from LegalEntity
+                    StateName = s.StateName             // from tb_State
+                }
+            ).FirstOrDefaultAsync();
+        }
+
     }
 
 }

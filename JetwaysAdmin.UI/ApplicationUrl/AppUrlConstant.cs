@@ -75,6 +75,7 @@
         public static string EditLoactionTaxID = BaseURL + "api/LocationsandTaxAPI";
         public static string GetCountry = BaseURL + "api/LocationAPI/countries";
         public static string GetSate = BaseURL + "api/LocationAPI/states";
+        public static string GetSatebylegalentity = BaseURL + "api/LocationAPI/legalEntitystate";
         public static string GetCity = BaseURL + "api/LocationAPI/cities";
         public static string AddSupplierCredential = BaseURL + "api/SuppliersCredentialAPI/addsuppliercred";
         public static string GetSupplierCredential = BaseURL + "api/SuppliersCredentialAPI/getsuppliercred";

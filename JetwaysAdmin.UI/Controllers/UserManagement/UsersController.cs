@@ -2,6 +2,7 @@
 using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -16,6 +17,24 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             List<State> state = new List<State>();
             using (HttpClient client = new HttpClient())
             {
+                List<LegalEntity> legalEntities = new List<LegalEntity>();
+                MenuHeaddata legaldata = new MenuHeaddata();
+                var response = await client.GetAsync(AppUrlConstant.GetLegalEntity);
+                if (response.IsSuccessStatusCode)
+                {
+                   
+                    var result = await response.Content.ReadAsStringAsync();
+                    var responseData = JsonConvert.DeserializeObject<LegalEntityResponse>(result);
+                    legalEntities = responseData?.Data ?? new List<LegalEntity>();
+                    var filteredEntities = legalEntities
+                       .Where(le =>
+                             le.LegalEntityCode == legalEntityCode ||
+                           le.ParentLegalEntityCode == legalEntityCode)
+                    .ToList();
+                    // legaldata.LegalEntitydata = filteredEntities;
+                    ViewBag.LegalEntities = new SelectList(filteredEntities, nameof(LegalEntity.LegalEntityCode), nameof(LegalEntity.LegalEntityName));
+                }
+
                 var userdetail = await client.GetAsync($"{AppUrlConstant.GetCustomerEmployee}?LegalEntityCode={legalEntityCode}");
                 if (userdetail.IsSuccessStatusCode)
                 {
@@ -236,7 +255,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    TempData["Addbillingentity"] = "Billing entity add successfully";
+                    TempData["Addbillingentity"] = "Billing entity Update successfully";
                     ViewBag.EUserid = UserID;
                 }
                 else
@@ -301,6 +320,31 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             });
         }
 
+        public async Task<IActionResult> GetWorkLocationsAsync(string legalEntityCode)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+
+                var url = $"{AppUrlConstant.GetSatebylegalentity}?LegalEntityCode={legalEntityCode}";
+               // string url = $"{AppUrlConstant.GetSatebylegalentity}/{legalEntityCode}";
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    var state = JsonConvert.DeserializeObject<State>(result);
+                    return Json(state);
+                 
+                }
+
+
+            }
+
+
+            //var states = _yourRepo.GetStatesByLegalEntity(legalEntityId)
+              //  .Select(s => new { stateID = s.StateID, stateName = s.StateName });
+
+            return Json("");
+        }
     }
 }
 

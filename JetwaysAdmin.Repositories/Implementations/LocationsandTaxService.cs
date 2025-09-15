@@ -24,16 +24,23 @@ namespace JetwaysAdmin.Repositories.Implementations
             await _addtax.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<LocationsandTax>> GetLocationsandTaxByLegalEntity(string legalEntityCode)
+        //public async Task<IEnumerable<LocationsandTax>> GetLocationsandTaxByLegalEntity(string legalEntityCode)
+        //{
+        //    return await _addtax.tb_CustomerLocationTaxDetails
+        //        .Where(loc => loc.LegalEntityCode == legalEntityCode)
+        //        .ToListAsync();
+        //}
+        public async Task<IEnumerable<LocationsandTax>> GetLocationsandTaxByLegalEntity(string? legalEntityCode)
         {
             return await _addtax.tb_CustomerLocationTaxDetails
-                .Where(emp => emp.LegalEntityCode == legalEntityCode)
+                .FromSqlInterpolated($"EXEC dbo.sp_GetLocationsandTaxByLegalEntity @LegalEntityCode={legalEntityCode}")
+                .AsNoTracking()
                 .ToListAsync();
         }
         public async Task<LocationsandTax> GetLocationTaxById(int locationId)
         {
             return await _addtax.tb_CustomerLocationTaxDetails
-                .FirstOrDefaultAsync(emp => emp.LocationID == locationId);
+                .FirstOrDefaultAsync(loc => loc.LocationID == locationId);
         }
 
         public async Task<IEnumerable<LocationsandTax>> GetLocationsandTaxALL()
