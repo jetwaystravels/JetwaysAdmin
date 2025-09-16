@@ -20,7 +20,7 @@
             </div>
                 <div class="form-group form-primary col-md-3">
                     <select name="FinancialType" id="financialType" class="form-control fill" required>
-                        <option value="">Please Select</option>
+                        <option value="@Data.LegalEntitydata[0].FinancialType">@Data.LegalEntitydata[0].FinancialType</option>
                         <option value="SE">Use Office’s Own Financial Code</option>
                         <option value="SO">Use Office’s Own Code (Linked to Head Office)</option>
                         <option value="HO">Use Head Office Financial Code</option>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group form-primary col-md-6">
                     <select name="GSTLocationID" class="form-control fill">
-                        <option value="">Select GST Tax</option>
+                        <option value="@Data.LocationandTax[0].LocationID">@Data.LocationandTax[0].LocationName</option>
                         @foreach (var location in Model.LocationandTax)
                         {
                             <option value="@location.LocationID">@location.LocationName</option>
@@ -143,7 +143,7 @@
             </div>
             <div class="form-group form-primary col-md-6">
                 <select id="CountryId" name="Country" class="form-control fill" value="@Model.LegalEntitydata.FirstOrDefault()?.Country" onchange="loadStates()">
-                    <option value="">-- Select Country --</option>
+                        <option value="@Model.LegalEntitydata.FirstOrDefault()?.Country">@Model.LegalEntitydata.FirstOrDefault()?.Country</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {
                         <option value="@country.CountryID">@country.CountryName</option>
@@ -154,14 +154,14 @@
             </div>
             <div class="form-group form-primary col-md-6">
                 <select id="StateId" name="State" class="form-control fill" value="@Model.LegalEntitydata.FirstOrDefault()?.State" onchange="loadCities()">
-                    <option value="">-- Select State --</option>
+                        <option value="@Model.LegalEntitydata.FirstOrDefault()?.State">@Model.LegalEntitydata.FirstOrDefault()?.State</option>
                 </select>
                 <span class="form-bar"></span>
                 <label class="float-label">State<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
                 <select id="CityId" name="City" class="form-control fill" value="@Model.LegalEntitydata.FirstOrDefault()?.City">
-                    <option value="">-- Select City --</option>
+                        <option value="@Model.LegalEntitydata.FirstOrDefault()?.City">@Model.LegalEntitydata.FirstOrDefault()?.City</option>
                 </select>
                 <span class="form-bar"></span>
                 <label class="float-label">City<span>*</span></label>
@@ -174,6 +174,7 @@
             </div>
             <div class="form-group form-primary col-md-6">
                 <select name="AccountType" class="form-control fill" value="@Model.LegalEntitydata.FirstOrDefault()?.AccountType">
+                        <option value="@Model.LegalEntitydata.FirstOrDefault()?.AccountType">@Model.LegalEntitydata.FirstOrDefault()?.AccountType</option>
                     <option value="opt2">Business</option>
                     <option value="opt3">Personal</option>
                 </select>
@@ -188,7 +189,7 @@
             </div>
             <div class="form-group form-primary col-md-6">
                     <select name="CustomerBaseCurrency" class="select form-control fill" value="@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCurrency" id="currencySelect" onchange="updateCurrencyDisplay()">
-                    <option value="">--Please Select--</option>
+                        <option value="@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCurrency">@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCurrency</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {
                         <option value="@country.CountryName">@country.CountryName</option>
@@ -200,7 +201,7 @@
 
             <div class="form-group form-primary col-md-6">
                     <select name="CustomerBaseCountry" value="@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCountry" class="select form-control fill">
-                    <option value="">--Please Select--</option>
+                    <option value="@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCountry">@Model.LegalEntitydata.FirstOrDefault()?.CustomerBaseCountry</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {
                         <option value="@country.CountryName">@country.CountryName</option>

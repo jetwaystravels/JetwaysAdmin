@@ -324,25 +324,15 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
         {
             using (HttpClient client = new HttpClient())
             {
-
                 var url = $"{AppUrlConstant.GetSatebylegalentity}?LegalEntityCode={legalEntityCode}";
-               // string url = $"{AppUrlConstant.GetSatebylegalentity}/{legalEntityCode}";
                 var response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
                     var state = JsonConvert.DeserializeObject<State>(result);
-                    return Json(state);
-                 
+                    return Json(new { stateId = state.StateID, stateName = state.StateName });
                 }
-
-
             }
-
-
-            //var states = _yourRepo.GetStatesByLegalEntity(legalEntityId)
-              //  .Select(s => new { stateID = s.StateID, stateName = s.StateName });
-
             return Json("");
         }
     }
