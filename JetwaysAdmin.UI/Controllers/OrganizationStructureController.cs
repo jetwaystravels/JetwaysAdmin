@@ -4,6 +4,7 @@ using JetwaysAdmin.UI.ApplicationUrl;
 using JetwaysAdmin.UI.Controllers.CustomeFilter;
 using JetwaysAdmin.UI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Mono.TextTemplating;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Text;
@@ -17,9 +18,27 @@ namespace JetwaysAdmin.UI.Controllers
         {
             List<LegalEntity> rootEntity = new List<LegalEntity>();
             List<CustomersEmployee> employees = new List<CustomersEmployee>();
-
+            List<JetwaysAdmin.Entity.State> state = new List<JetwaysAdmin.Entity.State>();
+            List<City> cities = new List<City>();
             using (HttpClient client = new HttpClient())
             {
+               
+                string stateurl = $"{AppUrlConstant.GetSate}";
+                var stateresponse = await client.GetAsync(stateurl);
+                if (stateresponse.IsSuccessStatusCode)
+                {
+                    var stateresult = await stateresponse.Content.ReadAsStringAsync();
+                    state = JsonConvert.DeserializeObject<List<JetwaysAdmin.Entity.State>>(stateresult);
+                }
+                string url = $"{AppUrlConstant.GetCities}";
+                var cirtyresponse = await client.GetAsync(url);
+
+                if (cirtyresponse.IsSuccessStatusCode)
+                {
+                    var json = await cirtyresponse.Content.ReadAsStringAsync();
+                    cities = JsonConvert.DeserializeObject<List<City>>(json);
+                }
+
                 string apiLegalEntityUrl = $"{AppUrlConstant.GetLegalEntity}";
                 HttpResponseMessage response = await client.GetAsync(apiLegalEntityUrl);
 
@@ -43,7 +62,22 @@ namespace JetwaysAdmin.UI.Controllers
                         .ToList();
                     var combined = new List<LegalEntity> { parent };
                     combined.AddRange(children);
-                    // 2) Fetch employees by legalEntityCode via your API
+                    //city state 
+                    int ParseToInt(string? v) => int.TryParse((v ?? "").Trim(), out var n) ? n : 0;
+                    combined = combined.Select(le =>
+                    {
+                         var stateId = ParseToInt(le.State);  
+                        var cityId = ParseToInt(le.City); 
+                        var city = cities.FirstOrDefault(c => c.StateID == stateId && c.CityID == cityId);
+                        if (city != null)
+                        {
+                            le.City = city.CityName;
+                        }
+                        var stateRow = state.FirstOrDefault(s => s.StateID == stateId);
+                        if (stateRow != null)
+                            le.State = stateRow.StateName;
+                        return le;
+                    }).ToList();
                     try
                     {
                         // If you have a constant, prefer that:
@@ -80,6 +114,8 @@ namespace JetwaysAdmin.UI.Controllers
                     ViewBag.Employees = employees;                    // if you want to render the list
                     ViewBag.LegalEntityCode = legalEntityCode;
                     ViewBag.LegalEntityName = legalEntityName;
+                    ViewBag.StateMap = state.ToDictionary(s => s.StateID.ToString(), s => s.StateName);
+                    ViewBag.CityMap = cities.ToDictionary(c => c.CityID.ToString(), c => c.CityName);
                     ViewBag.Id = IdLegal;
                     return View(combined);
                 }
@@ -178,7 +214,8 @@ namespace JetwaysAdmin.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> LoadStates(int CountryId)
         {
-            List<State> states = new();
+            //List<State> states = new();
+            List<JetwaysAdmin.Entity.State> states = new();
 
             using (HttpClient client = new HttpClient())
             {
@@ -188,7 +225,7 @@ namespace JetwaysAdmin.UI.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    states = JsonConvert.DeserializeObject<List<State>>(json);
+                    states = JsonConvert.DeserializeObject<List<JetwaysAdmin.Entity.State>>(json);
                 }
             }
 

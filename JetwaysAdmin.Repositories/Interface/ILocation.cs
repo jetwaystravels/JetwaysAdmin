@@ -13,6 +13,7 @@ namespace JetwaysAdmin.Repositories.Interface
         T GetAllStates();
         T GetByCountryId(int countryId);
 		T GetByStateId(int stateId);
+        T GetAllCity();
         Task<AddressCountryState?> GetStatebylegalentityAsync(string legalentitycode);
 
     }

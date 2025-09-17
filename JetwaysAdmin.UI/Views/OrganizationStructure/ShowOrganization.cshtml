@@ -25,8 +25,7 @@
         box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         z-index: 1000;
         overflow: hidden;
-        /* ✅ Make background transparent */
-        background: rgba(255, 255, 255, 0.8); /* semi-transparent white */
+        background: rgba(255, 255, 255, 0.8);
         /* or fully transparent if needed */
         /* background: transparent; */
     }
@@ -257,7 +256,7 @@
                                                         <div class="text-primary col-lg-3 text-right open-btn">
                                                             @ViewBag.EmployeeCount users assigned
                                                         </div>
-                                                        isFirstRow = false;
+                                                        //isFirstRow = false;
                                                     }
                                                     <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
                                                 </div>
@@ -510,6 +509,7 @@
             });
         });
     </script>
+
 
     <script>
         function loadStates() {

@@ -50,7 +50,14 @@ namespace JetwaysAdmin.Repositories.Implementations
                 States = _context.tb_State.ToList()
             };
         }
-
+        public AddressCountryState GetAllCity()
+        {
+            return new AddressCountryState
+            {
+                Cities = _context.tb_City.ToList()
+            };
+        }
+        
         //public async Task<AddressCountryState?> GetStatebylegalentityAsync(string legalentitycode)
         //{
         //    return await _context.Admin_tb_LegalEntity

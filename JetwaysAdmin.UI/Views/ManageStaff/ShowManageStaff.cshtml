@@ -242,8 +242,17 @@
 
                                     </div>
                                   @{
-                                var consultantList = Model.BookingConsultants.BookingConsultantNames.Split(',')
-                                .Select(x => x.Trim()).ToList();
+                                // var consultantList = Model.BookingConsultants.BookingConsultantNames.Split(',')
+                                // .Select(x => x.Trim()).ToList();
+                                        var consultantList = new List<string>();
+
+                                        if (!string.IsNullOrEmpty(Model.BookingConsultants?.BookingConsultantNames))
+                                        {
+                                            consultantList = Model.BookingConsultants.BookingConsultantNames
+                                            .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                            .Select(x => x.Trim())
+                                            .ToList();
+                                        }
                                  }
                                  <div id="consultant-tags">
                                         @foreach (var consultant in consultantList)

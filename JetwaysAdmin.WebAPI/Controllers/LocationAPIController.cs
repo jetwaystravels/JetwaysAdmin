@@ -43,7 +43,13 @@ namespace JetwaysAdmin.WebAPI.Controllers
             var data = _locationService.GetAllStates();
             return Ok(data.States);
         }
-
+        [HttpGet]
+        [Route("Cities")]
+        public IActionResult GetAllCity()
+        {
+            var data = _locationService.GetAllCity();
+            return Ok(data.Cities);
+        }
         // GET api/LegalEntity/state/WI00006
         [HttpGet]
         [Route("legalEntitystate")]

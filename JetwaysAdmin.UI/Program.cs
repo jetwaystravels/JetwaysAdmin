@@ -19,10 +19,8 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddScoped<LogActionFilter>();
 //For globally use
-builder.Services.AddControllersWithViews(options =>
-{
-    options.Filters.Add<LogActionFilter>();
-});
+builder.Services.AddControllersWithViews();
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
