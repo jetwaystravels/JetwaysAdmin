@@ -81,6 +81,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             legalEntityupdate.BussinesEmail = legalEntity.BussinesEmail ?? legalEntityupdate.BussinesEmail;
             legalEntityupdate.Password = legalEntity.Password ?? legalEntityupdate.Password;
             legalEntityupdate.MobileNumber = legalEntity.MobileNumber ?? legalEntityupdate.MobileNumber;
+            legalEntityupdate.GSTLocationID = legalEntity.GSTLocationID ?? legalEntityupdate.GSTLocationID;
             legalEntityupdate.Gender = legalEntity.Gender ?? legalEntityupdate.Gender;
             legalEntityupdate.AddressLine1 = legalEntity.AddressLine1 ?? legalEntityupdate.AddressLine1;
             legalEntityupdate.AddressLine2 = legalEntity.AddressLine2 ?? legalEntityupdate.AddressLine2;
