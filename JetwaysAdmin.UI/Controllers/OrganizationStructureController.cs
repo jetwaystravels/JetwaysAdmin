@@ -403,6 +403,8 @@ namespace JetwaysAdmin.UI.Controllers
                 }
               
             }
+            
+           ViewBag.LegalEntitySubCode = entity.LegalEntityCode;
             ViewBag.LegalEntityCode = LegalEntityCodeParent;
             ViewBag.LegalEntityName = LegalEntityName;
             ViewBag.Id = IdLegal;
@@ -578,7 +580,7 @@ namespace JetwaysAdmin.UI.Controllers
         }
         
         [HttpPost]
-        [ServiceFilter(typeof(LogActionFilter))]
+       // [ServiceFilter(typeof(LogActionFilter))]
         public async Task<IActionResult> ManageStaff([FromForm] CustomerManageStaff customermanagestaff, int IdLegal, string LegalEntityCode, string LegalEntityName, string UpdateManageStaff)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
