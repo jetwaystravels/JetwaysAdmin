@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace JetwaysAdmin.Entity
 {
-    public class CustomersEmployee
+    public class CustomersEmployeedto
     {
         [Key]
         public int UserID { get; set; }
 
         public string? LegalEntityCode { get; set; }
-   
-        public string? LegalEntityName { get; set; }
+       
         public string EmployeeID { get; set; } = string.Empty;
         public string? Title { get; set; }
         public string? FirstName { get; set; }

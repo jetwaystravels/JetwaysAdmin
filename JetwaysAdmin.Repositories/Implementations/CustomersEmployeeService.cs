@@ -1,5 +1,6 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Interface;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,22 +18,25 @@ namespace JetwaysAdmin.Repositories.Implementations
         {
             _context = context;
         }
-        //public async Task<IEnumerable<CustomersEmployee>> GetAllCustomerEmployee()
-        //{
-        //    return await _context.tb_CustomersEmployee.ToListAsync();
-        //}
+
         public async Task<IEnumerable<CustomersEmployee>> GetCustomerEmployeeByLegalEntity(string legalEntityCode)
         {
             return await _context.tb_CustomersEmployee
-                .Where(emp => emp.LegalEntityCode == legalEntityCode)
+                .FromSqlRaw("EXEC GetCustomerEmployeesByLegalEntity @LegalEntityCode = {0}", legalEntityCode)
                 .ToListAsync();
         }
 
-        public async Task<CustomersEmployee> GetUsersById(int id)
+        public async Task<CustomersEmployee?> GetUsersById(int id)
         {
-            return await _context.tb_CustomersEmployee.FirstOrDefaultAsync(e => e.UserID == id);
-        }
+            var param = new SqlParameter("@UserID", id);
 
+            var rows = await _context.tb_CustomersEmployee
+                .FromSqlRaw("EXEC sp_CustomersEmployee_GetById @UserID", param)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return rows.FirstOrDefault();
+        }
 
         public async Task Addusers(CustomersEmployee UserAdd)
         {
@@ -45,9 +49,5 @@ namespace JetwaysAdmin.Repositories.Implementations
             _context.tb_CustomersEmployee.Update(Users);
             await _context.SaveChangesAsync();
         }
-
-      
-
-        
     }
 }

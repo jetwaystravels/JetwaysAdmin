@@ -343,9 +343,20 @@
                                         <i class="fa fa-search m-r-10" style="position: absolute;top: 12px; left: 18px;"></i>
                                     </div>
                                     <ul class="user-list" id="userList">
-                                        @foreach (var e in (List<CustomersEmployee>)ViewBag.Employees)
+                                        @* @foreach (var e in (List<CustomersEmployee>)ViewBag.Employees)
                                         {
                                             <li>@e.FirstName @e.LastName</li>
+                                        } *@
+                                        @if (ViewBag.Employees != null)
+                                        {
+                                            foreach (var e in (List<CustomersEmployee>)ViewBag.Employees)
+                                            {
+                                                <li>@e.FirstName @e.LastName</li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li>No employees found.</li>
                                         }
                                     </ul>
 
@@ -554,7 +565,13 @@
         });
     </script>
     <script>
-        $(document).on('click', '#addUser', function () {
+
+        $(document).on('click', '#addUser', function (e) {
+             e.preventDefault();
+              var isValid = addOfficeUSer(e);
+                if (!isValid) {
+                    return false; 
+                }
             var form = $('#addOfficeForm')[0];
             var fd = new FormData(form);
             $.ajax({

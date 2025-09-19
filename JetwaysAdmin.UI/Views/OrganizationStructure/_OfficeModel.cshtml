@@ -16,14 +16,13 @@
                 <input type="hidden" id="parentLegalEntityCode" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
                 <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="LegalEntityName" id="legalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)" required>
+                <input type="text" name="LegalEntityName" id="legalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)">
                 <span class="form-bar"></span>
                 <label class="float-label">Office Entity Name<span>*</span></label>
                 <span id="legalEntityNameError" style="color: red; font-size: 12px;"></span>
             </div>
                 <div class="form-group form-primary col-md-3">
-                    <select name="FinancialType" id="financialType" class="form-control fill" required>
-                        <option value="">Please Select</option>
+                    <select name="FinancialType" id="financialType" class="form-control fill">
                         <option value="SE">Use Office’s Own Financial Code</option>
                         <option value="SO">Use Office’s Own Code (Linked to Head Office)</option>
                         <option value="HO">Use Head Office Financial Code</option>
@@ -33,7 +32,7 @@
                 </div>
             <div class="form-group form-primary col-md-3">
                 <input type="text" name="LegalEntityCode" value="" id="legalEntityCode" maxlength="10"
-                       oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode(this)" class="form-control" required>
+                       oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode(this)" class="form-control">
                 <span class="form-bar"></span>
                 <label class="float-label">Financial Office Code</label>
                 <span id="legalEntityCodeError" style="color: red; font-size: 12px;"></span>
@@ -45,14 +44,15 @@
             </div>
                
             <div class="form-group form-primary col-md-6">
-                <select name="GSTLocationID" class="form-control fill" required>
+                <select name="GSTLocationID" class="form-control fill" id="gsttaxtype">
                     <option value="">Select GST Tax</option>
                     @foreach (var location in Model.LocationandTax)
                     {
                      <option value="@location.LocationID">@location.LocationName</option>
                     }
                 </select>
-                <span class="form-bar"></span>
+                    <span class="form-bar"></span>
+                    <label class="float-label">GST Tax</label>
             </div>
             <div class="form-group form-primary col-md-6">
                 <input type="text" Name="ParentLegalEntityName" class="form-control" value="@ViewBag.LegalEntityName" redonly />
@@ -61,7 +61,7 @@
             </div>
       
                 <div class="form-group form-primary col-md-6">
-                    <select name="AssignIATAGroup" class="form-control fill" required>
+                    <select name="AssignIATAGroup" class="form-control fill">
                         <option value="">Assign IATA Group</option>
                         @foreach (var group in Model.IATAGruopName)
                         {
@@ -120,7 +120,7 @@
             <div class="form-group form-primary col-md-4">
                 <input type="text" name="MobileNumber" id="mobileInput" maxlength="10" class="form-control" oninput="validateMobile(this)">
                 <span class="form-bar"></span>
-                <label class="float-label">Mobile Number</label>
+                    <label class="float-label">Mobile Number<span>*</span></label>
                 <span id="mobileError" style="color:red; font-size:12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
@@ -132,19 +132,19 @@
                 <label class="float-label">Gender</label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="AddressLine1" maxlength="40" class="form-control" id="addressLine1" oninput="validateAddressLine1(this)" required>
+                <input type="text" name="AddressLine1" maxlength="40" class="form-control" id="addressLine1" oninput="validateAddressLine1(this)">
                 <span class="form-bar"></span>
                 <label class="float-label">Address Line 1<span>*</span></label>
                 <span id="addressError1" style="color:red; font-size:12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="AddressLine2" maxlength="40" class="form-control" id="addressLine2" oninput="validateAddressLine2(this)" required>
+                <input type="text" name="AddressLine2" maxlength="40" class="form-control" id="addressLine2" oninput="validateAddressLine2(this)">
                 <span class="form-bar"></span>
                 <label class="float-label">Address Line 2<span>*</span></label>
                 <span id="addressError2" style="color:red; font-size:12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select id="CountryId" name="Country" class="form-control fill" onchange="loadStates()" required>
+                <select id="CountryId" name="Country" class="form-control fill" onchange="loadStates()">
                     <option value="">-- Select Country --</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {
@@ -155,21 +155,21 @@
                 <label class="float-label">Country<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select id="StateId" name="State" class="form-control fill" onchange="loadCities()" required>
+                <select id="StateId" name="State" class="form-control fill" onchange="loadCities()">
                     <option value="">-- Select State --</option>
                 </select>
                 <span class="form-bar"></span>
                 <label class="float-label">State<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <select id="CityId" name="City" class="form-control fill" required>
+                <select id="CityId" name="City" class="form-control fill">
                     <option value="">-- Select City --</option>
                 </select>
                 <span class="form-bar"></span>
                 <label class="float-label">City<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input type="text" name="PostalCode" maxlength="6" id="postalCodeInput" oninput="this.value = this.value.replace(/\s/g, ''); validatePostalCode(this)" class="form-control" required>
+                <input type="text" name="PostalCode" maxlength="6" id="postalCodeInput" oninput="this.value = this.value.replace(/\s/g, ''); validatePostalCode(this)" class="form-control">
                 <span class="form-bar"></span>
                 <label class="float-label">Postal Code<span>*</span></label>
                 <span id="postalCodeError" style="color:red; font-size:12px;"></span>
@@ -189,7 +189,7 @@
                 <span id="integrationRefError" style="color: red; font-size: 12px;"></span>
             </div>
             <div class="form-group form-primary col-md-6">
-                    <select name="CustomerBaseCurrency" class="select form-control fill" id="currencySelect" onchange="updateCurrencyDisplay()" required>
+                    <select name="CustomerBaseCurrency" class="select form-control fill" id="currencySelect" onchange="updateCurrencyDisplay()">
                     <option value="">--Please Select--</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {
@@ -201,7 +201,7 @@
             </div>
 
             <div class="form-group form-primary col-md-6">
-                    <select name="CustomerBaseCountry" class="select form-control fill" required>
+                    <select name="CustomerBaseCountry" class="select form-control fill">
                     <option value="">--Please Select--</option>
                     @foreach (var country in countryData ?? new List<Country>())
                     {
@@ -212,7 +212,7 @@
                 <label class="float-label">Customer Base Country<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input name="TravelDeskEmail" id="travelDeskEmailInput" maxlength="30" class="form-control" type="text" oninput="validateDeskEmail(this)" required>
+                <input name="TravelDeskEmail" id="travelDeskEmailInput" maxlength="30" class="form-control" type="text" oninput="validateDeskEmail(this)">
                 <span class="form-bar"></span>
                 <label class="float-label">Travel Desk Email<span>*</span></label>
                 <span id="emailDeskError" style="color: red; font-size: 12px;"></span>
@@ -286,8 +286,12 @@
                 <span class="form-bar"></span>
                 <span style="font-size:11px;font-weight:500;">Upload logo Allowed formats: .JPG / .PNG, Maximum file size: 1mb, Resolution 200px x 90px</span>
             </div>
-            <div><button id="addUser" class="btn btn-primary waves-effect waves-light">Add Office</button>
-                </div>
+                <div>
+                    <button type="button" id="addUser"
+                            class="btn btn-primary waves-effect waves-light">
+                        Add Office
+                    </button>
+                   </div>
              </form>
             </div>
         <div id="suppliersdealcode" style="display:none;">
@@ -795,6 +799,7 @@
 <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="~/assets/js/custom/addlegalentity.js"></script>
 <style>
 .tag {display: inline-block;background-color: #f0f0f0;border-radius: 20px; padding: 2px 8px;margin: 4px;font-size: 12px;}
 .remove-btn {background: none;border: none;color: #000; margin-left: 8px;font-weight: bold;cursor: pointer;}

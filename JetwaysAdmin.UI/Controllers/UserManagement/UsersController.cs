@@ -49,13 +49,13 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     state = JsonConvert.DeserializeObject<List<State>>(stateresult);
                 }
             }
-            var filteredUsers = customerdetail
-              .Where(u => u.LegalEntityCode != null && u.LegalEntityCode.Equals(legalEntityCode, StringComparison.OrdinalIgnoreCase))
-              .ToList();
+            //var filteredUsers = customerdetail
+            //  .Where(u => u.LegalEntityCode != null && u.LegalEntityCode.Equals(legalEntityCode, StringComparison.OrdinalIgnoreCase))
+            //  .ToList();
 
             var userAlldetail = new MenuHeaddata
             {
-                customersemployee = filteredUsers,
+                customersemployee = customerdetail,
                 Statedata = state
             };
             ViewBag.LegalEntityId = legalEntityId;
