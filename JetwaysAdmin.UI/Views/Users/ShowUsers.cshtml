@@ -76,6 +76,8 @@
                             <div class="card">
                                 <div class="card-block">
                                     <form class="form-material form-row" id="addinternaluser" enctype="multipart/form-data" method="post" asp-controller="Users" asp-action="AddUsers" style="display:none;">
+                                        <input type="hidden" name="LegalEntityCodeParent" value="@ViewBag.LegalEntityCode" class="form-control">
+                                        <input type="hidden" name="LegalEntityNameParent" value="@ViewBag.LegalEntityName" class="form-control">
                                         <input type="hidden" id="txtLegalEntityCode" name="LegalEntityCode" class="form-control">
                                         <input type="hidden" id="txtLegalEntityName" name="LegalEntityName" class="form-control">
                                         <div class="form-group form-primary col-md-4">

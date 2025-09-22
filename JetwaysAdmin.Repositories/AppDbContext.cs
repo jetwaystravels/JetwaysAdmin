@@ -61,19 +61,19 @@ namespace JetwaysAdmin.Repositories
             modelBuilder.Entity<BookingConsultantDto>().HasNoKey();
             modelBuilder.Entity<CustomerDealCodes>().HasNoKey();
             modelBuilder.Entity<SupplierDto>().HasNoKey();
-            modelBuilder.Entity<CustomersEmployee>().HasNoKey();
+            //modelBuilder.Entity<CustomersEmployee>().HasNoKey();
+             modelBuilder.Entity<CustomersEmployee>()
+            .ToTable("tb_CustomersEmployee")   // maps to your SQL table
+            .HasKey(c => c.UserID);
             modelBuilder.Entity<CustomerDealCodes>()
-            
-        .ToTable("tb_CustomerDealCodes")
-        .HasKey(c => c.DealCodeID);
+            .ToTable("tb_CustomerDealCodes")
+            .HasKey(c => c.DealCodeID);
             modelBuilder.Entity<Menu>()
-
-
-       .HasOne(m => m.MenuHead)                 // navigation property in Menu (submenu)
-       .WithMany(h => h.SubMenus)               // navigation collection in MenuHead
-       .HasForeignKey(m => m.ParentId)          // FK in Menu table
-       .OnDelete(DeleteBehavior.Cascade);
-            base.OnModelCreating(modelBuilder);
+           .HasOne(m => m.MenuHead)                 // navigation property in Menu (submenu)
+           .WithMany(h => h.SubMenus)               // navigation collection in MenuHead
+           .HasForeignKey(m => m.ParentId)          // FK in Menu table
+           .OnDelete(DeleteBehavior.Cascade);
+           base.OnModelCreating(modelBuilder);
         }
 
 
