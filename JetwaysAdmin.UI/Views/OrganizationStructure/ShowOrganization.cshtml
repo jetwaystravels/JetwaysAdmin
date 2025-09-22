@@ -5,9 +5,7 @@
     var Data = Model;
 }
 
-
 <style>
-
     /* Trigger button */
     .open-btn {
         cursor: pointer;
@@ -26,21 +24,17 @@
         z-index: 1000;
         overflow: hidden;
         background: rgba(255, 255, 255, 0.8);
-        /* or fully transparent if needed */
-        /* background: transparent; */
     }
 
-
-
     #popupOverlay {
-        display: none; /* hidden by default */
+        display: none;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(255,255,255,0.5); /* semi-transparent black */
-        z-index: 999; /* below popup but above page content */
+        background: rgba(255,255,255,0.5);
+        z-index: 999;
     }
 
     /* Header fixed inside popup */
@@ -88,14 +82,13 @@
         background: #fff;
     }
 
-        /* User items */
         .user-list li {
             padding: 4px 12px;
             border-radius: 8px;
             transition: background 0.2s;
             margin-bottom: 6px;
             border-bottom: 1px solid #f0f0f0;
-            font-size:12px;
+            font-size: 12px;
         }
 
             .user-list li:last-child {
@@ -134,15 +127,9 @@
                         </div>
                         <div class="col-md-4">
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="#">Setting</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="#">Manage Customers</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    Manage Staff
-                                </li>
+                                <li class="breadcrumb-item"><a href="#">Setting</a></li>
+                                <li class="breadcrumb-item"><a href="#">Manage Customers</a></li>
+                                <li class="breadcrumb-item">Manage Staff</li>
                             </ul>
                         </div>
                     </div>
@@ -175,13 +162,13 @@
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
-                           @if (TempData["DuplicateError"] != null)
+                            @if (TempData["DuplicateError"] != null)
                             {
-                            <div class="alert alert-danger" style="color:white;background-color:#e74c3c;padding:10px;width:80%;">
-                            <strong>Warning:</strong> @TempData["DuplicateError"]
-                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            </div>
-                            } 
+                                <div class="alert alert-danger" style="color:white;background-color:#e74c3c;padding:10px;width:80%;">
+                                    <strong>Warning:</strong> @TempData["DuplicateError"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            }
                             @if (TempData["officeupdate_message"] != null)
                             {
                                 <div class="alert alert-success">
@@ -189,6 +176,7 @@
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
+
                             <div class="card">
                                 <div class="card-block">
                                     <div class="d-flex justify-content-between m-b-10 top-lable">
@@ -222,12 +210,11 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div id="officeList">
                                         @{
                                             bool isFirst = true;
-                                            var isFirstRow = true;
                                         }
-
                                         @foreach (var office in Model)
                                         {
                                             <div class="office-card">
@@ -241,23 +228,19 @@
                                                         <span class="tag captext company-name" style="text-transform: capitalize;">@office.LegalEntityName</span>
                                                         <span class="tag tag-default">@office.State -->@office.City</span>
                                                     </div>
-                                                    @if (isFirstRow)
-                                                    {
-                                                        @* <div class="text-primary col-lg-3 text-right">
-                                                            <strong data-toggle="tooltip"
-                                                                    data-html="true"
-                                                                    title="@Html.Raw(string.Join("<br/>", ((List<CustomersEmployee>)ViewBag.Employees).Select(e => e.FirstName + " " + e.LastName)))">
-                                                                @ViewBag.EmployeeCount users assigned
 
-                                                            </strong>
-                                                        </div> *@
+                                                    <div class="text-primary col-lg-3 text-right open-btn" data-legal="@office.LegalEntityCode">
+                                                        @{
+                                                            var employeesByCode = ViewBag.EmployeesByCode as IDictionary<string, List<CustomersEmployee>>;
+                                                            var countForThisOffice = 0;
+                                                            if (employeesByCode != null && employeesByCode.TryGetValue(office.LegalEntityCode, out var listForOffice))
+                                                            {
+                                                                countForThisOffice = listForOffice?.Count ?? 0;
+                                                            }
+                                                        }
+                                                        @countForThisOffice users assigned
+                                                    </div>
 
-
-                                                        <div class="text-primary col-lg-3 text-right open-btn">
-                                                            @ViewBag.EmployeeCount users assigned
-                                                        </div>
-                                                        //isFirstRow = false;
-                                                    }
                                                     <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
                                                 </div>
 
@@ -267,7 +250,6 @@
                                                     </div>
                                                     <div class="col-md-9 address-section">
                                                         <div class="row">
-
                                                             <div class="col-md-6">
                                                                 <div class="office-info">
                                                                     <i class="fa fa-map-marker"></i>
@@ -285,8 +267,6 @@
                                                                 </div>
                                                             </div>
 
-
-
                                                             <div class="col-md-6">
                                                                 <div class="office-info">
                                                                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -299,10 +279,7 @@
                                                                 <div class="office-info">
                                                                     <i class="fa fa-globe" aria-hidden="true"></i>
                                                                     <div>
-                                                                        <p>
-                                                                            <strong>Point of sale country:</strong><br>
-                                                                            @office.Country
-                                                                        </p>
+                                                                        <p><strong>Point of sale country:</strong><br>@office.Country</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -323,16 +300,13 @@
                                                         </button>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         }
                                     </div>
                                 </div>
 
                                 <!-- users assigned start -->
-
                                 <div id="popupOverlay"></div>
-                                <!-- Popup -->
                                 <div class="popup" id="popupBox">
                                     <div class="popup-header">
                                         Users Assigned
@@ -343,25 +317,9 @@
                                         <i class="fa fa-search m-r-10" style="position: absolute;top: 12px; left: 18px;"></i>
                                     </div>
                                     <ul class="user-list" id="userList">
-                                        @* @foreach (var e in (List<CustomersEmployee>)ViewBag.Employees)
-                                        {
-                                            <li>@e.FirstName @e.LastName</li>
-                                        } *@
-                                        @if (ViewBag.Employees != null)
-                                        {
-                                            foreach (var e in (List<CustomersEmployee>)ViewBag.Employees)
-                                            {
-                                                <li>@e.FirstName @e.LastName</li>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <li>No employees found.</li>
-                                        }
+                                        <!-- Filled dynamically based on LegalEntityCode -->
                                     </ul>
-
                                 </div>
-
                                 <!-- users assigned end -->
 
                             </div>
@@ -372,6 +330,7 @@
 
         </div>
     </div>
+
     <!-- Add Office Modal -->
     <div class="modal fade office-modal" id="addOfficeModal" tabindex="-1" role="dialog" aria-labelledby="addOfficeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -384,7 +343,7 @@
                     <div class="m-b-25">
                         <ul class="nav nav-tabs">
                             <li class="p-10">
-                                <a href="#"  onclick="showOrganization(); return false;">Organization</a>
+                                <a href="#" onclick="showOrganization(); return false;">Organization</a>
                             </li>
                             <li class="p-10">
                                 <a id="suppliersTab"
@@ -400,15 +359,14 @@
                                 <a href="#" id="OfficeAdd2" onclick="showAssignStaff(); return false;">Assign Staff</a>
                             </li>
                         </ul>
-
                     </div>
 
-                    <div class="modal-content" id="addOfficeModalContent" style="border:none;">
-                    </div>
+                    <div class="modal-content" id="addOfficeModalContent" style="border:none;"></div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="modal office-modal fade" id="updateOfficeModal" tabindex="-1" role="dialog" aria-labelledby="updateOfficeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content rounded-4 border-0 shadow-sm">
@@ -419,24 +377,18 @@
                 <div class="modal-body">
                     <div class="m-b-25">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#OrganizationUpdate" role="tab">Organization</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#suppliersdealcodeUpdate" role="tab">Suppliers & Deal Code</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#assignstaffUpdate" role="tab">Assign Staff</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#OrganizationUpdate" role="tab">Organization</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#suppliersdealcodeUpdate" role="tab">Suppliers & Deal Code</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#assignstaffUpdate" role="tab">Assign Staff</a></li>
                         </ul>
                     </div>
-                    <div class="modal-content" id="updateOfficeModalContent" style="border:none;">
-                    </div>
+                    <div class="modal-content" id="updateOfficeModalContent" style="border:none;"></div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
 <footer>
     <script src="~/assets/js/custom/addlegalentity.js"></script>
     <script src="~/assets/js/custom/datevalidation.js"></script>
@@ -447,23 +399,12 @@
     <script>
         $('.langOpt').each(function () {
             var placeholderText = $(this).data('placeholder') || 'Select option';
-            $(this).multiselect({
-                placeholder: placeholderText,
-                // other config if needed
-            });
+            $(this).multiselect({ placeholder: placeholderText });
         });
     </script>
-    <script>
-        $(function () {
-            $(".select").select2();
-        });
-    </script>
+    <script> $(function () { $(".select").select2(); }); </script>
+    <script> $(document).ready(function () { $('.langOpt').multiselect(); }); </script>
 
-    <script>
-        $(document).ready(function () {
-            $('.langOpt').multiselect();
-        });
-    </script>
     <script>
         $(document).ready(function () {
             $('#addOfficeModal').on('show.bs.modal', function (event) {
@@ -475,21 +416,14 @@
                 $.ajax({
                     url: '@Url.Action("ShowOffice", "OrganizationStructure")',
                     type: 'GET',
-                    data: {
-                        LegalEntityCode: legalEntityCode,
-                        LegalEntityName: legalEntityName,
-                        IdLegal: IdLegal
-                    },
-                    success: function (response) {
-                        $('#addOfficeModalContent').html(response);
-                    },
-                    error: function () {
-                        $('#addOfficeModalContent').html('<div class="p-3 text-danger">Failed to load office form.</div>');
-                    }
+                    data: { LegalEntityCode: legalEntityCode, LegalEntityName: legalEntityName, IdLegal: IdLegal },
+                    success: function (response) { $('#addOfficeModalContent').html(response); },
+                    error: function () { $('#addOfficeModalContent').html('<div class="p-3 text-danger">Failed to load office form.</div>'); }
                 });
             });
         });
     </script>
+
     <script>
         $(document).ready(function () {
             $('#updateOfficeModal').on('show.bs.modal', function (event) {
@@ -510,106 +444,78 @@
                         LegalEntityCodeParent: legalentitycodeparent,
                         LegalEntityName: legalEntityName
                     },
-                    success: function (response) {
-                        $('#updateOfficeModalContent').html(response);
-                    },
-                    error: function () {
-                        $('#updateOfficeModalContent').html('<div class="p-3 text-danger">Failed to load update form.</div>');
-                    }
+                    success: function (response) { $('#updateOfficeModalContent').html(response); },
+                    error: function () { $('#updateOfficeModalContent').html('<div class="p-3 text-danger">Failed to load update form.</div>'); }
                 });
             });
         });
     </script>
 
-
     <script>
         function loadStates() {
             var selectedCountryId = document.getElementById("CountryId").value;
             if (selectedCountryId) {
-                fetch('/OrganizationStructure/LoadStates?countryId=' + selectedCountryId, {
-                    method: 'GET'
-                })
-                    .then(response => response.json())
-                    .then(states => {
-                        const stateSelect = document.getElementById("StateId");
-                        stateSelect.innerHTML = '<option value="">-- Select State --</option>';
-                        states.forEach(function (state) {
-                            const option = document.createElement("option");
-                            option.value = state.stateID;
-                            option.text = state.stateName;
-                            stateSelect.appendChild(option);
-                        });
+                fetch('/OrganizationStructure/LoadStates?countryId=' + selectedCountryId, { method: 'GET' })
+                .then(response => response.json())
+                .then(states => {
+                    const stateSelect = document.getElementById("StateId");
+                    stateSelect.innerHTML = '<option value="">-- Select State --</option>';
+                    states.forEach(function (state) {
+                        const option = document.createElement("option");
+                        option.value = state.stateID; option.text = state.stateName;
+                        stateSelect.appendChild(option);
                     });
+                });
             }
         }
         function loadCities() {
             var stateId = document.getElementById("StateId").value;
             fetch('/OrganizationStructure/LoadCities?stateId=' + stateId)
-                .then(response => response.json())
-                .then(cities => {
-                    var citySelect = document.getElementById("CityId");
-                    citySelect.innerHTML = '<option value="">-- Select City --</option>';
-
-                    cities.forEach(function (city) {
-                        var option = document.createElement("option");
-                        option.value = city.cityID;
-                        option.text = city.cityName;
-                        citySelect.appendChild(option);
-                    });
+            .then(response => response.json())
+            .then(cities => {
+                var citySelect = document.getElementById("CityId");
+                citySelect.innerHTML = '<option value="">-- Select City --</option>';
+                cities.forEach(function (city) {
+                    var option = document.createElement("option");
+                    option.value = city.cityID; option.text = city.cityName;
+                    citySelect.appendChild(option);
                 });
+            });
         }
     </script>
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
-    <script>
 
+    <script> $(function () { $('[data-toggle="tooltip"]').tooltip(); }); </script>
+
+    <script>
         $(document).on('click', '#addUser', function (e) {
-             e.preventDefault();
-              var isValid = addOfficeUSer(e);
-                if (!isValid) {
-                    return false; 
-                }
+            e.preventDefault();
+            var isValid = addOfficeUSer(e);
+            if (!isValid) { return false; }
             var form = $('#addOfficeForm')[0];
             var fd = new FormData(form);
             $.ajax({
                 url: '/OrganizationStructure/AddOffice',
                 type: 'POST',
-                data: fd,
-                processData: false,
-                contentType: false,
+                data: fd, processData: false, contentType: false,
                 success: function (res) {
                     if (res && res.success) {
                         $('#addOfficeModalContent').load(res.url, function () {
                             $('#addOfficeModal').modal('show');
-                            var tab2 = $('a[href="#suppliersdealcode"]');
-                            tab2.tab('show');
-
+                            var tab2 = $('a[href="#suppliersdealcode"]'); tab2.tab('show');
                         });
-                    }
-                    else if (res && res.duplicate) {
+                    } else if (res && res.duplicate) {
                         var html = ''
-                            + '<div class="alert alert-danger" '
-                            + '     style="color:white;background-color:#e74c3c;padding:10px;width:80%;">'
-                            + '  <strong>Warning:</strong> ' + (res.message || 'Duplicate entry found.')
-                            + '  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>'
-                            + '</div>';
-                        var $target = $('#addOfficeModal').hasClass('show')
-                            ? $('#addOfficeModalContent')
-                            : $('#duplicateAlertContainer');
-
-                        $target.find('.alert.alert-danger').remove();
-                        $target.prepend(html);
-                    }
-                    else {
+                          + '<div class="alert alert-danger" style="color:white;background-color:#e74c3c;padding:10px;width:80%;">'
+                          + '  <strong>Warning:</strong> ' + (res.message || 'Duplicate entry found.')
+                          + '  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>'
+                          + '</div>';
+                        var $target = $('#addOfficeModal').hasClass('show') ? $('#addOfficeModalContent') : $('#duplicateAlertContainer');
+                        $target.find('.alert.alert-danger').remove(); $target.prepend(html);
+                    } else {
                         alert((res && res.message) || 'Failed to add office.');
                     }
                 },
-                error: function () {
-                    alert('Something went wrong while saving.');
-                }
+                error: function () { alert('Something went wrong while saving.'); }
             });
         });
     </script>
@@ -617,34 +523,29 @@
     <script>
         $(document).on('click', '#backToSuppliers', function (e) {
             e.preventDefault();
-
             var idLegal = $(this).data("idlegal");
             var legalEntityCode = $(this).data("legal-code");
             var legalEntityName = $(this).data("legal-name");
 
             $.ajax({
                 url: '/OrganizationStructure/ShowOffice',
-                type: 'GET',   // explicitly a GET request
-                data: {
-                    IdLegal: idLegal,
-                    LegalEntityCode: legalEntityCode,
-                    LegalEntityName: legalEntityName
-                },
+                type: 'GET',
+                data: { IdLegal: idLegal, LegalEntityCode: legalEntityCode, LegalEntityName: legalEntityName },
                 success: function (html) {
                     $('#addOfficeModalContent').html(html);
                     $('#addOfficeModal').modal('show');
-
-                    var tab2 = $('a[href="#suppliersdealcode"]');
-                    if (tab2.length) {
-                        tab2.tab('show');
-                    }
+                    var org2 = document.getElementById('Organization');
+                    if (org2) { org2.style.display = 'none'; org2.classList.remove('active','show'); }
+                    var asn2 = document.getElementById('assignstaff');
+                    if (asn2) { asn2.style.display = 'none'; asn2.classList.remove('active','show'); }
+                    var sup2 = document.getElementById('suppliersdealcode');
+                    if (sup2) { sup2.style.display = 'block'; sup2.classList.add('active','show'); }
                 },
-                error: function () {
-                    alert('Failed to load suppliers.');
-                }
+                error: function () { alert('Failed to load suppliers.'); }
             });
         });
     </script>
+
     <script>
         $(document).on('click', '#suppliersTab', function (e) {
             e.preventDefault();
@@ -654,45 +555,30 @@
             $.ajax({
                 url: '/OrganizationStructure/ShowOffice',
                 type: 'GET',
-                data: {
-                    IdLegal: idLegal,
-                    LegalEntityCode: legalEntityCode,
-                    LegalEntityName: legalEntityName
-                },
+                data: { IdLegal: idLegal, LegalEntityCode: legalEntityCode, LegalEntityName: legalEntityName },
                 success: function (html) {
                     $('#addOfficeModalContent').html(html);
-                    //$('#addOfficeModal').modal('show');
-
-                    //var tab2 = $('a[href="#suppliersdealcode"]');
-                    //if (tab2.length) {
-                    //tab2.tab('show');
-                    // activate suppliers tab pane
-
-                    //}
                     var org = document.getElementById('Organization');
-                    if (org) { org.style.display = 'none'; org.classList.remove('active', 'show'); }
+                    if (org) { org.style.display = 'none'; org.classList.remove('active','show'); }
                     var asn = document.getElementById('assignstaff');
-                    if (asn) { asn.style.display = 'none'; asn.classList.remove('active', 'show'); }
+                    if (asn) { asn.style.display = 'none'; asn.classList.remove('active','show'); }
                     var sup = document.getElementById('suppliersdealcode');
-                    if (sup) { sup.style.display = 'block'; sup.classList.add('active', 'show'); }
+                    if (sup) { sup.style.display = 'block'; sup.classList.add('active','show'); }
                     $('#addOfficeModal').one('shown.bs.modal', function () {
                         var org2 = document.getElementById('Organization');
-                        if (org2) { org2.style.display = 'none'; org2.classList.remove('active', 'show'); }
+                        if (org2) { org2.style.display = 'none'; org2.classList.remove('active','show'); }
                         var asn2 = document.getElementById('assignstaff');
-                        if (asn2) { asn2.style.display = 'none'; asn2.classList.remove('active', 'show'); }
+                        if (asn2) { asn2.style.display = 'none'; asn2.classList.remove('active','show'); }
                         var sup2 = document.getElementById('suppliersdealcode');
-                        if (sup2) { sup2.style.display = 'block'; sup2.classList.add('active', 'show'); }
+                        if (sup2) { sup2.style.display = 'block'; sup2.classList.add('active','show'); }
                     });
-
                     $('#addOfficeModal').modal('show');
-
                 },
-                error: function () {
-                    alert('Failed to load suppliers.');
-                }
+                error: function () { alert('Failed to load suppliers.'); }
             });
         });
     </script>
+
     <script>
         function showSuppliers() {
             document.getElementById('Organization').style.display = 'none';
@@ -710,15 +596,16 @@
             document.getElementById('suppliersdealcode').style.display = 'none';
         }
     </script>
+
     <script>
         function disable(id) {
             var el = document.getElementById(id);
             if (!el) return;
-            el.onclick = null;              
-            el.removeAttribute('href');     
-            el.tabIndex = -1;              
+            el.onclick = null;
+            el.removeAttribute('href');
+            el.tabIndex = -1;
             el.style.pointerEvents = 'none';
-            el.style.opacity = '0.5';       
+            el.style.opacity = '0.5';
             el.style.cursor = 'not-allowed';
         }
         disable('suppliersTab');
@@ -738,87 +625,100 @@
 
     <script>
         $("#searchInput").on("keyup", function () {
-              let value = $(this).val().toLowerCase().trim();
-
-              if (value === "") {
-                  // show everything if input is empty
-                  $("#officeList .office-card").show();
-                  return;
-              }
-
-              $("#officeList .office-card").each(function () {
-                  let company = $(this).find(".company-name").text().toLowerCase();
-                  $(this).toggle(company.indexOf(value) > -1);
-              });
-          });
+            let value = $(this).val().toLowerCase().trim();
+            if (value === "") {
+                $("#officeList .office-card").show();
+                return;
+            }
+            $("#officeList .office-card").each(function () {
+                let company = $(this).find(".company-name").text().toLowerCase();
+                $(this).toggle(company.indexOf(value) > -1);
+            });
+        });
     </script>
 
-
-
-
-
-
+    @* ======= SERIALIZED EMPLOYEE NAMES BY LEGAL ENTITY CODE (Controller must set ViewBag.EmpNamesByCodeJson) ======= *@
+    @using Newtonsoft.Json
     <script>
-        const openBtn = document.querySelector('.open-btn');
-        const popup = document.getElementById('popupBox');
-        const overlay = document.getElementById('popupOverlay'); // ✅ overlay
-        const closeBtn = document.getElementById('closeBtn');
-        const searchInput = document.querySelector('.searchInput');
-        const userList = document.getElementById('userList');
-        const users = userList.querySelectorAll('li');
+        // Expecting something like: { "WIPD001": [{ FullName: "Suraj Babhu", Designation: "SE" }, ...], "WIPB001": [...] }
+        const empNamesByCode = @Html.Raw(ViewBag.EmpNamesByCodeJson ?? "{}");
+    </script>
 
-        // Function to open popup
+    @* ======= POPUP: FILL BY LEGAL ENTITY CODE & SEARCH ======= *@
+    <script>
+        const popup = document.getElementById('popupBox');
+        const overlay = document.getElementById('popupOverlay');
+        const closeBtn = document.getElementById('closeBtn');
+        const userList = document.getElementById('userList');
+        const searchInput = document.querySelector('.searchInput');
+
         function openPopup() {
             popup.style.display = 'block';
             overlay.style.display = 'block';
         }
-
-        // Function to close popup
         function closePopup() {
             popup.style.display = 'none';
             overlay.style.display = 'none';
-            resetSearch(); // reset search on close
+            resetSearch();
         }
-
-        // Function to reset search
         function resetSearch() {
             searchInput.value = '';
-            users.forEach(user => {
-                user.innerHTML = user.textContent; // remove <mark>
-                user.style.display = 'block';
+            [...userList.querySelectorAll('li')].forEach(li => {
+                li.innerHTML = li.textContent;
+                li.style.display = 'block';
             });
         }
 
-        // Open popup on hover
-        openBtn.addEventListener('mouseenter', openPopup);
+        function fillUsersFor(code) {
+            userList.innerHTML = '';
+            const list = (empNamesByCode && empNamesByCode[code]) ? empNamesByCode[code] : [];
+            if (!list || list.length === 0) {
+                userList.innerHTML = '<li>No employees found.</li>';
+                return;
+            }
+            list.forEach(e => {
+                const li = document.createElement('li');
+                li.textContent = e.FullName + (e.Designation ? ' — ' + e.Designation : '');
+                userList.appendChild(li);
+            });
+        }
 
-        // Close popup with close button
+        // Hover OR click opens popup with correct list
+        // document.addEventListener('mouseenter', function (e) {
+        //     const btn = e.target.closest('.open-btn');
+        //     if (!btn) return;
+        //     const code = btn.getAttribute('data-legal') || '';
+        //     fillUsersFor(code);
+        //     openPopup();
+        // }, true);
+
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.open-btn');
+            if (!btn) return;
+            const code = btn.getAttribute('data-legal') || '';
+            fillUsersFor(code);
+            openPopup();
+        });
+
         closeBtn.addEventListener('click', closePopup);
-
-        // Close popup when clicking outside (including overlay)
         overlay.addEventListener('click', closePopup);
         document.addEventListener('click', (e) => {
-            if (!popup.contains(e.target) && !openBtn.contains(e.target) && e.target !== overlay) {
+            if (!popup.contains(e.target) && !e.target.closest('.open-btn') && e.target !== overlay) {
                 closePopup();
             }
         });
 
-        // Close with button
-        closeBtn.addEventListener('click', () => {
-            popup.style.display = 'none';
-            resetSearch(); // ✅ reset search when popup closes
-        });
-
-        // Search filter with highlight
+        // Search with highlight
+        const users = () => [...userList.querySelectorAll('li')];
         searchInput.addEventListener('keyup', () => {
-            const filter = searchInput.value.toLowerCase();
-            users.forEach(user => {
+            const filter = searchInput.value.toLowerCase().trim();
+            users().forEach(user => {
                 const text = user.textContent;
-                if (text.toLowerCase().includes(filter) && filter !== '') {
+                if (filter && text.toLowerCase().includes(filter)) {
                     const regex = new RegExp(`(${filter})`, 'gi');
                     user.innerHTML = text.replace(regex, '<mark>$1</mark>');
                     user.style.display = 'block';
-                } else if (text.toLowerCase().includes(filter)) {
+                } else if (!filter) {
                     user.innerHTML = text;
                     user.style.display = 'block';
                 } else {
@@ -827,6 +727,4 @@
             });
         });
     </script>
-
-
 </footer>

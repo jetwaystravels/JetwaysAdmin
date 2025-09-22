@@ -14,114 +14,168 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class OrganizationStructureController : Controller
     {
+        //private dynamic groupedEmployees;
         public async Task<IActionResult> ShowOrganization(int IdLegal, string legalEntityName, string legalEntityCode)
         {
-            List<LegalEntity> rootEntity = new List<LegalEntity>();
-            List<CustomersEmployee> employees = new List<CustomersEmployee>();
-            List<JetwaysAdmin.Entity.State> state = new List<JetwaysAdmin.Entity.State>();
-            List<City> cities = new List<City>();
-            using (HttpClient client = new HttpClient())
+            // Helpers
+            string Norm(string s) => (s ?? string.Empty).Trim().ToUpperInvariant();
+            int ParseToInt(string? v) => int.TryParse((v ?? "").Trim(), out var n) ? n : 0;
+
+            var rootEntity = new List<LegalEntity>();
+            var states = new List<JetwaysAdmin.Entity.State>();
+            var cities = new List<City>();
+
+            try
             {
-               
-                string stateurl = $"{AppUrlConstant.GetSate}";
-                var stateresponse = await client.GetAsync(stateurl);
-                if (stateresponse.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    var stateresult = await stateresponse.Content.ReadAsStringAsync();
-                    state = JsonConvert.DeserializeObject<List<JetwaysAdmin.Entity.State>>(stateresult);
-                }
-                string url = $"{AppUrlConstant.GetCities}";
-                var cirtyresponse = await client.GetAsync(url);
-
-                if (cirtyresponse.IsSuccessStatusCode)
-                {
-                    var json = await cirtyresponse.Content.ReadAsStringAsync();
-                    cities = JsonConvert.DeserializeObject<List<City>>(json);
-                }
-
-                string apiLegalEntityUrl = $"{AppUrlConstant.GetLegalEntity}";
-                HttpResponseMessage response = await client.GetAsync(apiLegalEntityUrl);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    try
+                    // ---- States ----
+                    var stateResp = await client.GetAsync($"{AppUrlConstant.GetSate}");
+                    if (stateResp.IsSuccessStatusCode)
                     {
-                        var result = await response.Content.ReadAsStringAsync();
-                        var responseObject = JsonConvert.DeserializeObject<LegalEntityResponse>(result);
-                        rootEntity = responseObject?.Data;
+                        var stateresult = await stateResp.Content.ReadAsStringAsync();
+                        states = JsonConvert.DeserializeObject<List<JetwaysAdmin.Entity.State>>(stateresult) ?? new List<JetwaysAdmin.Entity.State>();
                     }
-                    catch (Exception ex)
+
+                    // ---- Cities ----
+                    var cityResp = await client.GetAsync($"{AppUrlConstant.GetCities}");
+                    if (cityResp.IsSuccessStatusCode)
                     {
-                        Console.WriteLine("Error during deserialization: " + ex.Message);
+                        var cityJson = await cityResp.Content.ReadAsStringAsync();
+                        cities = JsonConvert.DeserializeObject<List<City>>(cityJson) ?? new List<City>();
                     }
-                    var parent = rootEntity.FirstOrDefault(e => e.LegalEntityCode == legalEntityCode);
-                    if (parent == null)
+
+                    // ---- Legal Entities (parent + children) ----
+                    var leResp = await client.GetAsync($"{AppUrlConstant.GetLegalEntity}");
+                    if (!leResp.IsSuccessStatusCode)
                         return View(new List<LegalEntity>());
-                    var children = rootEntity
-                        .Where(e => e.ParentLegalEntityCode == legalEntityCode)
-                        .ToList();
+
+                    var leJson = await leResp.Content.ReadAsStringAsync();
+                    var leObj = JsonConvert.DeserializeObject<LegalEntityResponse>(leJson);
+                    rootEntity = leObj?.Data ?? new List<LegalEntity>();
+
+                    var parent = rootEntity.FirstOrDefault(e => e.LegalEntityCode == legalEntityCode);
+                    if (parent == null) return View(new List<LegalEntity>());
+
+                    var children = rootEntity.Where(e => e.ParentLegalEntityCode == legalEntityCode).ToList();
                     var combined = new List<LegalEntity> { parent };
                     combined.AddRange(children);
-                    //city state 
-                    int ParseToInt(string? v) => int.TryParse((v ?? "").Trim(), out var n) ? n : 0;
+
+                    // ---- Enrich city/state names ----
                     combined = combined.Select(le =>
                     {
-                         var stateId = ParseToInt(le.State);  
-                        var cityId = ParseToInt(le.City); 
-                        var city = cities.FirstOrDefault(c => c.StateID == stateId && c.CityID == cityId);
-                        if (city != null)
-                        {
-                            le.City = city.CityName;
-                        }
-                        var stateRow = state.FirstOrDefault(s => s.StateID == stateId);
-                        if (stateRow != null)
-                            le.State = stateRow.StateName;
+                        var stateId = ParseToInt(le.State);
+                        var cityId = ParseToInt(le.City);
+
+                        var cityRow = cities.FirstOrDefault(c => c.StateID == stateId && c.CityID == cityId);
+                        if (cityRow != null) le.City = cityRow.CityName;
+
+                        var stateRow = states.FirstOrDefault(s => s.StateID == stateId);
+                        if (stateRow != null) le.State = stateRow.StateName;
+
                         return le;
                     }).ToList();
-                    try
-                    {
-                        // If you have a constant, prefer that:
-                         string apiEmployeeUrl = $"{AppUrlConstant.GetCustomerEmployee}?LegalEntityCode={Uri.EscapeDataString(legalEntityCode)}";
-                         var empResponse = await client.GetAsync(apiEmployeeUrl);
-                        if (empResponse.IsSuccessStatusCode)
-                        {
-                            var empJson = await empResponse.Content.ReadAsStringAsync();
 
-                            // If your API returns a plain array:  [ {...}, {...} ]
-                            employees = JsonConvert.DeserializeObject<List<CustomersEmployee>>(empJson) ?? new List<CustomersEmployee>();
+                    // ---- Employees per office (fetch for each code shown on the page) ----
+                    // We build a dictionary keyed by NORMALIZED LegalEntityCode
+                    var employeesByCode = new Dictionary<string, List<CustomersEmployee>>(StringComparer.OrdinalIgnoreCase);
 
-                            // If your API wraps data like { "data": [...] }, use this instead:
-                            // var empObj = JsonConvert.DeserializeObject<CustomersEmployeeResponse>(empJson);
-                            // employees = empObj?.Data ?? new List<CustomersEmployee>();
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Employee API failed: {(int)empResponse.StatusCode} {empResponse.ReasonPhrase}");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error calling Employee API: " + ex.Message);
-                    }
-
-                    // 3) Sort and count (optional)
-                    employees = employees
-                        .Where(x => x.AppStatus == 0)                 // keep your filter if needed
-                        .OrderBy(x => x.UserID)                       // same as your EF query
+                    var codes = combined
+                        .Select(le => le.LegalEntityCode)
+                        .Where(c => !string.IsNullOrWhiteSpace(c))
+                        .Select(Norm)
+                        .Distinct(StringComparer.OrdinalIgnoreCase)
                         .ToList();
 
-                    ViewBag.EmployeeCount = employees.Count;
-                    ViewBag.Employees = employees;                    // if you want to render the list
+                    // 1. Fetch employees for every code
+                    var rawEmployeesByCode = new Dictionary<string, List<CustomersEmployee>>(StringComparer.OrdinalIgnoreCase);
+
+                    foreach (var code in codes)
+                    {
+                        try
+                        {
+                            var apiEmployeeUrl = $"{AppUrlConstant.GetCustomerEmployee}?LegalEntityCode={Uri.EscapeDataString(code)}";
+                            var empResponse = await client.GetAsync(apiEmployeeUrl);
+
+                            if (!empResponse.IsSuccessStatusCode)
+                                continue;
+
+                            var empJson = await empResponse.Content.ReadAsStringAsync();
+                            var list = JsonConvert.DeserializeObject<List<CustomersEmployee>>(empJson) ?? new List<CustomersEmployee>();
+
+                            list = list
+                                .Where(x => x.AppStatus == 0)
+                                .OrderBy(x => x.UserID)
+                                .ToList();
+
+                            rawEmployeesByCode[code] = list;
+                        }
+                        catch (Exception exEmp)
+                        {
+                            Console.WriteLine("Employee fetch error for code " + code + ": " + exEmp.Message);
+                        }
+                    }
+
+                    // 2. Fix parent counts by subtracting child employees
+                    //var employeesByCode = new Dictionary<string, List<CustomersEmployee>>(StringComparer.OrdinalIgnoreCase);
+
+                    foreach (var office in combined)
+                    {
+                        var normCode = Norm(office.LegalEntityCode);
+                        if (!rawEmployeesByCode.TryGetValue(normCode, out var list)) continue;
+
+                        // Replace the following code block:  
+                        // var employeesByCode = new Dictionary<string, List<CustomersEmployee>>(StringComparer.OrdinalIgnoreCase);  
+
+                        // With this updated code:  
+                        var employeesByCodeFinal = new Dictionary<string, List<CustomersEmployee>>(StringComparer.OrdinalIgnoreCase);
+
+                        // Remove employees that actually belong to children
+                        var childCodes = combined
+                            .Where(c => c.ParentLegalEntityCode == office.LegalEntityCode)
+                            .Select(c => Norm(c.LegalEntityCode))
+                            .ToList();
+
+                        var filtered = list.Where(emp => !childCodes.Contains(Norm(emp.LegalEntityCode))).ToList();
+
+                        employeesByCode[normCode] = filtered;
+                    }
+
+
+                    // ---- ViewBags for the View ----
+                    ViewBag.EmployeesByCode = employeesByCode;                           // For per-office counts
+
+                    // Compact names JSON for the popup (FullName + Designation), keys already normalized
+                    var mapForView = employeesByCode.ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => kvp.Value.Select(e => new
+                        {
+                            FullName = $"{(e.FirstName ?? "").Trim()} {(e.LastName ?? "").Trim()}".Trim(),
+                            e.Designation
+                        }).ToList(),
+                        StringComparer.OrdinalIgnoreCase
+                    );
+                    ViewBag.EmpNamesByCodeJson = JsonConvert.SerializeObject(mapForView);
+
+                    // Optional: overall count (sum of all displayed offices)
+                    ViewBag.EmployeeCount = employeesByCode.Values.Sum(v => v?.Count ?? 0);
+
                     ViewBag.LegalEntityCode = legalEntityCode;
                     ViewBag.LegalEntityName = legalEntityName;
-                    ViewBag.StateMap = state.ToDictionary(s => s.StateID.ToString(), s => s.StateName);
+                    ViewBag.StateMap = states.ToDictionary(s => s.StateID.ToString(), s => s.StateName);
                     ViewBag.CityMap = cities.ToDictionary(c => c.CityID.ToString(), c => c.CityName);
                     ViewBag.Id = IdLegal;
+
                     return View(combined);
                 }
             }
-            return View();
+            catch (Exception ex)
+            {
+                Console.WriteLine("ShowOrganization error: " + ex.Message);
+                return View(new List<LegalEntity>());
+            }
         }
+
         [HttpGet]
         public async Task<IActionResult> ShowOffice(int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
