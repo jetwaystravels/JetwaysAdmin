@@ -641,7 +641,7 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.LegalEntityCode = LegalEntityCodeParent;
             ViewBag.LegalEntityName = LegalEntityName;
             ViewBag.Id = IdLegal;
-            string employeeData = customermanagestaff.BookingConsultant;
+            string employeeData = customermanagestaff.BookingConsultant ?? string.Empty;
             var employeeID = employeeData
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(emp => emp.Split('-')[0].Trim())

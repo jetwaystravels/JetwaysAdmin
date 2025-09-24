@@ -49,5 +49,18 @@ namespace JetwaysAdmin.Repositories.Implementations
             _context.tb_CustomersEmployee.Update(Users);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<bool> UpdatePasswordAsync(int userId, string passwordHash)
+        {
+            var user = await _context.tb_CustomersEmployee.FirstOrDefaultAsync(x => x.UserID == userId);
+            if (user == null) return false;
+
+            // adjust property name to your schema
+            user.Password = passwordHash;
+            user.ModifyDate = DateTime.UtcNow;   // optional audit field if you have one
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

@@ -1,7 +1,11 @@
 ﻿using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories.Interface;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.CodeAnalysis.Scripting;
+
 
 namespace JetwaysAdmin.WebAPI.Controllers
 {
@@ -17,7 +21,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
         [HttpGet]
         [Route("GetCustomerEmployee")]
-       
+
         public async Task<ActionResult<IEnumerable<CustomersEmployee>>> GetCustomerEmployee([FromQuery] string LegalEntityCode)
         {
             if (string.IsNullOrEmpty(LegalEntityCode))
@@ -89,6 +93,30 @@ namespace JetwaysAdmin.WebAPI.Controllers
             await _cutomerempl.UpdateUsersById(suserupdate);
             return Ok(new { message = "Customer updated successfully!" });
         }
+
+        [HttpPost]
+        [HttpPost("resetpassword")]
+        public async Task<IActionResult> ResetPassword([FromBody] Entity.ResetPasswordRequest request)
+        {
+            if (request == null || request.UserId <= 0 || string.IsNullOrWhiteSpace(request.Password))
+                return BadRequest("Invalid request.");
+
+            // TODO: enforce your password policy here (min length, complexity, etc.)
+            // Example:
+            if (request.Password.Length < 8)
+                return BadRequest("Password must be at least 8 characters.");
+
+            // 🔐 Hash the password (BCrypt recommended). Install BCrypt.Net-Next if needed.
+            // dotnet add package BCrypt.Net-Next
+            //var hashed = BCrypt.Net.BCrypt.HashPassword(request.Password);
+
+            var updated = await _cutomerempl.UpdatePasswordAsync(request.UserId, request.Password);
+            if (!updated) return NotFound("User not found.");
+
+            return Ok(new { message = "Password updated successfully." });
+        }
+
+
 
 
     }

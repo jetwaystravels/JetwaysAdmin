@@ -99,7 +99,7 @@
                                         </div>
 
                                         <div class="col-md-2">
-                                            <div onclick="location.href='iata-groups.html';" class="card text-center order-visitor-card">
+                                            <div class="card text-center order-visitor-card" id="IATAId">
                                                 <div class="card-block">
                                                     <h6 class="m-b-0">Jetways IATA Groups</h6>
                                                     <h3 class="m-t-15 m-b-15">
@@ -290,23 +290,13 @@
                     }
                 });
             });
-
-
             $("#supplierId").click(function (e) {
                 e.preventDefault();
                 window.location.href = '@Url.Action("ShowManageSuppliers", "ManageSuppliers")';
-                // $.ajax({
-                //     type: "POST",
-                //     url: "@Url.Action("ShowManageSuppliers", "ManageSuppliers")",
-                //     success: function (response) {
-
-                //         console.log("Posted successfully!");
-                //         window.location.href = '@Url.Action("ShowManageSuppliers", "ManageSuppliers")';
-                //     },
-                //     error: function (xhr, status, error) {
-                //         console.error("Error: " + error);
-                //     }
-                // });
+            });
+            $("#IATAId").click(function (e) {
+                e.preventDefault();
+                window.location.href = '@Url.Action("ShowIATACommissions", "IATACommissions")';
             });
 
         });

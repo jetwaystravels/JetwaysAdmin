@@ -15,6 +15,8 @@ namespace JetwaysAdmin.Repositories.Interface
         Task<CustomersEmployee> GetUsersById(int id);
         Task Addusers(CustomersEmployee UserAdd);
         Task UpdateUsersById(CustomersEmployee Users);
-       
+        // ✅ new: update only the password (already hashed value)
+        Task<bool> UpdatePasswordAsync(int userId, string passwordHash);
+
     }
 }

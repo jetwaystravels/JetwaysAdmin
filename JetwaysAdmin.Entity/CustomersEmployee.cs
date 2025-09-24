@@ -42,5 +42,7 @@ namespace JetwaysAdmin.Entity
         public string? Designation { get; set; }
         public string? Bands { get; set; }
         public string? ReportingManager { get; set; }
+
+        public string? Password { get; set; }
     }
 }
