@@ -8,7 +8,6 @@
 <style>
     .alert {
         padding: 5px;
-        background-color: #11c15b;
         color: white;
         width: 25%;
     }
@@ -59,14 +58,28 @@
 
                             @if (TempData["AddUSers"] != null)
                             {
-                                <div class="alert alert-success">
+                                <div class="alert alert-success" style="background:#11c15b;color: #fff;">
                                     <strong></strong> @TempData["AddUSers"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            } 
+                            @if (TempData["DuplicateEmail"] != null)
+                            {
+                                <div class="alert alert-danger" style="background-color:red;">
+                                    <strong></strong> @TempData["DuplicateEmail"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            } 
+                            @if (TempData["DuplicateEmployeeID"] != null)
+                            {
+                                <div class="alert alert-danger" style="background-color:red;">
+                                    <strong></strong>@TempData["DuplicateEmployeeID"]
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
                             @if (TempData["Addbillingentity"] != null)
                             {
-                                <div class="alert alert-success">
+                                <div class="alert alert-success" style="background:#11c15b;color: #fff;">
                                     <strong></strong> @TempData["Addbillingentity"]
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
@@ -169,17 +182,50 @@
                                             <label class="float-label">Date Of Birth</label> 
                                         </div>
                                         <div class="form-group form-primary col-md-4">
-                                            <input type="text" name="Department" class="form-control" required>
+                                            <select name="Department" class="select" required>
+                                                <option value="" selected disabled>-- Select Deparment --</option>
+                                                @foreach(var depart in Model.Customerdepartment)
+                                                {
+                                                    <option value="@depart.DepartmentName">@depart.DepartmentName</option>
+                                                }
+                                             </select>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Department</label>
                                         </div>
                                         <div class="form-group form-primary col-md-4">
-                                            <input type="text" name="Designation" class="form-control" required>
+                                            <select name="Designation" class="select" required>
+                                                <option value="" selected disabled>-- Select Designation --</option>
+                                                @foreach (var desination in Model.Customerdesignation)
+                                                {
+                                                    <option value="@desination.DesignationCode">@desination.DesignationName</option>
+                                                }
+                                            </select>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Designation</label>
                                         </div>
                                         <div class="form-group form-primary col-md-4">
-                                            <input type="text" name="Bands" class="form-control" required>
+                                            <select name="Bands" class="select" required>
+                                                <option value="" selected disabled>-- Select band --</option>
+                                                <optgroup label="Professional (P)">
+                                                    <option value="P1">P1</option>
+                                                    <option value="P2">P2</option>
+                                                    <option value="P3">P3</option>
+                                                    <option value="P4">P4</option>
+                                                    <option value="P5">P5</option>
+                                                </optgroup>
+                                                <optgroup label="Management (M)">
+                                                    <option value="M1">M1</option>
+                                                    <option value="M2">M2</option>
+                                                    <option value="M3">M3</option>
+                                                    <option value="M4">M4</option>
+                                                    <option value="M5">M5</option>
+                                                </optgroup>
+                                                <optgroup label="Executive (E)">
+                                                    <option value="E1">E1</option>
+                                                    <option value="E2">E2</option>
+                                                    <option value="E3">E3</option>
+                                                </optgroup>
+                                            </select>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Bands</label>
                                         </div>

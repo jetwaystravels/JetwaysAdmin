@@ -15,6 +15,7 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.LegalEntityName = LegalEntityName;
             ViewBag.Id = IdLegal;
             List<CustomerDesignation> customerDesignation = new List<CustomerDesignation>();
+            List<CustomerDepartmentData> customerdepartment = new List<CustomerDepartmentData>();
             using (HttpClient client = new HttpClient())
             {
                 string requestUrl = $"{AppUrlConstant.GetCustomerDesignation}?LegalEntityCode={LegalEntityCode}";
@@ -24,10 +25,19 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await deaprtmentresponse.Content.ReadAsStringAsync();
                     customerDesignation = JsonConvert.DeserializeObject<List<CustomerDesignation>>(result);
                 }
+                string RequestUrl = $"{AppUrlConstant.GetCustomerDepartment}?LegalEntityCode={LegalEntityCode}";
+                var Deaprtmentresponse = await client.GetAsync(RequestUrl);
+                if (Deaprtmentresponse.IsSuccessStatusCode)
+                {
+                    var result = await Deaprtmentresponse.Content.ReadAsStringAsync();
+                    customerdepartment = JsonConvert.DeserializeObject<List<CustomerDepartmentData>>(result);
+                }
+
             }
             var viewModel = new MenuHeaddata
             {
                 Customerdesignation = customerDesignation,
+                Customerdepartment = customerdepartment
             };
             return View(viewModel);
         }

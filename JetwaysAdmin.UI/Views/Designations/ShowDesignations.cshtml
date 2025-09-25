@@ -42,7 +42,7 @@
                         <div class="page-body">
                             @if (TempData["DesignationAdd"] != null)
                             {
-                                <div class="alert alert-success">
+                                <div class="alert alert-success" style="width:40%; background-color:#11c15b;color:#fff">
                                     <strong></strong> @TempData["DesignationAdd"]
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
@@ -175,6 +175,18 @@
                                         <input type="hidden" name="LegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
                                         <input type="hidden" name="LegalEntityName" class="form-control" value="@ViewBag.LegalEntityName">
                                         <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="DepartmentCode" class="select" required>
+                                                <option value="">Please Select Department</option>
+                                                @foreach(var depcode in Model.Customerdepartment)
+                                                {
+                                                  <option value="@depcode.DepartmentCode">@depcode.DepartmentName</option>
+                                                }
+                                                
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Department<span>*</span></label>
+                                        </div>
                                         <div class="form-group form-primary col-md-3">
                                             <input type="text" name="DesignationName" class="form-control" required>
                                             <span class="form-bar"></span>

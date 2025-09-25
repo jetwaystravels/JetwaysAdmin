@@ -15,6 +15,8 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
         {
             List<CustomersEmployee> customerdetail = new List<CustomersEmployee>();
             List<State> state = new List<State>();
+            List<CustomerDesignation> customerDesignation = new List<CustomerDesignation>();
+            List<CustomerDepartmentData> customerdepartment = new List<CustomerDepartmentData>();
             using (HttpClient client = new HttpClient())
             {
                 List<LegalEntity> legalEntities = new List<LegalEntity>();
@@ -48,6 +50,20 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     var stateresult = await stateresponse.Content.ReadAsStringAsync();
                     state = JsonConvert.DeserializeObject<List<State>>(stateresult);
                 }
+                string requestUrl = $"{AppUrlConstant.GetCustomerDesignation}?LegalEntityCode={legalEntityCode}";
+                var deaprtmentresponse = await client.GetAsync(requestUrl);
+                if (deaprtmentresponse.IsSuccessStatusCode)
+                {
+                    var result = await deaprtmentresponse.Content.ReadAsStringAsync();
+                    customerDesignation = JsonConvert.DeserializeObject<List<CustomerDesignation>>(result);
+                }
+                string RequestUrl = $"{AppUrlConstant.GetCustomerDepartment}?LegalEntityCode={legalEntityCode}";
+                var Deaprtmentresponse = await client.GetAsync(RequestUrl);
+                if (Deaprtmentresponse.IsSuccessStatusCode)
+                {
+                    var result = await Deaprtmentresponse.Content.ReadAsStringAsync();
+                    customerdepartment = JsonConvert.DeserializeObject<List<CustomerDepartmentData>>(result);
+                }
             }
             //var filteredUsers = customerdetail
             //  .Where(u => u.LegalEntityCode != null && u.LegalEntityCode.Equals(legalEntityCode, StringComparison.OrdinalIgnoreCase))
@@ -56,7 +72,9 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             var userAlldetail = new MenuHeaddata
             {
                 customersemployee = customerdetail,
-                Statedata = state
+                Statedata = state,
+                Customerdesignation = customerDesignation,
+                Customerdepartment = customerdepartment
             };
             ViewBag.LegalEntityId = legalEntityId;
             ViewBag.LegalEntityName = legalEntityName;
@@ -209,6 +227,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
         [HttpPost]
         public async Task<IActionResult> AddUsers([FromForm] CustomersEmployee adduser, string LegalEntityCodeParent, string LegalEntityNameParent)
         {
+            List<CustomersEmployee> customerdetail = new List<CustomersEmployee>();
             var file = Request.Form.Files.FirstOrDefault(f => f.Name == "Logo");
             if (file != null && file.Length > 0)
             {
@@ -220,6 +239,40 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             }
             using (HttpClient client = new HttpClient())
             {
+                var userdetail = await client.GetAsync($"{AppUrlConstant.GetCustomerEmployeeAll}");
+                if (userdetail.IsSuccessStatusCode)
+                {
+                    var result = await userdetail.Content.ReadAsStringAsync();
+                    var employees = JsonConvert.DeserializeObject<List<CustomersEmployee>>(result);
+                    var normalizedEmail = adduser.BusinessEmail?.Trim().ToLowerInvariant();
+                    var normalizedEmployeeID = adduser.EmployeeID?.Trim().ToLowerInvariant();
+                    var emailExists = employees
+                       .Any(e => !string.IsNullOrWhiteSpace(e.BusinessEmail) &&
+                       e.BusinessEmail.Trim().ToLowerInvariant() == normalizedEmail);
+                    var employeIdExists = employees
+                       .Any(e => !string.IsNullOrWhiteSpace(e.EmployeeID) &&
+                      e.EmployeeID.Trim().ToLowerInvariant() == normalizedEmployeeID);
+                    if (emailExists)
+                    {
+                        TempData["DuplicateEmail"] = "Business Email already exists";
+                        return RedirectToAction("ShowUsers", new
+                        {
+                            legalEntityName = LegalEntityNameParent,
+                            legalEntityCode = LegalEntityCodeParent
+                        });
+                    }
+                    if (employeIdExists)
+                    {
+                        TempData["DuplicateEmployeeID"] = "Employee ID already exists";
+                        return RedirectToAction("ShowUsers", new
+                        {
+                            legalEntityName = LegalEntityNameParent,
+                            legalEntityCode = LegalEntityCodeParent
+                          
+                        });
+                    }
+                }
+
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(adduser);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsJsonAsync(AppUrlConstant.AddCustomerEmployee, adduser);
@@ -235,11 +288,9 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 ViewBag.ErrorMessage = "Data not  insert";
                 return RedirectToAction("ShowUsers", new
                 {
-                    UserID = Request.Form["UserID"],
-                    IdLegal = Request.Form["IdLegal"],
                     legalEntityName = LegalEntityNameParent,
-                    legalEntityCode = LegalEntityCodeParent,
-                    empId = Request.Form["empId"]
+                    legalEntityCode = LegalEntityCodeParent
+                  
                 });
             }
         }

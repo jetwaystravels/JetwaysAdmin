@@ -9,7 +9,7 @@ namespace JetwaysAdmin.Repositories.Interface
 {
     public interface ICustomersEmployee<T> where T : class
     {
-        //Task<IEnumerable<CustomersEmployee>> GetAllCustomerEmployee();
+        Task<IEnumerable<CustomersEmployee>> GetAllCustomerEmployee();
         Task<IEnumerable<CustomersEmployee>> GetCustomerEmployeeByLegalEntity(string legalEntityCode);
 
         Task<CustomersEmployee> GetUsersById(int id);

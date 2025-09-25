@@ -51,6 +51,7 @@
         public static string Updatelegalentitysupplierstatus = BaseURL + "api/SupplierAPI/Updatelegalentitysuppliers";
 
         public static string GetCustomerEmployee = BaseURL + "api/CustomersEmployeeAPI/GetCustomerEmployee";
+        public static string GetCustomerEmployeeAll = BaseURL + "api/CustomersEmployeeAPI/GetCustomerEmployeeAll";
 
         public static string GetCustomerEmployeeID = BaseURL + "api/CustomersEmployeeAPI";
         public static string AddCustomerEmployee = BaseURL + "api/CustomersEmployeeAPI/AddUsers";

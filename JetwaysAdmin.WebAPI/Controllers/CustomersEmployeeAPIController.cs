@@ -18,6 +18,14 @@ namespace JetwaysAdmin.WebAPI.Controllers
         {
             this._cutomerempl = cutomerempl;
         }
+        [HttpGet]
+        [Route("GetCustomerEmployeeAll")]
+        public async Task<ActionResult<IEnumerable<InternalUsers>>> GetInternalUsers()
+        {
+            var getManageUser = await _cutomerempl.GetAllCustomerEmployee();
+            return Ok(getManageUser);
+        }
+
 
         [HttpGet]
         [Route("GetCustomerEmployee")]
