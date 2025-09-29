@@ -380,33 +380,52 @@
                                                         <tbody>
                                                             @foreach (var user in Model.customersemployee)
                                                             {
-                                                                <tr data-userid="@user.UserID"
-                                                                    data-legalentityid="@ViewBag.LegalEntityId"
-                                                                    data-legalentityname="@ViewBag.LegalEntityName"
-                                                                    data-legalentitycode="@ViewBag.LegalEntityCode"
-                                                                    data-empid="@user.EmployeeID" style="cursor:pointer;">
+                                                                var isActive = (user.AppStatus ?? 0) == 0;
+                                                                <tr data-userid="@user.UserID" data-appstatus="@(isActive ? 0 : 1)" data-legalentitycode="@user.LegalEntityCode">
                                                                     <td class="clickable">@user.LegalEntityName</td>
                                                                     <td class="clickable">@user.EmployeeID</td>
                                                                     <td class="clickable">@user.FirstName @user.LastName</td>
                                                                     <td class="clickable">@user.BusinessEmail</td>
                                                                     <td class="clickable">@user.Designation</td>
-                                                                    <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Approved</label></td>
-                                                                    <td><label class="lavel-text" style="color:#00b809"><span class="m-r-10" style="font-size: 9px; vertical-align: middle;"><i class="fa fa-circle" aria-hidden="true"></i></span>Active</label></td>
                                                                     <td>
-                                                                        <!-- Dropdown -->
-                                                                        <span class="m-l-50" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer;">
-                                                                            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                                                                        <label class="lavel-text" style="color:#00b809">
+                                                                            <i class="fa fa-circle" aria-hidden="true"></i> Approved
+                                                                        </label>
+                                                                    </td>
+                                                                    <td class="status-cell">
+                                                                        @if (isActive)
+                                                                        {
+                                                                            <label class="lavel-text" style="color:#00b809">
+                                                                                <i class="fa fa-circle" aria-hidden="true"></i> Active
+                                                                            </label>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <label class="lavel-text" style="color:#ff0000">
+                                                                                <i class="fa fa-circle" aria-hidden="true"></i> Deactive
+                                                                            </label>
+                                                                        }
+                                                                    </td>
+                                                                    <td>
+                                                                        <span data-toggle="dropdown" style="cursor:pointer;">
+                                                                            <i class="fa fa-ellipsis-h"></i>
                                                                         </span>
-                                                                        <div class="dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                                                            <a class="dropdown-item" href="#" id="disableUser">Disable</a>
-                                                                            <a class="dropdown-item" href="#" id="deactivateUser">Deactivate</a>
-                                                                            <a class="dropdown-item js-reset-password" href="#" data-toggle="modal"  data-target="#resetPasswordModal">Reset Password</a>
-                                                                            <a class="dropdown-item" href="#" id="changeEmail">Change Email</a>
+                                                                        <div class="dropdown-menu">
+                                                                            @if (isActive)
+                                                                            {
+                                                                                <a class="dropdown-item change-status" href="#" data-status="1">Deactivate</a>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <a class="dropdown-item change-status" href="#" data-status="0">Activate</a>
+                                                                            }
+                                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#resetPasswordModal">Reset Password</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
                                                             }
                                                         </tbody>
+
                                                     </table>
                                                 </div>
                                             </div>
@@ -568,6 +587,28 @@
             }
           });
         });
+    </script>
+    <script>
+    $(document).on("click", ".change-status", function (e) {
+    e.preventDefault();
+    var row = $(this).closest("tr");
+    var userId = row.data("userid");
+    var newStatus = $(this).data("status");
+    var legalEntityCode = row.data("legalentitycode");
+    $.post("/Users/UpdateStatus", { id: userId, status: newStatus,legalEntityCode: legalEntityCode }, function (resp) {
+    if (resp.success) {
+    var statusCell = row.find(".status-cell");
+    if (resp.newStatus === 0) {
+    statusCell.html('<label style="color:#00b809"><i class="fa fa-circle"></i> Active</label>');
+    row.find(".change-status").text("Deactivate").data("status", 1);
+    } else {
+    statusCell.html('<label style="color:#ff0000"><i class="fa fa-circle"></i> Deactive</label>');
+    row.find(".change-status").text("Activate").data("status", 0);
+    }
+    }
+    });
+    });
+
     </script>
 
 </footer>

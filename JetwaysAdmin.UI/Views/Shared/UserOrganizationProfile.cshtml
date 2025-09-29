@@ -48,14 +48,27 @@
                                                    asp-route-legalEntityName="@ViewBag.LegalEntityName"
                                                    asp-route-empId="@ViewBag.empId"
                                                    asp-route-legalEntityCode="@ViewBag.LegalEntityCode"><span class="pcoded-micon"><i class="fa fa-user"></i></span><span class="pcoded-mtext">Personal Info</span></a>
-                                            </li>
+                                            
+                                             
+                                        </li>
                                             <li>
                                             <a asp-controller="Users" asp-action="OrganizationUsersProfile" asp-route-UserID="@ViewBag.EUserid"
                                                    asp-route-IdLegal="@ViewBag.LegalEntityId" asp-route-empId="@ViewBag.empId"
                                                    asp-route-legalEntityName="@ViewBag.LegalEntityName"
                                                    asp-route-legalEntityCode="@ViewBag.LegalEntityCode"><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Organization Profile</span></a>
                                             </li>
-                                            <li><a href="#"><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Contact Details</span></a></li>
+                                            <li>
+                                           <a asp-controller="ContactUs" asp-action="ShowContactUs"
+                                            asp-route-LegalEntityId="@ViewBag.LegalEntityId"
+                                            asp-route-LegalEntityName="@ViewBag.LegalEntityName"
+                                            asp-route-LegalEntityCode="@ViewBag.LegalEntityCode"
+                                            asp-route-UserID="@ViewBag.EUserid"        
+                                            asp-route-empId="@ViewBag.empId"            
+                                            class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>
+                                            <span class="pcoded-mtext">Contact Details</span>
+                                            </a>
+                                            </li>
                                             <li><a href="#"><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Documents</span></a></li>
                                             <li><a href="#"><span class="pcoded-micon"><i class="fa fa-envelope-o"></i></span><span class="pcoded-mtext">Preference</span></a></li>
                                             <li><a href="#"><span class="pcoded-micon"><i class="fa fa-envelope-o"></i></span><span class="pcoded-mtext">Credit Cards</span></a></li>

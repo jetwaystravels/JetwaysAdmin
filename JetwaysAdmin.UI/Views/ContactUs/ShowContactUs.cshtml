@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LegalEntities.cshtml";
+    Layout = "~/Views/Shared/UserOrganizationProfile.cshtml";
 }
 
 <main id="main" class="main">
@@ -34,8 +34,18 @@
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                         <div class="page-body">
+                            @if (!string.IsNullOrEmpty(TempData["AddContactUs"] as string))
+                            {
+                                <div class="alert alert-success" style="width:40%;">
+                                    <strong></strong>@TempData["AddContactUs"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            }
                             <div class="card">
                                 <!-- contact us start -->
+                                <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" class="form-control">
+                                <input type="hidden" name="legalEntityName" value="@ViewBag.legalEntityName" class="form-control">
+                                <input type="hidden" name="UserID" value="@ViewBag.EUserid" class="form-control">
                                 <div class="card-block">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="editorType" value="html" checked>
@@ -173,7 +183,9 @@
                     const useHtml = $('input[name="editorType"]:checked').val() === 'html';
                     const htmlContent = $('#editorArea').html();
                     const urlValue = $('#urlInput').val();
-
+                    const legalEntityCode = $('input[name="LegalEntityCode"]').val();
+                    const legalEntityName = $('input[name="legalEntityName"]').val();
+                    const userId = $('input[name="UserID"]').val();
                     const dataToSend = {
                         UseHtml: useHtml,
                         HtmlContent: useHtml ? htmlContent : null,
@@ -181,7 +193,9 @@
                     };
 
                     $.ajax({
-                        url: '/ContactUs/AddContactUs',
+                    url: '/ContactUs/AddContactUs?LegalEntityCode=' + encodeURIComponent(legalEntityCode) +
+                        '&LegalEntityName=' + encodeURIComponent(legalEntityName) +
+                        '&UserID=' + encodeURIComponent(userId),
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify(dataToSend),

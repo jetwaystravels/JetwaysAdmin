@@ -67,5 +67,29 @@ namespace JetwaysAdmin.Repositories.Implementations
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> UpdateStatusAsync(int id, int status, string legalEntityCode)
+        {
+            try
+            {
+                var employee = await _context.tb_CustomersEmployee
+                    .FirstOrDefaultAsync(e => e.UserID == id && e.LegalEntityCode == legalEntityCode);
+
+                if (employee == null)
+                    return false; // not found
+
+                employee.AppStatus = status;
+                employee.ModifyBy = "Admin"; // or from logged-in user
+                employee.ModifyDate = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                // log exception if needed
+                return false;
+            }
+        }
     }
 }

@@ -124,6 +124,18 @@ namespace JetwaysAdmin.WebAPI.Controllers
             return Ok(new { message = "Password updated successfully." });
         }
 
+        
+        [HttpPost("updatestatus")]
+        public async Task<IActionResult> UpdateStatus(int id, int status, string legalEntityCode)
+        {
+            var success = await _cutomerempl.UpdateStatusAsync(id, status, legalEntityCode);
+
+            if (!success)
+                return BadRequest(new { success = false, message = "User not found or update failed." });
+
+            return Ok(new { success = true, newStatus = status });
+        }
+
 
 
 

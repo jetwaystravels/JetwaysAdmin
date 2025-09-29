@@ -386,6 +386,23 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             }
             return Json("");
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatus(int id, int status, string legalEntityCode) // 0 = Active, 1 = Deactive
+        {
+            var url = $"{AppUrlConstant.updatestatus}?id={id}&status={status}&LegalEntityCode={Uri.EscapeDataString(legalEntityCode)}";
+
+            using (HttpClient client = new HttpClient())
+            {
+                var content = new StringContent(string.Empty, Encoding.UTF8, "application/json"); // Add an empty content body
+                var response = await client.PostAsync(url, content); // Pass the content as the second argument
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(new { success = true, newStatus = status });
+                }
+            }
+
+            return Json(new { success = false, message = "Failed to update status" });
+        }
     }
 }
 
