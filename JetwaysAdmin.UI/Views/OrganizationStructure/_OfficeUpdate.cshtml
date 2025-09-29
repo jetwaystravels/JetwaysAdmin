@@ -782,6 +782,23 @@
                         <input type="hidden" name="KeyAccountManager" id="KeyAccountManager" />
                     </div>
 
+
+                    </div>
+                    @{
+                        var AccountManager =
+                        (Model?.BookingConsultants?.KeyAccountManagerNames?.Split(',') ?? Array.Empty<string>())
+                        .Select(x => x.Trim())
+                        .Where(x => !string.IsNullOrWhiteSpace(x))
+                        .ToList();
+                    }
+                    <div id="consultant-tags">
+                        @foreach (var Account in AccountManager)
+                        {
+                            <span class="tag">
+                                <span>@Account</span>
+                                <button type="button" class="remove-btn">×</button>
+                            </span>
+                        }
                     </div>
                     <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
                     <div class="form-group form-primary col-md-3 U-select">
@@ -809,6 +826,23 @@
                         </div>
                         <input type="hidden" name="SalesSpoc" id="SalesSpoc" />
                     </div>
+              
+                    </div>
+                    @{
+                        var SalesSpocList =
+                        (Model?.BookingConsultants?.SalesSpocNames?.Split(',') ?? Array.Empty<string>())
+                        .Select(x => x.Trim())
+                        .Where(x => !string.IsNullOrWhiteSpace(x))
+                        .ToList();
+                    }
+                    <div id="consultant-tags">
+                        @foreach (var SalesSpoc in SalesSpocList)
+                        {
+                            <span class="tag">
+                                <span>@SalesSpoc</span>
+                                <button type="button" class="remove-btn">×</button>
+                            </span>
+                        }
                     </div>
                     <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
                     <div class="form-group form-primary col-md-3 U-select">
@@ -876,9 +910,13 @@
                                     }
                                 }
                             </div>
-                            <input type="hidden" name="EmergencyContact" id="EmergencyContact" />
+
+
+                            <input type="hidden"  name="EmergencyContact"  id="EmergencyContact" />
                         </div>
                     </div>
+                   
+
                     <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
                     <div class="form-group form-primary col-md-3 U-select">
                         <div class="dropdown" data-field="UserGroup">

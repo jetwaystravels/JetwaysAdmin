@@ -20,8 +20,8 @@ namespace JetwaysAdmin.Entity
         public string? SalesSpoc { get; set; }
 
         [Column("Booking_consultant")]
-        [Required]
-        public string BookingConsultant { get; set; }
+       
+        public string? BookingConsultant { get; set; }
 
         [Column("Emergency_contact")]
         public string? EmergencyContact { get; set; }

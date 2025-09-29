@@ -19,9 +19,9 @@ namespace JetwaysAdmin.WebAPI.Controllers
         [Route("ManageStaff")]
         public async Task<IActionResult> ManageStaff([FromBody] CustomerManageStaff customerManageStaff)
         {
-            if (customerManageStaff == null) {
-                return BadRequest("Invalid Data..");
-            }
+            //if (customerManageStaff == null) {
+            //    return BadRequest("Invalid Data..");
+            //}
             await _managestaff.ManageStaff(customerManageStaff);
             return Ok(new { message = "Manage Staff successfully!", data = customerManageStaff });
         }
