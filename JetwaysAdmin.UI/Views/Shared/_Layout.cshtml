@@ -4,34 +4,49 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - JetwaysAdmin.UI</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    @* REMOVE the local Bootstrap css to avoid v4/v5 conflicts *@
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/JetwaysAdmin.UI.styles.css" asp-append-version="true" />
-  
+
+    @* ✅ Bootstrap 4.6 CSS *@
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+          crossorigin="anonymous">
+
+    <style>
+        /* In case your theme overlays the modal */
+        .modal {
+            z-index: 2000;
+        }
+
+        .modal-backdrop {
+            z-index: 1990;
+        }
+    </style>
 </head>
+
 <body>
     <header>
-    @*     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">JetwaysAdmin.UI</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>  *@
+        @* ✅ PASTE YOUR NAVBAR HTML HERE (your full <nav ...>...</nav> block) *@
+        @* Example: <partial name="_Header" /> if you moved the nav to a partial *@
     </header>
+
     <div class="container">
+        @* ✅ TempData alerts (messages after redirect) *@
+        @if (TempData["Toast.Message"] != null)
+        {
+            var type = (TempData["Toast.Type"] ?? "info").ToString(); // success | danger | warning | info
+            <div class="alert alert-@type alert-dismissible fade show mt-3" role="alert">
+                @TempData["Toast.Message"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -39,17 +54,32 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - JetwaysAdmin.UI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.UtcNow.Year - JetwaysAdmin.UI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @* ❌ REMOVE this (likely Bootstrap 5 bundle) *@
+    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+
+    @* ✅ Bootstrap 4 required order *@
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"
+            integrity="sha384-oP6HI/tIJuGJ1tQqv7d1bUO3G3v8wP2eR/2Y9x8V3WqU2CwGxX6ZlB8VYkZqJ7xS"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+            integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+            crossorigin="anonymous"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
-    
 
-    
-
+    @* ✅ Page-specific scripts load after Bootstrap *@
     @await RenderSectionAsync("Scripts", required: false)
-   
+
+    @* ✅ Place global modals (like Change Password) just before </body> *@
+    @* Example: <partial name="_ChangePasswordModal" /> *@
+    @* Or paste the <div class="modal fade" id="changePwdModal"> ... </div> here *@
 </body>
 </html>
+

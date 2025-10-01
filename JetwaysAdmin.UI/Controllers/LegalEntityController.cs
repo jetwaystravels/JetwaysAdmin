@@ -92,8 +92,8 @@ namespace JetwaysAdmin.UI.Controllers
                     var existingJson = await legalentityalldata.Content.ReadAsStringAsync();
                     var parsedResult = JsonConvert.DeserializeObject<LegalEntityResponse>(existingJson);
                     var existingData = parsedResult?.Data ?? new List<LegalEntity>();
-                    bool nameDup = existingData.Any(e =>
-                    string.Equals(e.LegalEntityName?.Trim(), legalEntity.LegalEntityName?.Trim(), StringComparison.OrdinalIgnoreCase));
+                    //bool nameDup = existingData.Any(e =>
+                    //string.Equals(e.LegalEntityName?.Trim(), legalEntity.LegalEntityName?.Trim(), StringComparison.OrdinalIgnoreCase));
                     bool codeDup = existingData.Any(e =>
                     string.Equals(e.LegalEntityCode?.Trim(), legalEntity.LegalEntityCode?.Trim(), StringComparison.OrdinalIgnoreCase));
                     bool corpDup = !string.IsNullOrWhiteSpace(legalEntity.CorporateAccountsCode) &&
@@ -102,10 +102,10 @@ namespace JetwaysAdmin.UI.Controllers
                                            legalEntity.CorporateAccountsCode?.Trim(),
                                            StringComparison.OrdinalIgnoreCase));
 
-                    bool isDuplicate = nameDup || codeDup || corpDup;
+                    bool isDuplicate = codeDup || corpDup;
                     if (isDuplicate)
                     {
-                        TempData["DuplicateError"] = "Duplicate entry found! Please enter unique Legal Entity Name, Code, or Corporate Account Code.";
+                        TempData["DuplicateError"] = "Duplicate entry found! Please enter unique Code, or Corporate Account Code.";
                         return RedirectToAction("ShowLegalEntities", new { LegalEntityCode = LegalEntityCode, LegalEntityName = LegalEntityName });
                     }
                 }

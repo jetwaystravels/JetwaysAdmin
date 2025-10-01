@@ -30,24 +30,27 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
 
         //[Route("LogIn")]
-        [HttpPost("LogIn")]
-        public IActionResult Login([FromBody] LoginRequest loginRequest)
+       
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState); // Return validation errors
-            }
+                return BadRequest(ModelState);
 
-            var admin = _admin.Login(loginRequest.Username, loginRequest.Password);
+            try
+            {
+                // _admin.Login returns Task<Admin>
+                var admin = await _admin.Login(loginRequest.Username, loginRequest.Password);
 
-            if (admin != null)
-            {
-                // Optionally set session or token here
-                return Ok(new { id = admin.Result.admin_id,Name= admin.Result.admin_name });
+                if (admin == null) // wrong username/password
+                    return Unauthorized(new { message = "Invalid username or password." });
+
+                return Ok(new { id = admin.admin_id, name = admin.admin_name });
             }
-            else
+            catch (Exception ex)
             {
-                return Unauthorized(new { message = "Invalid username or password." });
+                // optional: _logger.LogError(ex, "Login failed for {User}", loginRequest.Username);
+                return StatusCode(500, new { message = "Something went wrong." });
             }
         }
         [HttpPost("CorporateLogIn")]
@@ -75,6 +78,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             {
                 return Unauthorized(new { message = "Invalid email or password." });
             }
+
         }
 
 

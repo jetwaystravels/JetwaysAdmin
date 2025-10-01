@@ -96,7 +96,9 @@ namespace JetwaysAdmin.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTaxLocation(LocationsandTax locationsandaax,int IdLegal, string LegalEntityCode, string LegalEntityName, string GSTValue, string UINValue)
         {
-
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = IdLegal;
             locationsandaax.GSTRegistered = GSTValue == "G" ? "G" : null;
             locationsandaax.UINRegistered = UINValue == "U" ? "U" : null;
             using (HttpClient client = new HttpClient())

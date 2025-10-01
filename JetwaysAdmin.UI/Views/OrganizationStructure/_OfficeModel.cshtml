@@ -44,7 +44,7 @@
             </div>
                
             <div class="form-group form-primary col-md-6">
-                <select name="GSTLocationID" class="form-control fill" id="gsttaxtype">
+                <select name="GSTLocationID" class="form-control fill" id="gsttaxtype" required>
                     <option value="">Select GST Tax</option>
                     @foreach (var location in Model.LocationandTax)
                     {
@@ -52,7 +52,7 @@
                     }
                 </select>
                     <span class="form-bar"></span>
-                    <label class="float-label">GST Tax</label>
+                    <label class="float-label">GST Tax<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
                 <input type="text" Name="ParentLegalEntityName" class="form-control" value="@ViewBag.LegalEntityName" redonly />
@@ -212,7 +212,7 @@
                 <label class="float-label">Customer Base Country<span>*</span></label>
             </div>
             <div class="form-group form-primary col-md-6">
-                <input name="TravelDeskEmail" id="travelDeskEmailInput" maxlength="30" class="form-control" type="text" oninput="validateDeskEmail(this)">
+                <input name="TravelDeskEmail" id="travelDeskEmailInput" maxlength="60" class="form-control" type="text" oninput="validateDeskEmail(this)">
                 <span class="form-bar"></span>
                 <label class="float-label">Travel Desk Email<span>*</span></label>
                 <span id="emailDeskError" style="color: red; font-size: 12px;"></span>

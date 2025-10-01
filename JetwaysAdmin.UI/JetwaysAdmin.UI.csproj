@@ -16,6 +16,9 @@
   <ItemGroup>
     <ProjectReference Include="..\JetwaysAdmin.WebAPI\JetwaysAdmin.WebAPI.csproj" />
   </ItemGroup>
+	<PropertyGroup>
+		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+	</PropertyGroup>
 
 	
 	

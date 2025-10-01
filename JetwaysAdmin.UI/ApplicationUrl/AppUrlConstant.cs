@@ -6,6 +6,8 @@
              
         #region login URLs
         public static string login = BaseURL + "api/Admin/LogIn";
+        public static string ChangePassword = BaseURL + "api/Admin/ChangePassword";
+
 
         public static string AddAdmin = BaseURL + "api/Admin/AddAdmin";
 
