@@ -57,10 +57,10 @@
                     <div class="page-body">
                         @if (TempData["Addbillingentity"] != null)
                         {
-                            <div class="alert alert-success">
-                                <strong></strong> @TempData["Addbillingentity"]
-                                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            </div>
+                        <div class="alert alert-success" style="width:40%">
+                            <strong></strong> @TempData["Addbillingentity"]
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        </div>
                         }
                         <form method="post" asp-controller="Users" asp-action="AddBillingEntity">
                             <input type="hidden" name="LegalEntityCodeParent" value="@ViewBag.LegalEntityCode" class="form-control">
@@ -85,7 +85,7 @@
                                             <input type="hidden" id="UserID" name="UserID" value="@Data.CustomerDetailID.UserID" />
                                             <input type="text" name="UserID" value="@Data.CustomerDetailID.EmployeeID" class="form-control" readonly>
                                             <span class="form-bar"></span>
-                                            <label class="float-label">Employee ID</label>
+                                            <label class="float-label">Employee ID<span>*</span></label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
                                             @{
@@ -134,7 +134,7 @@
                                                     <option value="@employee.Designation">@employee.Designation</option>
                                                 }
                                             </select>
-                                            <label class="float-label">Designation</label>
+                                            <label class="float-label">Designation<span>*</span></label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
                                             <select name="Department" class="select" required>
@@ -144,7 +144,7 @@
                                                     <option value="@employee.Department">@employee.Department</option>
                                                 }
                                             </select>
-                                            <label class="float-label">Deaprtment</label>
+                                            <label class="float-label">Deaprtment<span>*</span></label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
                                             <select name="Band" class="select" required>
@@ -154,13 +154,16 @@
                                                     <option value="@employee.Bands">@employee.Bands</option>
                                                 }
                                             </select>
-                                            <label class="float-label">Band</label>
+                                            <label class="float-label">Band<span>*</span></label>
                                         </div>
-
+                                        @{
+                                            var DOBUser = Data.CustomerDetailID.DateOfBirth;
+                                           
+                                        }
                                         <div class="form-group form-primary col-md-3">
-                                            <input class="form-control date-main" type="text" autocomplete="off" value=@Data.CustomerDetailID.DateOfBirth name="DateOfBirth" placeholder="Date of Birth" required>
+                                            <input class="form-control date-main" type="text" autocomplete="off" value="@DOBUser.Value.ToString("yyyy-MM-dd")" name="DateOfBirth" placeholder="Date of Birth" required>
                                             <span class="form-bar"></span>
-                                            <label class="float-label">Date of Birth</label>
+                                            <label class="float-label">Date of Birth<span>*</span></label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
                                             <select name="ReportingManager" class="select" required>
@@ -171,7 +174,7 @@
                                                 }
                                             </select>
                                             <span class="form-bar"></span>
-                                            <label class="float-label">Reporting Manager</label>
+                                            <label class="float-label">Reporting Manager<span>*</span></label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
                                             <select name="UserRole" class="select">
@@ -544,6 +547,9 @@
           });
         });
     </script>
-
-
+<style>
+  .closebtn{
+   margin-left:0px!important;
+  }
+</style>
 </footer>

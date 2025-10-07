@@ -76,7 +76,8 @@
                                                 <!-- Hidden File Input -->
                                                 <input type="file" name="Logo" id="imageInput" accept="image/*">
                                                 <div class="profile-img-main" onclick="document.getElementById('imageInput').click();">
-                                                    <img id="preview" class="m-t-10 mCS_img_loaded" src="~/assets/images/login-img.svg" alt="user-img" loading="lazy" style="width: 110px; border-radius: 80px; height: 110px;">
+                                                <img id="preview" class="m-t-10 mCS_img_loaded" src="@(TempData["LogoBase64"] != null
+                                                  ? $"data:image/png;base64,{TempData["LogoBase64"]}"  : Url.Content("~/assets/images/login-img.svg"))" alt="user-img" loading="lazy" style="width: 110px; border-radius: 80px; height: 110px;">
                                                     <div class="profile-img"><i class="fa fa-camera" aria-hidden="true"></i></div>
                                                 </div>
                                             </div>

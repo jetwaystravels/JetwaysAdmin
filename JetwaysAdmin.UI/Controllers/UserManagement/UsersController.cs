@@ -99,7 +99,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             if (users != null)
             {
 
-                if (users.Logo != null && users.Logo.Length < 180_000)
+                if (users.Logo != null /*&& users.Logo.Length < 180_000*/)
                 {
                     string base64Logo = Convert.ToBase64String(users.Logo);
                     TempData["LogoBase64"] = base64Logo;

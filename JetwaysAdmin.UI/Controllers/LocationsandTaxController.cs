@@ -137,6 +137,8 @@ namespace JetwaysAdmin.UI.Controllers
         {
            
             LocationsandTax locationtax = null;
+            List<State> state = new List<State>();
+            List<City> Citydata = new List<City>();
             var countryList = new List<Country>();
             using (HttpClient client = new HttpClient())
             {
@@ -153,6 +155,47 @@ namespace JetwaysAdmin.UI.Controllers
                     var result = await countryResponse.Content.ReadAsStringAsync();
                     countryList = JsonConvert.DeserializeObject<List<Country>>(result);
                 }
+                string stateurl = $"{AppUrlConstant.GetSate}";
+                var stateresponse = await client.GetAsync(stateurl);
+                if (stateresponse.IsSuccessStatusCode)
+                {
+                    var stateresult = await stateresponse.Content.ReadAsStringAsync();
+                    state = JsonConvert.DeserializeObject<List<State>>(stateresult);
+                }
+                string cityurl = $"{AppUrlConstant.GetCity}";
+                var cityresponse = await client.GetAsync(cityurl);
+                if (cityresponse.IsSuccessStatusCode)
+                {
+                    var cityresult = await cityresponse.Content.ReadAsStringAsync();
+                    Citydata = JsonConvert.DeserializeObject<List<City>>(cityresult);
+                }
+
+            }
+            if (locationtax != null)
+            {
+                
+                var countryName = countryList
+                    .Where(c => c.CountryID.ToString() == locationtax.Country)
+                    .Select(c => c.CountryName)
+                    .FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(countryName))
+                    locationtax.Country = countryName;
+
+                var stateName = state
+                    .Where(s => s.StateID.ToString() == locationtax.State)
+                    .Select(s => s.StateName)
+                    .FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(stateName))
+                    locationtax.State = stateName;
+                var cityName = Citydata
+                    .Where(ct => ct.CityID.ToString() == locationtax.City)
+                    .Select(ct => ct.CityName)
+                    .FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(cityName))
+                    locationtax.City = cityName;
             }
             ViewBag.LegalEntityCode = LegalEntityCode;
             ViewBag.LegalEntityName = LegalEntityName;
