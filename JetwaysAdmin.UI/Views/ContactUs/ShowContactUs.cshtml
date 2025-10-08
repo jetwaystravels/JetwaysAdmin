@@ -96,8 +96,7 @@
                                     <input type="text" id="urlInput" placeholder="Enter URL..." />
                                     <div class="m-t-20">
                                         <button type="button" class="btn btn-primary waves-effect waves-light contactus">Save</button>
-
-                                        <button class="btn btn-danger waves-effect waves-light disabled">Cancel</button>
+                                        <button type="reset" class="btn btn-danger waves-effect waves-light">Cancel</button>
                                     </div>
                                 </div>
                             </div>
@@ -182,6 +181,10 @@
                     debugger;
                     const useHtml = $('input[name="editorType"]:checked').val() === 'html';
                     const htmlContent = $('#editorArea').html();
+                    if ($('#editorArea').text().trim() === '' || $('#editorArea').text().trim() === 'Type a custom message here...') {
+                        alert("Please enter a value");
+                        return false;
+                    }
                     const urlValue = $('#urlInput').val();
                     const legalEntityCode = $('input[name="LegalEntityCode"]').val();
                     const legalEntityName = $('input[name="legalEntityName"]').val();

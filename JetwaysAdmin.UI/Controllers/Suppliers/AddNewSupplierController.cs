@@ -166,7 +166,7 @@ namespace JetwaysAdmin.UI.Controllers.Suppliers
             List<IATAGroupView> iataGroups = new List<IATAGroupView>();
             using (HttpClient client = new HttpClient())
             {
-                var userresponse = await client.GetAsync(AppUrlConstant.GetSupplierCredential);
+                var userresponse = await client.GetAsync(AppUrlConstant.AdminGetSupplierCredential);
                 if (userresponse.IsSuccessStatusCode)
                 {
                     var result = await userresponse.Content.ReadAsStringAsync();

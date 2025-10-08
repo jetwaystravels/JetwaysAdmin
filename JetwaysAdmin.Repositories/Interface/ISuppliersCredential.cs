@@ -11,6 +11,7 @@ namespace JetwaysAdmin.Repositories.Interface
     {
         Task AddSupplierCredential(SuppliersCredential supplierscredential);
         Task<IEnumerable<SuppliersCredential>> GetSupplierCredential(string flightclass);
+        Task<IEnumerable<SuppliersCredential>> AdminGetSupplierCredential();
         Task<SuppliersCredential> GetSupplierCredentialById(int Id);
         Task UpdateSupplierCredentialById(SuppliersCredential supplierscredential);
     }

@@ -32,6 +32,15 @@ namespace JetwaysAdmin.WebAPI.Controllers
             var credentials = await _suppliersCredentialService.GetSupplierCredential(flightclass);
             return Ok(credentials);
         }
+
+        [HttpGet("Admingetsuppliercred")]
+        public async Task<IActionResult> AdminGetSupplierCredentials()
+        {
+            var credentials = await _suppliersCredentialService.AdminGetSupplierCredential();
+            return Ok(credentials);
+        }
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<SuppliersCredential>> GetSupplierCredentialsById(int Id)
         {

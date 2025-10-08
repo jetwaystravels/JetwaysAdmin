@@ -177,9 +177,10 @@
                                             </select>
                                         </div>
                                         <div class="form-group form-primary col-md-2">
-                                            <input type="number" name="MobileNumber" value="@Data.MobileNumber" class="form-control" required>
+                                            <input type="text" name="MobileNumber" value="@Data.MobileNumber" id="mobile" minlength="10" maxlength="10" pattern="\d{10}" class="form-control" required>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Mobile Number<span>*</span></label>
+                                            <span id="merror" style="color: red;"></span>
                                         </div>
                                         <div class="form-group form-primary col-md-12 m-t-10" style="border-top:1px solid #dee2e6;"></div>
                                         <div class="form-group form-primary col-md-12">
@@ -308,4 +309,20 @@
             error.textContent = "";
         }
     }
+</script>
+
+
+<script>
+    document.getElementById("mobile").addEventListener("input", function () {
+        const mobile = this.value;
+        const error = document.getElementById("merror");
+        if (mobile.length > 10) {
+            this.value = mobile.slice(0, 10);
+        }
+        if (mobile.length !== 10) {
+            error.textContent = "Mobile number must be exactly 10 digits.";
+        } else {
+            error.textContent = "";
+        }
+    });
 </script>

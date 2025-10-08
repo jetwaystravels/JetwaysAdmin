@@ -83,6 +83,7 @@
         public static string GetCities = BaseURL + "api/LocationAPI/Cities";
         public static string AddSupplierCredential = BaseURL + "api/SuppliersCredentialAPI/addsuppliercred";
         public static string GetSupplierCredential = BaseURL + "api/SuppliersCredentialAPI/getsuppliercred";
+        public static string AdminGetSupplierCredential = BaseURL + "api/SuppliersCredentialAPI/Admingetsuppliercred";
         public static string GetSupplierCredentialID = BaseURL + "api/SuppliersCredentialAPI";
         public static string AddDealCode = BaseURL + "api/DealCodeAPI/AddDealCode";
         public static string AddcustomerDealCode = BaseURL + "api/DealCodeAPI/AddcustomerDealCode";

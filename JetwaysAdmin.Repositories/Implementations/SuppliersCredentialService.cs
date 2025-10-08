@@ -22,6 +22,45 @@ namespace JetwaysAdmin.Repositories.Implementations
             await _context.tb_SuppliersCredential.AddAsync(supplierscredential);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<SuppliersCredential>> AdminGetSupplierCredential()
+        {
+            //charan start
+            List<SuppliersCredential> suppliersCredentials = new List<SuppliersCredential>();
+            List<SuppliersCredential> suppliersCredentials1 = new List<SuppliersCredential>();
+            suppliersCredentials1 = await _context.tb_SuppliersCredential
+                         .AsNoTracking()
+             .Where(sc => _context.tb_SuppliersDetail.Any(sd =>
+               sd.SupplierId == sc.SupplierId && sd.AppStatus == true))
+             .ToListAsync();
+
+            // var dc = _context.tb_SuppliersDealCode.Where(d => d.AssociatedFareTypes == "Corporate" && d.SupplierId == 1).ToList();
+
+            foreach (var supplier in suppliersCredentials1)
+            {
+                //if (supplier.Status == 1)
+                //{
+                    string dcodename = string.Empty;
+                    if (_context.tb_SuppliersDealCode.Where(d => d.SupplierId == supplier.SupplierId) != null)
+                    {
+                        // Get the deal code name for the supplier
+                        dcodename = _context.tb_SuppliersDealCode.Where(d => d.SupplierId == supplier.SupplierId).FirstOrDefault().DealCodeName;
+                        // supplier.DealCodeName = dcodename;
+                    }
+
+                    supplier.DealCodeName = dcodename;
+                    suppliersCredentials.Add(supplier);
+               // }
+            }
+            //charan end
+            return suppliersCredentials;
+
+            //return await _context.tb_SuppliersCredential
+            //             .Where(sc => sc.Status == 1)
+            //             .AsNoTracking()
+            //             .ToListAsync();
+        }
+
         public async Task<IEnumerable<SuppliersCredential>> GetSupplierCredential( string flightclass)
         {
             //charan start
