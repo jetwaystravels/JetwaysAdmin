@@ -41,14 +41,6 @@
         .sup-bx {
             cursor: pointer;
         }
-
-        .disabled-box {
-            pointer-events: none;
-            opacity: 0.5;
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            user-select: none;
-        }
     </style>
 </head>
 
@@ -122,7 +114,11 @@
                                                 {
                                                     <div class="bdr  legalbox sup-bx" style="padding-bottom:0;">
                                                         <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo">
-                                                        <h6 class="m-t-10 m-l-10 gray-bg company-name">@val.LegalEntityName<p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p></h6>
+                                                        <div class="gray-bg">
+                                                            <h6 class="company-name">@val.LegalEntityName</h6>
+                                                            <p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p>
+                                                            <p class="m-b-0 light-gray">Last updated : @val.ModifyDate</p>
+                                                        </div>
                                                         <input type="hidden" value="@val.Id" name="LegalEntityId" />
                                                         <input type="hidden" value="@val.LegalEntityName" name="LegalEntityName" />
                                                         <input type="hidden" value="@val.LegalEntityCode" name="LegalEntityCode" />
@@ -132,14 +128,18 @@
                                                 {
                                                     <div class="bdr  legalbox disabled-box" style="padding-bottom:0;">
                                                         <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo">
-                                                        <h6 class="m-t-10 m-l-10 gray-bg company-name">@val.LegalEntityName<p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p></h6>
+                                                        <div class="gray-bg">
+                                                            <h6 class="company-name">@val.LegalEntityName</h6>
+                                                            <p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p>
+                                                            <p class="m-b-0 light-gray">Last updated : @val.ModifyDate</p>
+                                                        </div>
                                                         <input type="hidden" value="@val.Id" name="LegalEntityId" />
                                                         <input type="hidden" value="@val.LegalEntityName" name="LegalEntityName" />
                                                         <input type="hidden" value="@val.LegalEntityCode" name="LegalEntityCode" />
                                                     </div>
                                                 }
                                                 <div class="d-flex justify-content-between">
-                                                    <p class="m-b-0 light-gray">Last updated : @val.ModifyDate</p>
+                                                    @* <p class="m-b-0 light-gray">Last updated : @val.ModifyDate</p> *@
                                                     <form asp-controller="LegalEntity" asp-action="UpdateAppStatus" method="post" id="form-@val.Id">
                                                         <input type="hidden" name="LegalEntityCode" value="@val.LegalEntityCode" />
                                                         <input type="hidden" name="LegalEntityName" value="@val.LegalEntityName" />
@@ -291,5 +291,20 @@
         });
     </script>
     <!-----------Search by complay name end------------------>
+
+
+    <script>
+        // Select all elements with class 'company-name'
+        const companyNames = document.querySelectorAll('.company-name');
+
+        // Loop through each element and capitalize each word
+        companyNames.forEach(el => {
+          el.textContent = el.textContent
+            .toLowerCase()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+        });
+    </script>
 
 </footer>
