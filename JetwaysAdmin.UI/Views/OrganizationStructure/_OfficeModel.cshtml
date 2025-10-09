@@ -5,22 +5,32 @@
     var countryData = ViewBag.CountryList;
 }
 
-  
-    <div class="box-ht">
-        <div class="tab-content">
+
+<div class="box-ht">
+    <div class="tab-content">
         <div id="Organization">
-                <h6 class="mb-4">Organization</h6>
+            <h6 class="mb-4">Organization</h6>
             <form id="addOfficeForm"
                   class="form-row form-material"
                   method="post">
                 <input type="hidden" id="parentLegalEntityCode" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
                 <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
-            <div class="form-group form-primary col-md-6">
-                <input type="text" name="LegalEntityName" id="legalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)">
-                <span class="form-bar"></span>
-                <label class="float-label">Office Entity Name<span>*</span></label>
-                <span id="legalEntityNameError" style="color: red; font-size: 12px;"></span>
-            </div>
+
+                <div class="form-group form-primary col-md-6">
+                    <select name="OfficeType" id="officeType" class="form-control fill">
+                        <option value="BR">Branch Office</option>
+                        <option value="RA">Regional Office</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Office Type</label>
+                </div>
+
+                <div class="form-group form-primary col-md-6">
+                    <input type="text" name="LegalEntityName" id="legalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Office Entity Name<span>*</span></label>
+                    <span id="legalEntityNameError" style="color: red; font-size: 12px;"></span>
+                </div>
                 <div class="form-group form-primary col-md-3">
                     <select name="FinancialType" id="financialType" class="form-control fill">
                         <option value="SE">Use Office’s Own Financial Code</option>
@@ -30,36 +40,36 @@
                     <span class="form-bar"></span>
                     <label class="float-label">Financial Type</label>
                 </div>
-            <div class="form-group form-primary col-md-3">
-                <input type="text" name="LegalEntityCode" value="" id="legalEntityCode" maxlength="10"
-                       oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode(this)" class="form-control">
-                <span class="form-bar"></span>
-                <label class="float-label">Financial Office Code</label>
-                <span id="legalEntityCodeError" style="color: red; font-size: 12px;"></span>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input type="text" name="FinancialPersonalCode" oninput="this.value = this.value.replace(/\s/g, '');" class="form-control">
-                <span class="form-bar"></span>
-                <label class="float-label">Financial personal code</label>
-            </div>
-               
-            <div class="form-group form-primary col-md-6">
-                <select name="GSTLocationID" class="form-control fill" id="gsttaxtype" required>
-                    <option value="">Select GST Tax</option>
-                    @foreach (var location in Model.LocationandTax)
-                    {
-                     <option value="@location.LocationID">@location.LocationName</option>
-                    }
-                </select>
+                <div class="form-group form-primary col-md-3">
+                    <input type="text" name="LegalEntityCode" value="" id="legalEntityCode" maxlength="10"
+                           oninput="this.value = this.value.replace(/\s/g, ''); validateLegalEntityCode(this)" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Financial Office Code</label>
+                    <span id="legalEntityCodeError" style="color: red; font-size: 12px;"></span>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <input type="text" name="FinancialPersonalCode" oninput="this.value = this.value.replace(/\s/g, '');" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Financial personal code</label>
+                </div>
+
+                <div class="form-group form-primary col-md-6">
+                    <select name="GSTLocationID" class="form-control fill" id="gsttaxtype" required>
+                        <option value="">Select GST Tax</option>
+                        @foreach (var location in Model.LocationandTax)
+                        {
+                            <option value="@location.LocationID">@location.LocationName</option>
+                        }
+                    </select>
                     <span class="form-bar"></span>
                     <label class="float-label">GST Tax<span>*</span></label>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input type="text" Name="ParentLegalEntityName" class="form-control" value="@ViewBag.LegalEntityName" redonly />
-                <span class="form-bar"></span>
-                <label class="float-label">Parent Legal Entity Name</label>
-            </div>
-      
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <input type="text" Name="ParentLegalEntityName" class="form-control" value="@ViewBag.LegalEntityName" redonly />
+                    <span class="form-bar"></span>
+                    <label class="float-label">Parent Legal Entity Name</label>
+                </div>
+
                 <div class="form-group form-primary col-md-6">
                     <select name="AssignIATAGroup" class="form-control fill">
                         <option value="">Assign IATA Group</option>
@@ -71,301 +81,301 @@
                     <span class="form-bar"></span>
                     <label class="float-label">Assign IATA Group</label>
                 </div>
-            <div class="form-group form-primary col-md-6">
-                <input type="text" name="CorporateAccountsCode" maxlength="15" id="corporateCode" oninput="this.value = this.value.replace(/\s/g, ''); validateCorpCode(this)" class="form-control">
-                <span class="form-bar"></span>
-                <label class="float-label">Corporate Accounts Code</label>
-                <span id="CorporateCodeError" style="color: red; font-size: 12px;"></span>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input type="text" id="fName" name="FirstName" class="form-control" minlength="3" maxlength="15" oninput="nameValidate(this)">
-                <span class="form-bar"></span>
-                <label class="float-label">First Name</label>
-                <span id="firstNameError" style="color: red; font-size: 12px;"></span>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input type="text" name="LastName" id="lName" minlength="3" maxlength="15" oninput="nameValidate(this)" class="form-control">
-                <span class="form-bar"></span>
-                <label class="float-label">Last Name</label>
-                <span id="lastNameError" style="color: red; font-size: 12px;"></span>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input type="text" name="BussinesEmail" id="businessEmailInput" maxlength="30" class="form-control" autocomplete="new-email" oninput="validateBusinessEmail(this)">
-                <span class="form-bar"></span>
-                <label class="float-label">Business Email ID</label>
-                <span id="emailBusinesError" style="color: red; font-size: 12px;"></span>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input type="password" name="Password" minlength="8" maxlength="25" class="form-control" autocomplete="new-password">
-                <span class="form-bar"></span>
-                <label class="float-label">Password</label>
-            </div>
-            <div class="form-group form-primary col-md-2">
+                <div class="form-group form-primary col-md-6">
+                    <input type="text" name="CorporateAccountsCode" maxlength="15" id="corporateCode" oninput="this.value = this.value.replace(/\s/g, ''); validateCorpCode(this)" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Corporate Accounts Code</label>
+                    <span id="CorporateCodeError" style="color: red; font-size: 12px;"></span>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <input type="text" id="fName" name="FirstName" class="form-control" minlength="3" maxlength="15" oninput="nameValidate(this)">
+                    <span class="form-bar"></span>
+                    <label class="float-label">First Name</label>
+                    <span id="firstNameError" style="color: red; font-size: 12px;"></span>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <input type="text" name="LastName" id="lName" minlength="3" maxlength="15" oninput="nameValidate(this)" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Last Name</label>
+                    <span id="lastNameError" style="color: red; font-size: 12px;"></span>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <input type="text" name="BussinesEmail" id="businessEmailInput" maxlength="30" class="form-control" autocomplete="new-email" oninput="validateBusinessEmail(this)">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Business Email ID</label>
+                    <span id="emailBusinesError" style="color: red; font-size: 12px;"></span>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <input type="password" name="Password" minlength="8" maxlength="25" class="form-control" autocomplete="new-password">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Password</label>
+                </div>
+                <div class="form-group form-primary col-md-2">
                     <select class="select form-control fill">
-                    <option value="">IN(+91)</option>
-                    <option value="AF">AF (+93)</option>
-                    <option value="AL">AL (+355)</option>
-                    <option value="DZ">DZ (+213)</option>
-                    <option value="AO">AO (+244)</option>
-                    <option value="AR">AR (+54)</option>
-                    <option value="AM">AM (+374)</option>
-                    <option value="AW">AW (+297)</option>
-                    <option value="AU">AU (+61)</option>
-                    <option value="AZ">AZ (+994)</option>
-                </select>
-                <span class="form-bar"></span>
-                <label class="float-label">Country Code</label>
-            </div>
-            <div class="form-group form-primary col-md-4">
-                <input type="text" name="MobileNumber" id="mobileInput" maxlength="10" class="form-control" oninput="validateMobile(this)">
-                <span class="form-bar"></span>
+                        <option value="">IN(+91)</option>
+                        <option value="AF">AF (+93)</option>
+                        <option value="AL">AL (+355)</option>
+                        <option value="DZ">DZ (+213)</option>
+                        <option value="AO">AO (+244)</option>
+                        <option value="AR">AR (+54)</option>
+                        <option value="AM">AM (+374)</option>
+                        <option value="AW">AW (+297)</option>
+                        <option value="AU">AU (+61)</option>
+                        <option value="AZ">AZ (+994)</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Country Code</label>
+                </div>
+                <div class="form-group form-primary col-md-4">
+                    <input type="text" name="MobileNumber" id="mobileInput" maxlength="10" class="form-control" oninput="validateMobile(this)">
+                    <span class="form-bar"></span>
                     <label class="float-label">Mobile Number<span>*</span></label>
-                <span id="mobileError" style="color:red; font-size:12px;"></span>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <select name="Gender" class="form-control fill">
-                    <option value="opt2">Male</option>
-                    <option value="opt3">Female</option>
-                </select>
-                <span class="form-bar"></span>
-                <label class="float-label">Gender</label>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input type="text" name="AddressLine1" maxlength="40" class="form-control" id="addressLine1" oninput="validateAddressLine1(this)">
-                <span class="form-bar"></span>
-                <label class="float-label">Address Line 1<span>*</span></label>
-                <span id="addressError1" style="color:red; font-size:12px;"></span>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input type="text" name="AddressLine2" maxlength="40" class="form-control" id="addressLine2" oninput="validateAddressLine2(this)">
-                <span class="form-bar"></span>
-                <label class="float-label">Address Line 2<span>*</span></label>
-                <span id="addressError2" style="color:red; font-size:12px;"></span>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <select id="CountryId" name="Country" class="form-control fill" onchange="loadStates()">
-                    <option value="">-- Select Country --</option>
-                    @foreach (var country in countryData ?? new List<Country>())
-                    {
-                        <option value="@country.CountryID">@country.CountryName</option>
-                    }
-                </select>
-                <span class="form-bar"></span>
-                <label class="float-label">Country<span>*</span></label>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <select id="StateId" name="State" class="form-control fill" onchange="loadCities()">
-                    <option value="">-- Select State --</option>
-                </select>
-                <span class="form-bar"></span>
-                <label class="float-label">State<span>*</span></label>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <select id="CityId" name="City" class="form-control fill">
-                    <option value="">-- Select City --</option>
-                </select>
-                <span class="form-bar"></span>
-                <label class="float-label">City<span>*</span></label>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input type="text" name="PostalCode" maxlength="6" id="postalCodeInput" oninput="this.value = this.value.replace(/\s/g, ''); validatePostalCode(this)" class="form-control">
-                <span class="form-bar"></span>
-                <label class="float-label">Postal Code<span>*</span></label>
-                <span id="postalCodeError" style="color:red; font-size:12px;"></span>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <select name="AccountType" class="form-control fill" required>
-                    <option value="opt2">Business</option>
-                    <option value="opt3">Personal</option>
-                </select>
-                <span class="form-bar"></span>
-                <label class="float-label">Account Type<span>*</span></label>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input type="text" name="IntegrationRefNumber" id="integrationRefInput" maxlength="20" oninput="this.value = this.value.replace(/\s/g, ''); validateIntegrationRef(this)" class="form-control">
-                <span class="form-bar"></span>
-                <label class="float-label">Integration Ref. Number</label>
-                <span id="integrationRefError" style="color: red; font-size: 12px;"></span>
-            </div>
-            <div class="form-group form-primary col-md-6">
+                    <span id="mobileError" style="color:red; font-size:12px;"></span>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <select name="Gender" class="form-control fill">
+                        <option value="opt2">Male</option>
+                        <option value="opt3">Female</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Gender</label>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <input type="text" name="AddressLine1" maxlength="40" class="form-control" id="addressLine1" oninput="validateAddressLine1(this)">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Address Line 1<span>*</span></label>
+                    <span id="addressError1" style="color:red; font-size:12px;"></span>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <input type="text" name="AddressLine2" maxlength="40" class="form-control" id="addressLine2" oninput="validateAddressLine2(this)">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Address Line 2<span>*</span></label>
+                    <span id="addressError2" style="color:red; font-size:12px;"></span>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <select id="CountryId" name="Country" class="form-control fill" onchange="loadStates()">
+                        <option value="">-- Select Country --</option>
+                        @foreach (var country in countryData ?? new List<Country>())
+                        {
+                            <option value="@country.CountryID">@country.CountryName</option>
+                        }
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Country<span>*</span></label>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <select id="StateId" name="State" class="form-control fill" onchange="loadCities()">
+                        <option value="">-- Select State --</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">State<span>*</span></label>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <select id="CityId" name="City" class="form-control fill">
+                        <option value="">-- Select City --</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">City<span>*</span></label>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <input type="text" name="PostalCode" maxlength="6" id="postalCodeInput" oninput="this.value = this.value.replace(/\s/g, ''); validatePostalCode(this)" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Postal Code<span>*</span></label>
+                    <span id="postalCodeError" style="color:red; font-size:12px;"></span>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <select name="AccountType" class="form-control fill" required>
+                        <option value="opt2">Business</option>
+                        <option value="opt3">Personal</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Account Type<span>*</span></label>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <input type="text" name="IntegrationRefNumber" id="integrationRefInput" maxlength="20" oninput="this.value = this.value.replace(/\s/g, ''); validateIntegrationRef(this)" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Integration Ref. Number</label>
+                    <span id="integrationRefError" style="color: red; font-size: 12px;"></span>
+                </div>
+                <div class="form-group form-primary col-md-6">
                     <select name="CustomerBaseCurrency" class="select form-control fill" id="currencySelect" onchange="updateCurrencyDisplay()">
-                    <option value="">--Please Select--</option>
-                    @foreach (var country in countryData ?? new List<Country>())
-                    {
-                        <option value="@country.CountryName">@country.CountryName</option>
-                    }
-                </select>
-                <span class="form-bar"></span>
-                <label class="float-label">Customer Base Currency<span>*</span></label>
-            </div>
+                        <option value="">--Please Select--</option>
+                        @foreach (var country in countryData ?? new List<Country>())
+                        {
+                            <option value="@country.CountryName">@country.CountryName</option>
+                        }
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Customer Base Currency<span>*</span></label>
+                </div>
 
-            <div class="form-group form-primary col-md-6">
+                <div class="form-group form-primary col-md-6">
                     <select name="CustomerBaseCountry" class="select form-control fill">
-                    <option value="">--Please Select--</option>
-                    @foreach (var country in countryData ?? new List<Country>())
-                    {
-                        <option value="@country.CountryName">@country.CountryName</option>
-                    }
-                </select>
-                <span class="form-bar"></span>
-                <label class="float-label">Customer Base Country<span>*</span></label>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input name="TravelDeskEmail" id="travelDeskEmailInput" maxlength="60" class="form-control" type="text" oninput="validateDeskEmail(this)">
-                <span class="form-bar"></span>
-                <label class="float-label">Travel Desk Email<span>*</span></label>
-                <span id="emailDeskError" style="color: red; font-size: 12px;"></span>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input name="AcountActivationDate" class="form-control date-main" id="activadate" type="text" placeholder="dd-mm-yyyy" onfocus="restrictActivationDate()" onchange="setMinDeactivationDate()" autocomplete="off">
-                <span class="form-bar"></span>
-                <label class="float-label">Account Activation Date</label>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <input name="AccountDeactivationDate" class="form-control date-main" id="deactivatedate" type="text" placeholder="dd-mm-yyyy" onfocus="restrictDeactivationDate()" autocomplete="off">
-                <span class="form-bar"></span>
-                <label class="float-label">Account De-activation Date</label>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <strong>GST Applicable on Management Fee</strong>
-                <label class="switch m-l-5">
-                    <input type="checkbox" name="GSTApplicableManagementFee">
-                    <span class="slider round"></span>
-                </label>
-            </div>
-            <div class="form-group form-primary col-md-6">
-                <strong>Pass GST Details to the Airline</strong>
-                <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
-                    <input type="checkbox" name="PassGSTDetailsAirline">
-                    <span class="slider round"></span>
-                </label>
-            </div>
-            <div class="form-check form-check-inline col-md-4">
-                <label class="radio_lb">
-                    <input class="form-check-input" type="radio" name="CreateNewGDSProfile" value="option1" checked>
-                    Create new GDS profile
-                </label>
-            </div>
-            <div class="form-check form-check-inline col-md-6">
-                <label class="radio_lb">
-                    <input class="form-check-input" type="radio" name="UpdateExistingCustomerProfile" value="option1">
-                    Update existing customer profile
-                </label>
-            </div>
-            <div class="form-group form-primary col-md-12 m-t-10" style="border-top:1px solid #dee2e6;"></div>
-            <div class="form-group form-primary col-md-4 U-select mb-0">
-                <div class="dropdown">
-                    <div class="m-b-15" style="font-size:13px;">Location Head</div>
-                    <div class="m-l-0 m-b-10" onclick="toggleDropdown(event)">
-                        <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Assign Location Head
-                    </div>
-                    <div class="selected-items"></div>
+                        <option value="">--Please Select--</option>
+                        @foreach (var country in countryData ?? new List<Country>())
+                        {
+                            <option value="@country.CountryName">@country.CountryName</option>
+                        }
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Customer Base Country<span>*</span></label>
                 </div>
-            </div>
-            <div class="form-group form-primary col-md-4 U-select mb-0">
-                <div class="dropdown">
-                    <div class="m-b-15" style="font-size:13px;">Location Manager1</div>
-                    <div class="m-l-0 m-b-10" onclick="toggleDropdown(event)">
-                        <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Assign Location Manager1
-                    </div>
-                    <div class="selected-items"></div>
+                <div class="form-group form-primary col-md-6">
+                    <input name="TravelDeskEmail" id="travelDeskEmailInput" maxlength="60" class="form-control" type="text" oninput="validateDeskEmail(this)">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Travel Desk Email<span>*</span></label>
+                    <span id="emailDeskError" style="color: red; font-size: 12px;"></span>
                 </div>
-            </div>
-            <div class="form-group form-primary col-md-4 U-select mb-0">
-                <div class="dropdown">
-                    <div class="m-b-15" style="font-size:13px;">Location Manager2</div>
-                    <div class="m-l-0 m-b-10" onclick="toggleDropdown(event)">
-                        <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Assign Location Manager2
-                    </div>
-                    <div class="selected-items"></div>
+                <div class="form-group form-primary col-md-6">
+                    <input name="AcountActivationDate" class="form-control date-main" id="activadate" type="text" placeholder="dd-mm-yyyy" onfocus="restrictActivationDate()" onchange="setMinDeactivationDate()" autocomplete="off">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Account Activation Date</label>
                 </div>
-            </div>
-            <div class="form-group form-primary col-md-12">
-                <input type="file" name="upload-logo" class="form-control" placeholder="Logo">
-                <span class="form-bar"></span>
-                <span style="font-size:11px;font-weight:500;">Upload logo Allowed formats: .JPG / .PNG, Maximum file size: 1mb, Resolution 200px x 90px</span>
-            </div>
+                <div class="form-group form-primary col-md-6">
+                    <input name="AccountDeactivationDate" class="form-control date-main" id="deactivatedate" type="text" placeholder="dd-mm-yyyy" onfocus="restrictDeactivationDate()" autocomplete="off">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Account De-activation Date</label>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <strong>GST Applicable on Management Fee</strong>
+                    <label class="switch m-l-5">
+                        <input type="checkbox" name="GSTApplicableManagementFee">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="form-group form-primary col-md-6">
+                    <strong>Pass GST Details to the Airline</strong>
+                    <label class="switch m-l-5" style="vertical-align: -webkit-baseline-middle;">
+                        <input type="checkbox" name="PassGSTDetailsAirline">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="form-check form-check-inline col-md-4">
+                    <label class="radio_lb">
+                        <input class="form-check-input" type="radio" name="CreateNewGDSProfile" value="option1" checked>
+                        Create new GDS profile
+                    </label>
+                </div>
+                <div class="form-check form-check-inline col-md-6">
+                    <label class="radio_lb">
+                        <input class="form-check-input" type="radio" name="UpdateExistingCustomerProfile" value="option1">
+                        Update existing customer profile
+                    </label>
+                </div>
+                <div class="form-group form-primary col-md-12 m-t-10" style="border-top:1px solid #dee2e6;"></div>
+                <div class="form-group form-primary col-md-4 U-select mb-0">
+                    <div class="dropdown">
+                        <div class="m-b-15" style="font-size:13px;">Location Head</div>
+                        <div class="m-l-0 m-b-10" onclick="toggleDropdown(event)">
+                            <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Assign Location Head
+                        </div>
+                        <div class="selected-items"></div>
+                    </div>
+                </div>
+                <div class="form-group form-primary col-md-4 U-select mb-0">
+                    <div class="dropdown">
+                        <div class="m-b-15" style="font-size:13px;">Location Manager1</div>
+                        <div class="m-l-0 m-b-10" onclick="toggleDropdown(event)">
+                            <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Assign Location Manager1
+                        </div>
+                        <div class="selected-items"></div>
+                    </div>
+                </div>
+                <div class="form-group form-primary col-md-4 U-select mb-0">
+                    <div class="dropdown">
+                        <div class="m-b-15" style="font-size:13px;">Location Manager2</div>
+                        <div class="m-l-0 m-b-10" onclick="toggleDropdown(event)">
+                            <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Assign Location Manager2
+                        </div>
+                        <div class="selected-items"></div>
+                    </div>
+                </div>
+                <div class="form-group form-primary col-md-12">
+                    <input type="file" name="upload-logo" class="form-control" placeholder="Logo">
+                    <span class="form-bar"></span>
+                    <span style="font-size:11px;font-weight:500;">Upload logo Allowed formats: .JPG / .PNG, Maximum file size: 1mb, Resolution 200px x 90px</span>
+                </div>
                 <div>
                     <button type="button" id="addUser"
                             class="btn btn-primary waves-effect waves-light">
                         Add Office
                     </button>
-                   </div>
-             </form>
-            </div>
+                </div>
+            </form>
+        </div>
         <div id="suppliersdealcode" style="display:none;">
-                <div class="pcoded-inner-content">
-                    <!-- Main-body start -->
-                    <div class="main-body">
-                        <h6>Suppliers & Deal Code</h6>
-                        <div class="page-wrapper" style="padding:0; overflow-x: hidden;">
-                            <!-- Page-body start -->
-                            <div class="page-body">
-                                <!-- Nav tabs -->
-                                <div class="m-b-25">
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" data-toggle="tab" href="#flights1" role="tab">Flights</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#hotel1" role="tab">Hotel</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#bus1" role="tab">Bus</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#cabs1" role="tab">Cabs</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#visa1" role="tab">Visa</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#forex1" role="tab">Forex</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#insurances1" role="tab">Insurance</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#rail1" role="tab">Rail</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <!--  Suppliers manage start -->
-                                    <div class="tab-pane active" id="flights1" role="tabpanel">
-                                        <div class="default-content">
-                                            <div class="d-flex justify-content-between m-b-15" style="width:320px;">
-                                                <h5>Manage Flights Suppliers?</h5>
-                                                <label class="switch">
-                                                    <input type="checkbox" checked>
-                                                    <span class="slider round"></span>
-                                                </label>
-                                            </div>
-                                            <div class="row">
-                                                <!-- flight start -->
-                                                @foreach (var dealCode in Model.getsupplier)
-                                                {
-                                                    <div class="col-md-3">
-                                                        <div class="card">
-                                                            <div class="card-block" onclick="event.stopPropagation();">
-                                                                <div class="d-flex bdr sup-bx" style="cursor:pointer;" onclick="navigateToCredential(this)" data-supplierid="@dealCode.SupplierId"
-                                                                     data-legalcode="@ViewBag.LegalEntityCode"
-                                                                     data-legalname="@ViewBag.LegalEntityName">
-                                                                    @if (dealCode.Logo != null)
-                                                                    {
-                                                                        <img class="img-fluid img-h" src="data:image/png;base64,@Convert.ToBase64String(dealCode.Logo)" alt="logo">
-                                                                    }
-                                                                    <h6 class="m-t-10 m-l-10">
-                                                                        @dealCode.CarrierType
-                                                                        <p class="light-gray">@dealCode.SupplierName</p>
-                                                                    </h6>
-                                                                    <input type="hidden" name="SupplierId" value="@dealCode.SupplierId" />
-                                                                    <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" />
-                                                                    <input type="hidden" name="LegalEntityName" value="@ViewBag.LegalEntityName" />
-                                                                </div>
-                                                                <div class="d-flex justify-content-between">
-                                                                    <p class="m-b-0 light-gray">Last updated:@dealCode.ModifyDate.ToString("dd-MM-yyyy")</p>
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <h6>Suppliers & Deal Code</h6>
+                    <div class="page-wrapper" style="padding:0; overflow-x: hidden;">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <!-- Nav tabs -->
+                            <div class="m-b-25">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#flights1" role="tab">Flights</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#hotel1" role="tab">Hotel</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#bus1" role="tab">Bus</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#cabs1" role="tab">Cabs</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#visa1" role="tab">Visa</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#forex1" role="tab">Forex</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#insurances1" role="tab">Insurance</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#rail1" role="tab">Rail</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <!--  Suppliers manage start -->
+                                <div class="tab-pane active" id="flights1" role="tabpanel">
+                                    <div class="default-content">
+                                        <div class="d-flex justify-content-between m-b-15" style="width:320px;">
+                                            <h5>Manage Flights Suppliers?</h5>
+                                            <label class="switch">
+                                                <input type="checkbox" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="row">
+                                            <!-- flight start -->
+                                            @foreach (var dealCode in Model.getsupplier)
+                                            {
+                                                <div class="col-md-3">
+                                                    <div class="card">
+                                                        <div class="card-block" onclick="event.stopPropagation();">
+                                                            <div class="d-flex bdr sup-bx" style="cursor:pointer;" onclick="navigateToCredential(this)" data-supplierid="@dealCode.SupplierId"
+                                                                 data-legalcode="@ViewBag.LegalEntityCode"
+                                                                 data-legalname="@ViewBag.LegalEntityName">
+                                                                @if (dealCode.Logo != null)
+                                                                {
+                                                                    <img class="img-fluid img-h" src="data:image/png;base64,@Convert.ToBase64String(dealCode.Logo)" alt="logo">
+                                                                }
+                                                                <h6 class="m-t-10 m-l-10">
+                                                                    @dealCode.CarrierType
+                                                                    <p class="light-gray">@dealCode.SupplierName</p>
+                                                                </h6>
+                                                                <input type="hidden" name="SupplierId" value="@dealCode.SupplierId" />
+                                                                <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode" />
+                                                                <input type="hidden" name="LegalEntityName" value="@ViewBag.LegalEntityName" />
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="m-b-0 light-gray">Last updated:@dealCode.ModifyDate.ToString("dd-MM-yyyy")</p>
                                                                 <label class="switch">
                                                                     <input type="checkbox"
                                                                            id="appStatusCheckbox_@dealCode.SupplierId"
@@ -375,225 +385,215 @@
                                                                     @(((dealCode.IsActive ?? false) && (dealCode.AppStatus ?? false)) ? "checked" : "") />
                                                                     <span class="slider round"></span>
                                                                 </label>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                }
-                                                <!-- flight card end -->
-                                            </div>
-                                        </div>
-                                        <div class="new-spplier" style="display:none;">
-                                            <div class="modal-body" id="credentialModalBody">
-                                                <div class="p-4 text-center" id="credentialModalLoading">Loading…</div>
-                                            </div>
-                                        </div>
-                                        <div class="supplier-content" style="display: none;">
-                                            <h5 class="m-b-10">
-                                                <a href="supplieranddealcodes.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Add New Supplier for Flights
-                                            </h5>
-                                            <div class="text-center m-t-10">
-                                                <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
-                                                <div>No data found, please add new record</div>
-                                                <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
-                                            </div>
+                                                </div>
+                                            }
+                                            <!-- flight card end -->
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="hotel1" role="tabpanel">
-                                        <div class="d-flex justify-content-end m-b-10 flex-btn">
-                                            <div><button class="btn btn-danger add-btn">+ Add New</button></div>
+                                    <div class="new-spplier" style="display:none;">
+                                        <div class="modal-body" id="credentialModalBody">
+                                            <div class="p-4 text-center" id="credentialModalLoading">Loading…</div>
                                         </div>
-                                        <div class="default-content">
-                                            <div class="d-flex justify-content-between m-b-15" style="width:320px;">
-                                                <h6>Manage Hotel Suppliers?</h6>
-                                                <label class="switch">
-                                                    <input type="checkbox" checked>
-                                                    <span class="slider round"></span>
-                                                </label>
-                                            </div>
-                                            <div class="row">
-                                                <!-- hotel start -->
-                                                <div class="col-md-4">
-                                                    <div class="card">
-                                                        <div class="card-block">
-                                                            <div class="d-flex bdr sup-bx">
-                                                                <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-1.png" alt="logo">
-                                                                <h6 class="m-t-10 m-l-10">Travel Boutique Hotels <p class="light-gray">Hotel</p></h6>
-
-                                                            </div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <p class="m-b-0 light-gray">Last updated:15-01-2025</p>
-                                                                <label class="switch">
-                                                                    <input type="checkbox" checked>
-                                                                    <span class="slider round"></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="card">
-                                                        <div class="card-block">
-                                                            <div class="d-flex bdr sup-bx">
-                                                                <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-2.png" alt="logo">
-                                                                <h6 class="m-t-10 m-l-10">HOTEL BEDS <p class="light-gray">Hotel</p></h6>
-
-                                                            </div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <p class="m-b-0 light-gray">Last updated : 27-11-2024</p>
-                                                                <label class="switch">
-                                                                    <input type="checkbox" checked>
-                                                                    <span class="slider round"></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="card">
-                                                        <div class="card-block">
-                                                            <div class="d-flex bdr sup-bx">
-                                                                <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-3.png" alt="logo">
-                                                                <h6 class="m-t-10 m-l-10">RateHawk <p class="light-gray">Hotel</p></h6>
-
-                                                            </div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <p class="m-b-0 light-gray">Last updated : 21-11-2024</p>
-                                                                <label class="switch">
-                                                                    <input type="checkbox" checked>
-                                                                    <span class="slider round"></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- hotel card end -->
-                                            </div>
+                                    </div>
+                                    <div class="supplier-content" style="display: none;">
+                                        <h5 class="m-b-10">
+                                            <a href="supplieranddealcodes.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Add New Supplier for Flights
+                                        </h5>
+                                        <div class="text-center m-t-10">
+                                            <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                            <div>No data found, please add new record</div>
+                                            <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
                                         </div>
-                                        <div class="supplier-content" style="display:none;">
-                                            <h6 class="m-b-20">
-                                            <a href="javascript:void(0);" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Add New Supplier for Hotel
-                                            </h6>
-                                            <div class="col-md-3 p-l-0">
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="hotel1" role="tabpanel">
+                                    <div class="d-flex justify-content-end m-b-10 flex-btn">
+                                        <div><button class="btn btn-danger add-btn">+ Add New</button></div>
+                                    </div>
+                                    <div class="default-content">
+                                        <div class="d-flex justify-content-between m-b-15" style="width:320px;">
+                                            <h6>Manage Hotel Suppliers?</h6>
+                                            <label class="switch">
+                                                <input type="checkbox" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="row">
+                                            <!-- hotel start -->
+                                            <div class="col-md-4">
                                                 <div class="card">
-                                                    <div class="card-block sup-bx">
-                                                        <div class="bdr text-center">
-                                                            <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-4.png" alt="logo">
+                                                    <div class="card-block">
+                                                        <div class="d-flex bdr sup-bx">
+                                                            <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-1.png" alt="logo">
+                                                            <h6 class="m-t-10 m-l-10">Travel Boutique Hotels <p class="light-gray">Hotel</p></h6>
+
                                                         </div>
                                                         <div class="d-flex justify-content-between">
-                                                            <p>Yatra<br /><span class="m-b-0 light-gray">Hotels</span></p>
-                                                            <p><input class="m-t-5" type="checkbox" value=""></p>
+                                                            <p class="m-b-0 light-gray">Last updated:15-01-2025</p>
+                                                            <label class="switch">
+                                                                <input type="checkbox" checked>
+                                                                <span class="slider round"></span>
+                                                            </label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="m-t-20">
-                                                <button class="btn btn-primary waves-effect waves-light">Add</button>
-                                                <button class="btn btn-danger waves-effect waves-light">Cancel</button>
-                                            </div>
-                                        </div>
+                                            <div class="col-md-4">
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="d-flex bdr sup-bx">
+                                                            <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-2.png" alt="logo">
+                                                            <h6 class="m-t-10 m-l-10">HOTEL BEDS <p class="light-gray">Hotel</p></h6>
 
-                                        <div class="new-spplier" style="display:none;">
-                                            <h5 class="m-b-20">
-                                                <a href="" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Supplier : Travel Boutique Hotels
-                                            </h5>
-                                            <div class="row">
-                                                <div class="col-lg-12 mx-auto">
-                                                    <!-- Accordion -->
-                                                    <div id="accordionMainone" class="accordion shadow">
-                                                        <!-- Accordion item 1 -->
-                                                        <div class="card">
-                                                            <div id="headingfour" class="bg-white shadow-sm border-0">
-                                                                <h2 class="mb-0">
-                                                                    <button type="button" data-toggle="collapse" data-target="#collapsefour" aria-expanded="true"
-                                                                            aria-controls="collapsefour"
-                                                                            class="btn btn-link text-dark font-weight-bold collapsible-link">
-                                                                        Credentials
-                                                                    </button>
-                                                                </h2>
-                                                            </div>
-                                                            <div id="collapsefour" aria-labelledby="headingfour" data-parent="#accordionMainone" class="collapse show">
-                                                                <div class="card-body" table-border-style" style="overflow: auto; cursor:pointer;">
-                                                                    <div class="d-flex justify-content-between m-b-10">
-                                                                        <form class="form-material">
-                                                                            <div class="form-group form-primary" style="width:280px;">
-                                                                                <input type="text" name="footer-email" class="form-control">
-                                                                                <span class="form-bar"></span>
-                                                                                <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                    <div class="table-border-style">
-                                                                        <div class="table-responsive">
-                                                                            <table class="table">
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th><button class="srt-btn" type="button" aria-label="credentials-name">Credentials Name</button></th>
-                                                                                        <th><button class="srt-btn" type="button" aria-label="client-Id">Client ID</button></th>
-                                                                                        <th><button class="srt-btn" type="button" aria-label="user-name">User Name</button></th>
-                                                                                        <th><button class="srt-btn" type="button" aria-label="fare-types">Fare Types</button></th>
-                                                                                        <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <tr data-toggle="modal" data-target="#supplierHotelOne">
-                                                                                        <td title="JW DEL SME">TBO Hotel</td>
-                                                                                        <td title="" onclick="location.href='edit-emailconfig.html';">cf926979-cc6a-40b2-8629-24932de8afc7 </td>
-                                                                                        <td title="SMEMTR0007">DELJ388</td>
-                                                                                        <td title="SME"> Corporate Fare... </td>
-                                                                                        <td>
-                                                                                            <label class="switch m-l-5" style=" vertical-align: -webkit-baseline-middle;">
-                                                                                                <input type="checkbox" checked>
-                                                                                                <span class="slider round"></span>
-                                                                                            </label>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="d-flex justify-content-between pagination-section" style="border-top: #dee2e6 1px solid; padding-top: 15px;">
-                                                                        <span class="pagination-info">
-                                                                            Showing 1-1 of 1
-                                                                        </span>
-                                                                        <div class="float-right pagination">
-                                                                            <span class="m-t-5 m-r-5">Items per page:</span>
-                                                                            <select class="form-select form-select-sm">
-                                                                                <option selected>5</option>
-                                                                                <option>10</option>
-                                                                                <option>25</option>
-                                                                                <option>100</option>
-                                                                            </select>
-                                                                            <ul class="pagination">
-                                                                                <li class="page-item page-pre"><a class="page-link" aria-label="previous page" href="javascript:void(0)">‹</a></li>
-                                                                                <li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">0</a></li>
-                                                                                <li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)">›</a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>                                                                                                        
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <p class="m-b-0 light-gray">Last updated : 27-11-2024</p>
+                                                            <label class="switch">
+                                                                <input type="checkbox" checked>
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
                                                     </div>
-                                                    <!-- End -->
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="d-flex bdr sup-bx">
+                                                            <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-3.png" alt="logo">
+                                                            <h6 class="m-t-10 m-l-10">RateHawk <p class="light-gray">Hotel</p></h6>
+
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <p class="m-b-0 light-gray">Last updated : 21-11-2024</p>
+                                                            <label class="switch">
+                                                                <input type="checkbox" checked>
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- hotel card end -->
+                                        </div>
+                                    </div>
+                                    <div class="supplier-content" style="display:none;">
+                                        <h6 class="m-b-20">
+                                            <a href="javascript:void(0);" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Add New Supplier for Hotel
+                                        </h6>
+                                        <div class="col-md-3 p-l-0">
+                                            <div class="card">
+                                                <div class="card-block sup-bx">
+                                                    <div class="bdr text-center">
+                                                        <img class="img-fluid img-h" src="assets/images/hotel-logo/hotel-4.png" alt="logo">
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <p>Yatra<br /><span class="m-b-0 light-gray">Hotels</span></p>
+                                                        <p><input class="m-t-5" type="checkbox" value=""></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="supplier-content" style="display: none;">
-                                            <h5 class="m-b-10">
-                                                <a href="supplieranddealcodes.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Add New Supplier for Flights
-                                            </h5>
-                                            <div class="text-center m-t-10">
-                                                <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
-                                                <div>No data found, please add new record</div>
-                                                <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                        <div class="m-t-20">
+                                            <button class="btn btn-primary waves-effect waves-light">Add</button>
+                                            <button class="btn btn-danger waves-effect waves-light">Cancel</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="new-spplier" style="display:none;">
+                                        <h5 class="m-b-20">
+                                            <a href="" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Supplier : Travel Boutique Hotels
+                                        </h5>
+                                        <div class="row">
+                                            <div class="col-lg-12 mx-auto">
+                                                <!-- Accordion -->
+                                                <div id="accordionMainone" class="accordion shadow">
+                                                    <!-- Accordion item 1 -->
+                                                    <div class="card">
+                                                        <div id="headingfour" class="bg-white shadow-sm border-0">
+                                                            <h2 class="mb-0">
+                                                                <button type="button" data-toggle="collapse" data-target="#collapsefour" aria-expanded="true"
+                                                                        aria-controls="collapsefour"
+                                                                        class="btn btn-link text-dark font-weight-bold collapsible-link">
+                                                                    Credentials
+                                                                </button>
+                                                            </h2>
+                                                        </div>
+                                                        <div id="collapsefour" aria-labelledby="headingfour" data-parent="#accordionMainone" class="collapse show">
+                                                            <div class="card-body" table-border-style" style="overflow: auto; cursor:pointer;">
+                                                                <div class="d-flex justify-content-between m-b-10">
+                                                                    <form class="form-material">
+                                                                        <div class="form-group form-primary" style="width:280px;">
+                                                                            <input type="text" name="footer-email" class="form-control">
+                                                                            <span class="form-bar"></span>
+                                                                            <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="table-border-style">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th><button class="srt-btn" type="button" aria-label="credentials-name">Credentials Name</button></th>
+                                                                                    <th><button class="srt-btn" type="button" aria-label="client-Id">Client ID</button></th>
+                                                                                    <th><button class="srt-btn" type="button" aria-label="user-name">User Name</button></th>
+                                                                                    <th><button class="srt-btn" type="button" aria-label="fare-types">Fare Types</button></th>
+                                                                                    <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr data-toggle="modal" data-target="#supplierHotelOne">
+                                                                                    <td title="JW DEL SME">TBO Hotel</td>
+                                                                                    <td title="" onclick="location.href='edit-emailconfig.html';">cf926979-cc6a-40b2-8629-24932de8afc7 </td>
+                                                                                    <td title="SMEMTR0007">DELJ388</td>
+                                                                                    <td title="SME"> Corporate Fare... </td>
+                                                                                    <td>
+                                                                                        <label class="switch m-l-5" style=" vertical-align: -webkit-baseline-middle;">
+                                                                                            <input type="checkbox" checked>
+                                                                                            <span class="slider round"></span>
+                                                                                        </label>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between pagination-section" style="border-top: #dee2e6 1px solid; padding-top: 15px;">
+                                                                    <span class="pagination-info">
+                                                                        Showing 1-1 of 1
+                                                                    </span>
+                                                                    <div class="float-right pagination">
+                                                                        <span class="m-t-5 m-r-5">Items per page:</span>
+                                                                        <select class="form-select form-select-sm">
+                                                                            <option selected>5</option>
+                                                                            <option>10</option>
+                                                                            <option>25</option>
+                                                                            <option>100</option>
+                                                                        </select>
+                                                                        <ul class="pagination">
+                                                                            <li class="page-item page-pre"><a class="page-link" aria-label="previous page" href="javascript:void(0)">‹</a></li>
+                                                                            <li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">0</a></li>
+                                                                            <li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)">›</a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End -->
                                             </div>
                                         </div>
-
-
                                     </div>
-                                    <div class="tab-pane" id="bus1" role="tabpanel">
+                                    <div class="supplier-content" style="display: none;">
+                                        <h5 class="m-b-10">
+                                            <a href="supplieranddealcodes.html" style="position: relative; z-index: 10;"><i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i></a>Add New Supplier for Flights
+                                        </h5>
                                         <div class="text-center m-t-10">
                                             <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
                                             <div>No data found, please add new record</div>
@@ -601,198 +601,208 @@
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane" id="visa1" role="tabpanel">
-                                        <div class="text-center m-t-10">
-                                            <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
-                                            <div>No data found, please add new record</div>
-                                            <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="forex1" role="tabpanel">
-                                        <div class="text-center m-t-10">
-                                            <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
-                                            <div>No data found, please add new record</div>
-                                            <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
-                                        </div>
-                                    </div>
 
-                                    <div class="tab-pane" id="insurances1" role="tabpanel">
-                                        <div class="text-center m-t-10">
-                                            <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
-                                            <div>No data found, please add new record</div>
-                                            <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane" id="rail1" role="tabpanel">
-                                        <div class="text-center m-t-10">
-                                            <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
-                                            <div>No data found, please add new record</div>
-                                            <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
-                                        </div>
-                                    </div>
-                                    <!--  Suppliers manage end -->
                                 </div>
+                                <div class="tab-pane" id="bus1" role="tabpanel">
+                                    <div class="text-center m-t-10">
+                                        <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                        <div>No data found, please add new record</div>
+                                        <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="visa1" role="tabpanel">
+                                    <div class="text-center m-t-10">
+                                        <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                        <div>No data found, please add new record</div>
+                                        <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="forex1" role="tabpanel">
+                                    <div class="text-center m-t-10">
+                                        <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                        <div>No data found, please add new record</div>
+                                        <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="insurances1" role="tabpanel">
+                                    <div class="text-center m-t-10">
+                                        <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                        <div>No data found, please add new record</div>
+                                        <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="rail1" role="tabpanel">
+                                    <div class="text-center m-t-10">
+                                        <img class="img-fluid" src="assets/images/no-data-img.png" alt="image">
+                                        <div>No data found, please add new record</div>
+                                        <div><button class="btn sml-btn-danger waves-effect waves-light">+ Add New</button></div>
+                                    </div>
+                                </div>
+                                <!--  Suppliers manage end -->
                             </div>
-                            <!-- Page-body end -->
                         </div>
+                        <!-- Page-body end -->
                     </div>
-                </div>
-            </div>    
-        <div id="assignstaff" style="display:none;">
-                <div class="pcoded-inner-content">
-                <form id="manageStaffForm" class="card-block form-material" method="post">
-                        <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode">
-                        <input type="hidden" name="LegalEntityName" value="@ViewBag.LegalEntityName" />
-                        <input type="hidden" name="IdLegal" value="@ViewBag.Id" />
-                        <div class="form-group form-primary col-md-3 U-select">
-                            <div class="dropdown" data-field="KeyAccountManager">
-                                <div class="m-b-15" style="font-size:13px;">Key Account Managers</div>
-                                <div class="m-l-10 m-b-10" onclick="toggleDropdown(event)">
-                                    <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Select Managers
-                                </div>
-                                <div class="selected-items"></div>
-                                <div class="dropdown-list">
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Fc Support</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
-                                </div>
-                                <input type="hidden" name="KeyAccountManager" id="KeyAccountManager" />
-                            </div>
-                        </div>
-                        <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
-                        <div class="form-group form-primary col-md-3 U-select">
-                            <div class="dropdown" data-field="SalesSpoc">
-                                <div class="m-b-15" style="font-size:13px;">Sales Spoc</div>
-                                <div class="m-l-10 m-b-10" onclick="toggleDropdown(event)">
-                                    <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Assaign Sales Spoc
-                                </div>
-                                <div class="selected-items"></div>
-                                <div class="dropdown-list">
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Fc Support</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
-                                </div>
-                                <input type="hidden" name="SalesSpoc" id="SalesSpoc" />
-                            </div>
-                        </div>
-                        <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
-                        <div class="form-group form-primary col-md-3 U-select">
-                            <div class="dropdown" data-field="BookingConsultant">
-                                <div class="m-b-15" style="font-size:13px;">Booking Consultant(s)</div>
-                                <div class="m-l-10 m-b-10" onclick="toggleDropdown(event)">
-                                    <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Booking Consultant
-                                </div>
-                                <div class="selected-items"></div>
-                                <div class="dropdown-list">
-                                    @if (Model.InternalUsers != null)
-                                    {
-                                        foreach (var vny in Model.InternalUsers)
-                                        {
-                                            var fullName = $"{vny.FirstName} {vny.LastName}";
-                                            <div class="dropdown-item" onclick="selectItem(event)"
-                                                 data-employee-id="@vny.EmpId" data-user-id="@vny.UserID">
-                                                <img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">
-                                                @vny.UserID - @fullName
-                                            </div>
-                                        }
-                                    }
-                                </div>
-                                <input type="hidden" name="BookingConsultant" id="BookingConsultant" />
-                            </div>
-
-                        </div>
-                        @{
-                            var consultantList =
-                            (Model?.BookingConsultants?.BookingConsultantNames?.Split(',') ?? Array.Empty<string>())
-                            .Select(x => x.Trim())
-                            .Where(x => !string.IsNullOrWhiteSpace(x))
-                            .ToList();
-                        }
-                        <div id="consultant-tags">
-                            @foreach (var consultant in consultantList)
-                            {
-                                <span class="tag">
-                                    <span>@consultant</span>
-                                    <button type="button" class="remove-btn">×</button>
-                                </span>
-                            }
-                        </div>
-                        <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
-                        <div class="form-group form-primary col-md-3 U-select">
-                            <div class="dropdown" data-field="EmergencyContact">
-                                <div class="m-b-15" style="font-size:13px;">Emergency Contact Person</div>
-                                <div class="m-l-10 m-b-10" onclick="toggleDropdown(event)">
-                                    <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Assaign Emergency Contact Person
-                                </div>
-                                <div class="selected-items"></div>
-                                <div class="dropdown-list">
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Fc Support</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
-                                </div>
-                                <input type="hidden" name="EmergencyContact" id="EmergencyContact" />
-                            </div>
-                        </div>
-                        <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
-                        <div class="form-group form-primary col-md-3 U-select">
-                            <div class="dropdown" data-field="UserGroup">
-                                <div class="m-b-15" style="font-size:13px;">User Group</div>
-                                <div class="m-l-10 m-b-10" onclick="toggleDropdown(event)">
-                                    <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> User Group
-                                </div>
-                                <div class="selected-items"></div>
-                                <div class="dropdown-list">
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Fc Support</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
-                                    <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
-                                </div>
-                                <input type="hidden" name="UserGroup" id="UserGroup" />
-                            </div>
-                        </div>
-                        <div class="form-group form-primary col-md-12 m-l-5">
-                            <button type="button" id="saveManageStaff" class="btn btn-primary waves-effect waves-light">
-                                Update
-                            </button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
+        <div id="assignstaff" style="display:none;">
+            <div class="pcoded-inner-content">
+                <form id="manageStaffForm" class="card-block form-material" method="post">
+                    <input type="hidden" name="LegalEntityCode" value="@ViewBag.LegalEntityCode">
+                    <input type="hidden" name="LegalEntityName" value="@ViewBag.LegalEntityName" />
+                    <input type="hidden" name="IdLegal" value="@ViewBag.Id" />
+                    <div class="form-group form-primary col-md-3 U-select">
+                        <div class="dropdown" data-field="KeyAccountManager">
+                            <div class="m-b-15" style="font-size:13px;">Key Account Managers</div>
+                            <div class="m-l-10 m-b-10" onclick="toggleDropdown(event)">
+                                <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Select Managers
+                            </div>
+                            <div class="selected-items"></div>
+                            <div class="dropdown-list">
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Fc Support</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
+                            </div>
+                            <input type="hidden" name="KeyAccountManager" id="KeyAccountManager" />
+                        </div>
+                    </div>
+                    <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
+                    <div class="form-group form-primary col-md-3 U-select">
+                        <div class="dropdown" data-field="SalesSpoc">
+                            <div class="m-b-15" style="font-size:13px;">Sales Spoc</div>
+                            <div class="m-l-10 m-b-10" onclick="toggleDropdown(event)">
+                                <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Assaign Sales Spoc
+                            </div>
+                            <div class="selected-items"></div>
+                            <div class="dropdown-list">
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Fc Support</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
+                            </div>
+                            <input type="hidden" name="SalesSpoc" id="SalesSpoc" />
+                        </div>
+                    </div>
+                    <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
+                    <div class="form-group form-primary col-md-3 U-select">
+                        <div class="dropdown" data-field="BookingConsultant">
+                            <div class="m-b-15" style="font-size:13px;">Booking Consultant(s)</div>
+                            <div class="m-l-10 m-b-10" onclick="toggleDropdown(event)">
+                                <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Booking Consultant
+                            </div>
+                            <div class="selected-items"></div>
+                            <div class="dropdown-list">
+                                @if (Model.InternalUsers != null)
+                                {
+                                    foreach (var vny in Model.InternalUsers)
+                                    {
+                                        var fullName = $"{vny.FirstName} {vny.LastName}";
+                                        <div class="dropdown-item" onclick="selectItem(event)"
+                                             data-employee-id="@vny.EmpId" data-user-id="@vny.UserID">
+                                            <img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">
+                                            @vny.UserID - @fullName
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <input type="hidden" name="BookingConsultant" id="BookingConsultant" />
+                        </div>
+
+                    </div>
+                    @{
+                        var consultantList =
+                        (Model?.BookingConsultants?.BookingConsultantNames?.Split(',') ?? Array.Empty<string>())
+                        .Select(x => x.Trim())
+                        .Where(x => !string.IsNullOrWhiteSpace(x))
+                        .ToList();
+                    }
+                    <div id="consultant-tags">
+                        @foreach (var consultant in consultantList)
+                        {
+                            <span class="tag">
+                                <span>@consultant</span>
+                                <button type="button" class="remove-btn">×</button>
+                            </span>
+                        }
+                    </div>
+                    <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
+                    <div class="form-group form-primary col-md-3 U-select">
+                        <div class="dropdown" data-field="EmergencyContact">
+                            <div class="m-b-15" style="font-size:13px;">Emergency Contact Person</div>
+                            <div class="m-l-10 m-b-10" onclick="toggleDropdown(event)">
+                                <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> Assaign Emergency Contact Person
+                            </div>
+                            <div class="selected-items"></div>
+                            <div class="dropdown-list">
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Fc Support</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
+                            </div>
+                            <input type="hidden" name="EmergencyContact" id="EmergencyContact" />
+                        </div>
+                    </div>
+                    <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
+                    <div class="form-group form-primary col-md-3 U-select">
+                        <div class="dropdown" data-field="UserGroup">
+                            <div class="m-b-15" style="font-size:13px;">User Group</div>
+                            <div class="m-l-10 m-b-10" onclick="toggleDropdown(event)">
+                                <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8;"></i> User Group
+                            </div>
+                            <div class="selected-items"></div>
+                            <div class="dropdown-list">
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Fc Support</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Satish Bhatti</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Shalini Sharma</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Rahul Gaur</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Amit Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Manoj Jha</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Adhar Budhraja</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Yatin Kumar</div>
+                                <div class="dropdown-item" onclick="selectItem(event)"><img class="m-r-10" loading="lazy" src="../assets/images/login-img.svg" style="height:34px;">Sona Shah</div>
+                            </div>
+                            <input type="hidden" name="UserGroup" id="UserGroup" />
+                        </div>
+                    </div>
+                    <div class="form-group form-primary col-md-12 m-l-5">
+                        <button type="button" id="saveManageStaff" class="btn btn-primary waves-effect waves-light">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="col-md-12 text-right mt-2" style="border-top: #ddd 1px solid; padding-top: 20px;">
-        <button type="button" class="btn btn-close btn-danger waves-effect waves-light btn-lg" data-dismiss="modal">
-            Cancel
-        </button>
-    </div>
+</div>
+<div class="col-md-12 text-right mt-2" style="border-top: #ddd 1px solid; padding-top: 20px;">
+    <button type="button" class="btn btn-close btn-danger waves-effect waves-light btn-lg" data-dismiss="modal">
+        Cancel
+    </button>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
@@ -800,9 +810,23 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="~/assets/js/custom/addlegalentity.js"></script>
 <style>
-.tag {display: inline-block;background-color: #f0f0f0;border-radius: 20px; padding: 2px 8px;margin: 4px;font-size: 12px;}
-.remove-btn {background: none;border: none;color: #000; margin-left: 8px;font-weight: bold;cursor: pointer;}
+    .tag {
+        display: inline-block;
+        background-color: #f0f0f0;
+        border-radius: 20px;
+        padding: 2px 8px;
+        margin: 4px;
+        font-size: 12px;
+    }
 
+    .remove-btn {
+        background: none;
+        border: none;
+        color: #000;
+        margin-left: 8px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -923,7 +947,7 @@
     $(document).ready(function () {
         let lastTab = '#Organization';
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            lastTab = $(e.target).attr('href'); 
+            lastTab = $(e.target).attr('href');
         });
         $('#addOfficeModal').on('shown.bs.modal', function () {
             if (lastTab) {
@@ -938,40 +962,40 @@
     });
 </script>
 <script>
- 
-        async function navigateToCredential(el) {
-        const {supplierid, legalcode, legalname, idlegal} = el.dataset;
-        const idLegalVal = idlegal || document.querySelector('input[name="IdLegal"]')?.value || '';
-        const params = new URLSearchParams({
-            SupplierId: supplierid,
-        IdLegal: idLegalVal,
-        LegalEntityCode: legalcode,
-        LegalEntityName: legalname
-        });
-        const url = '/OrganizationStructure/GetSupplierCredential?' + params.toString();
-        const container = document.getElementById('credentialModalBody');
-        if (!container) {
-            window.location.href = url;
-        return;
-        }
-        container.innerHTML = '<div class="p-4 text-center">Loading…</div>';
-        try {
-          const resp = await fetch(url, {credentials: 'same-origin' });
-        if (!resp.ok) throw new Error('HTTP ' + resp.status);
-        const html = await resp.text();
-        container.innerHTML = html;
-        const parentTab = el.closest('.tab-pane');
-        if (parentTab) {
-            parentTab.querySelector('.default-content')?.classList.add('d-none');
-        parentTab.querySelector('.add-btn')?.classList.add('d-none');
-        const panel = parentTab.querySelector('.new-spplier');
-        if (panel) panel.style.display = '';
-          }
-        } catch (e) {
-            console.error(e);
-        container.innerHTML = '<div class="alert alert-danger m-3">Failed to load credentials.</div>';
-        }
+
+      async function navigateToCredential(el) {
+      const {supplierid, legalcode, legalname, idlegal} = el.dataset;
+      const idLegalVal = idlegal || document.querySelector('input[name="IdLegal"]')?.value || '';
+      const params = new URLSearchParams({
+          SupplierId: supplierid,
+      IdLegal: idLegalVal,
+      LegalEntityCode: legalcode,
+      LegalEntityName: legalname
+      });
+      const url = '/OrganizationStructure/GetSupplierCredential?' + params.toString();
+      const container = document.getElementById('credentialModalBody');
+      if (!container) {
+          window.location.href = url;
+      return;
       }
+      container.innerHTML = '<div class="p-4 text-center">Loading…</div>';
+      try {
+        const resp = await fetch(url, {credentials: 'same-origin' });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const html = await resp.text();
+      container.innerHTML = html;
+      const parentTab = el.closest('.tab-pane');
+      if (parentTab) {
+          parentTab.querySelector('.default-content')?.classList.add('d-none');
+      parentTab.querySelector('.add-btn')?.classList.add('d-none');
+      const panel = parentTab.querySelector('.new-spplier');
+      if (panel) panel.style.display = '';
+        }
+      } catch (e) {
+          console.error(e);
+      container.innerHTML = '<div class="alert alert-danger m-3">Failed to load credentials.</div>';
+      }
+    }
 </script>
 
 <script>
@@ -1137,7 +1161,7 @@
             }
         });
     });
-    //New JS 
+    //New JS
     document.getElementById("financialType").addEventListener("change", function () {
         const selectedValue = this.value;
         const parentCode = document.getElementById("parentLegalEntityCode").value;

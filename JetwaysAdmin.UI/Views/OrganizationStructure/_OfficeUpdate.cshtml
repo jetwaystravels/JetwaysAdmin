@@ -29,7 +29,14 @@
                 <input type="hidden" id="parentLegalEntityCode" name="ParentLegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
                 <input type="hidden" name="Id" class="form-control" value="@firstEntity?.Id">
                 <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
-
+                <div class="form-group form-primary col-md-6">
+                    <select name="OfficeType" id="officeType" class="form-control fill">
+                        <option value="BR">Branch Office</option>
+                        <option value="RA">Regional Office</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Office Type</label>
+                </div>
                 <div class="form-group form-primary col-md-6">
                     <input type="text" name="LegalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)" value="@firstEntity?.LegalEntityName">
                     <span class="form-bar"></span>

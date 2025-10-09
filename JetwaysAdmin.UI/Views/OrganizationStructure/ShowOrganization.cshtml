@@ -6,10 +6,11 @@
 }
 
 <style>
-   
+
     .open-btn {
         cursor: pointer;
     }
+
     .popup {
         display: none;
         position: fixed;
@@ -187,18 +188,22 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="col-lg-8 text-right" style="padding-right: 0;">
-                                            <button type="button" id="officepopup" class="btn btn-primary btn-lg modl"
+                                        <div class="col-lg-8 text-right mt-3" style="padding-right: 0;">
+                                            <button id="btnCards" class="btn btn-primary modl"><i class="fa fa-th-large mr-2"></i>Cards</button>
+                                            <button id="btnTable" class="btn btn-outline">
+                                                <i class="fa fa-list mr-2"></i>Table
+                                            </button>
+                                            <button type="button" id="officepopup" class="btn btn-primary modl"
                                                     data-legal-entity-code="@ViewBag.LegalEntityCode"
                                                     data-legal-entity-name="@ViewBag.LegalEntityName"
                                                     data-legal-entity-idLegal="@ViewBag.Id"
                                                     data-toggle="modal" data-target="#addOfficeModal"
-                                                    style="font-size: 16px; font-weight:600;">
+                                                    style="font-size: 13px; font-weight:600;">
                                                 + Add office
                                             </button>
 
                                             <div class="dropdown-primary open">
-                                                <div class="dot-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+                                                <div class="dot-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-h" aria-hidden="true" style="vertical-align: bottom;"></i></div>
                                                 <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                                     <a class="dropdown-item" href="#">Update default office</a>
                                                     <a class="dropdown-item" href="#">Upload offices</a>
@@ -218,88 +223,118 @@
                                             <div class="office-card">
                                                 <div class="d-flex justify-content-between align-items-center office-header" style="border-bottom: #ddd 1px solid; padding-bottom: 10px;">
                                                     <div class="col-lg-9" style="padding-left:0;">
+                                                        <span class="captext company-name" style="text-transform: capitalize;">@office.LegalEntityName — <span class="tag tag-default">@office.City</span></span>
+                                                    </div>
+                                                    <div>
                                                         @if (isFirst)
                                                         {
-                                                            <strong>Head office</strong>
+                                                            <div class="pill pill-head">Head office</div>
                                                             isFirst = false;
                                                         }
-                                                        <span class="tag captext company-name" style="text-transform: capitalize;">@office.LegalEntityName</span>
-                                                        <span class="tag tag-default">@office.State -->@office.City</span>
-                                                    </div>
 
-                                                    <div class="text-primary col-lg-3 text-right open-btn" data-legal="@office.LegalEntityCode">
-                                                        @{
-                                                            var employeesByCode = ViewBag.EmployeesByCode as IDictionary<string, List<CustomersEmployee>>;
-                                                            var countForThisOffice = 0;
-                                                            if (employeesByCode != null && employeesByCode.TryGetValue(office.LegalEntityCode, out var listForOffice))
-                                                            {
-                                                                countForThisOffice = listForOffice?.Count ?? 0;
-                                                            }
-                                                        }
-                                                        @countForThisOffice users assigned
                                                     </div>
-
                                                     <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
                                                 </div>
-
-                                                <div class="details row mt-3" style="display:flex;">
-                                                    <div class="col-md-3">
-                                                        <div class="map-bx"><img class="img-fluid" src="../assets/images/map-1.png" alt="map"></div>
-                                                    </div>
-                                                    <div class="col-md-9 address-section">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
+                                                <div style="display:flex; padding: 0 14px 6px;">
+                                                    <div class="map-bx"><img class="img-fluid" src="../assets/images/map-1.png" alt="map"></div>
+                                                    <div class="details mt-3" style="display:flex;">
+                                                        <div class="address-section">
+                                                            <div>
                                                                 <div class="office-info">
                                                                     <i class="fa fa-map-marker"></i>
                                                                     <div>
-                                                                        <p><strong>Address:</strong></p>
                                                                         <p>@office.AddressLine1 @office.AddressLine2 @office.PostalCode</p>
                                                                     </div>
                                                                 </div>
-                                                                <div class="office-info">
+                                                                @* <div class="office-info">
                                                                     <i class="fa fa-building" aria-hidden="true"></i>
                                                                     <div>
                                                                         <p><strong>Office entity name:</strong></p>
                                                                         <p class="captext" style="text-transform: capitalize;">@office.LegalEntityName</p>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-6">
+                                                                </div> *@
                                                                 <div class="office-info">
-                                                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
                                                                     <div>
-                                                                        <p><strong>Office contact:</strong></p>
-                                                                        <p class="captext" style="text-transform: capitalize;">@office.FirstName</p>
+                                                                        @* <p class="captext" style="text-transform: capitalize;">@office.FirstName</p> *@
                                                                         <p class="captext" style="text-transform: capitalize;">@office.BussinesEmail</p>
                                                                     </div>
                                                                 </div>
+
+                                                                <div class="office-info open-btn" data-legal="@office.LegalEntityCode">
+                                                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                                                    @* <p style="--tw-text-opacity: 1; color: rgba(4, 120, 87, var(--tw-text-opacity));">
+                                                                        @{
+                                                                            var employeesByCode = ViewBag.EmployeesByCode as IDictionary<string, List<CustomersEmployee>>;
+                                                                            var countForThisOffice = 0;
+                                                                            if (employeesByCode != null && employeesByCode.TryGetValue(office.LegalEntityCode, out var listForOffice))
+                                                                            {
+                                                                                countForThisOffice = listForOffice?.Count ?? 0;
+                                                                            }
+                                                                        }
+                                                                        @countForThisOffice users assigned
+                                                                    </p> *@
+
+
+                                                                    @{
+                                                                        var employeesByCode = ViewBag.EmployeesByCode as IDictionary<string, List<CustomersEmployee>>;
+                                                                        var countForThisOffice = 0;
+                                                                        if (employeesByCode != null && employeesByCode.TryGetValue(office.LegalEntityCode, out var listForOffice))
+                                                                        {
+                                                                            countForThisOffice = listForOffice?.Count ?? 0;
+                                                                        }
+                                                                        var color = countForThisOffice == 0 ? "#DC2626" : "#047857"; // red if 0, green otherwise
+                                                                    }
+                                                                    <p style="color:@color">
+                                                                        @countForThisOffice users assigned
+                                                                    </p>
+
+
+
+                                                                </div>
+
+
                                                                 <div class="office-info">
                                                                     <i class="fa fa-globe" aria-hidden="true"></i>
                                                                     <div>
-                                                                        <p><strong>Point of sale country:</strong><br>@office.Country</p>
+                                                                        <p><strong>Sales Region:</strong><span class="pl-1">@office.Country</span></p>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
-                                                    <div class="form-primary col-md-12 m-t-5 text-right office-footer">
-                                                        <button class="btn btn-danger waves-effect waves-light">Delete</button>
-                                                        <button class="btn btn-primary waves-effect waves-light"
-                                                                data-id="@office.Id"
-                                                                data-idlegal="@ViewBag.Id"
-                                                                data-legalentitycode="@office.LegalEntityCode"
-                                                                data-legalentitycodeparent="@ViewBag.LegalEntityCode"
-                                                                data-legalentityname="@ViewBag.LegalEntityName"
-                                                                data-toggle="modal"
-                                                                data-target="#updateOfficeModal">
-                                                            Edit
-                                                        </button>
-                                                    </div>
+                                                </div>
+                                                <div class="form-primary m-t-2 text-right office-footer">
+                                                    <button class="btn btn-outline waves-effect waves-light"
+                                                            data-id="@office.Id"
+                                                            data-idlegal="@ViewBag.Id"
+                                                            data-legalentitycode="@office.LegalEntityCode"
+                                                            data-legalentitycodeparent="@ViewBag.LegalEntityCode"
+                                                            data-legalentityname="@ViewBag.LegalEntityName"
+                                                            data-toggle="modal"
+                                                            data-target="#updateOfficeModal">
+                                                        Edit
+                                                    </button>
+                                                    <button class="btn btn-danger waves-effect waves-light">Delete</button>
                                                 </div>
                                             </div>
                                         }
+                                    </div>
+                                    <!-- Table view -->
+                                    <div id="tableWrap" class="hidden overflow-x-auto border rounded-xl">
+                                        <table class="min-w-full text-sm">
+                                            <thead class="bg-gray-50 text-gray-600">
+                                                <tr>
+                                                    <th class="font-medium px-4 py-3">Office</th>
+                                                    <th class="font-medium px-4 py-3">City</th>
+                                                    <th class="font-medium px-4 py-3">Contact</th>
+                                                    <th class="font-medium px-4 py-3">Users</th>
+                                                    <th class="font-medium px-4 py-3">Sales Region</th>
+                                                    <th class="px-4 py-3"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody" class="divide-y"></tbody>
+                                        </table>
                                     </div>
                                 </div>
 
@@ -319,7 +354,6 @@
                                     </ul>
                                 </div>
                                 <!-- users assigned end -->
-
                             </div>
                         </div>
                     </div>
@@ -725,4 +759,392 @@
             });
         });
     </script>
+
+
+
+    <!-- Start table and card sorting -->
+
+    <script>
+        // ============================================
+        // DATA PREPARATION FROM SERVER-SIDE MODEL
+        // ============================================
+
+        // Convert Razor Model to JavaScript array
+        const RAW_OFFICES = [
+        @foreach (var office in Model)
+        {
+            @:{
+            @:id: @office.Id,
+            @:legalEntityCode: "@office.LegalEntityCode",
+            @:legalEntityName: "@office.LegalEntityName",
+            @:city: "@office.City",
+            @:addressLine1: "@office.AddressLine1",
+            @:addressLine2: "@office.AddressLine2",
+            @:postalCode: "@office.PostalCode",
+            @:businessEmail: "@office.BussinesEmail",
+            @:country: "@office.Country",
+            @:isHeadOffice: @(office.Id == Model.FirstOrDefault()?.Id ? "true" : "false"),
+            @:users: @{
+                var employeesByCode = ViewBag.EmployeesByCode as IDictionary<string, List<CustomersEmployee>>;
+                var countForThisOffice = 0;
+                if (employeesByCode != null && employeesByCode.TryGetValue(office.LegalEntityCode, out var listForOffice))
+                {
+                    countForThisOffice = listForOffice?.Count ?? 0;
+                }
+                @countForThisOffice
+            }
+            @:}@(Model.IndexOf(office) < Model.Count - 1 ? "," : "")
+        }
+        ];
+
+        // Normalize data
+        const normalize = o => ({
+            ...o,
+            businessEmail: (o.businessEmail || "").toLowerCase(),
+            country: o.country || "—",
+            fullAddress: `${o.addressLine1} ${o.addressLine2} ${o.postalCode}`.trim()
+        });
+
+        let offices = RAW_OFFICES.map(normalize);
+        let view = "cards";
+        let q = "", country = "all", assignment = "all", sort = "name-asc";
+
+        // ============================================
+        // HELPER FUNCTIONS
+        // ============================================
+
+        const el = id => document.getElementById(id);
+
+        function smartCapitalize(text) {
+            if (!text) return '';
+            return text.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+        }
+
+        function typeClass(isHeadOffice) {
+            return isHeadOffice ? 'pill-head' : 'pill-branch';
+        }
+
+        function setCountries() {
+            const set = new Set(offices.map(o => o.country).filter(Boolean));
+            const select = el('country');
+            if (select) {
+                select.innerHTML = '<option value="all">All countries</option>' +
+                    Array.from(set).map(c => `<option value="${c}">${c}</option>`).join('');
+            }
+        }
+
+        // ============================================
+        // FILTERING & SORTING
+        // ============================================
+
+        function applyFilters() {
+            let list = [...offices];
+
+            // Search filter
+            if (q.trim()) {
+                const k = q.toLowerCase();
+                list = list.filter(o =>
+                    (o.legalEntityName || "").toLowerCase().includes(k) ||
+                    (o.city || "").toLowerCase().includes(k) ||
+                    (o.fullAddress || "").toLowerCase().includes(k) ||
+                    (o.businessEmail || "").toLowerCase().includes(k)
+                );
+            }
+
+            // Country filter
+            if (country !== "all") {
+                list = list.filter(o => o.country === country);
+            }
+
+            // Assignment filter
+            if (assignment === "assigned") {
+                list = list.filter(o => o.users > 0);
+            }
+            if (assignment === "unassigned") {
+                list = list.filter(o => o.users === 0);
+            }
+
+            // Sorting - Head office always first
+            list.sort((a, b) => {
+                // Head office always comes first
+                if (a.isHeadOffice && !b.isHeadOffice) return -1;
+                if (!a.isHeadOffice && b.isHeadOffice) return 1;
+
+                // Then apply other sorting
+                switch (sort) {
+                    case "name-asc":
+                        return (a.legalEntityName || "").localeCompare(b.legalEntityName || "");
+                    case "name-desc":
+                        return (b.legalEntityName || "").localeCompare(a.legalEntityName || "");
+                    case "users-desc":
+                        return b.users - a.users;
+                    case "users-asc":
+                        return a.users - b.users;
+                    default:
+                        return 0;
+                }
+            });
+
+            return list;
+        }
+
+        // ============================================
+        // RENDER FUNCTIONS
+        // ============================================
+
+        function render() {
+            const rows = applyFilters();
+            const countEl = el('count');
+            if (countEl) countEl.textContent = rows.length;
+
+            // ========== RENDER CARDS VIEW ==========
+            const cardsContainer = el('officeList');
+            if (cardsContainer) {
+                cardsContainer.innerHTML = rows.map((office, index) => `
+                    <div class="office-card" data-id="${office.id}">
+                        <div class="d-flex justify-content-between align-items-center office-header"
+                             style="border-bottom: #ddd 1px solid; padding-bottom: 10px; cursor: pointer;"
+                             onclick="toggleCard(this)">
+                            <div class="col-lg-9" style="padding-left:0;">
+                                <span class="captext company-name" style="text-transform: capitalize;">
+                                    ${smartCapitalize(office.legalEntityName)} —
+                                    <span class="tag tag-default">${office.city}</span>
+                                </span>
+                            </div>
+                            <div>
+                                ${office.isHeadOffice ? '<div class="pill pill-head">Head office</div>' : ''}
+                            </div>
+                            <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+                        </div>
+
+                        <div class="office-details" style="display:flex; padding: 0 14px 6px;">
+                            <div class="map-bx">
+                                <img class="img-fluid" src="../assets/images/map-1.png" alt="map">
+                            </div>
+                            <div class="details mt-3" style="display:flex; flex: 1;">
+                                <div class="address-section" style="flex: 1;">
+                                    <div>
+                                        <div class="office-info">
+                                            <i class="fa fa-map-marker"></i>
+                                            <div>
+                                                <p>${office.fullAddress}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="office-info">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                            <div>
+                                                <p class="captext" style="text-transform: capitalize;">
+                                                    ${office.businessEmail}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="office-info open-btn" data-legal="${office.legalEntityCode}">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                                 <p style="color: ${office.users === 0 ? '#DC2626' : '#047857'};">
+                                                         ${office.users} users assigned
+                                                </p>
+                                        </div>
+
+                                        <div class="office-info">
+                                            <i class="fa fa-globe" aria-hidden="true"></i>
+                                            <div>
+                                                <p><strong>Sales Region:</strong><span class="pl-1">${office.country}</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-primary m-t-2 text-right office-footer">
+                            <button class="btn btn-outline waves-effect waves-light"
+                                    data-id="${office.id}"
+                                    data-idlegal="@ViewBag.Id"
+                                    data-legalentitycode="${office.legalEntityCode}"
+                                    data-legalentitycodeparent="@ViewBag.LegalEntityCode"
+                                    data-legalentityname="@ViewBag.LegalEntityName"
+                                    data-toggle="modal"
+                                    data-target="#updateOfficeModal">
+                                Edit
+                            </button>
+                            <button class="btn btn-danger waves-effect waves-light"
+                                    onclick="deleteOffice(${office.id})">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // ========== RENDER TABLE VIEW ==========
+            const tbodyEl = el('tbody');
+            if (tbodyEl) {
+                tbodyEl.innerHTML = rows.map((office, index) => `
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3">
+                            <div class="font-medium text-gray-900">
+                                ${smartCapitalize(office.legalEntityName)}
+                            </div>
+                            <div class="text-xs text-gray-600 flex items-center gap-2">
+                                <span class="pill ${typeClass(office.isHeadOffice)}">
+                                    ${office.isHeadOffice ? 'Head Office' : 'Branch'}
+                                </span>
+                                <span>• ${office.fullAddress}</span>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3">${office.city}</td>
+                        <td class="px-4 py-3">${office.businessEmail}</td>
+                        <td class="px-4 py-3">
+                            ${office.users > 0
+                                ? `<span class="pill pill-head" style="background:#ECFDF5;color:#065F46">${office.users}</span>`
+                                : `<span class="pill pill-danger">0</span>`
+                            }
+                        </td>
+                        <td class="px-4 py-3">${office.country}</td>
+                        <td class="px-4 py-3 text-right">
+                            <div class="inline-flex gap-2">
+                                <button class="btn btn-outline"
+                                        data-id="${office.id}"
+                                        data-idlegal="@ViewBag.Id"
+                                        data-legalentitycode="${office.legalEntityCode}"
+                                        data-legalentitycodeparent="@ViewBag.LegalEntityCode"
+                                        data-legalentityname="@ViewBag.LegalEntityName"
+                                        data-toggle="modal"
+                                        data-target="#updateOfficeModal">
+                                    Edit
+                                </button>
+                                <button class="btn btn-danger" onclick="deleteOffice(${office.id})">
+                                    Delete
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // ============================================
+        // INTERACTION FUNCTIONS
+        // ============================================
+
+        function toggleCard(element) {
+            const card = $(element).closest('.office-card');
+            card.toggleClass('collapsed');
+
+            // Toggle details visibility
+            const details = card.find('.office-details, .office-footer');
+            details.slideToggle(300);
+        }
+
+        function deleteOffice(id) {
+            if (confirm('Are you sure you want to delete this office?')) {
+                // Remove from local array
+                offices = offices.filter(o => o.id !== id);
+                render();
+
+                // Optional: Send delete request to server
+                $.ajax({
+                    url: '@Url.Action("DeleteOffice", "OrganizationStructure")',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function(response) {
+                        if (response.success) {
+                            showAlert('Office deleted successfully', 'success');
+                        } else {
+                            showAlert('Failed to delete office', 'danger');
+                        }
+                    },
+                    error: function() {
+                        showAlert('Error deleting office', 'danger');
+                    }
+                });
+            }
+        }
+
+        function showAlert(message, type) {
+            const alertHtml = `
+                <div class="alert alert-${type}">
+                    <strong></strong> ${message}
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                </div>
+            `;
+            $('.page-body').prepend(alertHtml);
+            setTimeout(() => $('.alert').fadeOut(), 5000);
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+
+        // Search functionality
+        $("#searchInput").on("keyup", function () {
+            q = $(this).val().trim();
+            render();
+        });
+
+        // Country filter (if you have a country dropdown)
+        $(document).on('change', '#country', function() {
+            country = $(this).val();
+            render();
+        });
+
+        // Assignment filter (if you have assignment dropdown)
+        $(document).on('change', '#assignment', function() {
+            assignment = $(this).val();
+            render();
+        });
+
+        // Sort filter (if you have sort dropdown)
+        $(document).on('change', '#sort', function() {
+            sort = $(this).val();
+            render();
+        });
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+
+        $(document).ready(function () {
+            // Set initial view - show cards, hide table
+            $('#officeList').show();
+            $('#tableWrap').hide();
+
+            // View toggle - Cards button
+            $('#btnCards').on('click', function () {
+                $(this).addClass('btn-active').removeClass('btn-outline');
+                $('#btnTable').removeClass('btn-active').addClass('btn-outline');
+
+                // Toggle sections within .card-block
+                $('#officeList').show();
+                $('#tableWrap').hide();
+            });
+
+            // View toggle - Table button
+            $('#btnTable').on('click', function () {
+                $(this).addClass('btn-active').removeClass('btn-outline');
+                $('#btnCards').removeClass('btn-active').addClass('btn-outline');
+
+                // Toggle sections within .card-block
+                $('#tableWrap').show();
+                $('#officeList').hide();
+            });
+
+            // Initialize countries dropdown if exists
+            setCountries();
+
+            // Initial render
+            render();
+
+            // Apply smart capitalization to existing elements
+            document.querySelectorAll(".captext").forEach(el => {
+                el.textContent = smartCapitalize(el.textContent);
+            });
+        });
+
+    </script>
+
+    <!-- End table and card sorting -->
+
 </footer>

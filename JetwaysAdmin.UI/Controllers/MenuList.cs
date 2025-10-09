@@ -19,8 +19,6 @@ namespace JetwaysAdmin.UI.Controllers
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(_MenuItem);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-
-
                 // Make the POST request
                 HttpResponseMessage response = await client.GetAsync(AppUrlConstant.getmenu);
 
