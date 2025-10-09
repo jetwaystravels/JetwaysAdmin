@@ -6,8 +6,8 @@ namespace JetwaysAdmin.UI.Controllers
     {
         public async Task<IActionResult> ShowIATAGroup()
         {
-           
-            return View();
+
+            return View("IATAview");
         }
     }
 }

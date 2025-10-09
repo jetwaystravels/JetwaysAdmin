@@ -99,7 +99,7 @@
                                         </div>
 
                                         <div class="col-md-2">
-                                            <div class="card text-center order-visitor-card" id="IATAId">
+                                            <div class="card text-center order-visitor-card" id="IATAgroup">
                                                 <div class="card-block">
                                                     <h6 class="m-b-0">Jetways IATA Groups</h6>
                                                     <h3 class="m-t-15 m-b-15">
@@ -111,7 +111,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <div  class="card text-center order-visitor-card">
+                                            <div class="card text-center order-visitor-card" id="IATACommissions">
                                                 <div class="card-block">
                                                     <h6 class="m-b-0">IATA Commissions</h6>
                                                     <h5 class="m-t-15 m-b-15"><i class="fa fa-arrow-up m-r-15 text-c-green"></i>1</h5>
@@ -294,7 +294,14 @@
                 e.preventDefault();
                 window.location.href = '@Url.Action("ShowManageSuppliers", "ManageSuppliers")';
             });
-            $("#IATAId").click(function (e) {
+
+            $("#IATAgroup").click(function (e) {
+            e.preventDefault();
+            window.location.href = '@Url.Action("ShowIATAGroup", "IATAGroup")';
+            });
+
+            
+             $("#IATACommissions").click(function (e) {
                 e.preventDefault();
                 window.location.href = '@Url.Action("ShowIATACommissions", "IATACommissions")';
             });
