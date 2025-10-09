@@ -193,9 +193,15 @@
                                             <label class="float-label">Designation Name<span>*</span></label>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
-                                            <input type="text" name="DesignationCode" class="form-control" required>
+                                            <input type="text" name="DesignationCode" class="form-control"  maxlength="6"
+                                                   minlength="6"
+                                                   required
+                                                   oninput="validateDepartmentCode(this)">
                                             <span class="form-bar"></span>
-                                            <label class="float-label">Designation Code</label>
+                                            <label class="float-label">Designation Code<span>*</span></label>
+                                            <span id="desiCodeError" style="color: red; display: none; font-size: 13px;">
+                                                Department code must be exactly 6 alphanumeric characters.
+                                            </span>
                                         </div>
                                         <div class="form-group form-primary col-md-3">
                                             <input type="text" name="Reference-1" class="form-control">
@@ -295,4 +301,18 @@
             $('#AddDepartment').show();
         });
     });
+</script>
+<script>
+    function validateDepartmentCode(input) {
+        const errorSpan = document.getElementById("desiCodeError");
+        input.value = input.value.replace(/[^A-Za-z0-9]/g, '');
+        if (input.value.length > 6) {
+            input.value = input.value.slice(0, 6);
+        }
+        if (input.value.length !== 6) {
+            errorSpan.style.display = "inline";
+        } else {
+            errorSpan.style.display = "none";
+        }
+    }
 </script>

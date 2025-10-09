@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Add New Group – Jetways</title>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <style>
+        :root {
+            --bg: #f7f8fb;
+            --panel: #fff;
+            --text: #0f172a;
+            --muted: #6b7280;
+            --line: #e5e7eb;
+            --primary: #2563eb
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 14px/1.4 Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 28px auto;
+            padding: 0 20px
+        }
+
+        .breadcrumb {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 10px
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            border: 1px solid var(--line);
+            background: #fff;
+            margin-right: 8px;
+            text-decoration: none;
+            color: inherit
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(15,23,42,.04);
+            padding: 14px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 22px
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+            .field label {
+                font: 12px/1 Inter,sans-serif;
+                color: var(--muted)
+            }
+
+            .field input, .field select {
+                height: 36px;
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                padding: 0 10px;
+                background: #fff
+            }
+
+        .actions {
+            padding: 18px 0;
+            display: flex;
+            gap: 10px
+        }
+
+        .btn {
+            height: 36px;
+            padding: 0 14px;
+            border-radius: 9px;
+            border: 1px solid var(--line);
+            background: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: inline-flex;
+            align-items: center
+        }
+
+            .btn.primary {
+                background: var(--primary);
+                border-color: var(--primary);
+                color: #fff
+            }
+        @@media (max-width:1000px) {
+            .grid
+
+        {
+            grid-template-columns: repeat(2,1fr)
+        }
+
+        }
+        @@media (max-width:640px) {
+            .grid
+
+        {
+            grid-template-columns: 1fr
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="breadcrumb">Settings / IATA Groups</div>
+        <h2>
+            <a asp-controller="IATAGroup"
+               asp-action="ShowIATAGroup"
+               class="back" title="Back">←</a>
+            Add New Group
+        </h2>
+
+        <div class="panel">
+            <!-- Static HTML form (no backend). Replace action with your endpoint if needed -->
+            <form action="#" method="post" onsubmit="alert('Submit to your endpoint'); return false;">
+                <div class="grid">
+                    <div class="field"><label>Group Name*</label><input required /></div>
+                    <div class="field"><label>IATA Code</label><input /></div>
+                    <div class="field"><label>Group Code</label><input /></div>
+                    <div class="field"><label>Parent Company*</label><input value="Jetways Travels [JET001]" required /></div>
+
+                    <div class="field"><label>Address Line 1</label><input /></div>
+                    <div class="field"><label>Address Line 2</label><input /></div>
+                    <div class="field"><label>City*</label><input required /></div>
+                    <div class="field"><label>Postal Code</label><input /></div>
+
+                    <div class="field">
+                        <label>Country*</label>
+                        <select required>
+                            <option value="">Select</option>
+                            <option>India</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>State*</label>
+                        <select required>
+                            <option value="">Select</option>
+                            <option>Delhi</option>
+                            <option>Maharashtra</option>
+                            <option>Haryana</option>
+                        </select>
+                    </div>
+
+                    <div class="field"><label>Phone Number*</label><input required /></div>
+                    <div class="field"><label>Booking Reference Prefix Value*</label><input required /></div>
+
+                    <div class="field"><label>Group Email*</label><input type="email" required /></div>
+                    <div class="field"><label>Group Website</label><input type="url" /></div>
+                    <div class="field">
+                        <label>Payment Option*</label>
+                        <select required>
+                            <option>Cash</option>
+                            <option>Credit</option>
+                        </select>
+                    </div>
+                    <div class="field"><label>Invoice Prefix Value</label><input /></div>
+
+                    <div class="field"><label>Credit Note Prefix Value</label><input /></div>
+                    <div class="field">
+                        <label>Select GDS & PCC for Passive PNR</label>
+                        <select><option>—</option></select>
+                    </div>
+                    <div class="field">
+                        <label>Select Default Visa Team</label>
+                        <select><option>—</option></select>
+                    </div>
+                    <div class="field"><label>ARN Number</label><input /></div>
+
+                    <div class="field"><label>Validity Period</label><input /></div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn primary" type="submit">Add New</button>
+                    <a class="btn" href="./iata-groups.html">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

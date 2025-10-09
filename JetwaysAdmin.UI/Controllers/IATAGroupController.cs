@@ -9,5 +9,11 @@ namespace JetwaysAdmin.UI.Controllers
 
             return View("IATAview");
         }
+
+        public async Task<IActionResult> AddIATAGroup()
+        {
+
+            return View("AddIATAGroup");
+        }
     }
 }
