@@ -25,7 +25,8 @@ body {
     color: #303336;
     font-family: 'Nunito Sans', sans-serif !important;
     background-attachment: fixed;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.2) 180px, rgba(255, 255, 255, 0.9) 0%);
+    /*background-image: linear-gradient(rgba(255, 255, 255, 0.2) 180px, rgba(255, 255, 255, 0.9) 0%);   */
+    background: #f8f9fb;
 }
 
 .light-gray {
@@ -180,8 +181,8 @@ code {
 .switch {
     position: relative;
     display: inline-block;
-    width: 61px;
-    height: 28px;
+    width: 54px;
+    height: 27px;
     margin-top: 1px;
 }
 
@@ -212,7 +213,7 @@ code {
         content: "";
         height: 24px;
         width: 24px;
-        left: 4px;
+        left: 2px;
         bottom: 2px;
         background-color: white;
         -webkit-transition: .4s;
@@ -600,7 +601,9 @@ input:checked + .slider:before {
     display: flex;
 }
 
-#CustomersDtl h6{font-size:14px;}
+#CustomersDtl h6 {
+    font-size: 14px;
+}
 
 #CustomersDtl .card {
     transition: all 0.3s ease;
@@ -875,25 +878,34 @@ input:checked + .slider:before {
         margin-left: 17px;
         cursor: pointer;
         font-size: 19px;
-        margin-top: 8px;
         margin-right: 7px;
     }
 
-    .card .card-block.sup-bx p {
-        line-height: 1.7;
-        font-weight: 600;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-bottom: 0;
-    }
 
-    .card .card-block.sup-bx .bdr {
-        border-bottom: #eee 1px solid;
-        padding-bottom: 11px;
-        margin-bottom: 11px;
-        cursor: pointer;
-    }
+#CustomersDtl .card .card-block .dot-icon {
+    margin-left: 17px;
+    cursor: pointer;
+    font-size: 19px;
+    margin-top: 8px;
+    margin-right: 7px;
+}
+
+
+.card .card-block.sup-bx p {
+    line-height: 1.7;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+}
+
+.card .card-block.sup-bx .bdr {
+    border-bottom: #eee 1px solid;
+    padding-bottom: 11px;
+    margin-bottom: 11px;
+    cursor: pointer;
+}
 
 .default-content .card .card-block.sup-bx {
     cursor: pointer;
@@ -1412,6 +1424,7 @@ textarea:focus {
         position: absolute;
         top: 0;
         left: 21px;
+        border-bottom: #18191b26 1px dotted;
     }
 
     .page-header .page-block {
@@ -3880,7 +3893,9 @@ img.comment-img {
     }
 
 .pcoded .mCSB_scrollTools {
-    width: 10px;
+    /*width: 10px;*/
+    width: 5px;
+    margin-right: -10px;
 }
 
     .pcoded .mCSB_scrollTools .mCSB_draggerRail {
@@ -6825,8 +6840,8 @@ table tbody .border-bottom-info td {
 .pcoded .pcoded-container {
     position: relative;
     background: #f3f3f3;
-    -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
-    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    /*-webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);*/
 }
 
 .pcoded .pcoded-header {
@@ -6844,6 +6859,7 @@ table tbody .border-bottom-info td {
     position: relative;
     background: #f8f9fb;
     /*min-height: calc(100vh - 56px);*/
+    margin-top: 63px;
 }
 
 .pcoded .pcoded-content {
@@ -7712,9 +7728,9 @@ table tbody .border-bottom-info td {
     transition: opacity 0.3s linear;
 }
 
-body[themebg-pattern="theme1"] {
+/*body[themebg-pattern="theme1"] {
     background-color: #0e93d8;
-}
+}*/
 
 .pcoded .pcoded-navbar .pcoded-header[header-theme="theme1"] {
     color: #fff;
