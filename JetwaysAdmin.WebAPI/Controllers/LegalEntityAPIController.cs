@@ -73,6 +73,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
                 return NotFound();
             }
             //legalEntityupdate.LegalEntityCode = legalEntity.LegalEntityCode;
+            legalEntityupdate.OfficeType = legalEntity.OfficeType ?? legalEntityupdate.OfficeType;
             legalEntityupdate.LegalEntityName = legalEntity.LegalEntityName ?? legalEntityupdate.LegalEntityName;
             legalEntityupdate.LegalEntityCode = legalEntity.LegalEntityCode ?? legalEntityupdate.LegalEntityCode;
             legalEntityupdate.FinancialType = legalEntity.FinancialType ?? legalEntityupdate.FinancialType;

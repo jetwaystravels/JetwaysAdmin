@@ -8,8 +8,8 @@ namespace JetwaysAdmin.Entity
     public class LegalEntity
     {
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public string? OfficeType { get; set; }
         public string? LegalEntityName { get; set; }
         public string? LegalEntityCode { get; set; }
         public string? FinancialType { get; set; }
