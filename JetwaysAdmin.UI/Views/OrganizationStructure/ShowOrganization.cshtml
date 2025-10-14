@@ -226,12 +226,9 @@
                                                         <span class="captext company-name" style="text-transform: capitalize;">@office.LegalEntityName — <span class="tag tag-default">@office.City</span></span>
                                                     </div>
                                                     <div>
-                                                        @if (isFirst)
-                                                        {
-                                                            <div class="pill pill-head">Head office</div>
-                                                            isFirst = false;
-                                                        }
-                                                        <div class="pill pill-head"> @office.OfficeType</div>
+                                                        <div class="pill pill-head">
+                                                            @(string.IsNullOrWhiteSpace(office.OfficeType) ? "Head Office" : office.OfficeType)
+                                                        </div>
                                                     </div>
                                                     <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
                                                 </div>
@@ -783,6 +780,7 @@
             @:postalCode: "@office.PostalCode",
             @:businessEmail: "@office.BussinesEmail",
             @:country: "@office.Country",
+            @:officetype: "@office.OfficeType",
             @:isHeadOffice: @(office.Id == Model.FirstOrDefault()?.Id ? "true" : "false"),
             @:users: @{
                 var employeesByCode = ViewBag.EmployeesByCode as IDictionary<string, List<CustomersEmployee>>;
@@ -898,99 +896,95 @@
             if (countEl) countEl.textContent = rows.length;
 
             // ========== RENDER CARDS VIEW ==========
-            const cardsContainer = el('officeList');
-            if (cardsContainer) {
-                cardsContainer.innerHTML = rows.map((office, index) => `
-                    <div class="office-card" data-id="${office.id}">
-                        <div class="d-flex justify-content-between align-items-center office-header"
-                             style="border-bottom: #ddd 1px solid; padding-bottom: 10px; cursor: pointer;"
-                             onclick="toggleCard(this)">
-                            <div class="col-lg-9" style="padding-left:0;">
-                                <span class="captext company-name" style="text-transform: capitalize;">
-                                    ${smartCapitalize(office.legalEntityName)} —
-                                    <span class="tag tag-default">${office.city}</span>
-                                </span>
-                            </div>
-                            <div>
-                                ${office.isHeadOffice ? '<div class="pill pill-head">Head office</div>' : ''}
-                            </div>
-                            <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
-                        </div>
+            // const cardsContainer = el('officeList');
+            // if (cardsContainer) {
+            //     cardsContainer.innerHTML = rows.map((office, index) => `
+            //         <div class="office-card" data-id="${office.id}">
+            //             <div class="d-flex justify-content-between align-items-center office-header"
+            //                  style="border-bottom: #ddd 1px solid; padding-bottom: 10px; cursor: pointer;"
+            //                  onclick="toggleCard(this)">
+            //                 <div class="col-lg-9" style="padding-left:0;">
+            //                     <span class="captext company-name" style="text-transform: capitalize;">
+            //                         ${smartCapitalize(office.legalEntityName)} —
+            //                         <span class="tag tag-default">${office.city}</span>
+            //                     </span>
+            //                 </div>
+                        
+            //                 <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+            //             </div>
 
-                        <div class="office-details" style="display:flex; padding: 0 14px 6px;">
-                            <div class="map-bx">
-                                <img class="img-fluid" src="../assets/images/map-1.png" alt="map">
-                            </div>
-                            <div class="details mt-3" style="display:flex; flex: 1;">
-                                <div class="address-section" style="flex: 1;">
-                                    <div>
-                                        <div class="office-info">
-                                            <i class="fa fa-map-marker"></i>
-                                            <div>
-                                                <p>${office.fullAddress}</p>
-                                            </div>
-                                        </div>
+            //             <div class="office-details" style="display:flex; padding: 0 14px 6px;">
+            //                 <div class="map-bx">
+            //                     <img class="img-fluid" src="../assets/images/map-1.png" alt="map">
+            //                 </div>
+            //                 <div class="details mt-3" style="display:flex; flex: 1;">
+            //                     <div class="address-section" style="flex: 1;">
+            //                         <div>
+            //                             <div class="office-info">
+            //                                 <i class="fa fa-map-marker"></i>
+            //                                 <div>
+            //                                     <p>${office.fullAddress}</p>
+            //                                 </div>
+            //                             </div>
 
-                                        <div class="office-info">
-                                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                                            <div>
-                                                <p class="captext" style="text-transform: capitalize;">
-                                                    ${office.businessEmail}
-                                                </p>
-                                            </div>
-                                        </div>
+            //                             <div class="office-info">
+            //                                 <i class="fa fa-envelope" aria-hidden="true"></i>
+            //                                 <div>
+            //                                     <p class="captext" style="text-transform: capitalize;">
+            //                                         ${office.businessEmail}
+            //                                     </p>
+            //                                 </div>
+            //                             </div>
 
-                                        <div class="office-info open-btn" data-legal="${office.legalEntityCode}">
-                                            <i class="fa fa-user" aria-hidden="true"></i>
-                                                 <p style="color: ${office.users === 0 ? '#DC2626' : '#047857'};">
-                                                         ${office.users} users assigned
-                                                </p>
-                                        </div>
+            //                             <div class="office-info open-btn" data-legal="${office.legalEntityCode}">
+            //                                 <i class="fa fa-user" aria-hidden="true"></i>
+            //                                      <p style="color: ${office.users === 0 ? '#DC2626' : '#047857'};">
+            //                                              ${office.users} users assigned
+            //                                     </p>
+            //                             </div>
 
-                                        <div class="office-info">
-                                            <i class="fa fa-globe" aria-hidden="true"></i>
-                                            <div>
-                                                <p><strong>Sales Region:</strong><span class="pl-1">${office.country}</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            //                             <div class="office-info">
+            //                                 <i class="fa fa-globe" aria-hidden="true"></i>
+            //                                 <div>
+            //                                     <p><strong>Sales Region:</strong><span class="pl-1">${office.country}</span></p>
+            //                                 </div>
+            //                             </div>
+            //                         </div>
+            //                     </div>
+            //                 </div>
+            //             </div>
 
-                        <div class="form-primary m-t-2 text-right office-footer">
-                            <button class="btn btn-outline waves-effect waves-light"
-                                    data-id="${office.id}"
-                                    data-idlegal="@ViewBag.Id"
-                                    data-legalentitycode="${office.legalEntityCode}"
-                                    data-legalentitycodeparent="@ViewBag.LegalEntityCode"
-                                    data-legalentityname="@ViewBag.LegalEntityName"
-                                    data-toggle="modal"
-                                    data-target="#updateOfficeModal">
-                                Edit
-                            </button>
-                            <button class="btn btn-danger waves-effect waves-light"
-                                    onclick="deleteOffice(${office.id})">
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
-            }
+            //             <div class="form-primary m-t-2 text-right office-footer">
+            //                 <button class="btn btn-outline waves-effect waves-light"
+            //                         data-id="${office.id}"
+            //                         data-idlegal="@ViewBag.Id"
+            //                         data-legalentitycode="${office.legalEntityCode}"
+            //                         data-legalentitycodeparent="@ViewBag.LegalEntityCode"
+            //                         data-legalentityname="@ViewBag.LegalEntityName"
+            //                         data-toggle="modal"
+            //                         data-target="#updateOfficeModal">
+            //                     Edit
+            //                 </button>
+            //                 <button class="btn btn-danger waves-effect waves-light"
+            //                         onclick="deleteOffice(${office.id})">
+            //                     Delete
+            //                 </button>
+            //             </div>
+            //         </div>
+            //     `).join('');
+            // }
 
             // ========== RENDER TABLE VIEW ==========
             const tbodyEl = el('tbody');
             if (tbodyEl) {
+               
                 tbodyEl.innerHTML = rows.map((office, index) => `
                     <tr class="hover:bg-gray-50">
                         <td class="px-4 py-3">
                             <div class="font-medium text-gray-900">
                                 ${smartCapitalize(office.legalEntityName)}
                             </div>
-                            <div class="text-xs text-gray-600 flex items-center gap-2">
-                                <span class="pill ${typeClass(office.isHeadOffice)}">
-                                    ${office.isHeadOffice ? 'Head Office' : 'Branch'}
-                                </span>
+                               <div class="text-xs text-gray-600 flex items-center gap-2"><span class="pill pill-head">• ${office?.officetype?.trim() || 'Head Office'}</span>
                                 <span>• ${office.fullAddress}</span>
                             </div>
                         </td>
@@ -1142,6 +1136,28 @@
                 el.textContent = smartCapitalize(el.textContent);
             });
         });
+
+
+                // Run this after the rows are injected
+               document.querySelectorAll('.pill.pill-head').forEach(el => {
+          const text = (el.textContent || '')
+            .replace(/^•\s*/, '')     // remove the bullet
+            .trim()
+            .toLowerCase();
+
+          // reset possible variants
+          el.classList.remove('pill-head', 'pill-branch', 'pill-regional');
+
+          if (['branch', 'branch office'].includes(text)) {
+            el.classList.add('pill-branch');      // Branch color
+          } else if (['regional', 'regional office', 'reginol', 'reginol office'].includes(text)) {
+            el.classList.add('pill-regional');    // Regional color
+          } else {
+            el.classList.add('pill-head');        // Head Office / default
+          }
+        });
+
+
 
     </script>
 
