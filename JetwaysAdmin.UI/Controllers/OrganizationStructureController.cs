@@ -538,7 +538,7 @@ namespace JetwaysAdmin.UI.Controllers
                             else
                             {
                                 TempData["UploadFile"] = "Data inserted successfully.";
-                                return RedirectToAction("ShowOrganization", new { LegalEntityCode = ParentLegalEntityCode, LegalEntityName = ParentLegalEntityName });
+                                
                             }
                         }
                     }
