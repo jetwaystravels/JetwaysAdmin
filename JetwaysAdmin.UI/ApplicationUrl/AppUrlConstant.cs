@@ -19,6 +19,8 @@
         public static string getcustomercount = BaseURL + "api/Customer/count";
 
         public static string AddLegalEntity = BaseURL + "api/LegalEntityAPI/AddLegalEntity";
+
+        public static string AddLegalEntityDB = BaseURL + "api/LegalEntityDBAPI/AddLegalEntityDB";
        
         public static string GetLegalEntity = BaseURL + "api/LegalEntityAPI/GetAllLegalEntity";
 

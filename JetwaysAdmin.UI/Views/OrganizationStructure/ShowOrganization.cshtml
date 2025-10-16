@@ -175,7 +175,13 @@
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
                             }
-
+                            @if (TempData["UploadFile"] != null)
+                            {
+                                <div class="alert alert-success">
+                                    <strong></strong> @TempData["UploadFile"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            }
                             <div class="card">
                                 <div class="card-block">
                                     <div class="d-flex justify-content-between m-b-10 top-lable">
@@ -206,8 +212,13 @@
                                                 <div class="dot-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-h" aria-hidden="true" style="vertical-align: bottom;"></i></div>
                                                 <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                                     <a class="dropdown-item" href="#">Update default office</a>
-                                                    <a class="dropdown-item" href="#">Upload offices</a>
-                                                    <a class="dropdown-item" href="#">Download office list</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);" onclick="document.getElementById('officeUpload').click();">
+                                                        Upload offices
+                                                    </a>
+                                                    <input type="file" id="officeUpload" accept=".xlsx,.xls" style="display:none" />
+                                                    <a class="dropdown-item" href="javascript:void(0);" id="downloadOfficeBtn">
+                                                        Download office list
+                                                    </a>
                                                     <a class="dropdown-item" href="#">Assign users</a>
                                                 </div>
                                             </div>
@@ -424,7 +435,7 @@
     <script src="~/assets/js/custom/countrycurrency.js"></script>
     <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         $('.langOpt').each(function () {
             var placeholderText = $(this).data('placeholder') || 'Select option';
@@ -1156,11 +1167,70 @@
             el.classList.add('pill-head');        // Head Office / default
           }
         });
-
-
-
+    </script>
+    <!-- End table and card sorting -->
+    <script>
+        document.getElementById('downloadOfficeBtn').addEventListener('click', function () {
+            const officeCards = document.querySelectorAll('#officeList .office-card');
+            const officeData = [];
+            officeCards.forEach(card => {
+                const name = card.querySelector('.company-name')?.innerText.trim() || '';
+                const email = card.querySelector('.fa-envelope + div p')?.innerText.trim() || '';
+                const users = card.querySelector('.fa-user + p')?.innerText.trim() || '';
+                const country = card.querySelector('.fa-globe + div span')?.innerText.trim() || '';
+                let countrydata = country;
+                if (country === "1") {
+                    countrydata = "INDIA";
+                }
+                const address = card.querySelector('.fa-map-marker + div p')?.innerText.trim() || '';
+                officeData.push({
+                    'Legal Entity Name': name,
+                    'Business Email': email,
+                    'Users Assigned': users,
+                    'Country': countrydata,
+                    'Address': address
+                });
+            });
+            if (officeData.length === 0) {
+                alert('No office data found to export.');
+                return;
+            }
+            const ws = XLSX.utils.json_to_sheet(officeData);
+            ws['!cols'] = Object.keys(officeData[0]).map(key => ({
+                wch: Math.max(
+                    key.length,
+                    ...officeData.map(r => (r[key] ? r[key].toString().length : 0))
+                ) + 3
+            }));
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Office List');
+            XLSX.writeFile(wb, 'OfficeList.xlsx');
+        });
     </script>
 
-    <!-- End table and card sorting -->
+    <script>
+        document.getElementById('officeUpload').addEventListener('change', async function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('ParentLegalEntityCode', '@ViewBag.LegalEntityCode');
+            formData.append('ParentLegalEntityName', '@ViewBag.LegalEntityName');
+            formData.append('IdLegal', '@ViewBag.Id');
+
+            try {
+                const response = await fetch('/OrganizationStructure/UploadOffices', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error(`Server returned ${response.status}`);
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                //alert('An error occurred while uploading the file.');
+            }
+        });
+    </script>
 
 </footer>

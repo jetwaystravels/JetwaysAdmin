@@ -30,8 +30,8 @@
                 <input type="hidden" name="Id" class="form-control" value="@firstEntity?.Id">
                 <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
                 <div class="form-group form-primary col-md-6">
-                    <select name="OfficeType" id="officeType" class="form-control fill">
-                        <option value="">Please Select</option>
+                    <select name="OfficeType" id="officeType" class="form-control fill" required>
+                        <option value="@firstEntity.OfficeType">@firstEntity.OfficeType</option>
                         <option value="BR">Branch Office</option>
                         <option value="RA">Regional Office</option>
                     </select>

@@ -17,7 +17,8 @@
                 <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
 
                 <div class="form-group form-primary col-md-6">
-                    <select name="OfficeType" id="officeType" class="form-control fill">
+                    <select name="OfficeType" id="officeType" class="form-control fill" required>
+                        <option value="">Select Office Type</option>
                         <option value="BR">Branch Office</option>
                         <option value="RA">Regional Office</option>
                     </select>

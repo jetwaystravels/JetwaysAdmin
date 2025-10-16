@@ -50,7 +50,7 @@ namespace JetwaysAdmin.Repositories
         public DbSet<SupplierDto> SupplierDtos { get; set; }
         public DbSet<CustomerDealCodes> CustomerDealCodes { get; set; }
         public DbSet<CustomersEmployeedto> CustomersEmployeedto { get; set; }
-        
+        public DbSet<LegalEntityDB> Admin_tb_LegalEntityDB { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
