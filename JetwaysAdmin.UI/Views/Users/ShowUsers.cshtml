@@ -352,7 +352,10 @@
                                                 <div class="dropdown-primary dropdown open">
                                                     <button class="btn btn-primary sml-b dropdown-toggle" type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Bulk</button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                                        <a class="dropdown-item waves-light waves-effect" href="#">Upload</a>
+                                                        <a class="dropdown-item waves-light waves-effect" href="javascript:void(0);" onclick="document.getElementById('userExcelUpload').click();">
+                                                            Upload
+                                                        </a>
+                                                        <input type="file" id="userExcelUpload" accept=".xlsx,.xls" style="display:none;" />
                                                         <a class="dropdown-item waves-light waves-effect" href="#">Update</a>
                                                     </div>
                                                 </div>
@@ -492,6 +495,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  
     <script>
         $(function(){ $(".select").select2(); });
         $(function(){
@@ -674,4 +679,73 @@
         }
 
     </script>
+    <script>
+        document.getElementById('userExcelUpload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (evt) {
+                const data = new Uint8Array(evt.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                const rows = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+                if (rows.length === 0) {
+                    alert('No data found in Excel.');
+                    return;
+                }
+                const legalEntityCode = '@ViewBag.LegalEntityCode';
+                const legalEntityName = '@ViewBag.LegalEntityName';
+                let successCount = 0;
+                let failCount = 0;
+
+                rows.forEach((row, index) => {
+                    const formData = new FormData();
+                    formData.append("LegalEntityCodeParent", legalEntityCode);
+                    formData.append("LegalEntityNameParent", legalEntityName);
+                    formData.append("LegalEntityCode", legalEntityCode);
+                    formData.append("LegalEntityName", legalEntityName);
+                    formData.append("EmployeeID", row["EmployeeID"]);
+                    formData.append("Title", row["Title"]);
+                    formData.append("FirstName", row["FirstName"]);
+                    formData.append("LastName", row["LastName"]);
+                    formData.append("BusinessEmail", row["BusinessEmail"]);
+                    formData.append("MobileCountryCode", row["MobileCountryCode"]);
+                    formData.append("MobileNumber", row["MobileNumber"]);
+                    formData.append("Nationality", row["Nationality"]);
+                    formData.append("WorkLocation", row["WorkLocation"]);
+                    formData.append("UserType", row["UserType"]);
+                    formData.append("Department", row["Department"]);
+                    formData.append("Designation", row["Designation"]);
+                    formData.append("Bands", row["Bands"]);
+                    formData.append("ReportingManager", row["ReportingManager"]);
+                    formData.append("Password", row["Password"]);
+
+                    fetch('/Users/AddUsers', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(res => res.ok ? res.json() : Promise.reject(res))
+                        .then(data => {
+                            if (data.success) successCount++;
+                            else failCount++;
+                            if (successCount + failCount === rows.length) {
+                                alert(`${successCount} users added,${failCount} failed`);
+                                if (successCount > 0) location.reload();
+                            }
+                        })
+                        .catch(err => {
+                            console.error(`Row ${index + 2} failed`, err);
+                            failCount++;
+                            if (successCount + failCount === rows.length) {
+                                alert(`${successCount} users added, ${failCount} failed`);
+                            }
+                        });
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        });
+    </script>
+
+
 </footer>
