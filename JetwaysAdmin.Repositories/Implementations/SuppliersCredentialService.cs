@@ -72,23 +72,18 @@ namespace JetwaysAdmin.Repositories.Implementations
                sd.SupplierId == sc.SupplierId && sd.AppStatus == true))
              .ToListAsync();
 
-           // var dc = _context.tb_SuppliersDealCode.Where(d => d.AssociatedFareTypes == "Corporate" && d.SupplierId == 1).ToList();
+            // var dc = _context.tb_SuppliersDealCode.Where(d => d.AssociatedFareTypes == "Corporate" && d.SupplierId == 1).ToList();
 
-            foreach (var supplier in suppliersCredentials1)
+            foreach (var supplier in suppliersCredentials1.Where(s => s.Status == 1))
             {
-                if (supplier.Status == 1)
-                {
-                    string dcodename = string.Empty;
-                    if (_context.tb_SuppliersDealCode.Where(d => d.AssociatedFareTypes == flightclass && d.SupplierId == supplier.SupplierId) != null)
-                    {
-                        // Get the deal code name for the supplier
-                         dcodename = _context.tb_SuppliersDealCode.Where(d => d.AssociatedFareTypes == flightclass && d.SupplierId == supplier.SupplierId).FirstOrDefault().DealCodeName;
-                       // supplier.DealCodeName = dcodename;
-                    }
+                var dcodename = _context.tb_SuppliersDealCode
+                    .Where(d => d.AssociatedFareTypes == flightclass
+                             && d.SupplierId == supplier.SupplierId)
+                    .Select(d => d.DealCodeName)
+                    .FirstOrDefault(); // null if none
 
-                    supplier.DealCodeName = dcodename;
-                    suppliersCredentials.Add(supplier);
-                }
+                supplier.DealCodeName = dcodename ?? string.Empty; // no throw
+                suppliersCredentials.Add(supplier);
             }
             //charan end
             return suppliersCredentials;
