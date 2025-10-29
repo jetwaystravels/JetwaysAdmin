@@ -161,7 +161,7 @@
                                            
                                         }
                                         <div class="form-group form-primary col-md-3">
-                                            <input class="form-control date-main" type="text" autocomplete="off" value="@DOBUser.Value.ToString("yyyy-MM-dd")" name="DateOfBirth" placeholder="Date of Birth" required>
+                                            <input class="form-control date-main" type="text" autocomplete="off" value="@(DOBUser.HasValue ? DOBUser.Value.ToString("yyyy-MM-dd") : "")" name="DateOfBirth" placeholder="Date of Birth" required>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Date of Birth<span>*</span></label>
                                         </div>

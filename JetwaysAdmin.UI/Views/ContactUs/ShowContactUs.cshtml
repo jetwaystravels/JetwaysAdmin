@@ -175,26 +175,41 @@
         checkPlaceholder();
 
         // Ajax call value send 
-       
             $(document).ready(function () {
                 $('.contactus').on('click', function () {
-                    debugger;
-                    const useHtml = $('input[name="editorType"]:checked').val() === 'html';
-                    const htmlContent = $('#editorArea').html();
-                    if ($('#editorArea').text().trim() === '' || $('#editorArea').text().trim() === 'Type a custom message here...') {
-                        alert("Please enter a value");
+                const useHtml = $('input[name="editorType"]:checked').val() === 'html';
+                const htmlContent = $('#editorArea').html();
+                const urlValue = $('#urlInput').val().trim();
+
+                if (useHtml) {
+                    const editorText = $('#editorArea').text().trim();
+                    if (editorText === '' || editorText === 'Type a custom message here...') {
+                        alert("Please enter a message in the editor.");
                         return false;
                     }
-                    const urlValue = $('#urlInput').val();
-                    const legalEntityCode = $('input[name="LegalEntityCode"]').val();
-                    const legalEntityName = $('input[name="legalEntityName"]').val();
-                    const userId = $('input[name="UserID"]').val();
-                    const dataToSend = {
+                } else {
+                    if (urlValue === '') {
+                        alert("Please enter a valid URL.");
+                        $('#urlInput').focus();
+                        return false;
+                    }
+                    
+                    const urlRegex = /^(https?:\/\/)?([\w\-]+\.)+[a-z]{2,6}([\/\w\-.?%&=]*)?$/i;
+                    if (!urlRegex.test(urlValue)) {
+                        alert("Please enter a valid URL format");
+                        $('#urlInput').focus();
+                        return false;
+                    }
+                }
+                // Collect other values
+                const legalEntityCode = $('input[name="LegalEntityCode"]').val();
+                const legalEntityName = $('input[name="legalEntityName"]').val();
+                const userId = $('input[name="UserID"]').val();
+                const dataToSend = {
                         UseHtml: useHtml,
                         HtmlContent: useHtml ? htmlContent : null,
                         Url: useHtml ? null : urlValue
                     };
-
                     $.ajax({
                     url: '/ContactUs/AddContactUs?LegalEntityCode=' + encodeURIComponent(legalEntityCode) +
                         '&LegalEntityName=' + encodeURIComponent(legalEntityName) +
@@ -204,6 +219,10 @@
                         data: JSON.stringify(dataToSend),
                         success: function (response) {
                             alert('Contact Us info saved successfully!');
+                        const editor = document.getElementById('editorArea');
+                        if (editor) {
+                            editor.innerHTML = ''; 
+                        }
                         },
                         error: function (xhr, status, error) {
                             alert('Error saving data: ' + error);
@@ -211,8 +230,6 @@
                     });
                 });
             });
-   
-
     </script>
 </footer>
 

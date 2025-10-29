@@ -87,7 +87,7 @@
 
                             <div class="card">
                                 <div class="card-block">
-                                    <form class="form-material form-row" id="addinternaluser" enctype="multipart/form-data" method="post" asp-controller="Users" asp-action="AddUsers" style="display:none;">
+                                    <form class="form-material form-row" id="addinternaluser" enctype="multipart/form-data" method="post" asp-controller="Users" asp-action="AddUsers" style="display:none;" onsubmit="return validateForm(event)">
                                         <input type="hidden" name="LegalEntityCodeParent" value="@ViewBag.LegalEntityCode" class="form-control">
                                         <input type="hidden" name="LegalEntityNameParent" value="@ViewBag.LegalEntityName" class="form-control">
                                         <input type="hidden" id="txtLegalEntityCode" name="LegalEntityCode" class="form-control">
@@ -278,7 +278,7 @@
                                             <span style="font-size:11px;font-weight:700;">Upload logo allowed formats: .JPG / .PNG, Maximum file size: 1mb, Resolution 200px x 90px</span>
                                         </div>
                                         <div class="form-group form-primary col-md-12">
-                                            <button class="btn btn-primary waves-effect waves-light" type="submit">Add New</button>
+                                            <button class="btn btn-primary waves-effect waves-light" onclick="validateForm()" type="submit">Add New</button>
                                             <button type="reset" class="btn btn-danger waves-effect waves-light">Cancel</button>
                                         </div>
                                     </form>
@@ -622,7 +622,90 @@
     });
 
     </script>
+
     <script>
+        function validateForm(e) {
+            const nameRegex = /^[A-Za-z]+$/;
+            const firstNameEl = document.getElementById("FirstName");
+            const firstNameErr = document.getElementById("FirstNameError");
+            const firstName = firstNameEl.value.trim();
+
+            firstNameErr.textContent = "";
+            firstNameEl.setCustomValidity(""); 
+
+            if (firstName.length === 0) {
+                firstNameErr.textContent = "First Name is required.";
+                firstNameEl.setCustomValidity("First Name is required.");
+                firstNameEl.reportValidity();   
+                firstNameEl.focus();
+                if (e) e.preventDefault();
+                return false;
+            }
+            if (!nameRegex.test(firstName)) {
+                firstNameErr.textContent = "Only alphabets are allowed.";
+                firstNameEl.setCustomValidity("Only alphabets are allowed.");
+                firstNameEl.reportValidity();
+                firstNameEl.focus();
+                if (e) e.preventDefault();
+                return false;
+            }
+            const lastNameEl = document.getElementById("LastName");
+            const lastNameErr = document.getElementById("LastNameError");
+            const lastName = lastNameEl.value.trim();
+
+            lastNameErr.textContent = "";
+            lastNameEl.setCustomValidity("");
+
+            if (lastName.length === 0) {
+                lastNameErr.textContent = "Last Name is required.";
+                lastNameEl.setCustomValidity("Last Name is required.");
+                lastNameEl.reportValidity();
+                lastNameEl.focus();
+                if (e) e.preventDefault();
+                return false;
+            }
+            if (!nameRegex.test(lastName)) {
+                lastNameErr.textContent = "Only alphabets are allowed.";
+                lastNameEl.setCustomValidity("Only alphabets are allowed.");
+                lastNameEl.reportValidity();
+                lastNameEl.focus();
+                if (e) e.preventDefault();
+                return false;
+            }
+
+             
+            const emailEl = document.getElementById("BusinessEmail");
+            const emailErr = document.getElementById("BusinessEmailError");
+            const email = emailEl.value.trim();
+            const emailRegex = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+            emailErr.textContent = "";
+            emailEl.setCustomValidity("");
+
+            if (email.length === 0) {
+                emailErr.textContent = "Business Email is required.";
+                emailEl.setCustomValidity("Business Email is required.");
+                emailEl.reportValidity();
+                emailEl.focus();
+                if (e) e.preventDefault();
+                return false;
+            }
+            if (!emailRegex.test(email)) {
+                emailErr.textContent = "Invalid email format.";
+                emailEl.setCustomValidity("Invalid email format.");
+                emailEl.reportValidity();
+                emailEl.focus();
+                if (e) e.preventDefault();
+                return false;
+            }
+
+    
+            firstNameEl.setCustomValidity("");
+            lastNameEl.setCustomValidity("");
+            emailEl.setCustomValidity("");
+            return true;
+        }
+
         function validateMobile() {
             const mobile = document.getElementById("MobileNumber").value.trim();
             const error = document.getElementById("MobileError");
@@ -636,7 +719,7 @@
                 error.textContent = "";
             }
         }
-
+        
         function validateFirstName() {
             const firstName = document.getElementById("FirstName").value.trim();
             const error = document.getElementById("FirstNameError");
