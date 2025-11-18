@@ -71,6 +71,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
                     user.FirstName,
                     user.LastName,
                     user.BusinessEmail,
+                    user.MobileNumber,
                     user.UserType
                 });
             }

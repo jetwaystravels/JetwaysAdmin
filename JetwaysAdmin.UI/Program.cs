@@ -2,13 +2,16 @@
 using JetwaysAdmin.Repositories.Implementations;
 using JetwaysAdmin.Repositories.Interface;
 using JetwaysAdmin.UI.Controllers.CustomeFilter;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+// MVC
 builder.Services.AddControllersWithViews();
 
+// Session
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -17,29 +20,26 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+// Filters / DI
 builder.Services.AddScoped<LogActionFilter>();
-//For globally use
-builder.Services.AddControllersWithViews();
 
+// ==== Entra ID (Azure AD) Authentication ====
+builder.Services
+    .AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options =>
-            {
-                options.ExpireTimeSpan = TimeSpan.FromHours(10);
-                options.LoginPath = "/Login/UserLogin";
-                //o.Cookie.Name = options.CookieName;
-                //o.Cookie.Domain = options.CookieDomain;
-                //o.SlidingExpiration = true;
-                //o.ExpireTimeSpan = options.CookieLifetime;
-                //o.TicketDataFormat = ticketFormat;
-                //o.CookieManager = new CustomChunkingCookieManager();
-            });
+builder.Services.AddAuthorization(options =>
+{
+    // Example: protect by an Entra group (Object ID of the group)
+    // Add the group claim in Azure Portal -> App registrations -> Token configuration -> "Add groups claim".
+    options.AddPolicy("HRGroupOnly", p =>
+        p.RequireClaim("groups", "YOUR_AAD_GROUP_OBJECT_ID"));
+});
 
-builder.Services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
-builder.Services.AddSession();
+// Optional: adds default UI endpoints like /MicrosoftIdentity/Account/SignIn
+builder.Services.AddRazorPages().AddMicrosoftIdentityUI();
 
 var app = builder.Build();
-
 
 if (!app.Environment.IsDevelopment())
 {
@@ -52,9 +52,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-
-app.UseSession(); 
-
+app.UseSession();          // session before auth is fine; also OK after auth
+app.UseAuthentication();   // <<< REQUIRED for Entra sign-in
 app.UseAuthorization();
 
 app.MapControllerRoute(

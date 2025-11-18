@@ -178,9 +178,11 @@
                                             <label class="float-label">User Type<span>*</span></label>
                                         </div>
                                         <div class="form-group form-primary col-md-4">
-                                            <input type="text" name="EmployeeID" class="form-control" required>
+                                            <input type="text" maxlength="6" name="EmployeeID" class="form-control" id="EmployeeID"  required
+                                                   oninput="validateEmployeeID()" />
                                             <span class="form-bar"></span>
                                             <label class="float-label">Employee ID<span>*</span></label>
+                                            <span id="EmployeeError" style="color: red; font-size: 12px;"></span>
                                         </div>
                                         <div class="form-group form-primary col-md-4">
                                             <input type="text" name="DateOfBirth" class="form-control date-main" required>
@@ -353,10 +355,15 @@
                                                     <button class="btn btn-primary sml-b dropdown-toggle" type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Bulk</button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                                         <a class="dropdown-item waves-light waves-effect" href="javascript:void(0);" onclick="document.getElementById('userExcelUpload').click();">
-                                                            Upload
+                                                            Upload User
                                                         </a>
                                                         <input type="file" id="userExcelUpload" accept=".xlsx,.xls" style="display:none;" />
-                                                        <a class="dropdown-item waves-light waves-effect" href="#">Update</a>
+                                                       @*  <a class="dropdown-item waves-light waves-effect" href="#">Update</a> *@
+                                                        <a class="dropdown-item waves-light waves-effect"
+                                                           href="/files/UserDetail.xlsx"
+                                                           download>
+                                                           Download sample sheet(User)
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="dropdown-primary dropdown open">
@@ -622,7 +629,23 @@
     });
 
     </script>
+    <script>
+        function validateEmployeeID() {
+            debugger;
+            const input = document.getElementById("EmployeeID");
+            const errorSpan = document.getElementById("EmployeeError");
+            const value = input.value.trim();
+            const regex = /^[a-zA-Z0-9]+$/; 
 
+            if (value === "") {
+                errorSpan.textContent = "Employee ID is required.";
+            } else if (!regex.test(value)) {
+                errorSpan.textContent = "Employee ID can only contain letters and numbers.";
+            } else {
+                errorSpan.textContent = ""; 
+            }
+        }
+    </script>
     <script>
         function validateForm(e) {
             const nameRegex = /^[A-Za-z]+$/;
@@ -699,6 +722,31 @@
                 return false;
             }
 
+            const alphanumericRegex = /^[A-Za-z0-9]+$/; 
+            // ===== Employee ID Validation =====
+            const empIdEl = document.getElementById("EmployeeID");
+            const empIdErr = document.getElementById("EmployeeError");
+            const empId = empIdEl.value.trim();
+
+            empIdErr.textContent = "";
+            empIdEl.setCustomValidity("");
+
+            if (empId.length === 0) {
+                empIdErr.textContent = "Employee ID is required.";
+                empIdEl.setCustomValidity("Employee ID is required.");
+                empIdEl.reportValidity();
+                empIdEl.focus();
+                if (e) e.preventDefault();
+                return false;
+            }
+            if (!alphanumericRegex.test(empId)) {
+                empIdErr.textContent = "Employee ID can only contain letters and numbers.";
+                empIdEl.setCustomValidity("Employee ID can only contain letters and numbers.");
+                empIdEl.reportValidity();
+                empIdEl.focus();
+                if (e) e.preventDefault();
+                return false;
+            }
     
             firstNameEl.setCustomValidity("");
             lastNameEl.setCustomValidity("");
