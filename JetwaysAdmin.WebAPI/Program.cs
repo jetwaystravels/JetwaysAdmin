@@ -50,6 +50,7 @@ builder.Services.AddScoped<ISuppliersCredential<SuppliersCredential>, SuppliersC
 builder.Services.AddScoped<IDealCode<DealCode>, DealCodeService>();
 builder.Services.AddScoped<ICustomerDepartment<CustomerDepartmentData>, CustomerDepartmentService>();
 builder.Services.AddScoped<ICustomerDesignation<CustomerDesignation>, CustomerDesignationService>();
+builder.Services.AddScoped<IMenuRightsRepository, MenuRightsService>();
 
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()

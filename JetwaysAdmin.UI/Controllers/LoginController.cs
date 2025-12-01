@@ -10,11 +10,19 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using JetwaysAdmin.Repositories.Interface;
+using JetwaysAdmin.UI.Models;
+using Microsoft.Extensions.Options;
 
 namespace JetwaysAdmin.UI.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly AccessControlSettings _settings;
+        public LoginController(IOptions<AccessControlSettings> settings)
+        {
+            _settings = settings.Value;
+        }
+
         [HttpGet]
         public IActionResult UserLogin()
         {
@@ -52,7 +60,18 @@ namespace JetwaysAdmin.UI.Controllers
 
                 var userId = (jsonResult["id"] ?? jsonResult["userId"] ?? jsonResult["admin_id"])?.ToString() ?? "";
                 var name = (jsonResult["name"] ?? jsonResult["fullName"] ?? jsonResult["username"])?.ToString() ?? username;
+                string userType;
 
+                if (name.Equals("SuperAdmin"))
+                {
+                    userType = name;
+                }
+                else
+                {
+                    userType = name;
+                }
+              
+                
                 // Build claims
                 var claims = new List<Claim>
                 {
@@ -60,7 +79,7 @@ namespace JetwaysAdmin.UI.Controllers
                     new Claim(ClaimTypes.Name, name),
                     new Claim(ClaimTypes.Email, username),
                     // If the API returns a role/type, replace this with that value:
-                    new Claim("UserType", "Admin")
+                    new Claim("UserType", userType)
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -84,6 +103,13 @@ namespace JetwaysAdmin.UI.Controllers
         public async Task<IActionResult> Dashboard()
         {
             var dashboard = new Dashboard();
+            var email = User.Identity.Name;
+
+            bool canAccessRole = _settings.AccessRoleUsers != null &&
+                                 _settings.AccessRoleUsers
+                                     .Any(u => u.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+            ViewBag.CanAccessRole = canAccessRole;
 
             using (HttpClient client = new HttpClient())
             {

@@ -98,6 +98,7 @@
         public static string GetCustomerDesignation = BaseURL + "api/CustomerDesignationAPI/GetAllCustomerDesignation";
         public static string AddCustomerDesignation = BaseURL + "api/CustomerDesignationAPI/AddCustomerDesignation";
         public static string updatestatus = BaseURL + "api/CustomersEmployeeAPI/updatestatus";
+        public static string Menuright = BaseURL + "api/MenuRights/Menurightssave";
 
         #endregion
 

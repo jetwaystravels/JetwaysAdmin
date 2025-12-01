@@ -52,6 +52,9 @@ namespace JetwaysAdmin.Repositories
         public DbSet<CustomersEmployeedto> CustomersEmployeedto { get; set; }
         public DbSet<LegalEntityDB> Admin_tb_LegalEntityDB { get; set; }
 
+        public DbSet<Tb_MenuRight> MenuRights { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomerDetails>().HasNoKey(); // No primary key because it's a model
@@ -61,8 +64,11 @@ namespace JetwaysAdmin.Repositories
             modelBuilder.Entity<BookingConsultantDto>().HasNoKey();
             modelBuilder.Entity<CustomerDealCodes>().HasNoKey();
             modelBuilder.Entity<SupplierDto>().HasNoKey();
+            modelBuilder.Entity<Tb_MenuRight>()
+           .ToTable("Tb_MenuRights")
+           .HasKey(x => x.Id);
             //modelBuilder.Entity<CustomersEmployee>().HasNoKey();
-             modelBuilder.Entity<CustomersEmployee>()
+            modelBuilder.Entity<CustomersEmployee>()
             .ToTable("tb_CustomersEmployee")   // maps to your SQL table
             .HasKey(c => c.UserID);
             modelBuilder.Entity<CustomerDealCodes>()
@@ -74,6 +80,7 @@ namespace JetwaysAdmin.Repositories
            .HasForeignKey(m => m.ParentId)          // FK in Menu table
            .OnDelete(DeleteBehavior.Cascade);
            base.OnModelCreating(modelBuilder);
+
         }
 
 

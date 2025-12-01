@@ -2,6 +2,7 @@
 using JetwaysAdmin.Repositories.Implementations;
 using JetwaysAdmin.Repositories.Interface;
 using JetwaysAdmin.UI.Controllers.CustomeFilter;
+using JetwaysAdmin.UI.Models;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
@@ -38,8 +39,10 @@ builder.Services.AddAuthorization(options =>
 
 // Optional: adds default UI endpoints like /MicrosoftIdentity/Account/SignIn
 builder.Services.AddRazorPages().AddMicrosoftIdentityUI();
-
+builder.Services.Configure<AccessControlSettings>(
+    builder.Configuration.GetSection("AccessControl"));
 var app = builder.Build();
+
 
 if (!app.Environment.IsDevelopment())
 {

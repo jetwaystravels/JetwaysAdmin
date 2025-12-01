@@ -1,8 +1,19 @@
-﻿@model JetwaysAdmin.UI.ViewModel.Dashboard
-
+﻿@using System.Security.Claims
+@model JetwaysAdmin.UI.ViewModel.Dashboard
 @{
     Layout = "~/Views/Shared/Admin.cshtml";
     var Data = Model;
+   
+    // var email = User.Identity.Name;
+
+    // bool canAccessRole =
+    //     email.Equals("Ashok.KK@jetwaystravels.com", StringComparison.OrdinalIgnoreCase) ||
+    //     email.Equals("vinay.ks@jetwaystravels.com", StringComparison.OrdinalIgnoreCase);
+   
+    bool canAccessRole = ViewBag.CanAccessRole ?? false;
+
+
+   
 }
 
 <main id="main" class="main">
@@ -162,14 +173,28 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="card text-center order-visitor-card">
-                                                <div class="card-block">
-                                                    <h6 class="m-b-0">Access Role</h6>
-                                                    <p class="m-b-0">Manage role base access</p>
+                                        @if (canAccessRole)
+                                        {
+                                            <div class="col-md-2">
+                                                <div class="card text-center order-visitor-card" id="accessRoleCard" style="cursor:pointer;">
+                                                    <div class="card-block">
+                                                        <h6 class="m-b-0">Access Role</h6>
+                                                        <p class="m-b-0">Manage role base access</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-2">
+                                                <div class="card text-center order-visitor-card" style="opacity:0.4; cursor:not-allowed;">
+                                                    <div class="card-block">
+                                                        <h6 class="m-b-0">Access Role</h6>
+                                                        <p class="m-b-0">Only SuperAdmin can access</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
                                         <div class="col-md-2">
                                             <div class="card text-center order-visitor-card">
                                                 <div class="card-block">
@@ -305,6 +330,11 @@
                 e.preventDefault();
                 window.location.href = '@Url.Action("ShowIATACommissions", "IATACommissions")';
             });
+
+            $("#accessRoleCard").click(function (e) {
+            e.preventDefault();
+            window.location.href = '@Url.Action("UserAccess", "AccessRole")';
+        });
 
         });
     </script>
