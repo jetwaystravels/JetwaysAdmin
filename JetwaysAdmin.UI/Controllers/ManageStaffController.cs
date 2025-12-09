@@ -11,7 +11,7 @@ namespace JetwaysAdmin.UI.Controllers
     public class ManageStaffController : Controller
     {
 
-        [ServiceFilter(typeof(LogActionFilter))]
+        //[ServiceFilter(typeof(LogActionFilter))]
         public async Task<IActionResult> ShowManageStaff(int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;
@@ -68,7 +68,7 @@ namespace JetwaysAdmin.UI.Controllers
 
 
         [HttpPost]
-        [ServiceFilter(typeof(LogActionFilter))]
+        //[ServiceFilter(typeof(LogActionFilter))]
         public async Task<IActionResult> ManageStaff([FromForm] CustomerManageStaff customermanagestaff, int IdLegal, string LegalEntityCode, string LegalEntityName)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;

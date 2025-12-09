@@ -234,16 +234,17 @@ function addUSer(evt) {
     if (corp && corp.value.trim() !== '') {
         validateCorpCode(corp);
         if (corp.classList.contains('is-invalid')) return stopAt(corp);
-    } var fn = document.getElementById('fName');
-    if (fn) {
-        nameValidate(fn);
-        if (fn.classList.contains('is-invalid')) return stopAt(fn);
     }
-    var ln = document.getElementById('lName');
-    if (ln) {
-        nameValidate(ln);
-        if (ln.classList.contains('is-invalid')) return stopAt(ln);
-    }
+    //var fn = document.getElementById('fName');
+    //if (fn) {
+    //    nameValidate(fn);
+    //    if (fn.classList.contains('is-invalid')) return stopAt(fn);
+    //}
+    //var ln = document.getElementById('lName');
+    //if (ln) {
+    //    nameValidate(ln);
+    //    if (ln.classList.contains('is-invalid')) return stopAt(ln);
+    //}
  var bEmail = document.getElementById('businessEmailInput');
     if (bEmail && bEmail.value.trim() !== '') {
         validateBusinessEmail(bEmail);

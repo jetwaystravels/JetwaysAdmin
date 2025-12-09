@@ -33,6 +33,15 @@
                                     </div>
                                 </div>
                                 <ul class="pcoded-item pcoded-left-item">
+                                    @await Component.InvokeAsync("SidebarMenu", new
+                                        {
+                                            Id = ViewBag.Id,
+                                            LegalEntityId = ViewBag.LegalEntityId,
+                                            LegalEntityName = ViewBag.LegalEntityName,
+                                            LegalEntityCode = ViewBag.LegalEntityCode,
+                                            EUserid = ViewBag.EUserid
+                                        })
+                                 @*
                                     <!-- ORGANIZATION -->
                                     <li class="pcoded-hasmenu active pcoded-trigger">
                                         <a href="javascript:void(0)" class="waves-effect waves-dark">
@@ -218,8 +227,8 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </li>
-                                </ul>
+                                    </li>*@
+                                </ul> 
                             </div>
                         </nav>
                         <div class="pcoded-content">

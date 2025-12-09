@@ -526,7 +526,7 @@ namespace JetwaysAdmin.UI.Controllers
 
                         using (HttpClient client = new HttpClient())
                         {
-                            var response = await client.PostAsJsonAsync(AppUrlConstant.AddLegalEntityDB, legalEntity);
+                            var response = await client.PostAsJsonAsync(AppUrlConstant.AddLegalEntity, legalEntity);
                             if (!response.IsSuccessStatusCode)
                             {
                                 return Json(new

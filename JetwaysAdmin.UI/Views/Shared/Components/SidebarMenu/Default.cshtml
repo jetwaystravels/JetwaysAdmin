@@ -1,8 +1,17 @@
-﻿@model List<JetwaysAdmin.UI.ViewModel.MenuHeaddata>
+﻿@* old model kept for reference
+   @model List<JetwaysAdmin.UI.ViewModel.MenuHeaddata> *@
+@model List<JetwaysAdmin.Entity.MenuViewModel>
 
 @{
     var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
     var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+    // Route values (coming from ViewBag or passed via ViewComponent)
+    var idLegal = ViewBag.Id;
+    var legalEntityId = ViewBag.LegalEntityId;
+    var legalEntityName = ViewBag.LegalEntityName;
+    var legalEntityCode = ViewBag.LegalEntityCode;
+    var eUserId = ViewBag.EUserid;
 }
 
 <ul class="pcoded-item pcoded-left-item">
@@ -10,18 +19,34 @@
     {
         if (menuHead.IsActive)
         {
+            var trimmedTitle = menuHead.Title?.Trim() ?? string.Empty;
+
+            //find if any submenu matches current controller/action
             var anySubMenuActive = menuHead.SubMenus != null &&
-                menuHead.SubMenus.Any(sm =>
-                    sm.IsActive &&
-                    sm.Url?.Equals(currentController, StringComparison.OrdinalIgnoreCase) == true &&
-                    sm.Action?.Equals(currentAction, StringComparison.OrdinalIgnoreCase) == true);
+            menuHead.SubMenus.Any(sm =>
+            sm.IsActive &&
+            sm.Url?.Equals(currentController, StringComparison.OrdinalIgnoreCase) == true &&
+            sm.Action?.Equals(currentAction, StringComparison.OrdinalIgnoreCase) == true);
 
             var liClass = "pcoded-hasmenu" + (anySubMenuActive ? " pcoded-trigger active" : "");
 
+            // choose icon by top-level title (optional)
+            var topIcon = "fa fa-circle";
+            if (trimmedTitle.Equals("Organization", StringComparison.OrdinalIgnoreCase))
+                topIcon = "fa fa-building";
+            else if (trimmedTitle.Equals("User", StringComparison.OrdinalIgnoreCase))
+                topIcon = "fa fa-user";
+            else if (trimmedTitle.Equals("Policies & Workflow", StringComparison.OrdinalIgnoreCase))
+                topIcon = "fa fa-file-text";
+            else if (trimmedTitle.Equals("Jetways Corporate MGMT", StringComparison.OrdinalIgnoreCase))
+                topIcon = "fa fa-briefcase";
+
             <li class="@liClass">
                 <a href="javascript:void(0)" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>BC</b></span>
-                    <span class="pcoded-mtext">@menuHead.Title?.Trim()</span>
+                    <span class="pcoded-micon">
+                        <i class="@topIcon" aria-hidden="true"></i>
+                    </span>
+                    <span class="pcoded-mtext">@trimmedTitle</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
 
@@ -30,17 +55,39 @@
                     <ul class="pcoded-submenu" style="@(anySubMenuActive ? "display: block;" : "")">
                         @foreach (var subMenu in menuHead.SubMenus.Where(sm => sm.IsActive))
                         {
-                            var isActive = subMenu.Url?.Equals(currentController, StringComparison.OrdinalIgnoreCase) == true &&
-                                           subMenu.Action?.Equals(currentAction, StringComparison.OrdinalIgnoreCase) == true;
+                            var isActive =
+                            subMenu.Url?.Equals(currentController, StringComparison.OrdinalIgnoreCase) == true &&
+                            subMenu.Action?.Equals(currentAction, StringComparison.OrdinalIgnoreCase) == true;
 
                             <li class="@(isActive ? "active" : "")">
-                                <a asp-controller="@subMenu.Url"
-                                   asp-action="@subMenu.Action"
-                                   class="waves-effect waves-dark @(isActive ? "active" : "")">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext">@subMenu.Name</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
+                                @* Special routing for USER menu vs others *@
+                                @if (trimmedTitle.Equals("User", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a asp-controller="@subMenu.Url"
+                                       asp-action="@subMenu.Action"
+                                       asp-route-UserID="@eUserId"
+                                       asp-route-legalEntityId="@legalEntityId"
+                                       asp-route-legalEntityName="@legalEntityName"
+                                       asp-route-legalEntityCode="@legalEntityCode"
+                                       class="waves-effect waves-dark @(isActive ? "active" : "")">
+                                        <span class="pcoded-micon"><i class="fa fa-user"></i></span>
+                                        <span class="pcoded-mtext">@subMenu.Name</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="@subMenu.Url"
+                                       asp-action="@subMenu.Action"
+                                       asp-route-IdLegal="@idLegal"
+                                       asp-route-LegalEntityName="@legalEntityName"
+                                       asp-route-LegalEntityCode="@legalEntityCode"
+                                       class="waves-effect waves-dark @(isActive ? "active" : "")">
+                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                        <span class="pcoded-mtext">@subMenu.Name</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                }
                             </li>
                         }
                     </ul>
