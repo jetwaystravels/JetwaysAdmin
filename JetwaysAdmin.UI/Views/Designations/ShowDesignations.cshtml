@@ -2,7 +2,7 @@
 @model JetwaysAdmin.UI.ViewModel.MenuHeaddata
 
 @{
-    Layout = "~/Views/Shared/OfficeLegalentity.cshtml";
+    Layout = "~/Views/Shared/_MasterData.cshtml";
     var Data = Model;
 }
 
@@ -172,9 +172,9 @@
                             <div class="card">
                                 <div class="card-block">
                                     <form asp-controller="Designations" asp-action="AddDesignation" class="form-material form-row" method="post">
-                                        <input type="hidden" name="LegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
+                                      @*   <input type="hidden" name="LegalEntityCode" class="form-control" value="@ViewBag.LegalEntityCode">
                                         <input type="hidden" name="LegalEntityName" class="form-control" value="@ViewBag.LegalEntityName">
-                                        <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id">
+                                        <input type="hidden" name="IdLegal" class="form-control" value="@ViewBag.Id"> *@
                                         <div class="form-group form-primary col-md-3">
                                             <select name="DepartmentCode" class="select" required>
                                                 <option value="">Please Select Department</option>

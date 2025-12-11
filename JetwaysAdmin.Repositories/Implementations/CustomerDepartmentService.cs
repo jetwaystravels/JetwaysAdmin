@@ -17,13 +17,18 @@ namespace JetwaysAdmin.Repositories.Implementations
         {
             _context = context;
         }
-        public async Task<IEnumerable<CustomerDepartmentData>> GetAllCustomerDepartment(string legalEntityCode)
+        //public async Task<IEnumerable<CustomerDepartmentData>> GetAllCustomerDepartment(string legalEntityCode)
+        //{
+        //    return await _context.tb_CustomerDepartment.Where(emp => emp.LegalEntityCode == legalEntityCode)
+        //        .ToListAsync();
+
+        //}
+        public async Task<IEnumerable<CustomerDepartmentData>> GetAllCustomerDepartment()
         {
-            return await _context.tb_CustomerDepartment.Where(emp => emp.LegalEntityCode == legalEntityCode)
-                .ToListAsync();
+            return await _context.tb_CustomerDepartment.ToListAsync();
 
         }
-       
+
         public async Task AddCustomerDepartment(CustomerDepartmentData department)
         {
             await _context.tb_CustomerDepartment.AddAsync(department);

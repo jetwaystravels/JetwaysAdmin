@@ -18,6 +18,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             List<State> state = new List<State>();
             List<CustomerDesignation> customerDesignation = new List<CustomerDesignation>();
             List<CustomerDepartmentData> customerdepartment = new List<CustomerDepartmentData>();
+            List<CustomerBand> customerBands = new List<CustomerBand>();
             using (HttpClient client = new HttpClient())
             {
                 List<LegalEntity> legalEntities = new List<LegalEntity>();
@@ -51,19 +52,30 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     var stateresult = await stateresponse.Content.ReadAsStringAsync();
                     state = JsonConvert.DeserializeObject<List<State>>(stateresult);
                 }
-                string requestUrl = $"{AppUrlConstant.GetCustomerDesignation}?LegalEntityCode={legalEntityCode}";
+               // string requestUrl = $"{AppUrlConstant.GetCustomerDesignation}?LegalEntityCode={legalEntityCode}";
+                string requestUrl = $"{AppUrlConstant.GetCustomerDesignation}";
                 var deaprtmentresponse = await client.GetAsync(requestUrl);
                 if (deaprtmentresponse.IsSuccessStatusCode)
                 {
                     var result = await deaprtmentresponse.Content.ReadAsStringAsync();
                     customerDesignation = JsonConvert.DeserializeObject<List<CustomerDesignation>>(result);
                 }
-                string RequestUrl = $"{AppUrlConstant.GetCustomerDepartment}?LegalEntityCode={legalEntityCode}";
+                //string RequestUrl = $"{AppUrlConstant.GetCustomerDepartment}?LegalEntityCode={legalEntityCode}";
+                string RequestUrl = $"{AppUrlConstant.GetCustomerDepartment}";
                 var Deaprtmentresponse = await client.GetAsync(RequestUrl);
                 if (Deaprtmentresponse.IsSuccessStatusCode)
                 {
                     var result = await Deaprtmentresponse.Content.ReadAsStringAsync();
                     customerdepartment = JsonConvert.DeserializeObject<List<CustomerDepartmentData>>(result);
+                }
+                string RrrequestUrl = AppUrlConstant.CustomerBand;
+                var Rrresponse = await client.GetAsync(RrrequestUrl);
+
+                if (Rrresponse.IsSuccessStatusCode)
+                {
+                    var RRresult = await Rrresponse.Content.ReadAsStringAsync();
+                    customerBands = JsonConvert.DeserializeObject<List<CustomerBand>>(RRresult);
+                  
                 }
             }
             //var filteredUsers = customerdetail
@@ -75,7 +87,9 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 customersemployee = customerdetail,
                 Statedata = state,
                 Customerdesignation = customerDesignation,
-                Customerdepartment = customerdepartment
+                Customerdepartment = customerdepartment,
+                Customerbands = customerBands
+
             };
             ViewBag.LegalEntityId = legalEntityId;
             ViewBag.LegalEntityName = legalEntityName;

@@ -2,7 +2,7 @@
 @model JetwaysAdmin.UI.ViewModel.MenuHeaddata
 
 @{
-    Layout = "~/Views/Shared/OfficeLegalentity.cshtml";
+    Layout = "~/Views/Shared/_MasterData.cshtml";
     var Data = Model;
 }
 <main id="main" class="main">
@@ -41,7 +41,7 @@
                         <div class="page-body">
                             @if (TempData["DepartmentAdd"] != null)
                             {
-                                <div class="alert alert-success" style="width:28%; background-color:#11c15b;;color:#fff">
+                                <div class="alert alert-success" style="width:28%; background-color:#11c15b;color:#fff">
                                     <strong></strong> @TempData["DepartmentAdd"]
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 </div>
@@ -76,10 +76,10 @@
                                                             <th><button class="srt-btn" type="button" aria-label="commercials-name">Status</button></th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="departmentTableBody">
                                                         @foreach (var item in Model.Customerdepartment)
                                                         {
-                                                        <tr>
+                                                            <tr class="department-row" data-deptid="@item.DepartmentID">
                                                             <td>@item.DepartmentName</td>
                                                             <td>@item.DepartmentCode</td>
                                                             <td>NA</td>
@@ -263,6 +263,19 @@
 
 <footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                $('#departmentTableBody').on('click', '.department-row', function () {
+                    var deptId = $(this).data('deptid');
+                    if (deptId) {
+                        var url = '@Url.Action("EditDepartment", "Departments")' + '?departmentId=' + deptId;
+                        window.location.href = url;
+                    }
+                });
+            });
+        </script>
+    }
 <script>
     $('#langOpt').multiselect({
         columns: 1,

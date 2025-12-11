@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JetwaysAdmin.Entity
 {
-    //[Table("Admin_tb_LegalEntity")]
+    [Table("Admin_tb_LegalEntity")]
     public class LegalEntity
     {
         [Key]

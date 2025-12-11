@@ -18,13 +18,10 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
         [HttpGet]
         [Route("GetAllCustomerDepartment")]
-        public async Task<ActionResult<IEnumerable<CustomerDepartmentData>>> GetAllCustomerDepartment([FromQuery] string LegalEntityCode)
+        public async Task<ActionResult<IEnumerable<CustomerDepartmentData>>> GetAllCustomerDepartment()
         {
-            if (string.IsNullOrEmpty(LegalEntityCode))
-            {
-                return BadRequest("LegalEntityCode is required.");
-            }
-            var legalEntities = await _department.GetAllCustomerDepartment(LegalEntityCode);
+           
+            var legalEntities = await _department.GetAllCustomerDepartment();
             return Ok(legalEntities);
         }
 

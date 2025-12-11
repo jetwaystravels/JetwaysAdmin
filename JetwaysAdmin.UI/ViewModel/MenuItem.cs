@@ -42,6 +42,7 @@ namespace JetwaysAdmin.UI.ViewModel
         public List<CustomerDepartmentData> Customerdepartment { get; set;}
         public List<CustomerDesignation> Customerdesignation { get; set;}
         public List<LegalEntitySupplierDto> LegalEntitySupplierstatus{ get; set;}
+        public List<CustomerBand> Customerbands { get; set;}
 
     }
 

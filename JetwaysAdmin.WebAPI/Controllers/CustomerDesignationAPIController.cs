@@ -17,16 +17,17 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
         [HttpGet]
         [Route("GetAllCustomerDesignation")]
-        public async Task<ActionResult<IEnumerable<CustomerDesignation>>> GetAllCustomerDepartment([FromQuery] string LegalEntityCode)
+        //public async Task<ActionResult<IEnumerable<CustomerDesignation>>> GetAllCustomerDepartment([FromQuery] string LegalEntityCode)
+        public async Task<ActionResult<IEnumerable<CustomerDesignation>>> GetAllCustomerDepartment()
         {
-            if (string.IsNullOrEmpty(LegalEntityCode))
-            {
-                return BadRequest("LegalEntityCode is required.");
-            }
-            var legalEntities = await _designation.GetAllCustomerDesignation(LegalEntityCode);
+            //if (string.IsNullOrEmpty(LegalEntityCode))
+            //{
+            //    return BadRequest("LegalEntityCode is required.");
+            //}
+            //var legalEntities = await _designation.GetAllCustomerDesignation(LegalEntityCode);
+            var legalEntities = await _designation.GetAllCustomerDesignation();
             return Ok(legalEntities);
         }
-
         [HttpPost]
         [Route("AddCustomerDesignation")]
         public async Task<ActionResult> AddCustomerDepartment([FromBody] CustomerDesignation customerdesignation)

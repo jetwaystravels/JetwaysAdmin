@@ -10,15 +10,14 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class DepartmentsController : Controller
     {
-        public async Task<IActionResult> ShowDepartments(int IdLegal, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowDepartments()
         {
-            ViewBag.LegalEntityCode = LegalEntityCode;
-            ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = IdLegal;
+            
             List<CustomerDepartmentData> customerdepartment = new List<CustomerDepartmentData>();
             using (HttpClient client = new HttpClient())
             {
-                string requestUrl = $"{AppUrlConstant.GetCustomerDepartment}?LegalEntityCode={LegalEntityCode}";
+                //string requestUrl = $"{AppUrlConstant.GetCustomerDepartment}?LegalEntityCode={LegalEntityCode}";
+                string requestUrl = $"{AppUrlConstant.GetCustomerDepartment}";
                 var deaprtmentresponse = await client.GetAsync(requestUrl);
                 if (deaprtmentresponse.IsSuccessStatusCode)
                 {
@@ -32,12 +31,11 @@ namespace JetwaysAdmin.UI.Controllers
             };
             return View(viewModel);
         }
+
         [HttpPost]
-        public async Task<IActionResult> AddDepartment(CustomerDepartmentData customerdepartment, int IdLegal, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> AddDepartment(CustomerDepartmentData customerdepartment)
         {
-            ViewBag.LegalEntityCode = LegalEntityCode;
-            ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = IdLegal;
+           
             using (HttpClient client = new HttpClient())
             {
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(customerdepartment);
@@ -50,7 +48,9 @@ namespace JetwaysAdmin.UI.Controllers
                 }
             }
             ViewBag.ErrorMessage = "Data not  insert";
-            return RedirectToAction("ShowDepartments", new { IdLegal= IdLegal, LegalEntityCode = LegalEntityCode , LegalEntityName = LegalEntityName });
+            return RedirectToAction("ShowDepartments");
         }
+
+
     }
 }

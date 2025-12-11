@@ -9,23 +9,25 @@ namespace JetwaysAdmin.UI.Controllers
 {
     public class DesignationsController : Controller
     {
-        public async Task<IActionResult> ShowDesignations(int IdLegal, string LegalEntityCode, string LegalEntityName)
+        public async Task<IActionResult> ShowDesignations()
         {
-            ViewBag.LegalEntityCode = LegalEntityCode;
-            ViewBag.LegalEntityName = LegalEntityName;
-            ViewBag.Id = IdLegal;
+            //ViewBag.LegalEntityCode = LegalEntityCode;
+            //ViewBag.LegalEntityName = LegalEntityName;
+            //ViewBag.Id = IdLegal;
             List<CustomerDesignation> customerDesignation = new List<CustomerDesignation>();
             List<CustomerDepartmentData> customerdepartment = new List<CustomerDepartmentData>();
             using (HttpClient client = new HttpClient())
             {
-                string requestUrl = $"{AppUrlConstant.GetCustomerDesignation}?LegalEntityCode={LegalEntityCode}";
+               // string requestUrl = $"{AppUrlConstant.GetCustomerDesignation}?LegalEntityCode={LegalEntityCode}";
+                string requestUrl = $"{AppUrlConstant.GetCustomerDesignation}";
                 var deaprtmentresponse = await client.GetAsync(requestUrl);
                 if (deaprtmentresponse.IsSuccessStatusCode)
                 {
                     var result = await deaprtmentresponse.Content.ReadAsStringAsync();
                     customerDesignation = JsonConvert.DeserializeObject<List<CustomerDesignation>>(result);
                 }
-                string RequestUrl = $"{AppUrlConstant.GetCustomerDepartment}?LegalEntityCode={LegalEntityCode}";
+                //string RequestUrl = $"{AppUrlConstant.GetCustomerDepartment}?LegalEntityCode={LegalEntityCode}";
+                string RequestUrl = $"{AppUrlConstant.GetCustomerDepartment}";
                 var Deaprtmentresponse = await client.GetAsync(RequestUrl);
                 if (Deaprtmentresponse.IsSuccessStatusCode)
                 {
@@ -59,7 +61,7 @@ namespace JetwaysAdmin.UI.Controllers
                 }
             }
             ViewBag.ErrorMessage = "Data not  insert";
-            return RedirectToAction("ShowDesignations", new { IdLegal = IdLegal, LegalEntityCode = LegalEntityCode, LegalEntityName = LegalEntityName });
+            return RedirectToAction("ShowDesignations");
         }
     }
 }

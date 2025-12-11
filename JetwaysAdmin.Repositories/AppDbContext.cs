@@ -53,6 +53,9 @@ namespace JetwaysAdmin.Repositories
         public DbSet<LegalEntityDB> Admin_tb_LegalEntityDB { get; set; }
 
         public DbSet<Tb_MenuRight> MenuRights { get; set; }
+        public DbSet<CustomerBand> tb_CustomerBand { get; set; }
+
+        public DbSet<AdminBooking> AdminBookings { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -65,21 +68,32 @@ namespace JetwaysAdmin.Repositories
             modelBuilder.Entity<CustomerDealCodes>().HasNoKey();
             modelBuilder.Entity<SupplierDto>().HasNoKey();
             modelBuilder.Entity<Tb_MenuRight>()
+           
            .ToTable("Tb_MenuRights")
            .HasKey(x => x.Id);
             //modelBuilder.Entity<CustomersEmployee>().HasNoKey();
             modelBuilder.Entity<CustomersEmployee>()
             .ToTable("tb_CustomersEmployee")   // maps to your SQL table
             .HasKey(c => c.UserID);
-            modelBuilder.Entity<CustomerDealCodes>()
-            .ToTable("tb_CustomerDealCodes")
-            .HasKey(c => c.DealCodeID);
-            modelBuilder.Entity<Menu>()
-           .HasOne(m => m.MenuHead)                 // navigation property in Menu (submenu)
+            modelBuilder.Entity<CustomerDealCodes>().ToTable("tb_CustomerDealCodes").HasKey(c => c.DealCodeID);
+            modelBuilder.Entity<Menu>().HasOne(m => m.MenuHead)                // navigation property in Menu (submenu)
            .WithMany(h => h.SubMenus)               // navigation collection in MenuHead
            .HasForeignKey(m => m.ParentId)          // FK in Menu table
            .OnDelete(DeleteBehavior.Cascade);
-           base.OnModelCreating(modelBuilder);
+            var entity = modelBuilder.Entity<AdminBooking>();
+            entity.ToTable("tb_Booking", "dbo");
+            entity.HasKey(b => b.BookingID);
+            // numeric(18,0)
+            entity.Property(b => b.TotalAmount).HasColumnType("numeric(18,0)");
+            entity.Property(b => b.SpecialServicesTotal).HasColumnType("numeric(18,0)");
+            entity.Property(b => b.SpecialServicesTotal_Tax).HasColumnType("numeric(18,0)");
+            entity.Property(b => b.SeatTotalAmount).HasColumnType("numeric(18,0)");
+            entity.Property(b => b.SeatTotalAmount_Tax).HasColumnType("numeric(18,0)");
+            entity.Property(b => b.SeatAdjustment).HasColumnType("numeric(18,0)");
+
+            base.OnModelCreating(modelBuilder);
+            
+
 
         }
 

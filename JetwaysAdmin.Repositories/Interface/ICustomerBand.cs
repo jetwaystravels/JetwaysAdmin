@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace JetwaysAdmin.Repositories.Interface
 {
-    public interface ICustomerDepartment<T> where T : class
+    public interface ICustomerBand<T> where T : class
     {
-        Task AddCustomerDepartment(CustomerDepartmentData department);
-        Task<IEnumerable<CustomerDepartmentData>> GetAllCustomerDepartment();
+        Task<IEnumerable<CustomerBand>> GetAllBand();
+        Task AddCustomerBand(CustomerBand customerband);
     }
 }

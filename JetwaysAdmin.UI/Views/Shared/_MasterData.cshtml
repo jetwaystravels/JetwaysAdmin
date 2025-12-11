@@ -1,0 +1,165 @@
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
+<html lang="en">
+@Html.Partial("Head")
+<body>
+    <header>
+        @Html.Partial("_Loader")
+        <div id="pcoded" class="pcoded">
+            <div class="pcoded-overlay-box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                @Html.Partial("_HeaderNav")
+
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav class="pcoded-navbar">
+                            <div class="sidebar_toggle">
+                                <a href="#"><i class="icon-close icons"></i></a>
+                            </div>
+
+                            <div class="pcoded-inner-navbar main-menu">
+                                <div>
+                                    <div class="main-menu-header">
+                                        <!-- Back link (change controller/action as you need) -->
+                                        <a asp-controller="Home"
+                                           asp-action="Index"
+                                           style="position: relative; z-index: 10;">
+                                            <i class="fa fa-arrow-left mr-2" aria-hidden="true" style="vertical-align: text-top;"></i>
+                                        </a>
+
+                                        <img class="img-80" title="logo" src="../assets/images/customer-logo/default-logo.png" alt="logo">
+
+                                        <h6 style="font-weight:700;">
+                                            Master Data
+                                            <a href="#" style="color: #0e93d8; display:block; margin-top:12px;">
+                                                Manage master data
+                                            </a>
+                                        </h6>
+                                    </div>
+                                </div>
+
+                                <!-- SIDEBAR: ONLY 3 LINKS -->
+                                <ul class="pcoded-item pcoded-left-item">
+                                    <li class="pcoded-hasmenu">
+                                        <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="fa fa-database" aria-hidden="true"></i>
+                                            </span>
+                                            <span class="pcoded-mtext">Master Data</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+
+                                        <ul class="pcoded-submenu">
+                                            <li>
+                                                <a asp-controller="Departments"
+                                                   asp-action="ShowDepartments"
+                                                   class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                    <span class="pcoded-mtext">Department</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a asp-controller="Designations"
+                                                   asp-action="ShowDesignations"
+                                                   class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-percent"></i></span>
+                                                    <span class="pcoded-mtext">Designation</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a asp-controller="Bands"
+                                                   asp-action="ShowBands"
+                                                   class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="fa fa-tags"></i></span>
+                                                    <span class="pcoded-mtext">Band</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <!-- END SIDEBAR -->
+                            </div>
+                        </nav>
+
+                        <div class="pcoded-content">
+                            <main role="main" class="pb-3">
+                                @RenderBody()
+                            </main>
+                        </div>
+
+                        <div id="styleSelector"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main-body end -->
+        </div>
+    </header>
+
+    @Html.Partial("Footer")
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- multiple selection Jquery start -->
+    <script>
+        $('.langOpt').multiselect({
+            columns: 1,
+            texts: {
+                placeholder: 'Associated Fare Type(s) *'
+            }
+        });
+        $('.langOptone').multiselect({
+            columns: 1,
+            texts: {
+                placeholder: 'Business Travel'
+            }
+        });
+
+        $('.langOpttwo').multiselect({
+            columns: 1,
+            texts: {
+                placeholder: 'Personal Travel'
+            }
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $(".select").select2();
+        });
+
+        flatpickr(".date-main", {
+            dateFormat: "Y-m-d",
+            minDate: "today",
+            allowInput: true,
+            changeMonth: true,
+            changeYear: true
+        });
+    </script>
+
+    <!-- Sidebar active state -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentUrl = window.location.pathname.toLowerCase();
+            const sidebarLinks = document.querySelectorAll(".pcoded-item a");
+
+            sidebarLinks.forEach(function (link) {
+                const linkPath = link.pathname.toLowerCase();
+                if (currentUrl === linkPath || currentUrl.startsWith(linkPath)) {
+                    link.classList.add("active");
+                    const parentLi = link.closest("li.pcoded-hasmenu");
+                    if (parentLi) {
+                        parentLi.classList.add("pcoded-trigger", "active");
+                    }
+                    const subLi = link.closest("li");
+                    if (subLi) {
+                        subLi.classList.add("active");
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

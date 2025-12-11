@@ -10,8 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+options.UseSqlServer(builder.Configuration.GetConnectionString("AdminConnection")));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CoreConnection")));
 
 
 
@@ -50,8 +51,9 @@ builder.Services.AddScoped<ISuppliersCredential<SuppliersCredential>, SuppliersC
 builder.Services.AddScoped<IDealCode<DealCode>, DealCodeService>();
 builder.Services.AddScoped<ICustomerDepartment<CustomerDepartmentData>, CustomerDepartmentService>();
 builder.Services.AddScoped<ICustomerDesignation<CustomerDesignation>, CustomerDesignationService>();
+builder.Services.AddScoped<ICustomerBand<CustomerBand>, CustomerBandService>();
 builder.Services.AddScoped<IMenuRightsRepository, MenuRightsService>();
-
+builder.Services.AddScoped<IAdminBookingRepository, AdminBookingService>();
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
