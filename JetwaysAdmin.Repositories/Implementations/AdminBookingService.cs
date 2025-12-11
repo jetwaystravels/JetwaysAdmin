@@ -6,50 +6,61 @@ namespace JetwaysAdmin.Repositories.Implementations
 {
     public class AdminBookingService : IAdminBookingRepository
     {
-        private readonly AppDbContext _context;
+        private readonly CoreDbContext _context;
 
-        public AdminBookingService(AppDbContext context)
+        public AdminBookingService(CoreDbContext context)
         {
             _context = context;
         }
 
-        public async Task<AdminBooking?> GetByBookingIdAsync(string bookingId)
+        public async Task<IEnumerable<BookingListDto>> GetAllAsync()
         {
-            return await _context.AdminBookings
+            return await _context.BookingListDtos
+                .FromSqlRaw("EXEC sp_GetBookingList")
                 .AsNoTracking()
-                .FirstOrDefaultAsync(b => b.BookingID == bookingId);
-        }
-
-        public async Task<IEnumerable<AdminBooking>> GetByRecordLocatorAsync(string recordLocator)
-        {
-            return await _context.AdminBookings
-                .AsNoTracking()
-                .Where(b => b.RecordLocator == recordLocator)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<AdminBooking>> GetAllAsync()
+        public async Task<BookingListDto?> GetByBookingIdAsync(string bookingId)
         {
-            return await _context.AdminBookings
+            var result = await _context.BookingListDtos
+                .FromSqlRaw("EXEC sp_GetBookingByID @BookingID = {0}", bookingId)
                 .AsNoTracking()
-                .OrderByDescending(b => b.BookedDate)
                 .ToListAsync();
+
+            return result.FirstOrDefault();
         }
 
-        public async Task AddAsync(AdminBooking booking)
+        public async Task<PagedResult<BookingListDto>> GetFilteredAsync(BookingFilter filter)
         {
-            await _context.AdminBookings.AddAsync(booking);
+            // EF FromSqlRaw with positional placeholders
+            var items = await _context.BookingListDtos
+                .FromSqlRaw(
+                    @"EXEC sp_GetBookingListFiltered 
+                    @FromDate      = {0},
+                    @ToDate        = {1},
+                    @RecordLocator = {2},
+                    @CompanyName   = {3},
+                    @Consultant    = {4},
+                    @PageNumber    = {5},
+                    @PageSize      = {6}",
+                    filter.FromDate,
+                    filter.ToDate,
+                    filter.RecordLocator,
+                    filter.CompanyName,
+                    filter.Consultant,
+                    filter.PageNumber,
+                    filter.PageSize)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return new PagedResult<BookingListDto>
+            {
+                Items = items,
+                PageNumber = filter.PageNumber,
+                PageSize = filter.PageSize
+            };
         }
 
-        public Task UpdateAsync(AdminBooking booking)
-        {
-            _context.AdminBookings.Update(booking);
-            return Task.CompletedTask;
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
     }
 }

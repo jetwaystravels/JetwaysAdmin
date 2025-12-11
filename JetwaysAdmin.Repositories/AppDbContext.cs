@@ -80,16 +80,16 @@ namespace JetwaysAdmin.Repositories
            .WithMany(h => h.SubMenus)               // navigation collection in MenuHead
            .HasForeignKey(m => m.ParentId)          // FK in Menu table
            .OnDelete(DeleteBehavior.Cascade);
-            var entity = modelBuilder.Entity<AdminBooking>();
-            entity.ToTable("tb_Booking", "dbo");
-            entity.HasKey(b => b.BookingID);
-            // numeric(18,0)
-            entity.Property(b => b.TotalAmount).HasColumnType("numeric(18,0)");
-            entity.Property(b => b.SpecialServicesTotal).HasColumnType("numeric(18,0)");
-            entity.Property(b => b.SpecialServicesTotal_Tax).HasColumnType("numeric(18,0)");
-            entity.Property(b => b.SeatTotalAmount).HasColumnType("numeric(18,0)");
-            entity.Property(b => b.SeatTotalAmount_Tax).HasColumnType("numeric(18,0)");
-            entity.Property(b => b.SeatAdjustment).HasColumnType("numeric(18,0)");
+            //var entity = modelBuilder.Entity<AdminBooking>();
+            //entity.ToTable("tb_Booking", "dbo");
+            //entity.HasKey(b => b.BookingID);
+            //// numeric(18,0)
+            //entity.Property(b => b.TotalAmount).HasColumnType("numeric(18,0)");
+            //entity.Property(b => b.SpecialServicesTotal).HasColumnType("numeric(18,0)");
+            //entity.Property(b => b.SpecialServicesTotal_Tax).HasColumnType("numeric(18,0)");
+            //entity.Property(b => b.SeatTotalAmount).HasColumnType("numeric(18,0)");
+            //entity.Property(b => b.SeatTotalAmount_Tax).HasColumnType("numeric(18,0)");
+            //entity.Property(b => b.SeatAdjustment).HasColumnType("numeric(18,0)");
 
             base.OnModelCreating(modelBuilder);
             

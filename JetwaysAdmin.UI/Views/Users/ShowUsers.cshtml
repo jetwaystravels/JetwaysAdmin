@@ -383,7 +383,7 @@
                                                             @foreach (var user in Model.customersemployee)
                                                             {
                                                                 var isActive = (user.AppStatus ?? 0) == 0;
-                                                                <tr data-userid="@user.UserID" data-appstatus="@(isActive ? 0 : 1)" data-legalentitycode="@user.LegalEntityCode">
+                                                                <tr data-userid="@user.UserID" data-appstatus="@(isActive ? 0 : 1)" data-legalentitycode="@user.LegalEntityCode" data-legalentityname="@user.LegalEntityName">
                                                                     <td class="clickable">@user.LegalEntityName</td>
                                                                     <td class="clickable">@user.EmployeeID</td>
                                                                     <td class="clickable">@user.FirstName @user.LastName</td>

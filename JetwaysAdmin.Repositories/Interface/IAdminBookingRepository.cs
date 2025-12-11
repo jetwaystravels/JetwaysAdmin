@@ -9,11 +9,17 @@ namespace JetwaysAdmin.Repositories.Interface
 {
     public interface IAdminBookingRepository
     {
-        Task<AdminBooking?> GetByBookingIdAsync(string bookingId);
-        Task<IEnumerable<AdminBooking>> GetByRecordLocatorAsync(string recordLocator);
-        Task<IEnumerable<AdminBooking>> GetAllAsync();
-        Task AddAsync(AdminBooking booking);
-        Task UpdateAsync(AdminBooking booking);
-        Task SaveChangesAsync();
+        /// <summary>
+        /// Get list of bookings (selected columns only) using stored procedure.
+        /// </summary>
+        Task<IEnumerable<BookingListDto>> GetAllAsync();
+
+        /// <summary>
+        /// Get one booking (selected columns only) using stored procedure.
+        /// </summary>
+        Task<BookingListDto?> GetByBookingIdAsync(string bookingId);
+
+        // 🔥 New method with filters + pagination
+        Task<PagedResult<BookingListDto>> GetFilteredAsync(BookingFilter filter);
     }
 }
