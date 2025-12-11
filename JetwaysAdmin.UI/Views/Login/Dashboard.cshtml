@@ -3,7 +3,17 @@
 @{
     Layout = "~/Views/Shared/Admin.cshtml";
     var Data = Model;
+   
+    // var email = User.Identity.Name;
+
+    // bool canAccessRole =
+    //     email.Equals("Ashok.KK@jetwaystravels.com", StringComparison.OrdinalIgnoreCase) ||
+    //     email.Equals("vinay.ks@jetwaystravels.com", StringComparison.OrdinalIgnoreCase);
+   
     bool canAccessRole = ViewBag.CanAccessRole ?? false;
+
+
+   
 }
 
 <main id="main" class="main">
@@ -21,7 +31,7 @@
                         <div class="col-md-4">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="#">Settings</a>
+                                    <a href="index.html">Settings</a>
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a href="#!">Manage Customers</a>
@@ -38,6 +48,36 @@
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                         <div class="page-body">
+                            <!-- Start Company details wrapper -->
+                           @*  <div class="company-details-wrapper">
+                                <div class="row">
+                                    <div class="col-xl-4 col-md-4 bdr">
+                                        <div class="d-flex justify-content-between">
+                                            <h6>Jetways Travels</h6>
+                                            <div class="justify-content-end"><img class="img-fluid" src="~/assets/images/logo-1.png" alt="Theme-Logo" style="width:120px;"></div>
+                                        </div>
+                                        <p>Delhi, New Delhi, Delhi, India, 110001</p>
+                                        <a href="#"><strong style="color: #448aff; font-weight: 600;">View Organization Structure</strong> </a>
+                                    </div>
+                                    <div class="col-xl-8 col-md-8">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-file-text" aria-hidden="true"></i>Legal Entity Info</a></li>
+                                            <li><a href="#"><i class="fa fa-address-card" aria-hidden="true"></i>Account Details</a></li>
+                                            <li><a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i>Account Balance</a></li>
+                                            <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i>Contact Us</a></li>
+                                            <li><a href="#"><i class="fa fa-users" aria-hidden="true"></i>Manage Staff</a></li>
+                                            <li><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>Locations and Tax</a></li>
+                                            <li><a href="#"><i class="fa fa-sitemap" aria-hidden="true"></i>Departments</a></li>
+                                            <li><a href="#"><i class="fa fa-id-card" aria-hidden="true"></i>Designations</a></li>
+                                            <li><a href="#"><i class="fa fa-gg" aria-hidden="true"></i>Brand</a></li>
+                                            <li><a href="#"><i class="fa fa-code" aria-hidden="true"></i>Project Codes</a></li>
+                                            <li><a href="#"><i class="fa fa-building" aria-hidden="true"></i>Commercials</a></li>
+                                            <li><a href="#"><i class="fa fa-percent" aria-hidden="true"></i>Cost Center</a></li>
+                                            <li><a href="#"><strong style="color:#448aff; font-weight: 600;">View All Settings</strong> </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> *@
                             <!-- End Company details wrapper -->
                             <div class="row">
                                 <!--  sale analytics start -->
@@ -235,14 +275,12 @@
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <a asp-controller="DashboardBooking" asp-action="Index" class="text-decoration-none">
-                                            <div class="card text-center order-visitor-card"  style="cursor:pointer;">
+                                            <div class="card text-center order-visitor-card">
                                                 <div class="card-block">
-                                                    <h6 class="m-b-0">Dash Board</h6>
-                                                    <p class="m-b-0">Booking Details</p>
+                                                    <h6 class="m-b-0">Translation</h6>
+                                                    <p class="m-b-0">Manage Translation</p>
                                                 </div>
                                             </div>
-                                            </a>
                                         </div>
                                         <!-- sale card end -->
                                     </div>
@@ -299,12 +337,8 @@
             $("#accessRoleCard").click(function (e) {
             e.preventDefault();
             window.location.href = '@Url.Action("UserAccess", "AccessRole")';
-
-            $("#bookingdashboard").click(function (e) {
-            e.preventDefault();
-            window.location.href = '@Url.Action("Index", "DashboardBooking")';
         });
-        
+
         });
     </script>
 
