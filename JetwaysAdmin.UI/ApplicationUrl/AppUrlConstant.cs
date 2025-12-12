@@ -101,6 +101,7 @@
         public static string Menuright = BaseURL + "api/MenuRights/Menurightssave";
         public static string CustomerBand = BaseURL + "api/CustomerBandAPI/GetCustomerBand";
         public static string AddCustomerBand = BaseURL + "api/CustomerBandAPI/AddCustomerBand";
+        public static string GetBookingFiltered = BaseURL + "api/AdminBooking/filtered";
 
         #endregion
 
