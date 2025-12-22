@@ -60,7 +60,7 @@
                         <div class="col-md-4">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="index.html">Settings</a>
+                                    <a href="#">Settings</a>
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a href="#!">Manage Suppliers</a>
@@ -113,7 +113,19 @@
                                                 @if (val.AppStatus == 1)
                                                 {
                                                     <div class="bdr  legalbox sup-bx" style="padding-bottom:0;">
-                                                        <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo">
+                                                       @*  <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo"> *@
+                                                        @if (val.Logo != null && val.Logo.Length > 0)
+                                                        {
+                                                            <img class="img-fluid img-h-l"
+                                                                 src="data:image/png;base64,@Convert.ToBase64String(val.Logo)"
+                                                                 alt="logo" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img class="img-fluid img-h-l"
+                                                                 src="~/assets/images/customer-logo/default-logo.png"
+                                                                 alt="logo" />
+                                                        }
                                                         <div class="gray-bg">
                                                             <h6 class="company-name">@val.LegalEntityName</h6>
                                                             <p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p>
@@ -127,7 +139,19 @@
                                                 else
                                                 {
                                                     <div class="bdr  legalbox disabled-box" style="padding-bottom:0;">
-                                                        <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo">
+                                                        @* <img class="img-fluid img-h-l" src="../assets/images/customer-logo/default-logo.png" alt="logo"> *@
+                                                        @if (val.Logo != null && val.Logo.Length > 0)
+                                                        {
+                                                            <img class="img-fluid img-h-l"
+                                                                 src="data:image/png;base64,@Convert.ToBase64String(val.Logo)"
+                                                                 alt="logo" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img class="img-fluid img-h-l"
+                                                                 src="~/assets/images/customer-logo/default-logo.png"
+                                                                 alt="logo" />
+                                                        }
                                                         <div class="gray-bg">
                                                             <h6 class="company-name">@val.LegalEntityName</h6>
                                                             <p class="light-gray"><span style="color: #0e93d8;font-weight:700;">Business </span>(1 Entity)</p>

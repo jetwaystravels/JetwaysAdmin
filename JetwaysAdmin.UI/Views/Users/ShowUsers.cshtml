@@ -185,7 +185,7 @@
                                             <span id="EmployeeError" style="color: red; font-size: 12px;"></span>
                                         </div>
                                         <div class="form-group form-primary col-md-4">
-                                            <input type="text" name="DateOfBirth" class="form-control date-main" required>
+                                            <input type="text" name="DateOfBirth" id="dobuser"  class="form-control date-main" required>
                                             <span class="form-bar"></span>
                                             <label class="float-label">Date Of Birth<span>*</span></label>
                                         </div>
@@ -278,59 +278,6 @@
                                                     <span class="form-bar"></span>
                                                     <label class="float-label"><i class="fa fa-search m-r-10"></i>Search</label>
                                                     <i class="fa fa-caret-down arrow toggle-arrow" aria-hidden="true" style="cursor:pointer;"></i>
-                                                </div>
-
-                                                <!-- your filter area ... -->
-                                                <div class="hidden-div">
-                                                    <div class="form-material form-row">
-                                                        <div class="form-group form-primary col-md-12">
-                                                            <select class="form-control langOpt" name="Legal Entity" multiple data-placeholder="Legal Entity">
-                                                                <option value="2">[JET001] Jetways Travels</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group form-primary col-md-6">
-                                                            <input class="form-control date-main" type="text" placeholder="From Date">
-                                                            <span class="form-bar"></span>
-                                                        </div>
-                                                        <div class="form-group form-primary col-md-6">
-                                                            <input class="form-control date-main" type="text" placeholder="To Date">
-                                                            <span class="form-bar"></span>
-                                                        </div>
-                                                        <div class="form-group form-primary col-md-6">
-                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Status">
-                                                                <option value="2">Active</option>
-                                                                <option value="3">Disable</option>
-                                                                <option value="4">Pending</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group form-primary col-md-6">
-                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Department">
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group form-primary col-md-6">
-                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Designation">
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group form-primary col-md-6">
-                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Cost Center">
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="form-group form-primary col-md-6">
-                                                            <select class="form-control langOpt" name="fareType1" multiple data-placeholder="Band">
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group form-primary col-md-6">
-                                                            <select name="fareType1"
-                                                                    class="form-control langOpt"
-                                                                    data-placeholder="Work Location">
-                                                                <option value="">Select Work Location</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-6 p-t-10">
-                                                            <button type="submit" class="btn btn-primary waves-effect waves-light">Search</button>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </form>
 
@@ -846,7 +793,8 @@
                             if (data.success) successCount++;
                             else failCount++;
                             if (successCount + failCount === rows.length) {
-                                alert(`${successCount} users added,${failCount} failed`);
+                                //alert(`${successCount} users added,${failCount} failed`);
+                                alert("User added successfully");
                                 if (successCount > 0) location.reload();
                             }
                         })
@@ -862,6 +810,37 @@
             reader.readAsArrayBuffer(file);
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const dob = document.getElementById("dobuser");
+            dob.setAttribute("autocomplete", "off");
+            dob.setAttribute("inputmode", "numeric");
+            dob.dataset.realName = dob.getAttribute("name");
+            dob.setAttribute("name", "dob_" + Math.random().toString(36).slice(2));
+            const form = dob.closest("form");
+            if (form) {
+                form.addEventListener("submit", () => {
+                    dob.setAttribute("name", dob.dataset.realName);
+                });
+            }
+            dob.addEventListener("focus", () => {
+            });
+        });
+    </script>
 
+    <script>
+        document.getElementById("search-input").addEventListener("keyup", function () {
+            let searchValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#data-table tbody tr");
+            rows.forEach(function (row) {
+                let rowText = row.innerText.toLowerCase();
 
+                if (rowText.includes(searchValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    </script>
 </footer>

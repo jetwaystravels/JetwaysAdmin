@@ -64,34 +64,43 @@ namespace JetwaysAdmin.Repositories.Implementations
         public async Task<IEnumerable<SuppliersCredential>> GetSupplierCredential( string flightclass)
         {
             //charan start
-            List<SuppliersCredential> suppliersCredentials = new List<SuppliersCredential>();
-            List<SuppliersCredential> suppliersCredentials1 = new List<SuppliersCredential>();
-            suppliersCredentials1 = await _context.tb_SuppliersCredential
-                         .AsNoTracking()
-             .Where(sc => sc.Status == 1 && sc.AssociatedFareTypes == flightclass && _context.tb_SuppliersDetail.Any(sd =>
-               sd.SupplierId == sc.SupplierId && sd.AppStatus == true))
-             .ToListAsync();
+            var fc = (flightclass ?? "").Trim();
 
-            // var dc = _context.tb_SuppliersDealCode.Where(d => d.AssociatedFareTypes == "Corporate" && d.SupplierId == 1).ToList();
+            var suppliers = await (
+                from sc in _context.tb_SuppliersCredential.AsNoTracking()
+                join sd in _context.tb_SuppliersDetail.AsNoTracking()
+                    on sc.SupplierId equals sd.SupplierId
+                join dc in _context.tb_SuppliersDealCode.AsNoTracking()
+                        .Where(x => x.AssociatedFareTypes == fc)
+                    on sc.SupplierId equals dc.SupplierId into dcg
+                from dc in dcg.DefaultIfEmpty()
+                where sc.Status == 1
+                   && sc.AssociatedFareTypes == fc
+                   && sd.AppStatus == true
+                select new SuppliersCredential
+                {
+                    // ✅ copy ALL fields from sc (add/remove as per your model)
+                    Id = sc.Id,
+                    SupplierId = sc.SupplierId,
+                    Status = sc.Status,
+                    AssociatedFareTypes = sc.AssociatedFareTypes,
+                    AgentName = sc.AgentName,
+                    CredentialsName = sc.CredentialsName,
+                    UserName = sc.UserName,
+                    Password = sc.Password,
+                    ClientId = sc.ClientId,
+                    OrganizationId = sc.OrganizationId,
+                    IATAGroup = sc.IATAGroup,
+                    Img_name = sc.Img_name,
+                    TravelType = sc.TravelType,
+                    CreatedDate = sc.CreatedDate,
 
-            foreach (var supplier in suppliersCredentials1.Where(s => s.Status == 1))
-            {
-                var dcodename = _context.tb_SuppliersDealCode
-                    .Where(d => d.AssociatedFareTypes == flightclass
-                             && d.SupplierId == supplier.SupplierId)
-                    .Select(d => d.DealCodeName)
-                    .FirstOrDefault(); // null if none
+                    // ✅ deal code
+                    DealCodeName = dc != null ? (dc.DealCodeName ?? "") : ""
+                }
+            ).Distinct().ToListAsync();   // Distinct avoids duplicate rows if multiple sd rows exist
 
-                supplier.DealCodeName = dcodename ?? string.Empty; // no throw
-                suppliersCredentials.Add(supplier);
-            }
-            //charan end
-            return suppliersCredentials;
-
-            //return await _context.tb_SuppliersCredential
-            //             .Where(sc => sc.Status == 1)
-            //             .AsNoTracking()
-            //             .ToListAsync();
+            return suppliers;
         }
         public async Task<SuppliersCredential> GetSupplierCredentialById(int Id)
         {

@@ -84,6 +84,16 @@ namespace JetwaysAdmin.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddLegalEntity([FromForm] LegalEntity legalEntity, string LegalEntityCode, string LegalEntityName)
         {
+            var file = Request.Form.Files.FirstOrDefault(f => f.Name == "Logo");
+            if (file != null && file.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await file.CopyToAsync(ms);
+                    legalEntity.Logo = ms.ToArray();
+                }
+            }
+
             using (HttpClient client = new HttpClient())
             {
                 var legalentityalldata = await client.GetAsync(AppUrlConstant.GetLegalEntity);

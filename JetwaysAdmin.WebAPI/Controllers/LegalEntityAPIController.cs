@@ -100,6 +100,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             legalEntityupdate.GSTApplicableManagementFee = legalEntity.GSTApplicableManagementFee ?? legalEntityupdate.GSTApplicableManagementFee;
             legalEntityupdate.PassGSTDetailsAirline = legalEntity.PassGSTDetailsAirline ?? legalEntityupdate.PassGSTDetailsAirline;
             legalEntityupdate.AssignIATAGroup = legalEntity.AssignIATAGroup ?? legalEntityupdate.AssignIATAGroup;
+            legalEntityupdate.Logo = legalEntity.Logo ?? legalEntityupdate.Logo;
             legalEntityupdate.AppStatus = legalEntity.AppStatus ?? legalEntityupdate.AppStatus;
 
 

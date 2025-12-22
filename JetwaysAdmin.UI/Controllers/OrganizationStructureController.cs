@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using System.IO;
 using OfficeOpenXml;
 using ClosedXML.Excel;
+using JetwaysAdmin.Repositories.Interface;
 
 namespace JetwaysAdmin.UI.Controllers
 {
@@ -325,6 +326,15 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.LegalEntityCode = ParentLegalEntityCode;
             ViewBag.LegalEntityName = ParentLegalEntityName;
             ViewBag.Id = IdLegal;
+            var file = Request.Form.Files.FirstOrDefault(f => f.Name == "Logo");
+            if (file != null && file.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await file.CopyToAsync(ms);
+                    legalEntity.Logo = ms.ToArray();
+                }
+            }
             using (HttpClient client = new HttpClient())
             {
                 var legalentityalldata = await client.GetAsync(AppUrlConstant.GetLegalEntity);
@@ -649,6 +659,15 @@ namespace JetwaysAdmin.UI.Controllers
         public async Task<IActionResult> EditOffice(LegalEntity legalEntity, int  IdLegal, string ParentLegalEntityCode, string ParentLegalEntityName)
         {
             int Id = legalEntity.Id;
+            var file = Request.Form.Files.FirstOrDefault(f => f.Name == "Logo");
+            if (file != null && file.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await file.CopyToAsync(ms);
+                    legalEntity.Logo = ms.ToArray();
+                }
+            }
             using (HttpClient client = new HttpClient())
             {
                 ViewBag.LegalEntityCode = ParentLegalEntityCode;

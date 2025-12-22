@@ -84,7 +84,7 @@ namespace JetwaysAdmin.Entity
         public bool? UpdateExistingCustomerProfile { get; set; }
 
         // Uncomment when implementing logo support
-        // public byte[] Logo { get; set; }
+        public byte[]? Logo { get; set; }
 
         [MaxLength(50)]
         public string Createdby { get; set; } = "Admin";

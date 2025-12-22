@@ -249,7 +249,21 @@
                                                     <div class="toggle-arrow"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
                                                 </div>
                                                 <div style="display:flex; padding: 0 14px 6px;">
-                                                    <div class="map-bx"><img class="img-fluid" src="../assets/images/map-1.png" alt="map"></div>
+                                                    @* <div class="map-bx"><img class="img-fluid" src="../assets/images/map-1.png" alt="map"></div> *@
+                                                    <div class="map-bx">
+                                                        @if (office.Logo != null && office.Logo.Length > 0)
+                                                        {
+                                                            <img class="img-fluid"
+                                                                 src="data:image/png;base64,@Convert.ToBase64String(office.Logo)"
+                                                                 alt="map" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img class="img-fluid"
+                                                                 src="~/assets/images/map-1.png"
+                                                                 alt="map" />
+                                                        }
+                                                    </div>
                                                     <div class="details mt-3" style="display:flex;">
                                                         <div class="address-section">
                                                             <div>
