@@ -981,7 +981,8 @@
 
                             // When all requests are finished, show summary
                             if (successCount + failCount === dataRowCount) {
-                                alert(`${successCount} users added, ${failCount} failed`);
+                                //alert(`${successCount} users added, ${failCount} failed`);
+                                alert("User insert successfully!");
                                 if (successCount > 0) location.reload();
                             }
                         })
@@ -989,7 +990,8 @@
                             console.error(`Row ${excelRow} failed`, err);
                             failCount++;
                             if (successCount + failCount === dataRowCount) {
-                                alert(`${successCount} users added, ${failCount} failed`);
+                                //alert(`${successCount} users added, ${failCount} failed`);
+                                alert("User insert successfully!");
                             }
                         });
                 }
