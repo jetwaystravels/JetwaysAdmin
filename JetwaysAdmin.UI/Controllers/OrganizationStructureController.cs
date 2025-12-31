@@ -397,167 +397,198 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.LegalEntityCode = ParentLegalEntityCode;
             ViewBag.LegalEntityName = ParentLegalEntityName;
             ViewBag.Id = IdLegal;
-           
+
             if (file == null || file.Length == 0)
-            {
                 return Json(new { success = false, message = "No file selected." });
-            }
-            using (var stream = new MemoryStream())
+
+            using var stream = new MemoryStream();
+            await file.CopyToAsync(stream);
+            stream.Position = 0;
+
+            using var workbook = new XLWorkbook(stream);
+            var worksheet = workbook.Worksheets.FirstOrDefault();
+            if (worksheet == null)
+                return Json(new { success = false, message = "No worksheet found in the uploaded file." });
+
+            // --- Read Header Row (Row 1) and create header->column map ---
+            var headerRow = worksheet.Row(1);
+            var headerMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (var cell in headerRow.CellsUsed())
             {
-                await file.CopyToAsync(stream);
-                stream.Position = 0; 
-                using (var workbook = new XLWorkbook(stream))
+                var header = cell.GetString()?.Trim();
+                if (!string.IsNullOrWhiteSpace(header) && !headerMap.ContainsKey(header))
+                    headerMap[header] = cell.Address.ColumnNumber;
+            }
+
+            // --- Required headers (add more if you want) ---
+            var requiredHeaders = new[] { "LegalEntityName" };
+            var missingHeaders = requiredHeaders.Where(h => !headerMap.ContainsKey(h)).ToList();
+            if (missingHeaders.Any())
+            {
+                return Json(new
                 {
-                    var worksheet = workbook.Worksheets.FirstOrDefault();
-                    if (worksheet == null)
+                    success = false,
+                    message = "Missing required header(s): " + string.Join(", ", missingHeaders)
+                });
+            }
+
+            // Helpers: safely read by header name (missing header => null)
+            string GetString(int row, string header)
+            {
+                if (!headerMap.TryGetValue(header, out int col)) return null;
+                return worksheet.Cell(row, col).GetString().Trim();
+            }
+
+            int? GetIntNullable(int row, string header)
+            {
+                var s = GetString(row, header);
+                return int.TryParse(s, out var v) ? v : (int?)null;
+            }
+
+            bool? GetBoolNullable(int row, string header)
+            {
+                var s = GetString(row, header);
+                if (string.IsNullOrWhiteSpace(s)) return null;
+
+                s = s.Trim();
+
+                // Support: true/false, 1/0, yes/no
+                if (bool.TryParse(s, out var b)) return b;
+                if (s == "1") return true;
+                if (s == "0") return false;
+                if (s.Equals("yes", StringComparison.OrdinalIgnoreCase)) return true;
+                if (s.Equals("no", StringComparison.OrdinalIgnoreCase)) return false;
+
+                return null;
+            }
+
+            DateTime? GetDateNullable(int row, string header)
+            {
+                var s = GetString(row,  header);
+                return DateTime.TryParse(s, out var d) ? d : (DateTime?)null;
+            }
+
+            var rowCount = worksheet.LastRowUsed()?.RowNumber() ?? 1;
+
+            using var client = new HttpClient();
+
+            for (int row = 2; row <= rowCount; row++)
+            {
+                // Required field
+                var legalEntityName = GetString(row, "LegalEntityName");
+                if (string.IsNullOrWhiteSpace(legalEntityName))
+                    continue; // skip blank rows
+
+                // Read values (if header not in Excel => null)
+                var id = GetIntNullable(row, "Id") ?? 0;
+                var officeType = GetString(row, "OfficeType");
+                var legalEntityCode = GetString(row, "LegalEntityCode");
+                var financialType = GetString(row, "FinancialType");
+
+                // ParentLegalEntityCode: take from Excel if present, else use parameter
+                var parentCodeFromExcel = GetString(row, "ParentLegalEntityCode");
+                var finalParentCode = !string.IsNullOrWhiteSpace(parentCodeFromExcel) ? parentCodeFromExcel : ParentLegalEntityCode;
+
+                var gstLocationId = GetIntNullable(row, "GSTLocationID");
+                var financialPersonalCode = GetString(row, "FinancialPersonalCode");
+                var assignIataGroup = GetString(row, "AssignIATAGroup");
+                var corporateAccountsCode = GetString(row, "CorporateAccountsCode");
+
+                var firstName = GetString(row, "FirstName");   // may not exist -> null
+                var lastName = GetString(row, "LastName");     // may not exist -> null
+                var businessEmail = GetString(row, "BussinesEmail");
+                var password = GetString(row, "Password");
+                var mobileNumber = GetString(row, "MobileNumber");
+                var gender = GetString(row, "Gender");
+                var addressLine1 = GetString(row, "AddressLine1");
+                var addressLine2 = GetString(row, "AddressLine2");
+                var country = GetString(row, "Country");
+                var state = GetString(row, "State");
+                var city = GetString(row, "City");
+                var postalCode = GetString(row, "PostalCode");
+
+                var accountType = GetString(row, "AccountType");
+                var integrationRefNumber = GetString(row, "IntegrationRefNumber");
+                var gstApplicable = GetBoolNullable(row, "GSTApplicableManagementFee");
+                var passGSTDetailsAirline = GetBoolNullable(row, "PassGSTDetailsAirline");
+                var isSEZ = GetBoolNullable(row, "IsSEZ");
+                var customerBaseCurrency = GetString(row, "CustomerBaseCurrency");
+                var customerBaseCountry = GetString(row, "CustomerBaseCountry");
+                var travelDeskEmail = GetString(row, "TravelDeskEmail");
+
+                var accountActivationDate = GetDateNullable(row, "AcountActivationDate");
+                var accountDeactivationDate = GetDateNullable(row, "AccountDeactivationDate");
+
+                var createNewGds = GetBoolNullable(row, "CreateNewGDSProfile");
+                var updateExistingCustomer = GetBoolNullable(row, "UpdateExistingCustomerProfile");
+
+                var createdBy = GetString(row, "CreatedBy");
+                var createdDate = GetDateNullable(row, "CreatedDate");
+                var modifyBy = GetString(row, "ModifyBy");
+                var modifyDate = GetDateNullable(row, "ModifyDate");
+
+                var appStatus = GetIntNullable(row, "AppStatus");
+
+                var legalEntity = new LegalEntity
+                {
+                    Id = id,
+                    OfficeType = officeType,
+                    LegalEntityName = legalEntityName,
+                    LegalEntityCode = string.IsNullOrWhiteSpace(legalEntityCode) ? Guid.NewGuid().ToString("N")[..8] : legalEntityCode,
+                    FinancialType = financialType,
+                    ParentLegalEntityCode = finalParentCode,
+                    GSTLocationID = gstLocationId,
+                    FinancialPersonalCode = financialPersonalCode,
+                    AssignIATAGroup = assignIataGroup,
+                    CorporateAccountsCode = corporateAccountsCode,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    BussinesEmail = businessEmail,
+                    Password = password,
+                    MobileNumber = mobileNumber,
+                    Gender = gender,
+                    AddressLine1 = addressLine1,
+                    AddressLine2 = addressLine2,
+                    Country = country,
+                    State = state,
+                    City = city,
+                    PostalCode = postalCode,
+                    AccountType = accountType,
+                    IntegrationRefNumber = integrationRefNumber,
+                    GSTApplicableManagementFee = gstApplicable,
+                    PassGSTDetailsAirline = passGSTDetailsAirline,
+                    IsSEZ = isSEZ,
+                    CustomerBaseCurrency = customerBaseCurrency,
+                    CustomerBaseCountry = customerBaseCountry,
+                    TravelDeskEmail = travelDeskEmail,
+                    AcountActivationDate = accountActivationDate,
+                    AccountDeactivationDate = accountDeactivationDate,
+                    CreateNewGDSProfile = createNewGds,
+                    UpdateExistingCustomerProfile = updateExistingCustomer,
+                    Createdby = string.IsNullOrWhiteSpace(createdBy) ? "Admin" : createdBy,
+                    CreatedDate = createdDate,
+                    ModifyBy = string.IsNullOrWhiteSpace(modifyBy) ? "Admin2" : modifyBy,
+                    ModifyDate = modifyDate,
+                    AppStatus = appStatus
+                };
+
+                var response = await client.PostAsJsonAsync(AppUrlConstant.AddLegalEntity, legalEntity);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return Json(new
                     {
-                        return Json(new { success = false, message = "No worksheet found in the uploaded file." });
-                    }
-                    var rowCount = worksheet.LastRowUsed().RowNumber();
-
-                    for (int row = 2; row <= rowCount; row++)
-                    {
-                        var IdValue = worksheet.Cell(row, 1).GetString().Trim();
-                        var OfficeType = worksheet.Cell(row, 2).GetString().Trim();
-                        var LegalEntityName = worksheet.Cell(row, 3).GetString().Trim();
-                        var LegalEntityCode = worksheet.Cell(row, 4).GetString().Trim();
-                        var FinancialType = worksheet.Cell(row, 5).GetString().Trim();
-                            ParentLegalEntityCode = worksheet.Cell(row, 6).GetString().Trim();
-                        var GSTLocationIDValue = worksheet.Cell(row, 7).GetString().Trim();
-                        var FinancialPersonalCode = worksheet.Cell(row, 8).GetString().Trim();
-                        var AssignIATAGroup = worksheet.Cell(row, 9).GetString().Trim();
-                        var CorporateAccountsCode = worksheet.Cell(row, 10).GetString().Trim();
-                        var FirstName = worksheet.Cell(row, 11).GetString().Trim();
-                        var LastName = worksheet.Cell(row, 12).GetString().Trim();
-                        var BussinesEmail = worksheet.Cell(row, 13).GetString().Trim();
-                        var Password = worksheet.Cell(row, 14).GetString().Trim();
-                        var MobileNumber = worksheet.Cell(row, 15).GetString().Trim();
-                        var Gender = worksheet.Cell(row, 16).GetString().Trim();
-                        var AddressLine1 = worksheet.Cell(row, 17).GetString().Trim();
-                        var AddressLine2 = worksheet.Cell(row, 18).GetString().Trim();
-                        var Country = worksheet.Cell(row, 19).GetString().Trim();
-                        var State = worksheet.Cell(row, 20).GetString().Trim();
-                        var City = worksheet.Cell(row, 21).GetString().Trim();
-                        var PostalCode = worksheet.Cell(row, 22).GetString().Trim();
-                        var AccountType = worksheet.Cell(row, 23).GetString().Trim();
-                        var IntegrationRefNumber = worksheet.Cell(row, 24).GetString().Trim();
-                        var GSTApplicableManagementFeeValue = worksheet.Cell(row, 25).GetString().Trim();
-                        var PassGSTDetailsAirlineValue = worksheet.Cell(row, 26).GetString().Trim();
-                        var IsSEZValue = worksheet.Cell(row, 27).GetString().Trim();
-                        var CustomerBaseCurrency = worksheet.Cell(row, 28).GetString().Trim();
-                        var CustomerBaseCountry = worksheet.Cell(row, 29).GetString().Trim();
-                        var TravelDeskEmail = worksheet.Cell(row, 30).GetString().Trim();
-                        var AcountActivationDateValue = worksheet.Cell(row, 31).GetString().Trim();
-                        var AccountDeactivationDateValue = worksheet.Cell(row, 32).GetString().Trim();
-                        var CreateNewGDSProfileValue = worksheet.Cell(row, 33).GetString().Trim();
-                        var UpdateExistingCustomerProfileValue = worksheet.Cell(row, 34).GetString().Trim();
-                        var LogoValue = worksheet.Cell(row, 35).GetString().Trim(); 
-                        var CreatedBy = worksheet.Cell(row, 36).GetString().Trim();
-                        var CreatedDateValue = worksheet.Cell(row, 37).GetString().Trim();
-                        var ModifyBy = worksheet.Cell(row, 38).GetString().Trim();
-                        var ModifyDateValue = worksheet.Cell(row, 39).GetString().Trim();
-                        var AppStatusValue = worksheet.Cell(row, 40).GetString().Trim();
-                        int.TryParse(IdValue, out int id);
-                        int? gstLocationID = int.TryParse(GSTLocationIDValue, out int gstId) ? gstId : (int?)null;
-
-                        bool? gstApplicable = bool.TryParse(GSTApplicableManagementFeeValue, out bool gstApplicableBool)
-                            ? gstApplicableBool
-                            : GSTApplicableManagementFeeValue == "1" ? true : GSTApplicableManagementFeeValue == "0" ? false : (bool?)null;
-
-                        bool? passGSTDetailsAirline = bool.TryParse(PassGSTDetailsAirlineValue, out bool passGSTBool)
-                            ? passGSTBool
-                            : PassGSTDetailsAirlineValue == "1" ? true : PassGSTDetailsAirlineValue == "0" ? false : (bool?)null;
-
-                        bool? isSEZ = bool.TryParse(IsSEZValue, out bool isSEZBool)
-                            ? isSEZBool
-                            : IsSEZValue == "1" ? true : IsSEZValue == "0" ? false : (bool?)null;
-
-                        bool? createNewGDS = bool.TryParse(CreateNewGDSProfileValue, out bool createGDSBool)
-                            ? createGDSBool
-                            : CreateNewGDSProfileValue == "1" ? true : CreateNewGDSProfileValue == "0" ? false : (bool?)null;
-
-                        bool? updateExistingCustomer = bool.TryParse(UpdateExistingCustomerProfileValue, out bool updateCustomerBool)
-                            ? updateCustomerBool
-                            : UpdateExistingCustomerProfileValue == "1" ? true : UpdateExistingCustomerProfileValue == "0" ? false : (bool?)null;
-
-                        int? appStatus = int.TryParse(AppStatusValue, out int appStatusInt) ? appStatusInt : (int?)null;
-                      
-                        DateTime? accountActivationDate = DateTime.TryParse(AcountActivationDateValue, out DateTime actDate) ? actDate : (DateTime?)null;
-                        DateTime? accountDeactivationDate = DateTime.TryParse(AccountDeactivationDateValue, out DateTime deactDate) ? deactDate : (DateTime?)null;
-                        DateTime? createdDate = DateTime.TryParse(CreatedDateValue, out DateTime createdDt) ? createdDt : (DateTime?)null;
-                        DateTime? modifyDate = DateTime.TryParse(ModifyDateValue, out DateTime modifyDt) ? modifyDt : (DateTime?)null;
-                        if (string.IsNullOrWhiteSpace(LegalEntityName))
-                        {
-                            continue;
-                        }
-
-                        var legalEntity = new LegalEntity
-                        {
-                            Id = id,
-                            OfficeType = OfficeType,
-                            LegalEntityName = LegalEntityName,
-                            LegalEntityCode = string.IsNullOrEmpty(LegalEntityCode) ? Guid.NewGuid().ToString().Substring(0, 8) : LegalEntityCode,
-                            FinancialType = FinancialType,
-                            ParentLegalEntityCode = ParentLegalEntityCode,
-                            GSTLocationID = gstLocationID,
-                            FinancialPersonalCode = FinancialPersonalCode,
-                            AssignIATAGroup = AssignIATAGroup,
-                            CorporateAccountsCode = CorporateAccountsCode,
-                            FirstName = FirstName,
-                            LastName = LastName,
-                            BussinesEmail = BussinesEmail,
-                            Password = Password,
-                            MobileNumber = MobileNumber,
-                            Gender = Gender,
-                            AddressLine1 = AddressLine1,
-                            AddressLine2 = AddressLine2,
-                            Country = Country,
-                            State = State,
-                            City = City,
-                            PostalCode = PostalCode,
-                            AccountType = AccountType,
-                            IntegrationRefNumber = IntegrationRefNumber,
-                            GSTApplicableManagementFee = gstApplicable,
-                            PassGSTDetailsAirline = passGSTDetailsAirline,
-                            IsSEZ = isSEZ,
-                            CustomerBaseCurrency = CustomerBaseCurrency,
-                            CustomerBaseCountry = CustomerBaseCountry,
-                            TravelDeskEmail = TravelDeskEmail,
-                            AcountActivationDate = accountActivationDate,
-                            AccountDeactivationDate = accountDeactivationDate,
-                            CreateNewGDSProfile = createNewGDS,
-                            UpdateExistingCustomerProfile = updateExistingCustomer,
-                            Createdby = string.IsNullOrEmpty(CreatedBy) ? "Admin" : CreatedBy,
-                            CreatedDate = createdDate,
-                            ModifyBy = string.IsNullOrEmpty(ModifyBy) ? "Admin2" : ModifyBy,
-                            ModifyDate = modifyDate,
-                            AppStatus = appStatus
-                        };
-
-                        using (HttpClient client = new HttpClient())
-                        {
-                            var response = await client.PostAsJsonAsync(AppUrlConstant.AddLegalEntity, legalEntity);
-                            if (!response.IsSuccessStatusCode)
-                            {
-                                return Json(new
-                                {
-                                    success = false,
-                                    message = $"Error inserting record for '{LegalEntityName}' at row {row}."
-                                });
-                            }
-                            else
-                            {
-                                TempData["UploadFile"] = "Data inserted successfully.";
-                                
-                            }
-                        }
-                    }
+                        success = false,
+                        message = $"Error inserting record '{legalEntityName}' at row {row}."
+                    });
                 }
             }
 
+            TempData["UploadFile"] = "Data inserted successfully.";
             return RedirectToAction("ShowOrganization", new { LegalEntityCode = ParentLegalEntityCode, LegalEntityName = ParentLegalEntityName });
-
         }
+
         public async Task<IActionResult> UpdateOffice(int Id, int IdLegal, string LegalEntityCode,string LegalEntityCodeParent, string LegalEntityName)
         {
             List<IATAGroupView> iataGroups = new();
