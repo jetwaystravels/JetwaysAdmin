@@ -11,5 +11,7 @@ namespace JetwaysAdmin.Repositories.Interface
     {
         Task AddCustomerDepartment(CustomerDepartmentData department);
         Task<IEnumerable<CustomerDepartmentData>> GetAllCustomerDepartment();
+        Task<CustomerDepartmentData> GetCustomerDepartmentById(int DepartmentID);
+        Task UpdateDepartmentData(CustomerDepartmentData Department);
     }
 }

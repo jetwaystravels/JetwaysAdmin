@@ -12,8 +12,9 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
     public class UsersController : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> ShowUsers(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID)
+        public async Task<IActionResult> ShowUsers(string legalEntityCode, string legalEntityName, string legalEntityId, int UserID,string excelMessage )
         {
+           
             List<CustomersEmployee> customerdetail = new List<CustomersEmployee>();
             List<State> state = new List<State>();
             List<CustomerDesignation> customerDesignation = new List<CustomerDesignation>();
@@ -95,6 +96,11 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             ViewBag.LegalEntityName = legalEntityName;
             ViewBag.LegalEntityCode = legalEntityCode;
             ViewBag.EUserid = UserID;
+            if (!string.IsNullOrEmpty(excelMessage))
+            {
+                TempData["ExcelMessage"] = excelMessage;
+                //TempData.Keep("ExcelMessage");
+            }
             return View(userAlldetail);
         }
 
@@ -240,8 +246,16 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
             return View(viewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> AddUsers([FromForm] CustomersEmployee adduser, string LegalEntityCodeParent, string LegalEntityNameParent)
+        public async Task<IActionResult> AddUsers([FromForm] CustomersEmployee adduser, string LegalEntityCodeParent, string LegalEntityNameParent, string excelMessage)
         {
+             excelMessage = string.Empty;
+            if (string.IsNullOrEmpty(LegalEntityCodeParent))
+            {
+                LegalEntityCodeParent = adduser.LegalEntityCode;
+                LegalEntityNameParent = adduser.LegalEntityName;
+                excelMessage = "User Add Successfully";
+                TempData["ExcelMessage"] = excelMessage;
+            }
             List<CustomersEmployee> customerdetail = new List<CustomersEmployee>();
             var file = Request.Form.Files.FirstOrDefault(f => f.Name == "Logo");
             if (file != null && file.Length > 0)
@@ -282,8 +296,8 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                         return RedirectToAction("ShowUsers", new
                         {
                             legalEntityName = LegalEntityNameParent,
-                            legalEntityCode = LegalEntityCodeParent
-                          
+                            legalEntityCode = LegalEntityCodeParent,
+                            excelMessage= excelMessage
                         });
                     }
                 }
@@ -295,17 +309,20 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                 {
                     var result = await response.Content.ReadAsStringAsync();
                     TempData["AddUSers"] = "User Add Successfully";
+                    
                 }
                 else
                 {
                     TempData["NotAddUSers"] = "User not add ";
                 }
                 ViewBag.ErrorMessage = "Data not  insert";
+               
                 return RedirectToAction("ShowUsers", new
                 {
                     legalEntityName = LegalEntityNameParent,
-                    legalEntityCode = LegalEntityCodeParent
-                  
+                    legalEntityCode = LegalEntityCodeParent,
+                    excelMessage= excelMessage
+
                 });
             }
         }

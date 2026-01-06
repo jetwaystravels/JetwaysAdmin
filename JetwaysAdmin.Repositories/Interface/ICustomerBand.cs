@@ -11,5 +11,7 @@ namespace JetwaysAdmin.Repositories.Interface
     {
         Task<IEnumerable<CustomerBand>> GetAllBand();
         Task AddCustomerBand(CustomerBand customerband);
+        Task<CustomerBand> GetCustomerBandById(int BandID);
+        Task UpdateBandData(CustomerBand customerband);
     }
 }

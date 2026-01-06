@@ -1,0 +1,171 @@
+﻿@model JetwaysAdmin.Entity.CustomerDepartmentData
+@{
+    Layout = "~/Views/Shared/_MasterData.cshtml";
+    var Data = Model;
+}
+<main id="main" class="main">
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Update Departments</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Setting</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Manage Departments</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Departments
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @*<----AddDepartment----->*@
+    <div class="pcoded-main-container" id="AddDepartment">
+        <div class="pcoded-wrapper">
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            @if (TempData["Update_Message"] != null)
+                            {
+                                <div class="alert alert-success" style="background:#11c15b;color: #fff;width:280px;">
+                                    <strong></strong> @TempData["Update_Message"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            }
+                            <div class="card">
+                                <div class="card-block">
+                                    <form asp-controller="Departments" asp-action="EditDepartment" class="form-material form-row" method="post">
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="hidden" name="DepartmentID" value="@Model.DepartmentID" class="form-control">
+                                            <input type="text" name="DepartmentName" value="@Model.DepartmentName" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Department Name<span>*</span></label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text"
+                                                   id="DepartmentCode"
+                                                   name="DepartmentCode"
+                                                   class="form-control"
+                                                   maxlength="6"
+                                                   minlength="6"
+                                                   value="@Model.DepartmentCode"
+                                                   required
+                                                   oninput="validateDepartmentCode(this)">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Department Code<span>*</span></label>
+                                            <span id="deptCodeError" style="color: red; display: none; font-size: 13px;">
+                                                Department code must be exactly 6 alphanumeric characters.
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="Reference-1"  class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Reference 1</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="Reference-2" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Reference 2</label>
+                                        </div>
+                                        <div class="form-group form-primary col-md-12 m-t-10" style="border-top:1px solid #dee2e6;"></div>
+                                        <div class="form-group form-primary col-md-3 U-select">
+                                            <div>
+                                                <div class="m-b-15" style="font-size:13px;">Department Head</div>
+                                                <div class="m-b-10" style="position:relative;">
+                                                    <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8; position: absolute; left: 7px; top: 5px;"></i><input type="text" name="assign-supervisor" placeholder="Assign Department Head" style="border: #eff1f4 1px solid; border-radius: 3px; padding-left: 27px; width: 217px;">
+                                                </div>
+                                                <div class="selected-items"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3 U-select">
+                                            <div>
+                                                <div class="m-b-15" style="font-size:13px;">Department Manager1</div>
+                                                <div class="m-b-10" style="position:relative;">
+                                                    <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8; position: absolute; left: 7px; top: 5px;"></i><input type="text" name="assign-supervisor" placeholder="Assign Department Manager1" style="border: #eff1f4 1px solid; border-radius: 3px; padding-left: 27px; width: 225px;">
+                                                </div>
+                                                <div class="selected-items"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-primary col-md-3 U-select">
+                                            <div>
+                                                <div class="m-b-15" style="font-size:13px;">Department Manager2</div>
+                                                <div class="m-b-10" style="position:relative;">
+                                                    <i class="fa fa-user-plus m-r-10" aria-hidden="true" style="color: #0e93d8; position: absolute; left: 7px; top: 5px;"></i><input type="text" name="Assign Department Manager2" placeholder="Assign Department Manager1" style="border: #eff1f4 1px solid; border-radius: 3px; padding-left: 27px; width: 225px;">
+                                                </div>
+                                                <div class="selected-items"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-primary col-md-12">
+                                            <button id="UpdateDepartment" class="btn btn-primary waves-effect waves-light">Update</button>
+                                            <button class="btn btn-danger waves-effect waves-light">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+            <div id="styleSelector"> </div>
+        </div>
+    </div>
+
+
+
+
+</main>
+
+
+<footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @section Scripts {
+    <script>
+        $('#langOpt').multiselect({
+            columns: 1,
+            texts: {
+                placeholder: 'Associated Fare Type(s) *'
+            }
+        });
+    </script>
+    <script>
+        $(function () {
+            $(".select").select2();
+        });
+    </script>
+    <script>
+        $(function () {
+            $(".date-main").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+    </script>
+    <script>
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+    }
+</footer>

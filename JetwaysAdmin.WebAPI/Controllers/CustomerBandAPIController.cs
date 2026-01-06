@@ -36,5 +36,33 @@ namespace JetwaysAdmin.WebAPI.Controllers
             await _bandData.AddCustomerBand(customerbanddata);
             return Ok(new { message = "Customer department added successfully!" });
         }
+        [HttpGet("{BandID}")]
+        public async Task<ActionResult<CustomerBand>> GetCustomerBandById(int BandID)
+        {
+            var entity = await _bandData.GetCustomerBandById(BandID);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            return Ok(entity);
+        }
+        [HttpPut("{BandID}")]
+        public async Task<ActionResult> UpdateCustomerBand(int BandID, CustomerBand band)
+        {
+            if (BandID != band.BandID)
+            {
+                return BadRequest("Band ID mismatch.");
+            }
+            var BandUpdate = await _bandData.GetCustomerBandById(BandID);
+            if (BandUpdate == null)
+            {
+                return NotFound();
+            }
+            BandUpdate.BandName = band.BandName ?? BandUpdate.BandName;
+            BandUpdate.BandCode = band.BandCode ?? BandUpdate.BandCode;
+            BandUpdate.BandLevel = band.BandLevel ?? BandUpdate.BandLevel;
+            await _bandData.UpdateBandData(BandUpdate);
+            return Ok(new { message = "Band updated successfully!" });
+        }
     }
 }

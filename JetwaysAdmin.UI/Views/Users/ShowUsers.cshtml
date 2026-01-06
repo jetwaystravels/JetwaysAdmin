@@ -290,6 +290,16 @@
                                             </form>
 
                                             <div>
+                                                @{
+                                                    @if (TempData["ExcelMessage"] != null)
+                                                    {
+                                                        <div class="alert alert-success" style="background-color:green; width:220px;">
+                                                            @TempData["ExcelMessage"]
+                                                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                                        </div>
+                                                    }
+
+                                                }
                                                 <a id="addnewuser" class="btn sml-btn-danger text-white">+ Add New</a>
                                                 <div class="dropdown-primary dropdown open">
                                                     <button class="btn btn-primary sml-b dropdown-toggle" type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Bulk</button>
@@ -750,74 +760,6 @@
         }
 
     </script>
-  @*   <script>
-        document.getElementById('userExcelUpload').addEventListener('change', function (e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function (evt) {
-                const data = new Uint8Array(evt.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
-                const sheet = workbook.Sheets[workbook.SheetNames[0]];
-                const rows = XLSX.utils.sheet_to_json(sheet, { defval: "" });
-                if (rows.length === 0) {
-                    alert('No data found in Excel.');
-                    return;
-                }
-                const legalEntityCode = '@ViewBag.LegalEntityCode';
-                const legalEntityName = '@ViewBag.LegalEntityName';
-                let successCount = 0;
-                let failCount = 0;
-
-                rows.forEach((row, index) => {
-                    const formData = new FormData();
-                    formData.append("LegalEntityCodeParent", legalEntityCode);
-                    formData.append("LegalEntityNameParent", legalEntityName);
-                    formData.append("LegalEntityCode", legalEntityCode);
-                    formData.append("LegalEntityName", legalEntityName);
-                    formData.append("EmployeeID", row["EmployeeID"]);
-                    formData.append("Title", row["Title"]);
-                    formData.append("FirstName", row["FirstName"]);
-                    formData.append("LastName", row["LastName"]);
-                    formData.append("BusinessEmail", row["BusinessEmail"]);
-                    formData.append("MobileCountryCode", row["MobileCountryCode"]);
-                    formData.append("MobileNumber", row["MobileNumber"]);
-                    formData.append("Nationality", row["Nationality"]);
-                    formData.append("WorkLocation", row["WorkLocation"]);
-                    formData.append("UserType", row["UserType"]);
-                    formData.append("Department", row["Department"]);
-                    formData.append("Designation", row["Designation"]);
-                    formData.append("Bands", row["Bands"]);
-                    formData.append("ReportingManager", row["ReportingManager"]);
-                    formData.append("Password", row["Password"]);
-
-                    fetch('/Users/AddUsers', {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then(res => res.ok ? res.json() : Promise.reject(res))
-                        .then(data => {
-                            if (data.success) successCount++;
-                            else failCount++;
-                            if (successCount + failCount === rows.length) {
-                                //alert(`${successCount} users added,${failCount} failed`);
-                                alert("User added successfully");
-                                if (successCount > 0) location.reload();
-                            }
-                        })
-                        .catch(err => {
-                            console.error(`Row ${index + 2} failed`, err);
-                            failCount++;
-                            if (successCount + failCount === rows.length) {
-                                alert(`${successCount} users added, ${failCount} failed`);
-                            }
-                        });
-                });
-            };
-            reader.readAsArrayBuffer(file);
-        });
-    </script> *@
     <script>
         document.getElementById('userExcelUpload').addEventListener('change', function (e) {
             const file = e.target.files[0];
@@ -832,11 +774,7 @@
                 if (!sheetRef) { alert("Empty sheet."); return; }
 
                 const range = XLSX.utils.decode_range(sheetRef);
-
-                // normalize header (ignore case/spaces)
                 const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, "");
-
-                // Build header map from row 1
                 const headerMap = {};
                 for (let c = range.s.c; c <= range.e.c; c++) {
                     const addr = XLSX.utils.encode_cell({ r: 0, c });
@@ -850,8 +788,6 @@
 
                 const legalEntityCode = '@ViewBag.LegalEntityCode';
                 const legalEntityName = '@ViewBag.LegalEntityName';
-
-                // Model property -> possible Excel headers
                 const map = {
                     EmployeeID: ["EmployeeID"],
                     Title: ["Title"],
@@ -870,8 +806,6 @@
                     Password: ["Password"],
                     DateOfBirth: ["DateOfBirth", "DOB", "Date Of Birth"]
                 };
-
-                // Read a cell by header aliases
                 function readCell(row1Based, headerAliases) {
                     for (const h of headerAliases) {
                         const key = norm(h);
@@ -882,15 +816,13 @@
                             return cell ? cell.v : "";
                         }
                     }
-                    return undefined; // header not present
+                    return undefined; 
                 }
 
-                // Empty check: treat ONLY null/undefined/"" as empty (0/1 are valid)
+               
                 function isEmptyValue(v) {
                     return v === null || v === undefined || (typeof v === "string" && v.trim() === "");
                 }
-
-                // Convert DOB to yyyy-MM-dd
                 function toYMD(val) {
                     if (isEmptyValue(val)) return "";
 
@@ -903,8 +835,6 @@
 
                     const s = String(val).trim();
                     if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
-
-                    // Excel serial date number
                     if (!isNaN(Number(s))) {
                         const dObj = XLSX.SSF.parse_date_code(Number(s));
                         if (dObj) {
@@ -914,8 +844,6 @@
                             return `${y}-${m}-${d}`;
                         }
                     }
-
-                    // fallback parse
                     const dt = new Date(s);
                     if (!isNaN(dt.getTime())) {
                         const y = dt.getFullYear();
@@ -926,64 +854,48 @@
 
                     return "";
                 }
-
-                // Find if a row is completely empty for all mapped fields
                 function isRowCompletelyEmpty(excelRow) {
                     for (const prop in map) {
                         const raw = readCell(excelRow, map[prop]);
-                        if (raw === undefined) continue; // header missing is ok
+                        if (raw === undefined) continue; 
                         if (!isEmptyValue(raw)) return false;
                     }
                     return true;
                 }
-
                 let successCount = 0, failCount = 0;
-                const dataRowCount = totalRows - 1; // excluding header row
+                const dataRowCount = totalRows - 1;
 
                 for (let excelRow = 2; excelRow <= totalRows; excelRow++) {
-
-                    // Skip blank rows
                     if (isRowCompletelyEmpty(excelRow)) {
-                        // still count as processed? we will just ignore it
-                        // reduce total count to avoid wrong final alert
                         continue;
                     }
-
                     const formData = new FormData();
-
                     // fixed values
                     formData.append("LegalEntityCode", legalEntityCode);
                     formData.append("LegalEntityName", legalEntityName);
-
-                    // Append fields only if header exists AND cell has a value
                     for (const prop in map) {
                         const raw = readCell(excelRow, map[prop]);
 
-                        if (raw === undefined) continue;      // header missing => do not send (stays null)
-                        if (isEmptyValue(raw)) continue;      // empty cell => do not send (stays null)
+                        if (raw === undefined) continue;     
+                        if (isEmptyValue(raw)) continue;   
 
                         if (prop === "DateOfBirth") {
                             const dob = toYMD(raw);
                             if (dob !== "") formData.append("DateOfBirth", dob);
                         } else {
-                            // preserve values like 0/1
                             formData.append(prop, String(raw).trim());
                         }
                     }
-
-                    // Debug: verify it is sending what you typed (remove after testing)
                     console.log("Sending row", excelRow, Object.fromEntries(formData.entries()));
 
                     fetch('/Users/AddUsers', { method: 'POST', body: formData })
                         .then(res => res.ok ? res.json() : Promise.reject(res))
                         .then(data => {
                             if (data.success) successCount++; else failCount++;
-
-                            // When all requests are finished, show summary
                             if (successCount + failCount === dataRowCount) {
                                 //alert(`${successCount} users added, ${failCount} failed`);
                                 alert("User insert successfully!");
-                                if (successCount > 0) location.reload();
+                                //if (successCount > 0) location.reload();
                             }
                         })
                         .catch(err => {

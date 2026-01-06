@@ -95,11 +95,14 @@
         public static string GetcustomerDealCode = BaseURL + "api/DealCodeAPI/GetcustomerDealCode";
         public static string GetCustomerDepartment = BaseURL + "api/CustomerDepartmentAPI/GetAllCustomerDepartment";
         public static string AddCustomerDepartment = BaseURL + "api/CustomerDepartmentAPI/AddCustomerDepartment";
+        public static string GetCustomerDepartmentID = BaseURL + "api/CustomerDepartmentAPI";
         public static string GetCustomerDesignation = BaseURL + "api/CustomerDesignationAPI/GetAllCustomerDesignation";
+        public static string GetCustomerDesignationID = BaseURL + "api/CustomerDesignationAPI";
         public static string AddCustomerDesignation = BaseURL + "api/CustomerDesignationAPI/AddCustomerDesignation";
         public static string updatestatus = BaseURL + "api/CustomersEmployeeAPI/updatestatus";
         public static string Menuright = BaseURL + "api/MenuRights/Menurightssave";
         public static string CustomerBand = BaseURL + "api/CustomerBandAPI/GetCustomerBand";
+        public static string CustomerBandByID = BaseURL + "api/CustomerBandAPI";
         public static string AddCustomerBand = BaseURL + "api/CustomerBandAPI/AddCustomerBand";
         public static string GetBookingFiltered = BaseURL + "api/AdminBooking/filtered";
 

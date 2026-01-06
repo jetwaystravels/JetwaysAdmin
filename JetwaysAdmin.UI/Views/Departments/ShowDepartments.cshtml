@@ -269,7 +269,7 @@
                 $('#departmentTableBody').on('click', '.department-row', function () {
                     var deptId = $(this).data('deptid');
                     if (deptId) {
-                        var url = '@Url.Action("EditDepartment", "Departments")' + '?departmentId=' + deptId;
+                        var url = '@Url.Action("UpdateDepartment", "Departments")' + '?departmentId=' + deptId;
                         window.location.href = url;
                     }
                 });

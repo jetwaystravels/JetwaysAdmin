@@ -1,0 +1,152 @@
+﻿@model JetwaysAdmin.Entity.CustomerBand
+
+@{
+    Layout = "~/Views/Shared/_MasterData.cshtml";
+    var Data = Model;
+}
+
+<main id="main" class="main">
+    <!-- ========= BAND LIST SECTION ========= -->
+
+    @* ========= ADD BAND SECTION (HIDDEN BY DEFAULT) ========= *@
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Update Band</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Setting</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Manage Band</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Bands
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            @if (TempData["Update_Band"] != null)
+                            {
+                                <div class="alert alert-success" style="background:#11c15b;color: #fff;width:280px;">
+                                    <strong></strong> @TempData["Update_Band"]
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            }
+                            <div class="card">
+                                <div class="card-block">
+                                    <form asp-controller="Bands" asp-action="EditBand" class="form-material form-row" method="post">
+                                        <input type="hidden" name="BandID" value="@Model.BandID" class="form-control">
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="BandName" value="@Model.BandName" class="form-control" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Band Name<span>*</span></label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text"
+                                                   id="BandCode"
+                                                   name="BandCode"
+                                                   class="form-control"
+                                                   value="@Model.BandCode"
+                                                   maxlength="6"
+                                                   minlength="2" required>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Band Code<span>*</span></label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="Reference1" class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Reference 1 (optional)</label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <input type="text" name="Reference2"  class="form-control">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Reference 2 (optional)</label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-12 m-t-10" style="border-top:1px solid #dee2e6;"></div>
+
+                                        <div class="form-group form-primary col-md-3">
+                                            <select name="IsActive" value="@Model.IsActive" class="form-control select">
+                                                <option value="true">Active</option>
+                                                <option value="false">Inactive</option>
+                                            </select>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Status</label>
+                                        </div>
+
+                                        <div class="form-group form-primary col-md-12">
+                                            <button id="UpdateBand" class="btn btn-primary waves-effect waves-light" type="submit">Update</button>
+                                            <button type="button" class="btn btn-danger waves-effect waves-light" id="CancelAddBand">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Page-body end -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Main-body end -->
+            </div>
+
+            <div id="styleSelector"> </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
+    <script>
+        $('#langOpt').multiselect({
+            columns: 1,
+            texts: {
+                placeholder: 'Associated Fare Type(s) *'
+            }
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $(".select").select2();
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $(".date-main").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+    </script>
+
+    <script>
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+</footer>

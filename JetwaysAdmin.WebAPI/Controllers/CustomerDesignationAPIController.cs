@@ -39,5 +39,36 @@ namespace JetwaysAdmin.WebAPI.Controllers
             await _designation.AddCustomerDesignation(customerdesignation);
             return Ok(new { message = "Customer department added successfully!" });
         }
+        [HttpGet("{DesignationID}")]
+        public async Task<ActionResult<CustomerDesignation>> GetCustomerDesignationById(int DesignationID)
+        {
+            var entity = await _designation.GetCustomerDesignationById(DesignationID);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            return Ok(entity);
+        }
+        [HttpPut("{DesignationID}")]
+        public async Task<ActionResult> UpdateCustomerDesignation(int DesignationID, CustomerDesignation designation)
+        {
+            if (DesignationID != designation.DesignationID)
+            {
+                return BadRequest("Customer ID mismatch.");
+            }
+
+            var DesignationUpdate = await _designation.GetCustomerDesignationById(DesignationID);
+            if (DesignationUpdate == null)
+            {
+                return NotFound();
+            }
+           
+            DesignationUpdate.DesignationName = designation.DesignationName ?? DesignationUpdate.DesignationName;
+            DesignationUpdate.DesignationCode = designation.DesignationCode ?? DesignationUpdate.DesignationCode;
+
+            await _designation.UpdateDesignationData(DesignationUpdate);
+            return Ok(new { message = "Designation updated successfully!" });
+        }
+
     }
 }

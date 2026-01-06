@@ -33,5 +33,14 @@ namespace JetwaysAdmin.Repositories.Implementations
             await _context.tb_CustomerDesignation.AddAsync(department);
             await _context.SaveChangesAsync();
         }
+        public async Task<CustomerDesignation> GetCustomerDesignationById(int DesignationID)
+        {
+            return await _context.tb_CustomerDesignation.FirstOrDefaultAsync(e => e.DesignationID == DesignationID);
+        }
+        public async Task UpdateDesignationData(CustomerDesignation designation)
+        {
+            _context.tb_CustomerDesignation.Update(designation);
+            await _context.SaveChangesAsync();
+        }
     }
 }

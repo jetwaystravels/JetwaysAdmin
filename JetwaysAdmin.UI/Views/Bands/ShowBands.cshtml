@@ -81,12 +81,12 @@
                                                             <th><button class="srt-btn" type="button" aria-label="band-status">Status</button></th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="bandTableBody">
                                                         @if (Model != null && Model.Customerbands != null && Model.Customerbands.Any())
                                                         {
                                                             foreach (var item in Model.Customerbands)
                                                             {
-                                                                <tr>
+                                                                <tr class="department-row" data-deptid="@item.BandID">
                                                                     <td>@item.BandName</td>
                                                                     <td>@item.BandCode</td>
                                                                     <td>@item.BandLevel</td>
@@ -253,7 +253,19 @@
 
 <footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                $('#bandTableBody').on('click', '.department-row', function () {
+                    var deptId = $(this).data('deptid');
+                    if (deptId) {
+                        var url = '@Url.Action("UpdateBand", "Bands")' + '?bandId=' + deptId;
+                        window.location.href = url;
+                    }
+                });
+            });
+        </script>
+    }
     <script>
         $('#langOpt').multiselect({
             columns: 1,

@@ -74,10 +74,10 @@
                                                             <th><button class="srt-btn" type="button" aria-label="Status">Status</button></th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="departmentTableBody">
                                                         @foreach (var item in Model.Customerdesignation)
                                                         {
-                                                            <tr>
+                                                            <tr class="department-row" data-deptid="@item.DesignationID">
                                                                 <td>@item.DesignationName</td>
                                                                 <td>@item.DesignationCode</td>
                                                                 <td>@item.IsActive</td>
@@ -260,6 +260,19 @@
 </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  <!-- multiple selection Jquery start -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#departmentTableBody').on('click', '.department-row', function () {
+                var deptId = $(this).data('deptid');
+                if (deptId) {
+                    var url = '@Url.Action("UpdateDesignation", "Designations")' + '?designationId=' + deptId;
+                    window.location.href = url;
+                }
+            });
+        });
+    </script>
+}
     <script>
         $('#langOpt').multiselect({
             columns: 1,

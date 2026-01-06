@@ -10,7 +10,8 @@ namespace JetwaysAdmin.Repositories.Interface
     public interface ICustomerDesignation<T> where T : class
     {
         Task AddCustomerDesignation(CustomerDesignation designation);
-        //Task<IEnumerable<CustomerDesignation>> GetAllCustomerDesignation(string legalEntityCode);
         Task<IEnumerable<CustomerDesignation>> GetAllCustomerDesignation();
+        Task<CustomerDesignation> GetCustomerDesignationById(int DesignationID);
+        Task UpdateDesignationData(CustomerDesignation Designation);
     }
 }

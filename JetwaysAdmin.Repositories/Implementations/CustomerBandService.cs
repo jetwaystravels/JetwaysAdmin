@@ -27,6 +27,16 @@ namespace JetwaysAdmin.Repositories.Implementations
             await _context.tb_CustomerBand.AddAsync(customerband);
             await _context.SaveChangesAsync();
         }
+        public async Task<CustomerBand> GetCustomerBandById(int BandID)
+        {
+            return await _context.tb_CustomerBand.FirstOrDefaultAsync(e => e.BandID == BandID);
+        }
+
+        public async Task UpdateBandData(CustomerBand customerband)
+        {
+            _context.tb_CustomerBand.Update(customerband);
+            await _context.SaveChangesAsync();
+        }
 
     }
 }

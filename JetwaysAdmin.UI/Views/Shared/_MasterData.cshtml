@@ -76,11 +76,25 @@
                                                     <span class="pcoded-mtext">Band</span>
                                                 </a>
                                             </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="pcoded-item pcoded-left-item">
+                                    <li class="pcoded-hasmenu">
+                                        <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="fa fa-database" aria-hidden="true"></i>
+                                            </span>
+                                            <span class="pcoded-mtext">Excel Data</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+
+                                        <ul class="pcoded-submenu">
                                             <li>
-                                                 <a class="waves-effect waves-dark" href="javascript:void(0);" onclick="document.getElementById('officeUpload').click();">
+                                                <a class="waves-effect waves-dark" href="javascript:void(0);" onclick="document.getElementById('officeUpload').click();">
                                                     <span class="pcoded-micon"><i class="fa fa-tags"></i></span>
                                                     <span class="pcoded-mtext">Upload offices</span>
-                                                 </a>
+                                                </a>
                                                 <input type="file" id="officeUpload" accept=".xlsx,.xls" style="display:none" />
                                             </li>
                                             <li>
@@ -127,7 +141,11 @@
     @Html.Partial("Footer")
 
     @await RenderSectionAsync("Scripts", required: false)
-
+    <style>
+        .department-row{
+            cursor:pointer;
+        }
+    </style>
     <!-- multiple selection Jquery start -->
     <script>
         $('.langOpt').multiselect({

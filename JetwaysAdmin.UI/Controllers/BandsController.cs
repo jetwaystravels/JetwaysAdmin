@@ -55,5 +55,42 @@ namespace JetwaysAdmin.UI.Controllers
             TempData["BandAdd"] = "Failed to Add Band";
             return RedirectToAction("ShowBands");
         }
+        [HttpGet]
+        public async Task<IActionResult> UpdateBand(int BandID)
+        {
+            CustomerBand entity = null;
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.CustomerBandByID}/{BandID}";
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    entity = JsonConvert.DeserializeObject<CustomerBand>(result);
+                }
+            }
+            return View(entity);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditBand(CustomerBand banddata)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+
+                string Data = JsonConvert.SerializeObject(banddata);
+                StringContent content = new StringContent(Data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PutAsync(AppUrlConstant.CustomerBandByID + "/" + banddata.BandID, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Update_Band"] = "Band update successfully";
+                    return RedirectToAction("UpdateBand", new
+                    {
+                        BandID = banddata.BandID
+
+                    });
+                }
+            }
+            return View();
+        }
     }
 }

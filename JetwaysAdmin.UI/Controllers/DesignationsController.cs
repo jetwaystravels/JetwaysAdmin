@@ -63,5 +63,44 @@ namespace JetwaysAdmin.UI.Controllers
             ViewBag.ErrorMessage = "Data not  insert";
             return RedirectToAction("ShowDesignations");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateDesignation(int DesignationID)
+        {
+            CustomerDesignation entity = null;
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.GetCustomerDesignationID}/{DesignationID}";
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    entity = JsonConvert.DeserializeObject<CustomerDesignation>(result);
+                }
+            }
+
+            return View(entity);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditDesignation(CustomerDesignation designationdata)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+
+                string Data = JsonConvert.SerializeObject(designationdata);
+                StringContent content = new StringContent(Data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PutAsync(AppUrlConstant.GetCustomerDesignationID + "/" + designationdata.DesignationID, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Update_Designation"] = "Designation update successfully";
+                    return RedirectToAction("UpdateDesignation", new
+                    {
+                        DesignationID = designationdata.DesignationID
+
+                    });
+                }
+            }
+            return View();
+        }
     }
 }

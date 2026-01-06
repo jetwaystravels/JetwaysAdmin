@@ -36,5 +36,36 @@ namespace JetwaysAdmin.WebAPI.Controllers
             await _department.AddCustomerDepartment(customerdepartment);
             return Ok(new { message = "Customer department added successfully!" });
         }
+        [HttpGet("{DepartmentID}")]
+        public async Task<ActionResult<CustomerDepartmentData>> GetCustomerDepartmentById(int DepartmentID)
+        {
+            var entity = await _department.GetCustomerDepartmentById(DepartmentID);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            return Ok(entity);
+        }
+
+        [HttpPut("{DepartmentID}")]
+        public async Task<ActionResult> UpdateCustomerDepartment(int DepartmentID, CustomerDepartmentData department)
+        {
+            if (DepartmentID != department.DepartmentID)
+            {
+                return BadRequest("Customer ID mismatch.");
+            }
+
+            var DepartmentUpdate = await _department.GetCustomerDepartmentById(DepartmentID);
+            if (DepartmentUpdate == null)
+            {
+                return NotFound();
+            }
+            //legalEntityupdate.LegalEntityCode = legalEntity.LegalEntityCode;
+            DepartmentUpdate.DepartmentName = department.DepartmentName ?? DepartmentUpdate.DepartmentName;
+            DepartmentUpdate.DepartmentCode = department.DepartmentCode ?? DepartmentUpdate.DepartmentCode;
+
+            await _department.UpdateDepartmentData(DepartmentUpdate);
+            return Ok(new { message = "Customer updated successfully!" });
+        }
     }
 }
