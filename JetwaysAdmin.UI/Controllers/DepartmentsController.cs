@@ -53,12 +53,12 @@ namespace JetwaysAdmin.UI.Controllers
             return RedirectToAction("ShowDepartments");
         }
         [HttpGet]
-        public async Task<IActionResult> UpdateDepartment(int DesignationID)
+        public async Task<IActionResult> UpdateDepartment(int DepartmentID)
         {
             CustomerDepartmentData entity = null;
             using (HttpClient client = new HttpClient())
             {
-                string url = $"{AppUrlConstant.GetCustomerDepartmentID}/{DesignationID}";
+                string url = $"{AppUrlConstant.GetCustomerDepartmentID}/{DepartmentID}";
                 var response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
