@@ -57,5 +57,27 @@ namespace JetwaysAdmin.Repositories.Implementations
 
             return result.FirstOrDefault();
         }
+
+        public async Task<string?> RemoveBookingConsultantAsync(string legalEntityCode, int employeeId)
+        {
+            var row = await _customermanagestaff.Set<CustomerManageStaff>()
+                .FirstOrDefaultAsync(x => x.LegalEntityCode == legalEntityCode);
+
+            if (row == null) return null;
+
+            var ids = (row.BookingConsultant ?? "")
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim())
+                .ToList();
+
+            ids.RemoveAll(x => x == employeeId.ToString());   
+
+            row.BookingConsultant = ids.Count == 0 ? null : string.Join(",", ids);
+
+            await _customermanagestaff.SaveChangesAsync();
+
+            return row.BookingConsultant;
+        }
+
     }
 }

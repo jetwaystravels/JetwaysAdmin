@@ -35,5 +35,21 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
             return Ok(result);
         }
+        [HttpDelete("RemoveBookingConsultant")]
+        public async Task<IActionResult> RemoveBookingConsultant(string legalEntityCode, int employeeId)
+        {
+            var updated = await _managestaff.RemoveBookingConsultantAsync(legalEntityCode, employeeId);
+
+            if (updated == null)
+                return NotFound(new { message = "LegalEntityCode not found" });
+
+            return Ok(new
+            {
+                message = "Removed",
+                legalEntityCode,
+                bookingConsultant = updated 
+            });
+        }
+
     }
 }

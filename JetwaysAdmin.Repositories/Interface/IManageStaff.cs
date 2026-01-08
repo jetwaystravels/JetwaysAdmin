@@ -11,5 +11,8 @@ namespace JetwaysAdmin.Repositories.Interface
     {
         Task ManageStaff(CustomerManageStaff customermanagestaff);
         Task<BookingConsultantDto?> GetBookingConsultantsAsync(string legalEntityCode);
+        Task<string?> RemoveBookingConsultantAsync(string legalEntityCode, int employeeId);
+
+
     }
 }

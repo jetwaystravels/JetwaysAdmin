@@ -39,6 +39,7 @@
 
         public static string ManageStaff = BaseURL + "api/ManageStaffAPI/ManageStaff";
         public static string GetBookingConsultants = BaseURL + "api/ManageStaffAPI/BookingConsultants";
+        public static string RemoveBookingConsultant = BaseURL + "api/ManageStaffAPI/RemoveBookingConsultant";
 
 
         public static string Dashboard = BaseURL + "api/DashboardAPI/Dashboard";

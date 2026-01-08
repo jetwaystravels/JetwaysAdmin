@@ -8,8 +8,9 @@
         padding: 5px;
         background-color: #11c15b;
         color: white;
-        width:25%;
+        width: 25%;
     }
+
     .closebtn {
         margin-left: 15px;
         color: white;
@@ -20,15 +21,19 @@
         cursor: pointer;
         transition: 0.3s;
     }
-  .closebtn:hover {
+
+        .closebtn:hover {
             color: black;
         }
+
     .alert {
         padding: 5px;
         width: 25%;
         margin-bottom: 10px;
         color: white;
-    }  .alert.success {
+    }
+
+        .alert.success {
             background-color: #11c15b;
         }
 
@@ -160,7 +165,7 @@
                             }
                             @if (alertMessage != null)
                             {
-                                <div class="alert" style="background-color:@(isError ? "#e74c3c" : "#11c15b"); color:white;">
+                                <div class="alert" style="background-color:@(isError ? "#e74c3c" : "#11c15b"); color:white; width:300px;">
                                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                     <strong>@(isError ? "Error!" : "Success:")</strong> @alertMessage
                                 </div>
@@ -241,9 +246,9 @@
                                         </div>
 
                                     </div>
-                                  @{
-                                // var consultantList = Model.BookingConsultants.BookingConsultantNames.Split(',')
-                                // .Select(x => x.Trim()).ToList();
+                                  @*   @{
+                                        // var consultantList = Model.BookingConsultants.BookingConsultantNames.Split(',')
+                                        // .Select(x => x.Trim()).ToList();
                                         var consultantList = new List<string>();
 
                                         if (!string.IsNullOrEmpty(Model.BookingConsultants?.BookingConsultantNames))
@@ -253,8 +258,8 @@
                                             .Select(x => x.Trim())
                                             .ToList();
                                         }
-                                 }
-                                 <div id="consultant-tags">
+                                    }
+                                    <div id="consultant-tags">
                                         @foreach (var consultant in consultantList)
                                         {
                                             <span class="tag">
@@ -262,8 +267,38 @@
                                                 <button type="button" class="remove-btn">×</button>
                                             </span>
                                         }
+                                    </div> *@
+                                    @{
+                                        var consultantList = new List<string>();
+
+                                        if (!string.IsNullOrEmpty(Model.BookingConsultants?.BookingConsultantNames))
+                                        {
+                                            consultantList = Model.BookingConsultants.BookingConsultantNames
+                                            .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                            .Select(x => x.Trim())
+                                            .ToList();
+                                        }
+                                    }
+
+                                    <div id="consultant-tags" data-idlegal="@ViewBag.Id"
+                                         data-legalentitycode="@ViewBag.LegalEntityCode"
+                                         data-legalentityname="@ViewBag.LegalEntityName">
+                                        @foreach (var consultant in consultantList)
+                                        {
+                                            // consultant format: "UserID|Full Name"
+                                            var parts = consultant.Split('|', 2);
+                                            var userId = parts.Length > 1 ? parts[0] : "";
+                                            var displayName = parts.Length > 1 ? parts[1] : consultant;
+
+                                            <span class="tag" data-employeeid="@userId">
+                                                <span>@displayName</span>
+                                                <button type="button" class="remove-btn">×</button>
+                                            </span>
+                                        }
                                     </div>
-                                    <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>                                    
+
+
+                                    <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
                                     <div class="form-group form-primary col-md-3 U-select">
                                         <div class="dropdown" data-field="EmergencyContact">
                                             <div class="m-b-15" style="font-size:13px;">Emergency Contact Person</div>
@@ -472,9 +507,9 @@
             errorDiv.style.marginTop = '15px';
             errorDiv.style.padding = '10px';
             errorDiv.innerHTML = `
-                <strong>Error:</strong> Please select at least one of the following:
-                <ul style="margin:0;">${requiredFields.map(f => `<li>${f.name}</li>`).join('')}</ul>
-            `;
+                    <strong>Error:</strong> Please select at least one of the following:
+                    <ul style="margin:0;">${requiredFields.map(f => `<li>${f.name}</li>`).join('')}</ul>
+                `;
 
             const form = document.querySelector('form.card-block');
             form.parentElement.insertBefore(errorDiv, form);
@@ -482,8 +517,44 @@
     });
 </script>
 <script>
-    $(document).on('click', '.remove-btn', function () {
-        $(this).closest('.tag').remove();
-    });
+    // $(document).on('click', '.remove-btn', function () {
+    //     $(this).closest('.tag').remove();
+    // });
+            $(document).on("click", ".remove-btn", function () {
+
+                var tag = $(this).closest(".tag");
+
+                // ✅ UserID from tag (you already bind it)
+                var employeeId = tag.attr("data-employeeid");
+
+                // ✅ ViewBag values from container (add these attributes in div)
+                var container = $("#consultant-tags");
+                var idLegal = container.attr("data-idlegal");
+                var legalEntityCode = container.attr("data-legalentitycode");
+                var legalEntityName = container.attr("data-legalentityname");
+
+                if (!employeeId || employeeId.trim() === "") {
+                    alert("UserID not found");
+                    return;
+                }
+
+                $.ajax({
+                    url: "/ManageStaff/RemoveBookingConsultant",
+                    type: "POST",
+                    data: {
+                        IdLegal: idLegal,
+                        LegalEntityCode: legalEntityCode,
+                        LegalEntityName: legalEntityName,
+                        EmployeeId: employeeId   // UserID goes here
+                    },
+                    success: function () {
+                        tag.remove(); // remove only this consultant tag
+                    },
+                    error: function () {
+                        alert("User not removed");
+                    }
+                });
+            });
+
 </script>
 <!-- validation Users END  -->
