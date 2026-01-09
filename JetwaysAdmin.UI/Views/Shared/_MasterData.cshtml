@@ -98,18 +98,19 @@
                                                 <input type="file" id="officeUpload" accept=".xlsx,.xls" style="display:none" />
                                             </li>
                                             <li>
+                                                <a class="waves-dark waves-effect" href="javascript:void(0);" onclick="document.getElementById('userExcelUpload').click();">
+                                                    Upload User
+                                                </a>
+                                                <input type="file" id="userExcelUpload" accept=".xlsx,.xls" style="display:none;" />
+                                            </li>
+                                            <li>
                                                 <a class="waves-dark waves-effect"
                                                    href="/files/OfficeDetail.xlsx"
                                                    download>
                                                     Download sample sheet(Office)
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a class="waves-dark waves-effect" href="javascript:void(0);" onclick="document.getElementById('userExcelUpload').click();">
-                                                    Upload User
-                                                </a>
-                                                <input type="file" id="userExcelUpload" accept=".xlsx,.xls" style="display:none;" />
-                                            </li>
+                                           
                                             <li>
                                                 <a class="waves-dark waves-effect"
                                                    href="/files/UserDetail.xlsx"
@@ -141,6 +142,7 @@
     @Html.Partial("Footer")
 
     @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         .department-row{
             cursor:pointer;
@@ -229,25 +231,61 @@
             }
         });
     </script>
-     <script>
-        document.getElementById('userExcelUpload').addEventListener('change', function (e) {
-            const file = e.target.files[0];
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+          const uploadEl = document.getElementById('userExcelUpload');
+          if (!uploadEl) return;
+
+          uploadEl.addEventListener('change', function (e) {
+            const file = e.target.files && e.target.files[0];
             if (!file) return;
 
+            // XLSX library must be loaded
+            if (typeof XLSX === "undefined") {
+              alert("XLSX library not loaded. Please include xlsx.full.min.js before this script.");
+              return;
+            }
+
+            // Recommend only .xlsx
+            const ext = (file.name.split('.').pop() || '').toLowerCase();
+            if (ext !== "xlsx") {
+              alert("Please upload only .xlsx file.");
+              e.target.value = "";
+              return;
+            }
+
             const reader = new FileReader();
+
+            reader.onerror = function () {
+              alert("Failed to read the file. Please try again.");
+            };
+
             reader.onload = function (evt) {
-                const data = new Uint8Array(evt.target.result);
+              try {
+                // Safer result access (works across browsers)
+                const buffer = (evt && evt.target && evt.target.result) ? evt.target.result : reader.result;
+                if (!buffer) { alert("Excel read returned empty data."); return; }
+
+                const data = new Uint8Array(buffer);
                 const workbook = XLSX.read(data, { type: 'array', cellDates: true });
-                const sheet = workbook.Sheets[workbook.SheetNames[0]];
-                const sheetRef = sheet["!ref"];
+
+                const firstSheetName = workbook.SheetNames && workbook.SheetNames[0];
+                if (!firstSheetName) { alert("No sheets found in Excel."); return; }
+
+                const sheet = workbook.Sheets[firstSheetName];
+                const sheetRef = sheet && sheet["!ref"];
                 if (!sheetRef) { alert("Empty sheet."); return; }
 
                 const range = XLSX.utils.decode_range(sheetRef);
 
-                // normalize header (ignore case/spaces)
-                const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, "");
+                // Normalize header keys strongly (spaces/underscore/hyphen ignored)
+                const norm = s => String(s || "")
+                  .trim()
+                  .toLowerCase()
+                  .replace(/[\s\-_]+/g, "");
 
-                // Build header map from row 1
+                // Build header map from row 1 (r:0)
                 const headerMap = {};
                 for (let c = range.s.c; c <= range.e.c; c++) {
                     const addr = XLSX.utils.encode_cell({ r: 0, c });
@@ -259,158 +297,166 @@
                 const totalRows = range.e.r + 1;
                 if (totalRows < 2) { alert("No data rows found."); return; }
 
-                const legalEntityCode = '@ViewBag.LegalEntityCode';
-                const legalEntityName = '@ViewBag.LegalEntityName';
-
-                // Model property -> possible Excel headers
+                // ✅ EXCEL must contain LegalEntityCode + LegalEntityName columns
                 const map = {
-                    EmployeeID: ["EmployeeID"],
-                    Title: ["Title"],
-                    FirstName: ["FirstName"],
-                    LastName: ["LastName"],
-                    BusinessEmail: ["BusinessEmail"],
-                    MobileCountryCode: ["MobileCountryCode"],
-                    MobileNumber: ["MobileNumber"],
-                    Nationality: ["Nationality"],
-                    WorkLocation: ["WorkLocation", "Work Location"],
-                    UserType: ["UserType", "User Type"],
-                    Department: ["Department"],
-                    Designation: ["Designation"],
-                    Bands: ["Bands"],
-                    ReportingManager: ["ReportingManager", "Reporting Manager"],
-                    Password: ["Password"],
-                    DateOfBirth: ["DateOfBirth", "DOB", "Date Of Birth"]
+                  LegalEntityCode: ["LegalEntityCode", "Legal Entity Code", "LegalEntity Code"],
+                  LegalEntityName: ["LegalEntityName", "Legal Entity Name", "LegalEntity Name"],
+
+                  EmployeeID: ["EmployeeID", "Employee Id"],
+                  Title: ["Title"],
+                  FirstName: ["FirstName", "First Name"],
+                  LastName: ["LastName", "Last Name"],
+                  BusinessEmail: ["BusinessEmail", "Business Email", "Email"],
+                  MobileCountryCode: ["MobileCountryCode", "Mobile Country Code"],
+                  MobileNumber: ["MobileNumber", "Mobile Number"],
+                  Nationality: ["Nationality"],
+                  WorkLocation: ["WorkLocation", "Work Location"],
+                  UserType: ["UserType", "User Type"],
+                  Department: ["Department"],
+                  Designation: ["Designation"],
+                  Bands: ["Bands"],
+                  ReportingManager: ["ReportingManager", "Reporting Manager"],
+                  Password: ["Password"],
+                  DateOfBirth: ["DateOfBirth", "DOB", "Date Of Birth"]
                 };
 
-                // Read a cell by header aliases
                 function readCell(row1Based, headerAliases) {
-                    for (const h of headerAliases) {
-                        const key = norm(h);
-                        const col = headerMap[key];
-                        if (col !== undefined) {
-                            const addr = XLSX.utils.encode_cell({ r: row1Based - 1, c: col });
-                            const cell = sheet[addr];
-                            return cell ? cell.v : "";
-                        }
+                  for (const h of headerAliases) {
+                    const col = headerMap[norm(h)];
+                    if (col !== undefined) {
+                      const addr = XLSX.utils.encode_cell({ r: row1Based - 1, c: col });
+                      const cell = sheet[addr];
+                      return cell ? cell.v : "";
                     }
-                    return undefined; // header not present
+                  }
+                  return undefined;
                 }
 
-                // Empty check: treat ONLY null/undefined/"" as empty (0/1 are valid)
                 function isEmptyValue(v) {
-                    return v === null || v === undefined || (typeof v === "string" && v.trim() === "");
+                  return v === null || v === undefined || (typeof v === "string" && v.trim() === "");
                 }
 
-                // Convert DOB to yyyy-MM-dd
                 function toYMD(val) {
-                    if (isEmptyValue(val)) return "";
+                  if (isEmptyValue(val)) return "";
 
-                    if (val instanceof Date) {
-                        const y = val.getFullYear();
-                        const m = String(val.getMonth() + 1).padStart(2, "0");
-                        const d = String(val.getDate()).padStart(2, "0");
-                        return `${y}-${m}-${d}`;
+                  if (val instanceof Date && !isNaN(val.getTime())) {
+                    return val.toISOString().split('T')[0];
+                  }
+
+                  const s = String(val).trim();
+                  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+
+                  // Excel serial number
+                  if (!isNaN(Number(s)) && XLSX.SSF && XLSX.SSF.parse_date_code) {
+                    const dObj = XLSX.SSF.parse_date_code(Number(s));
+                    if (dObj) {
+                      const y = dObj.y;
+                      const m = String(dObj.m).padStart(2, "0");
+                      const d = String(dObj.d).padStart(2, "0");
+                      return `${y}-${m}-${d}`;
                     }
+                  }
 
-                    const s = String(val).trim();
-                    if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+                  // Try JS date parse
+                  const dt = new Date(s);
+                  if (!isNaN(dt.getTime())) return dt.toISOString().split('T')[0];
 
-                    // Excel serial date number
-                    if (!isNaN(Number(s))) {
-                        const dObj = XLSX.SSF.parse_date_code(Number(s));
-                        if (dObj) {
-                            const y = dObj.y;
-                            const m = String(dObj.m).padStart(2, "0");
-                            const d = String(dObj.d).padStart(2, "0");
-                            return `${y}-${m}-${d}`;
-                        }
-                    }
-
-                    // fallback parse
-                    const dt = new Date(s);
-                    if (!isNaN(dt.getTime())) {
-                        const y = dt.getFullYear();
-                        const m = String(dt.getMonth() + 1).padStart(2, "0");
-                        const d = String(dt.getDate()).padStart(2, "0");
-                        return `${y}-${m}-${d}`;
-                    }
-
-                    return "";
+                  return "";
                 }
 
-                // Find if a row is completely empty for all mapped fields
                 function isRowCompletelyEmpty(excelRow) {
-                    for (const prop in map) {
-                        const raw = readCell(excelRow, map[prop]);
-                        if (raw === undefined) continue; // header missing is ok
-                        if (!isEmptyValue(raw)) return false;
-                    }
-                    return true;
+                  // consider empty if all mapped fields are empty (excluding LegalEntity fields still mapped)
+                  for (const prop in map) {
+                    const raw = readCell(excelRow, map[prop]);
+                    if (raw === undefined) continue;
+                    if (!isEmptyValue(raw)) return false;
+                  }
+                  return true;
                 }
 
-                let successCount = 0, failCount = 0;
-                const dataRowCount = totalRows - 1; // excluding header row
+                let sentCount = 0, successCount = 0, failCount = 0;
+
+                // IMPORTANT: Use correct URL (works from shared + virtual directory)
+                const postUrl = '@Url.Action("AddUsers", "Users")';
 
                 for (let excelRow = 2; excelRow <= totalRows; excelRow++) {
 
-                    // Skip blank rows
-                    if (isRowCompletelyEmpty(excelRow)) {
-                        // still count as processed? we will just ignore it
-                        // reduce total count to avoid wrong final alert
-                        continue;
+                  if (isRowCompletelyEmpty(excelRow)) continue;
+
+                  const formData = new FormData();
+
+                  for (const prop in map) {
+                    const raw = readCell(excelRow, map[prop]);
+                    if (raw === undefined || isEmptyValue(raw)) continue;
+
+                    if (prop === "DateOfBirth") {
+                      const dob = toYMD(raw);
+                      if (dob) formData.append("DateOfBirth", dob);
+                    } else {
+                      formData.append(prop, String(raw).trim());
                     }
+                  }
 
-                    const formData = new FormData();
+                  // ✅ Prevent DB error: LegalEntityCode cannot be NULL
+                  const lec = formData.get("LegalEntityCode");
+                  const len = formData.get("LegalEntityName");
 
-                    // fixed values
-                    formData.append("LegalEntityCode", legalEntityCode);
-                    formData.append("LegalEntityName", legalEntityName);
+                  if (!lec || String(lec).trim() === "") {
+                    console.warn(`Row ${excelRow}: Missing LegalEntityCode. Skipping.`);
+                    failCount++;
+                    continue;
+                  }
+                  if (!len || String(len).trim() === "") {
+                    console.warn(`Row ${excelRow}: Missing LegalEntityName. Skipping.`);
+                    failCount++;
+                    continue;
+                  }
 
-                    // Append fields only if header exists AND cell has a value
-                    for (const prop in map) {
-                        const raw = readCell(excelRow, map[prop]);
+                  sentCount++;
 
-                        if (raw === undefined) continue;      // header missing => do not send (stays null)
-                        if (isEmptyValue(raw)) continue;      // empty cell => do not send (stays null)
+                  console.log("Posting row", excelRow, Object.fromEntries(formData.entries()));
 
-                        if (prop === "DateOfBirth") {
-                            const dob = toYMD(raw);
-                            if (dob !== "") formData.append("DateOfBirth", dob);
-                        } else {
-                            // preserve values like 0/1
-                            formData.append(prop, String(raw).trim());
-                        }
+                  fetch(postUrl, {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'same-origin'
+                  })
+                  .then(res => {
+                    // Your controller redirects (HTML), so do NOT use res.json()
+                    if (!res.ok) throw new Error("HTTP " + res.status);
+                    return res.text();
+                  })
+                  .then(() => { successCount++; })
+                  .catch(err => {
+                    console.error(`Row ${excelRow} failed`, err);
+                    failCount++;
+                  })
+                  .finally(() => {
+                    if (successCount + failCount === sentCount) {
+                      alert("User add successfully!");
+                      // location.reload(); // optional
                     }
-
-                    // Debug: verify it is sending what you typed (remove after testing)
-                    console.log("Sending row", excelRow, Object.fromEntries(formData.entries()));
-
-                    fetch('/Users/AddUsers', { method: 'POST', body: formData })
-                        .then(res => res.ok ? res.json() : Promise.reject(res))
-                        .then(data => {
-                            if (data.success) successCount++; else failCount++;
-
-                            // When all requests are finished, show summary
-                            if (successCount + failCount === dataRowCount) {
-                                //alert(`${successCount} users added, ${failCount} failed`);
-                                alert("User insert successfully!");
-                                if (successCount > 0) location.reload();
-                            }
-                        })
-                        .catch(err => {
-                            console.error(`Row ${excelRow} failed`, err);
-                            failCount++;
-                            if (successCount + failCount === dataRowCount) {
-                                //alert(`${successCount} users added, ${failCount} failed`);
-                                alert("User not insert!");
-                            }
-                        });
+                  });
                 }
+
+                if (sentCount === 0) {
+                  alert("No valid rows to upload. Ensure Excel has LegalEntityCode & LegalEntityName columns and at least 1 data row.");
+                }
+
+              } catch (ex) {
+                console.error("Excel parse error:", ex);
+                alert("Excel parsing failed. Please ensure it's a valid .xlsx and headers are correct.");
+              }
             };
 
             reader.readAsArrayBuffer(file);
+          });
+
         });
     </script>
+
+
+
 </body>
 </html>
 

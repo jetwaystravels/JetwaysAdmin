@@ -303,13 +303,13 @@
                                                 <a id="addnewuser" class="btn sml-btn-danger text-white">+ Add New</a>
                                                 <div class="dropdown-primary dropdown open">
                                                     <button class="btn btn-primary sml-b dropdown-toggle" type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Bulk</button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                                        <a class="dropdown-item waves-light waves-effect" href="javascript:void(0);" onclick="document.getElementById('userExcelUpload').click();">
+                                                    <div class="dropdown-menu " aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                        <a class="dropdown-item waves-light waves-effect d-none" href="javascript:void(0);" onclick="document.getElementById('userExcelUpload').click();">
                                                             Upload User
                                                         </a>
                                                         <input type="file" id="userExcelUpload" accept=".xlsx,.xls" style="display:none;" />
                                                        @*  <a class="dropdown-item waves-light waves-effect" href="#">Update</a> *@
-                                                        <a class="dropdown-item waves-light waves-effect"
+                                                        <a class="dropdown-item waves-light waves-effect d-none"
                                                            href="/files/UserDetail.xlsx"
                                                            download>
                                                            Download sample sheet(User)
