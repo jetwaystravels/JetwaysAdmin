@@ -55,6 +55,7 @@ builder.Services.AddScoped<ICustomerDesignation<CustomerDesignation>, CustomerDe
 builder.Services.AddScoped<ICustomerBand<CustomerBand>, CustomerBandService>();
 builder.Services.AddScoped<IMenuRightsRepository, MenuRightsService>();
 builder.Services.AddScoped<IAdminBookingRepository, AdminBookingService>();
+builder.Services.AddScoped<IPassword, PasswordService>();
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()

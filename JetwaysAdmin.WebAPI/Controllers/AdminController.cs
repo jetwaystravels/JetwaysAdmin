@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using JetwaysAdmin.WebAPI.Models;
 using JetwaysAdmin.Entity;
+using JetwaysAdmin.Repositories.Implementations;
 
 namespace JetwaysAdmin.WebAPI.Controllers
 {
@@ -12,15 +13,17 @@ namespace JetwaysAdmin.WebAPI.Controllers
         private readonly IAdmin<Admin> _admin;
         private readonly IInternalUsers<InternalUsers> _internalUsers;
         private readonly EncryptionService _encryption;
+        private readonly IPassword _passwordService;
         public AdminController(
         IAdmin<Admin> admin,
         IInternalUsers<InternalUsers> internalUsers,
-        EncryptionService encryption)
+        EncryptionService encryption, IPassword passwordService)
             {
                 _admin = admin;
                 _internalUsers = internalUsers;
                 _encryption = encryption;
-            }
+                _passwordService = passwordService;
+        }
       
 
         [HttpGet("LogIn")]
@@ -59,68 +62,61 @@ namespace JetwaysAdmin.WebAPI.Controllers
         //    }
         //}
 
+        
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            try
+            var admins = await _admin.GetAllAsync();
+            var admin = admins.FirstOrDefault(a =>
+                a.admin_email != null &&
+                a.admin_email.Equals(loginRequest.Username, StringComparison.OrdinalIgnoreCase));
+
+            if (admin == null)
+                return Unauthorized(new { message = "Invalid username or password." });
+
+            //var input = (loginRequest.Password ?? "").Trim();
+
+
+            var input = loginRequest.Password ?? "";
+            var stored = admin.admin_password ?? "";
+
+            var debug = new
             {
-                var admins = await _admin.GetAllAsync();
-                var admin = admins.FirstOrDefault(a =>
-                    a.admin_email != null &&
-                    a.admin_email.Equals(loginRequest.Username, StringComparison.OrdinalIgnoreCase));
+                emailFound = admin.admin_email,
+                inputLength = input.Length,
+                storedLength = stored.Length,
+                storedPrefix = stored.Length >= 4 ? stored.Substring(0, 4) : stored,
+                isBcrypt = stored.StartsWith("$2", StringComparison.Ordinal),
+                verifyResult = BCrypt.Net.BCrypt.Verify(input, stored)
+            };
 
-                if (admin == null)
-                    return Unauthorized(new { message = "Invalid username or password." });
+            return Ok(debug);
 
-                var stored = (admin.admin_password ?? "").Trim();
-                var input = (loginRequest.Password ?? "").Trim();
+            // ✅ 1) New system: verify hash
+            //if (!string.IsNullOrWhiteSpace(admin.admin_password))
+            //{
+            //    if (!_passwordService.Verify(input, admin.admin_password))
+            //        return Unauthorized(new { message = "Invalid username or password." });
 
-                string storedPlain;
+            //    return Ok(new
+            //    {
+            //        id = admin.admin_id,
+            //        name = admin.admin_name,
+            //        email = admin.admin_email,
+            //        userType = string.Equals(admin.admin_name, "SuperAdmin", StringComparison.OrdinalIgnoreCase)
+            //            ? "SuperAdmin"
+            //            : "Admin"
+            //    });
+            //}
 
-                // ✅ If DataProtection payload (CfDJ8...), decrypt ONCE
-                if (stored.StartsWith("CfDJ8", StringComparison.Ordinal))
-                {
-                    try
-                    {
-                        storedPlain = (_encryption.Decrypt(stored) ?? "").Trim();
-                    }
-                    catch (Exception ex)
-                    {
-                        // This happens when keys don't match / missing
-                        return StatusCode(500, new
-                        {
-                            message = "Unable to decrypt password. Check DataProtection keys and ApplicationName.",
-                            detail = ex.Message
-                        });
-                    }
-                }
-                else
-                {
-                    // legacy/plain password stored
-                    storedPlain = stored;
-                }
 
-                if (!string.Equals(storedPlain, input, StringComparison.Ordinal))
-                    return Unauthorized(new { message = "Invalid username or password." });
-
-                return Ok(new
-                {
-                    id = admin.admin_id,
-                    name = admin.admin_name,
-                    email = admin.admin_email,
-                    userType = string.Equals(admin.admin_name, "SuperAdmin", StringComparison.OrdinalIgnoreCase)
-                        ? "SuperAdmin"
-                        : "Admin"
-                });
-            }
-            catch
-            {
-                return StatusCode(500, new { message = "Something went wrong." });
-            }
+            // If no hash and no old password => invalid setup
+            return Unauthorized(new { message = "Invalid username or password." });
         }
+
 
 
         [HttpPost("CorporateLogIn")]
@@ -220,7 +216,8 @@ namespace JetwaysAdmin.WebAPI.Controllers
         {
             if (admin == null) return BadRequest();
 
-            admin.admin_password = _encryption.Encrypt(admin.admin_password);
+            //admin.admin_password = _encryption.Encrypt(admin.admin_password);
+            admin.admin_password = BCrypt.Net.BCrypt.HashPassword(admin.admin_password);
 
             await _admin.AddAsync(admin);
             return Ok(new { message = "Admin added successfully" });
