@@ -1,12 +1,7 @@
-﻿using JetwaysAdmin.Entity;
-using JetwaysAdmin.Repositories.Implementations;
-using JetwaysAdmin.Repositories.Interface;
-using JetwaysAdmin.UI.Controllers.CustomeFilter;
+﻿using JetwaysAdmin.UI.Controllers.CustomeFilter;
 using JetwaysAdmin.UI.Models;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,34 +20,34 @@ builder.Services.AddSession(options =>
 // Filters / DI
 builder.Services.AddScoped<LogActionFilter>();
 
-// ==== Entra ID (Azure AD) Authentication ====
-builder.Services
-    .AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
+// ===== Normal Cookie Authentication (NO Entra ID) =====
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login/UserLogin";
+        options.LogoutPath = "/Login/Logout";
+        options.AccessDeniedPath = "/Login/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.SlidingExpiration = true;
+        options.Cookie.HttpOnly = true;
+        options.Cookie.IsEssential = true;
+    });
 
-builder.Services.AddAuthorization(options =>
-{
-    // Example: protect by an Entra group (Object ID of the group)
-    // Add the group claim in Azure Portal -> App registrations -> Token configuration -> "Add groups claim".
-    options.AddPolicy("HRGroupOnly", p =>
-        p.RequireClaim("groups", "YOUR_AAD_GROUP_OBJECT_ID"));
-});
+builder.Services.AddAuthorization();
 
-// Optional: adds default UI endpoints like /MicrosoftIdentity/Account/SignIn
-builder.Services.AddRazorPages().AddMicrosoftIdentityUI();
+// Bind AccessControl
 builder.Services.Configure<AccessControlSettings>(
     builder.Configuration.GetSection("AccessControl"));
 
-
-//Data Protection API
+// Data Protection API
 builder.Services.AddDataProtection()
-    // Optional but recommended: persist keys so encryption survives app restart/publish
     .PersistKeysToFileSystem(new DirectoryInfo(@"C:\DataProtectionKeys"))
     .SetApplicationName("JetwaysAdmin");
 
 builder.Services.AddScoped<EncryptionService>();
 
 var app = builder.Build();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -64,8 +59,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();          // session before auth is fine; also OK after auth
-app.UseAuthentication();   // <<< REQUIRED for Entra sign-in
+app.UseSession();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

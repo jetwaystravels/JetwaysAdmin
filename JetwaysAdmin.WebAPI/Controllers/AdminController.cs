@@ -58,7 +58,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
         //        return StatusCode(500, new { message = "Something went wrong." });
         //    }
         //}
-       
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
@@ -67,46 +67,53 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
             try
             {
-                
                 var admins = await _admin.GetAllAsync();
-                var admin = admins.FirstOrDefault(a => a.admin_email == loginRequest.Username);
+                var admin = admins.FirstOrDefault(a =>
+                    a.admin_email != null &&
+                    a.admin_email.Equals(loginRequest.Username, StringComparison.OrdinalIgnoreCase));
 
                 if (admin == null)
                     return Unauthorized(new { message = "Invalid username or password." });
-                string decryptedPassword;
-                try
+
+                var stored = (admin.admin_password ?? "").Trim();
+                var input = (loginRequest.Password ?? "").Trim();
+
+                string storedPlain;
+
+                // ✅ If DataProtection payload (CfDJ8...), decrypt ONCE
+                if (stored.StartsWith("CfDJ8", StringComparison.Ordinal))
                 {
-                   decryptedPassword = _encryption.Decrypt(admin.admin_password);
-                    if (!string.IsNullOrEmpty(decryptedPassword) &&
-                        decryptedPassword.StartsWith("CfDJ8", StringComparison.Ordinal))
+                    try
                     {
-                        decryptedPassword = _encryption.Decrypt(decryptedPassword);
+                        storedPlain = (_encryption.Decrypt(stored) ?? "").Trim();
+                    }
+                    catch (Exception ex)
+                    {
+                        // This happens when keys don't match / missing
+                        return StatusCode(500, new
+                        {
+                            message = "Unable to decrypt password. Check DataProtection keys and ApplicationName.",
+                            detail = ex.Message
+                        });
                     }
                 }
-                catch
+                else
                 {
-                    decryptedPassword = admin.admin_password;
+                    // legacy/plain password stored
+                    storedPlain = stored;
                 }
 
-                var input = (loginRequest.Password ?? "").Trim();
-                var decrypted = (decryptedPassword ?? "").Trim();
-
-                if (decrypted != input)
-                {
-                    return Unauthorized(new
-                    {
-                        message = "Password mismatch",
-                        inputPassword = input,
-                        decryptedPassword = decrypted
-                    });
-                }
+                if (!string.Equals(storedPlain, input, StringComparison.Ordinal))
+                    return Unauthorized(new { message = "Invalid username or password." });
 
                 return Ok(new
                 {
                     id = admin.admin_id,
                     name = admin.admin_name,
                     email = admin.admin_email,
-                    userType = admin.admin_name == "SuperAdmin" ? "SuperAdmin" : "Admin"
+                    userType = string.Equals(admin.admin_name, "SuperAdmin", StringComparison.OrdinalIgnoreCase)
+                        ? "SuperAdmin"
+                        : "Admin"
                 });
             }
             catch
@@ -114,6 +121,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
                 return StatusCode(500, new { message = "Something went wrong." });
             }
         }
+
 
         [HttpPost("CorporateLogIn")]
         public async Task<IActionResult> CorporateLogIn([FromBody] CoprateLoginRequest CoprateloginRequest)
