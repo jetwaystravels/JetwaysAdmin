@@ -655,9 +655,19 @@ namespace JetwaysAdmin.UI.Controllers
                 {
                     var consultantNames = bookingConsultant.BookingConsultantNames
                         .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                        .Select(name => name.Trim())
-                        .ToHashSet(StringComparer.OrdinalIgnoreCase); // Case-insensitive
+                        .Select(x => x.Trim())
+                        .ToHashSet(StringComparer.OrdinalIgnoreCase);
+                    var bookingConsultantWithIds = customeremployee
+                        .Select(emp => new
+                        {
+                            FullName = $"{emp.FirstName?.Trim()} {emp.LastName?.Trim()}".Trim(),
+                            emp.UserID
+                        })
+                        .Where(x => consultantNames.Contains(x.FullName))
+                        .Select(x => $"{x.UserID}|{x.FullName}")
+                        .ToList();
 
+                    bookingConsultant.BookingConsultantNames = string.Join(",", bookingConsultantWithIds);
                     customeremployee = customeremployee
                         .Where(emp =>
                         {
@@ -904,6 +914,28 @@ namespace JetwaysAdmin.UI.Controllers
                     });
                 }
                 
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveBookingConsultant(int IdLegal, string LegalEntityCode, string LegalEntityName, int EmployeeId)
+        {
+            ViewBag.LegalEntityCode = LegalEntityCode;
+            ViewBag.LegalEntityName = LegalEntityName;
+            ViewBag.Id = IdLegal;
+
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{AppUrlConstant.RemoveBookingConsultant}" +
+                             $"?legalEntityCode={LegalEntityCode}&employeeId={EmployeeId}";
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, url);
+                HttpResponseMessage response = await client.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                    return Ok();
+                else
+                    return BadRequest();
             }
         }
 

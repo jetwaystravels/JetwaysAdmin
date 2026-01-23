@@ -39,7 +39,7 @@
                     <label class="float-label">Office Type</label>
                 </div>
                 <div class="form-group form-primary col-md-6">
-                    <input type="text" name="LegalEntityName" maxlength="80" class="form-control" oninput="validateLegalEntityName(this)" value="@firstEntity?.LegalEntityName">
+                    <input type="text" name="LegalEntityName" maxlength="80" id="legalEntityName" class="form-control" oninput="validateLegalEntityName(this)" value="@firstEntity?.LegalEntityName">
                     <span class="form-bar"></span>
                     <label class="float-label">Office Entity Name<span>*</span></label>
                     <span id="legalEntityNameError" style="color: red; font-size: 12px;"></span>
@@ -878,22 +878,32 @@
                         </div>
 
                     </div>
-                    @{
-                        var consultantList =
-                        (Model?.BookingConsultants?.BookingConsultantNames?.Split(',') ?? Array.Empty<string>())
-                        .Select(x => x.Trim())
-                        .Where(x => !string.IsNullOrWhiteSpace(x))
-                        .ToList();
-                    }
-                    <div id="consultant-tags">
-                        @foreach (var consultant in consultantList)
-                        {
-                            <span class="tag">
-                                <span>@consultant</span>
-                                <button type="button" class="remove-btn">×</button>
-                            </span>
-                        }
-                    </div>
+                    <!---New code for assign staff delete--->
+                      @{
+                        var consultantList = new List<string>();
+                         if (!string.IsNullOrEmpty(Model.BookingConsultants?.BookingConsultantNames))
+                            {
+                                consultantList = Model.BookingConsultants.BookingConsultantNames
+                                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(x => x.Trim())
+                                .ToList();
+                            }
+                          }
+
+                        <div id="consultant-tagss">
+                            @foreach (var consultant in consultantList)
+                            {
+                                // consultant format: "UserID|Full Name"
+                                var parts = consultant.Split('|', 2);
+                                var userId = parts.Length > 1 ? parts[0] : "";
+                                var displayName = parts.Length > 1 ? parts[1] : consultant;
+
+                                <span class="tag" data-employeeid="@userId">
+                                    <span>@displayName</span>
+                                    <button type="button" class="remove-btn">×</button>
+                                </span>
+                            }
+                        </div>
                     <div class="m-b-15" style="border-top: 1px solid #dee2e6;"></div>
                     <div class="form-group form-primary col-md-3 U-select">
                         <div class="dropdown" data-field="EmergencyContact">
@@ -995,3 +1005,42 @@
         cursor: text;
     }
 </style>
+
+<script>
+    $(document).on("click", ".remove-btn", function () {
+
+        var tag = $(this).closest(".tag");
+        var employeeId = tag.attr("data-employeeid");
+
+        // ✅ GET VALUES ONLY FROM INPUT IDS
+        var legalEntityName = $("#legalEntityName").val();
+        var legalEntityCode = $("#legalEntityCode").val();
+
+        if (!employeeId || employeeId.trim() === "") {
+            alert("UserID not found");
+            return;
+        }
+
+        if (!legalEntityName || !legalEntityCode) {
+            alert("Legal Entity not selected");
+            return;
+        }
+
+        $.ajax({
+            url: "/OrganizationStructure/RemoveBookingConsultant",
+            type: "POST",
+            data: {
+                LegalEntityCode: legalEntityCode,
+                LegalEntityName: legalEntityName,
+                EmployeeId: employeeId
+            },
+            success: function () {
+                tag.remove();
+            },
+            error: function () {
+                //alert("User not removed");
+            }
+        });
+    });
+
+</script>

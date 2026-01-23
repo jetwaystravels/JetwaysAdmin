@@ -2,6 +2,7 @@ using JetwaysAdmin.Entity;
 using JetwaysAdmin.Repositories;
 using JetwaysAdmin.Repositories.Implementations;
 using JetwaysAdmin.Repositories.Interface;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,10 +60,14 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\DataProtectionKeys"))
+    .SetApplicationName("JetwaysAdmin");
+
+builder.Services.AddScoped<EncryptionService>();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
+//Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

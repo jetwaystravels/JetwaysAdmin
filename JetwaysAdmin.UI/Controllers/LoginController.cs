@@ -245,5 +245,53 @@ namespace JetwaysAdmin.UI.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction(nameof(UserLogin));
         }
+
+        //[HttpGet]
+        //public IActionResult Register()
+        //{
+        //    return View(new Admin());
+        //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(Admin model, [FromServices] EncryptionService encryptionService)
+        {
+            if (string.IsNullOrWhiteSpace(model.admin_name) ||
+                string.IsNullOrWhiteSpace(model.admin_email) ||
+                string.IsNullOrWhiteSpace(model.admin_password))
+            {
+                ViewBag.ErrorMessage = "Name, Email and Password are required.";
+                return View(model);
+            }
+
+            // Encrypt password before sending to API / saving
+            model.admin_password = encryptionService.Encrypt(model.admin_password);
+
+            using (HttpClient client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(model);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // You must have this endpoint in your API
+                var response = await client.PostAsync(AppUrlConstant.RegisterAdmin, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var apiError = await response.Content.ReadAsStringAsync();
+                    ViewBag.ErrorMessage = string.IsNullOrWhiteSpace(apiError)
+                        ? "Registration failed."
+                        : apiError;
+
+                    return View(model);
+                }
+
+                TempData["Toast.Type"] = "success";
+                TempData["Toast.Message"] = "Registration successful. Please login.";
+
+                return RedirectToAction(nameof(UserLogin));
+            }
+        }
+
+
     }
 }

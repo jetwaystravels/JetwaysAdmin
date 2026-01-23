@@ -529,6 +529,9 @@
                     error: function () { $('#updateOfficeModalContent').html('<div class="p-3 text-danger">Failed to load update form.</div>'); }
                 });
             });
+            $('#updateOfficeModal').on('shown.bs.modal', function () {
+                $('#updateOfficeModal .nav-tabs a[href="#OrganizationUpdate"]').tab('show');
+            });
         });
     </script>
 

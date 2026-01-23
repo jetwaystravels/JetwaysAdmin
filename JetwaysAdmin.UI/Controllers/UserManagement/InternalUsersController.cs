@@ -52,7 +52,7 @@ namespace JetwaysAdmin.UI.Controllers.UserManagement
                     adduser.Logo = ms.ToArray();
                 }
             }
-
+           
             using (HttpClient client = new HttpClient())
             {
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(adduser);

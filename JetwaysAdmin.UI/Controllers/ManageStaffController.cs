@@ -108,7 +108,7 @@ namespace JetwaysAdmin.UI.Controllers
             }
         }
 
-          [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> RemoveBookingConsultant(int IdLegal, string LegalEntityCode, string LegalEntityName, int EmployeeId)
         {
             ViewBag.LegalEntityCode = LegalEntityCode;

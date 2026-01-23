@@ -46,7 +46,7 @@ namespace JetwaysAdmin.WebAPI.Controllers
             return Ok(new
             {
                 message = "Removed",
-                legalEntityCode,
+                legalEntityCode= legalEntityCode,
                 bookingConsultant = updated 
             });
         }

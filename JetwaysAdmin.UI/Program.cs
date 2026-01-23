@@ -4,6 +4,7 @@ using JetwaysAdmin.Repositories.Interface;
 using JetwaysAdmin.UI.Controllers.CustomeFilter;
 using JetwaysAdmin.UI.Models;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 
@@ -41,9 +42,17 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddRazorPages().AddMicrosoftIdentityUI();
 builder.Services.Configure<AccessControlSettings>(
     builder.Configuration.GetSection("AccessControl"));
+
+
+//Data Protection API
+builder.Services.AddDataProtection()
+    // Optional but recommended: persist keys so encryption survives app restart/publish
+    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\DataProtectionKeys"))
+    .SetApplicationName("JetwaysAdmin");
+
+builder.Services.AddScoped<EncryptionService>();
+
 var app = builder.Build();
-
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
