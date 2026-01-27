@@ -61,11 +61,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\DataProtectionKeys"))
-    .SetApplicationName("JetwaysAdmin");
 
-builder.Services.AddScoped<EncryptionService>();
 
 var app = builder.Build();
 //Configure the HTTP request pipeline.

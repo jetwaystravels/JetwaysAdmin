@@ -39,12 +39,7 @@ builder.Services.AddAuthorization();
 builder.Services.Configure<AccessControlSettings>(
     builder.Configuration.GetSection("AccessControl"));
 
-// Data Protection API
-builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\DataProtectionKeys"))
-    .SetApplicationName("JetwaysAdmin");
 
-builder.Services.AddScoped<EncryptionService>();
 
 var app = builder.Build();
 

@@ -254,7 +254,7 @@ namespace JetwaysAdmin.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(Admin model, [FromServices] EncryptionService encryptionService)
+        public async Task<IActionResult> Register(Admin model)
         {
             if (string.IsNullOrWhiteSpace(model.admin_name) ||
                 string.IsNullOrWhiteSpace(model.admin_email) ||
@@ -265,7 +265,7 @@ namespace JetwaysAdmin.UI.Controllers
             }
 
             // Encrypt password before sending to API / saving
-            model.admin_password = encryptionService.Encrypt(model.admin_password);
+            //model.admin_password = encryptionService.Encrypt(model.admin_password);
 
             using (HttpClient client = new HttpClient())
             {

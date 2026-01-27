@@ -12,16 +12,16 @@ namespace JetwaysAdmin.WebAPI.Controllers
     {
         private readonly IAdmin<Admin> _admin;
         private readonly IInternalUsers<InternalUsers> _internalUsers;
-        private readonly EncryptionService _encryption;
+        //private readonly EncryptionService _encryption;
         private readonly IPassword _passwordService;
         public AdminController(
         IAdmin<Admin> admin,
         IInternalUsers<InternalUsers> internalUsers,
-        EncryptionService encryption, IPassword passwordService)
+         IPassword passwordService)
             {
                 _admin = admin;
                 _internalUsers = internalUsers;
-                _encryption = encryption;
+               // _encryption = encryption;
                 _passwordService = passwordService;
         }
       
@@ -36,33 +36,6 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
         }
 
-
-        //[Route("LogIn")]
-
-        //[HttpPost("Login")]
-        //public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
-
-        //    try
-        //    {
-        //        // _admin.Login returns Task<Admin>
-        //        var admin = await _admin.Login(loginRequest.Username, loginRequest.Password);
-
-        //        if (admin == null) // wrong username/password
-        //            return Unauthorized(new { message = "Invalid username or password." });
-
-        //        return Ok(new { id = admin.admin_id, name = admin.admin_name });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // optional: _logger.LogError(ex, "Login failed for {User}", loginRequest.Username);
-        //        return StatusCode(500, new { message = "Something went wrong." });
-        //    }
-        //}
-
-        
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
@@ -76,99 +49,68 @@ namespace JetwaysAdmin.WebAPI.Controllers
 
             if (admin == null)
                 return Unauthorized(new { message = "Invalid username or password." });
-
-            //var input = (loginRequest.Password ?? "").Trim();
-
-
             var input = loginRequest.Password ?? "";
             var stored = admin.admin_password ?? "";
-
-            var debug = new
+            if (!string.IsNullOrWhiteSpace(admin.admin_password))
             {
-                emailFound = admin.admin_email,
-                inputLength = input.Length,
-                storedLength = stored.Length,
-                storedPrefix = stored.Length >= 4 ? stored.Substring(0, 4) : stored,
-                isBcrypt = stored.StartsWith("$2", StringComparison.Ordinal),
-                verifyResult = BCrypt.Net.BCrypt.Verify(input, stored)
-            };
+                if (!_passwordService.Verify(input, admin.admin_password))
+                    return Unauthorized(new { message = "Invalid username or password." });
 
-            return Ok(debug);
+                return Ok(new
+                {
+                    id = admin.admin_id,
+                    name = admin.admin_name,
+                    email = admin.admin_email,
+                    userType = string.Equals(admin.admin_name, "SuperAdmin", StringComparison.OrdinalIgnoreCase)
+                        ? "SuperAdmin"
+                        : "Admin"
+                });
+            }
 
-            // ✅ 1) New system: verify hash
-            //if (!string.IsNullOrWhiteSpace(admin.admin_password))
-            //{
-            //    if (!_passwordService.Verify(input, admin.admin_password))
-            //        return Unauthorized(new { message = "Invalid username or password." });
-
-            //    return Ok(new
-            //    {
-            //        id = admin.admin_id,
-            //        name = admin.admin_name,
-            //        email = admin.admin_email,
-            //        userType = string.Equals(admin.admin_name, "SuperAdmin", StringComparison.OrdinalIgnoreCase)
-            //            ? "SuperAdmin"
-            //            : "Admin"
-            //    });
-            //}
-
-
-            // If no hash and no old password => invalid setup
             return Unauthorized(new { message = "Invalid username or password." });
         }
 
 
 
         [HttpPost("CorporateLogIn")]
-        public async Task<IActionResult> CorporateLogIn([FromBody] CoprateLoginRequest CoprateloginRequest)
+        public async Task<IActionResult> CorporateLogIn([FromBody] CoprateLoginRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var email = (CoprateloginRequest.BusinessEmail ?? "").Trim();
-                var inputPassword = (CoprateloginRequest.Password ?? "").Trim();
+                var email = (request.BusinessEmail ?? "").Trim();
+                var inputPassword = request.Password ?? "";
+
                 var users = await _internalUsers.GetInternalUsers();
                 var user = users.FirstOrDefault(u =>
-                    u.BusinessEmail != null &&
+                    !string.IsNullOrWhiteSpace(u.BusinessEmail) &&
                     u.BusinessEmail.Trim().Equals(email, StringComparison.OrdinalIgnoreCase));
 
                 if (user == null)
                     return Unauthorized(new { message = "Invalid email or password." });
-                string decryptedPassword;
-                try
-                {
-                    decryptedPassword = _encryption.Decrypt(user.Password);
 
-                    if (!string.IsNullOrEmpty(decryptedPassword) &&
-                        decryptedPassword.StartsWith("CfDJ8", StringComparison.Ordinal))
+                var storedPassword = user.Password ?? "";
+
+              
+                if (!string.IsNullOrWhiteSpace(storedPassword))
+                {
+                    if (!_passwordService.Verify(inputPassword, storedPassword))
+                        return Unauthorized(new { message = "Invalid email or password." });
+
+                    return Ok(new
                     {
-                        decryptedPassword = _encryption.Decrypt(decryptedPassword);
-                    }
-                }
-                catch
-                {
-                    decryptedPassword = user.Password ?? "";
-                }
-
-                if (!string.Equals(
-                        (decryptedPassword ?? "").Trim(),
-                        inputPassword,
-                        StringComparison.Ordinal))
-                {
-                    return Unauthorized(new { message = "Invalid email or password." });
+                        user.UserID,
+                        user.FirstName,
+                        user.LastName,
+                        user.BusinessEmail,
+                        user.MobileNumber,
+                        user.UserType
+                    });
                 }
 
-                return Ok(new
-                {
-                    user.UserID,
-                    user.FirstName,
-                    user.LastName,
-                    user.BusinessEmail,
-                    user.MobileNumber,
-                    user.UserType
-                });
+                return Unauthorized(new { message = "Invalid email or password." });
             }
             catch
             {
@@ -176,49 +118,12 @@ namespace JetwaysAdmin.WebAPI.Controllers
             }
         }
 
-        //[HttpPost("CorporateLogIn")]
-        //public async Task<IActionResult> CorporateLogIn([FromBody] CoprateLoginRequest CoprateloginRequest)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
 
-        //    var user = await _internalUsers.LoginAsync(CoprateloginRequest.BusinessEmail, CoprateloginRequest.Password);
-
-        //    if (user != null)
-        //    {
-        //        return Ok(new
-        //        {
-        //            user.UserID,
-        //            user.FirstName,
-        //            user.LastName,
-        //            user.BusinessEmail,
-        //            user.MobileNumber,
-        //            user.UserType
-        //        });
-        //    }
-        //    else
-        //    {
-        //        return Unauthorized(new { message = "Invalid email or password." });
-        //    }
-
-        //}
-
-
-        //[HttpPost("AddAdmin")]
-        //public async Task AddAdmin(Admin admin)
-        //{
-        //    await _admin.AddAsync(admin);
-        //}
         [HttpPost("AddAdmin")]
         public async Task<IActionResult> AddAdmin([FromBody] Admin admin)
         {
             if (admin == null) return BadRequest();
-
-            //admin.admin_password = _encryption.Encrypt(admin.admin_password);
             admin.admin_password = BCrypt.Net.BCrypt.HashPassword(admin.admin_password);
-
             await _admin.AddAsync(admin);
             return Ok(new { message = "Admin added successfully" });
         }
